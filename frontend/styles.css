@@ -1,0 +1,6 @@
+/* Minimal overrides — everything else is Tailwind */
+[x-cloak] { display: none !important; }
+.phone-ltr { direction: ltr; text-align: right; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0f0f13; }
+::-webkit-scrollbar-thumb { background: #2a2a38; border-radius: 2px; }

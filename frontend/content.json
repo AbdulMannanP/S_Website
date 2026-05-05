@@ -1,0 +1,103 @@
+{
+  "brand": {
+    "name": "Saeed Furniture",
+    "nameArabic": "سعيد للأثاث",
+    "logo": "SF",
+    "whatsappNumber": "9288004450"
+  },
+  "hero": {
+    "titleArabic": "فخامة المجالس بلمسة سعودية أصيلة",
+    "subtitleArabic": "أثاث مخصص يصنع خصيصاً لمنزلك. نخدم عملاءنا في جميع أنحاء المملكة العربية السعودية.",
+    "ctaArabic": "ابدأ رحلتك معنا ←"
+  },
+  "usps": [
+    {
+      "id": "ksa",
+      "icon": "🇸🇦",
+      "textArabic": "صنع في السعودية"
+    },
+    {
+      "id": "visit",
+      "icon": "🏠",
+      "textArabic": "زيارة منزلية مجانية"
+    },
+    {
+      "id": "materials",
+      "icon": "✨",
+      "textArabic": "أفخم الخامات والألوان"
+    },
+    {
+      "id": "delivery",
+      "icon": "🚚",
+      "textArabic": "توصيل مجاني للمنزل"
+    }
+  ],
+  "styles": {
+    "titleArabic": "اختر طراز مجلسك",
+    "options": [
+      {
+        "id": "modern",
+        "name": "Modern Majlis",
+        "nameArabic": "مجلس عصري",
+        "descriptionArabic": "تصاميم معاصرة بخطوط نظيفة وراحة فائقة"
+      },
+      {
+        "id": "authentic",
+        "name": "Authentic Majlis",
+        "nameArabic": "مجلس أصيل",
+        "descriptionArabic": "أناقة تقليدية راسخة تعكس الهوية السعودية"
+      },
+      {
+        "id": "heritage",
+        "name": "Heritage Floor Majlis",
+        "nameArabic": "مجلس أرضي تراثي",
+        "descriptionArabic": "جلسات أرضية دافئة بطابع تراثي أصيل"
+      },
+      {
+        "id": "accessories",
+        "name": "Accessories & Steel",
+        "nameArabic": "إكسسوارات وحديد",
+        "descriptionArabic": "وسائد — خزانة حديد — سرير حديد"
+      }
+    ]
+  },
+  "capacity": {
+    "titleArabic": "اختر سعة المجلس",
+    "options": [
+      {
+        "id": "1-piece",
+        "name": "One-Piece",
+        "nameArabic": "قطعة واحدة",
+        "number": "١"
+      },
+      {
+        "id": "3-piece",
+        "name": "Three-Piece",
+        "nameArabic": "ثلاث قطع",
+        "number": "٣"
+      },
+      {
+        "id": "5-piece",
+        "name": "Five-Piece",
+        "nameArabic": "خمس قطع",
+        "number": "٥"
+      }
+    ]
+  },
+  "contact": {
+    "titleArabic": "أين نرسل تفاصيل استشارتك المخصصة؟",
+    "phoneLabelArabic": "رقم الجوال",
+    "phonePlaceholder": "05xxxxxxxx",
+    "visionLabelArabic": "صف مساحتك أو تصورك (اختياري)",
+    "visionPlaceholder": "مثال: غرفة كبيرة، أفضّل الألوان الهادئة مع لمسة ذهبية...",
+    "nameLabelArabic": "الاسم الكريم",
+    "namePlaceholder": "أدخل اسمك",
+    "cityLabelArabic": "الحي / المدينة",
+    "cityPlaceholder": "مثال: الرياض — حي العليا",
+    "submitArabic": "طلب استشارة مجانية 🏠"
+  },
+  "success": {
+    "titleArabic": "تم استلام طلبك بنجاح ✓",
+    "messageArabic": "فريقنا سيتواصل معك خلال 24 ساعة لتحديد موعد الزيارة المنزلية المجانية وعرض أجمل التصاميم المخصصة لمنزلك."
+  }
+}
