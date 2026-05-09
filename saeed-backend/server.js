@@ -34,6 +34,8 @@ const adminRoute = require("./routes/admin");
 
 const app = express();
 
+app.set("trust proxy", 1); // Trust first proxy (e.g. load balancer or CDN) for correct rate limiting
+
 // ─── Security Headers ─────────────────────────────────────────────────────────
 app.use(helmet({
   contentSecurityPolicy: false, // Admin HTML is inline — CSP disabled for now

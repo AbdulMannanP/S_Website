@@ -60,21 +60,6 @@ function isValidStatus(status) {
   return ["draft", "final"].includes(status);
 }
 
-/**
- * Validate the style_selected field against allowed values.
- */
-function isValidStyle(style) {
-  return ["", "Modern Majlis", "Authentic Majlis", "Heritage Floor Majlis", "Accessories & Steel"]
-    .includes(style);
-}
-
-/**
- * Validate the capacity_selected field against allowed values.
- */
-function isValidCapacity(capacity) {
-  return ["", "One-Piece", "Three-Piece", "Five-Piece"].includes(capacity);
-}
-
 // ─── Sanitise Full Lead Payload ───────────────────────────────────────────────
 
 /**
@@ -86,17 +71,23 @@ function sanitizeLead(body = {}) {
   return {
     order_id:          sanitizeStr(body.order_id,          32),
     session_id:        sanitizeStr(body.session_id,        64),
-    name:              sanitizeStr(body.name,              100),
-    phone:             sanitizeStr(body.phone,              20),
-    district_city:     sanitizeStr(body.district_city,    100),
-    style_selected:    isValidStyle(body.style_selected)
-                         ? sanitizeStr(body.style_selected,    50)
-                         : "",
-    capacity_selected: isValidCapacity(body.capacity_selected)
-                         ? sanitizeStr(body.capacity_selected, 50)
-                         : "",
-    visit_type:        sanitizeStr(body.visit_type,        50),
-    vision_notes:      sanitizeStr(body.vision_notes,     500),
+    name:              sanitizeStr(body.name || body.fullName, 100),
+    phone:             sanitizeStr(body.phone || body.mobileNumber, 20),
+    district_city:     sanitizeStr(body.district_city || body.areaCity, 100),
+    selected_model_id: sanitizeStr(
+      body.selected_model_id || 
+      body.selectedModelId || 
+      (body.style_selected ? body.style_selected + (body.capacity_selected ? " — " + body.capacity_selected : "") : ""), 
+    100),
+    visit_mode:        sanitizeStr(body.visit_mode || body.visitMode || body.visit_type, 50),
+    preferred_contact_time: sanitizeStr(body.preferred_contact_time || body.preferredContactTime, 50),
+    room_size_known:   (body.room_size_known === true || body.roomSize?.known === true || body.roomSize?.known === "true" || body.room_size_known === 1) ? 1 : 0,
+    room_length:       (body.room_length && !isNaN(parseFloat(body.room_length))) ? parseFloat(body.room_length) : (body.roomSize?.length && !isNaN(parseFloat(body.roomSize.length)) ? parseFloat(body.roomSize.length) : null),
+    room_width:        (body.room_width && !isNaN(parseFloat(body.room_width))) ? parseFloat(body.room_width) : (body.roomSize?.width && !isNaN(parseFloat(body.roomSize.width)) ? parseFloat(body.roomSize.width) : null),
+    color_preference:  sanitizeStr(body.color_preference || body.colorPreference, 50),
+    material_preference: sanitizeStr(body.material_preference || body.materialPreference, 50),
+    photo_urls:        Array.isArray(body.photo_urls || body.photoUrls) ? JSON.stringify((body.photo_urls || body.photoUrls).map(url => sanitizeStr(url, 500))) : "[]",
+    vision_notes:      sanitizeStr(body.vision_notes || body.specialNotes, 500),
     last_step:         sanitizeStr(body.last_step,         50) || "hero",
     status:            isValidStatus(body.status) ? body.status : "draft",
     score:             sanitizeNum(body.score, 0, 300),
@@ -120,8 +111,8 @@ function sanitizeLead(body = {}) {
  */
 function calculateScore(lead) {
   let score = 0;
-  if (lead.style_selected)    score += 10;
-  if (lead.capacity_selected) score += 20;
+  if (lead.selected_model_id) score += 10;
+  if (lead.visit_mode)        score += 20;
   if (lead.phone)             score += 80;
   if (lead.status === "final") score += 100;
   return score;
@@ -133,7 +124,5 @@ module.exports = {
   sanitizeNum,
   isValidKSAPhone,
   isBot,
-  isValidStyle,
-  isValidCapacity,
   calculateScore,
 };

@@ -1,0 +1,488 @@
+{
+  "configurator_data": {
+    "taxonomy_tree": [
+      {
+        "internal_id": "type_modern_floor_majlis",
+        "internal_name": "Modern_Floor_Majlis",
+        "public_display_name": "Modern Floor Majlis",
+        "definition": "Low-profile, highly modular seating systems designed to sit entirely flush or nearly flush with the ground, emphasizing horizontal continuity and continuous spatial flow.",
+        "subtypes": [
+          {
+            "internal_id": "subtype_flush_base",
+            "internal_name": "Flush_Base",
+            "public_display_name": "Flush Base",
+            "definition": "Units that make direct contact with the floor along their entire bottom edge, featuring no visible legs or utilizing a completely recessed, invisible plinth.",
+            "variations": [
+              {
+                "internal_id": "var_smooth_flow_piped",
+                "internal_name": "Smooth_Flow_Piped",
+                "public_display_name": "Smooth Flow Piped",
+                "catalog_item_id": "item_001"
+              },
+              {
+                "internal_id": "var_deep_channeled_back",
+                "internal_name": "Deep_Channeled_Back",
+                "public_display_name": "Deep Channeled Back",
+                "catalog_item_id": "item_002"
+              }
+            ],
+            "gallery": [
+              "Close-up wide shot of a Flush Base majlis sofa sitting directly on a beautiful marble floor, emphasizing its base architecture.",
+              "Isometric 45-degree view of a Flush Base seating unit, showing the solid, uninterrupted connection between the base and the floor.",
+              "Low-angle architectural shot of the Flush Base profile, illustrating the heavy, monolithic aesthetic with base details."
+            ]
+          },
+          {
+            "internal_id": "subtype_framed_base",
+            "internal_name": "Framed_Base",
+            "public_display_name": "Framed Base",
+            "definition": "Floor units anchored by a visible, continuous rigid perimeter trim, typically wood or dark metallic, sitting just millimeters above the floor.",
+            "variations": [
+              {
+                "internal_id": "var_ornate_bolster_accent",
+                "internal_name": "Ornate_Bolster_Accent",
+                "public_display_name": "Ornate Bolster Accent",
+                "catalog_item_id": "item_003"
+              }
+            ],
+            "gallery": [
+              "Close-up wide shot of a Framed Base majlis sofa sitting directly on a beautiful marble floor, emphasizing its base architecture.",
+              "Isometric 45-degree view of a Framed Base seating unit, showing the solid, uninterrupted connection between the base and the floor.",
+              "Low-angle architectural shot of the Framed Base profile, illustrating the heavy, monolithic aesthetic with base details."
+            ]
+          },
+          {
+            "internal_id": "subtype_elevated_peg_base",
+            "internal_name": "Elevated_Peg_Base",
+            "public_display_name": "Elevated Peg Base",
+            "definition": "Floor-style massive volumes lifted slightly (2-3 inches) off the ground via structural, minimalist peg legs, allowing minimal light passage underneath.",
+            "variations": [
+              {
+                "internal_id": "var_continuous_sweep",
+                "internal_name": "Continuous_Sweep",
+                "public_display_name": "Continuous Sweep",
+                "catalog_item_id": "item_007"
+              }
+            ],
+            "gallery": [
+              "Close-up wide shot of a Elevated Peg Base majlis sofa sitting directly on a beautiful marble floor, emphasizing its base architecture.",
+              "Isometric 45-degree view of a Elevated Peg Base seating unit, showing the solid, uninterrupted connection between the base and the floor.",
+              "Low-angle architectural shot of the Elevated Peg Base profile, illustrating the heavy, monolithic aesthetic with base details."
+            ]
+          }
+        ],
+        "gallery": [
+          "A massive, spacious luxury living room featuring a U-shaped configuration of a continuous Modern Floor Majlis, showcasing varied seating capacities and modular flow. Soft, bright lighting, ultra-realistic.",
+          "A wide room shot of a L-shaped Modern Floor Majlis in a high-end minimalist villa. Soft natural sunlight through large windows, 8k resolution.",
+          "45-degree angle shot of a Modern Floor Majlis seating block, showing the base interacting with a plush rug. Elegant, quiet luxury aesthetic.",
+          "A front-facing view of a vast, continuous Modern Floor Majlis layout, seamlessly connecting across a large marble floor.",
+          "An intricate multi-module configuration of a Modern Floor Majlis in a grand Middle Eastern salon space, high ceiling, architectural photography."
+        ]
+      },
+      {
+        "internal_id": "type_elevated_contemporary",
+        "internal_name": "Elevated_Contemporary",
+        "public_display_name": "Elevated Contemporary",
+        "definition": "Standard seating height systems utilizing pronounced, visible structural legs or high-clearance plinths, characterized by clean lines and defined armrest geometry.",
+        "subtypes": [
+          {
+            "internal_id": "subtype_hidden_plinth",
+            "internal_name": "Hidden_Plinth",
+            "public_display_name": "Hidden Plinth",
+            "definition": "Standard height seating where the base support is deeply recessed, creating a hovering or floating visual effect for the main seating volume.",
+            "variations": [
+              {
+                "internal_id": "var_two_tone_wrap",
+                "internal_name": "Two_Tone_Wrap",
+                "public_display_name": "Two Tone Wrap",
+                "catalog_item_id": "item_004"
+              }
+            ],
+            "gallery": [
+              "Close-up wide shot of a Hidden Plinth majlis sofa sitting directly on a beautiful marble floor, emphasizing its base architecture.",
+              "Isometric 45-degree view of a Hidden Plinth seating unit, showing the solid, uninterrupted connection between the base and the floor.",
+              "Low-angle architectural shot of the Hidden Plinth profile, illustrating the heavy, monolithic aesthetic with base details."
+            ]
+          },
+          {
+            "internal_id": "subtype_exposed_block_leg",
+            "internal_name": "Exposed_Block_Leg",
+            "public_display_name": "Exposed Block Leg",
+            "definition": "Systems supported by massive, distinct, dark geometric block legs, often accompanied by highly structured upper architecture.",
+            "variations": [
+              {
+                "internal_id": "var_wood_capped_utility",
+                "internal_name": "Wood_Capped_Utility",
+                "public_display_name": "Wood Capped Utility",
+                "catalog_item_id": "item_005"
+              }
+            ],
+            "gallery": [
+              "Close-up wide shot of a Exposed Block Leg majlis sofa sitting directly on a beautiful marble floor, emphasizing its base architecture.",
+              "Isometric 45-degree view of a Exposed Block Leg seating unit, showing the solid, uninterrupted connection between the base and the floor.",
+              "Low-angle architectural shot of the Exposed Block Leg profile, illustrating the heavy, monolithic aesthetic with base details."
+            ]
+          }
+        ],
+        "gallery": [
+          "A massive, spacious luxury living room featuring a U-shaped configuration of a continuous Elevated Contemporary, showcasing varied seating capacities and modular flow. Soft, bright lighting, ultra-realistic.",
+          "A wide room shot of a L-shaped Elevated Contemporary in a high-end minimalist villa. Soft natural sunlight through large windows, 8k resolution.",
+          "45-degree angle shot of a Elevated Contemporary seating block, showing the base interacting with a plush rug. Elegant, quiet luxury aesthetic.",
+          "A front-facing view of a vast, continuous Elevated Contemporary layout, seamlessly connecting across a large marble floor.",
+          "An intricate multi-module configuration of a Elevated Contemporary in a grand Middle Eastern salon space, high ceiling, architectural photography."
+        ]
+      },
+      {
+        "internal_id": "type_tub_style_hybrid",
+        "internal_name": "Tub_Style_Hybrid",
+        "public_display_name": "Tub-Style Hybrid",
+        "definition": "Seating where the backrest and armrests maintain a continuous, uniform height and depth, forming an unbroken enveloping shell.",
+        "subtypes": [
+          {
+            "internal_id": "subtype_cloud_base_crossover",
+            "internal_name": "Cloud_Base_Crossover",
+            "public_display_name": "Cloud Base Crossover",
+            "definition": "A heavy, uniform tub-shell upper structure juxtaposed against ultra-thin, minimalist suspension hardware.",
+            "variations": [
+              {
+                "internal_id": "var_metallic_pin_leg",
+                "internal_name": "Metallic_Pin_Leg",
+                "public_display_name": "Metallic Pin Leg",
+                "catalog_item_id": "item_006"
+              }
+            ],
+            "gallery": [
+              "Close-up wide shot of a Cloud Base Crossover majlis sofa sitting directly on a beautiful marble floor, emphasizing its base architecture.",
+              "Isometric 45-degree view of a Cloud Base Crossover seating unit, showing the solid, uninterrupted connection between the base and the floor.",
+              "Low-angle architectural shot of the Cloud Base Crossover profile, illustrating the heavy, monolithic aesthetic with base details."
+            ]
+          }
+        ],
+        "gallery": [
+          "A massive, spacious luxury living room featuring a U-shaped configuration of a continuous Tub-Style sofa, showcasing varied seating capacities and modular flow. Soft, bright lighting, ultra-realistic.",
+          "A wide room shot of a L-shaped Tub-Style Hybrid in a high-end minimalist villa. Soft natural sunlight through large windows, 8k resolution.",
+          "45-degree angle shot of a Tub-Style Hybrid seating block, showing the base interacting with a plush rug. Elegant, quiet luxury aesthetic.",
+          "A front-facing view of a vast, continuous Tub-Style Hybrid layout, seamlessly connecting across a large marble floor.",
+          "An intricate multi-module configuration of a Tub-Style Hybrid in a grand Middle Eastern salon space, high ceiling, architectural photography."
+        ]
+      }
+    ],
+    "catalog": [
+      {
+        "id": "item_001",
+        "selection_metadata": {
+          "type_id": "type_modern_floor_majlis",
+          "subtype_id": "subtype_flush_base",
+          "variation_id": "var_smooth_flow_piped",
+          "public_display_name": "Smooth Flow Piped",
+          "is_active": true
+        },
+        "commerce_data": {
+          "price_range": null,
+          "item_code": null
+        },
+        "product_information": {
+          "design_intent": "To create an uninterrupted, highly adaptable floor-level seating topography that emphasizes geometric boundaries through contrasting trim.",
+          "visual_signature": "Massive, low-slung orthogonal blocks completely flush to the floor, sharply defined by high-contrast fabric piping along all major edge transitions.",
+          "dimensions": {
+            "typical_proportions": "Seat height: 25-35cm; Total height: 60-70cm; Seat depth: 80-90cm",
+            "scale_description": "Low-slung, ground-hugging, horizontally dominant"
+          },
+          "stylistic_influences": [
+            "Traditional Middle Eastern Majlis",
+            "Minimalist Bauhaus",
+            "Contemporary Modular"
+          ],
+          "functional_features": [
+            "Adaptable corner configurations",
+            "High capacity continuous seating"
+          ]
+        },
+        "image_generation_data": {
+          "structure": {
+            "seat_count": "Modular (3 to infinite via continuous linking)",
+            "arm_style": "Inverted J-curve upholstered end-caps or completely armless modular ends",
+            "back_style": "Orthogonal, smooth, tightly upholstered blocks",
+            "leg_style": "None (Direct floor contact / zero clearance)",
+            "frame_shape": "Linear L-shape or U-shape configurations with Hard-90 corner abutments"
+          },
+          "distinguishing_features": [
+            "High-contrast thick black piping on light fabric",
+            "Zero ground clearance",
+            "Completely smooth taut upholstery"
+          ],
+          "negative_features": [
+            "NOT elevated on visible legs",
+            "NOT featuring tufting or channeling",
+            "NOT utilizing curved corner sweeps"
+          ],
+          "gallery": [
+            "A modern modular floor majlis sofa, zero ground clearance flush base, tightly upholstered in smooth matte light beige fabric, sharply defined by thick high-contrast black piping along all geometric edges, inverted J-curve armrest profile, photographed in a brightly lit minimalist white studio environment, soft showroom lighting, 45-degree isometric front view, ultra-realistic product render, 8k resolution.",
+            "Extreme close-up macro photography of the Smooth Flow Piped fabric and texture, showcasing the fine details, stitching, and high-quality material finish in a luxurious soft-lit environment."
+          ]
+        }
+      },
+      {
+        "id": "item_002",
+        "selection_metadata": {
+          "type_id": "type_modern_floor_majlis",
+          "subtype_id": "subtype_flush_base",
+          "variation_id": "var_deep_channeled_back",
+          "public_display_name": "Deep Channeled Back",
+          "is_active": true
+        },
+        "commerce_data": {
+          "price_range": null,
+          "item_code": null
+        },
+        "product_information": {
+          "design_intent": "To introduce strong vertical rhythm and texture to heavy, monolithic floor seating without relying on loose cushions.",
+          "visual_signature": "A smooth, flat, heavy seat base contrasted aggressively by a backrest featuring rigid, repeating vertical upholstery grooves.",
+          "dimensions": {
+            "typical_proportions": "Seat height: 30cm; Total height: 65cm; Seat depth: 85cm",
+            "scale_description": "Dense, heavy bottom with visually segmented upper"
+          },
+          "stylistic_influences": [
+            "Art Deco",
+            "Modernist Floor Seating"
+          ],
+          "functional_features": [
+            "Built-in lumbar texturing",
+            "Seamless modular expansion"
+          ]
+        },
+        "image_generation_data": {
+          "structure": {
+            "seat_count": "Modular (continuous)",
+            "arm_style": "Armless or utilizing movable loose primitives",
+            "back_style": "Deeply vertically channeled (fluted) upholstery",
+            "leg_style": "None (Flush to floor)",
+            "frame_shape": "Continuous linear flow"
+          },
+          "distinguishing_features": [
+            "Aggressive vertical channeling on backrest",
+            "Smooth contrast seat base",
+            "Absence of fixed armrests"
+          ],
+          "negative_features": [
+            "NOT smooth on the backrest",
+            "NOT tufted on the seat base",
+            "NOT featuring visible trim or wood frames"
+          ],
+          "gallery": [
+            "A modern floor majlis sectional sofa sitting completely flush on the ground, featuring a smooth taut white fabric seat base, contrasted by a backrest entirely covered in deep, rigid vertical channeling, modular armless design, photographed from a front three-quarter angle in a soft diffused natural light living room, hyper-detailed fabric weave, photorealistic catalog render.",
+            "Extreme close-up macro photography of the Deep Channeled Back fabric and texture, showcasing the fine details, stitching, and high-quality material finish in a luxurious soft-lit environment."
+          ]
+        }
+      },
+      {
+        "id": "item_003",
+        "selection_metadata": {
+          "type_id": "type_modern_floor_majlis",
+          "subtype_id": "subtype_framed_base",
+          "variation_id": "var_ornate_bolster_accent",
+          "public_display_name": "Ornate Bolster Accent",
+          "is_active": true
+        },
+        "commerce_data": {
+          "price_range": null,
+          "item_code": null
+        },
+        "product_information": {
+          "design_intent": "To blend modern low-profile modularity with traditional luxury materials and explicit structural framing.",
+          "visual_signature": "A heavy floor unit visually anchored by a polished dark wood perimeter base, accented by loose cylindrical cushions featuring highly ornate, radially pleated end-caps.",
+          "dimensions": {
+            "typical_proportions": "Seat height: 32cm; Total height: 68cm; Seat depth: 85cm",
+            "scale_description": "Grounded, heavy, sharply bordered"
+          },
+          "stylistic_influences": [
+            "Neoclassical",
+            "Contemporary Middle Eastern Luxury"
+          ],
+          "functional_features": [
+            "Movable armrest bolsters",
+            "Protective rigid base frame"
+          ]
+        },
+        "image_generation_data": {
+          "structure": {
+            "seat_count": "Modular L-shape",
+            "arm_style": "Loose cylindrical bolsters replacing fixed structural arms",
+            "back_style": "Vertically channeled",
+            "leg_style": "Continuous polished dark wood perimeter trim sitting 1cm off floor",
+            "frame_shape": "Orthogonal modular with rigid bottom framing"
+          },
+          "distinguishing_features": [
+            "Polished dark wood base wrap",
+            "Bronze velvet loose bolsters with ruched/pleated circular ends and central tufting button"
+          ],
+          "negative_features": [
+            "NOT a frameless floating base",
+            "NOT utilizing plain flat-ended bolsters",
+            "NOT elevated on discrete legs"
+          ],
+          "gallery": [
+            "A luxury modern floor majlis sofa, framed at the bottom by a continuous thick polished dark mahogany wood trim resting just above the floor, upholstered in white fabric with a vertically channeled backrest, featuring loose bronze velvet cylindrical armrest bolsters with intricately ruched pleated ends and a central button, showroom spotlighting, realistic luxury furniture render, straight front angle.",
+            "Extreme close-up macro photography of the Ornate Bolster Accent fabric and texture, showcasing the fine details, stitching, and high-quality material finish in a luxurious soft-lit environment."
+          ]
+        }
+      },
+      {
+        "id": "item_004",
+        "selection_metadata": {
+          "type_id": "type_elevated_contemporary",
+          "subtype_id": "subtype_hidden_plinth",
+          "variation_id": "var_two_tone_wrap",
+          "public_display_name": "Two Tone Wrap",
+          "is_active": true
+        },
+        "commerce_data": {
+          "price_range": null,
+          "item_code": null
+        },
+        "product_information": {
+          "design_intent": "To create a floating, high-contrast visual effect by hiding the structural base and manipulating fabric application to break up monolithic volumes.",
+          "visual_signature": "A hovering, standard-height sofa where a darker secondary fabric drapes over the top ridge and down the rear of the backrest, bisecting the primary light upholstery.",
+          "dimensions": {
+            "typical_proportions": "Seat height: 42cm; Total height: 75cm; Seat depth: 95cm",
+            "scale_description": "Standard contemporary height, volumetric, hovering"
+          },
+          "stylistic_influences": [
+            "Italian Modernism",
+            "Minimalist Color-Blocking"
+          ],
+          "functional_features": [
+            "Hovering aesthetic for smaller spatial footprints",
+            "Standalone mobility"
+          ]
+        },
+        "image_generation_data": {
+          "structure": {
+            "seat_count": "3 to 4 seater standalone unit",
+            "arm_style": "Wide, flat, flush with backrest height",
+            "back_style": "Smooth, dual-material draped wrap",
+            "leg_style": "Deeply recessed invisible black plinth",
+            "frame_shape": "Rigid rectangular monolithic block"
+          },
+          "distinguishing_features": [
+            "Two-tone fabric application (dark grey over top/rear, light grey front/seat)",
+            "Completely hidden base support"
+          ],
+          "negative_features": [
+            "NOT a floor-level unit",
+            "NOT uniform in color",
+            "NOT supported by visible legs"
+          ],
+          "gallery": [
+            "A contemporary standalone sofa hovering on a deeply recessed invisible plinth, monolithic rectangular geometry, featuring a two-tone fabric design where a dark charcoal fabric wraps over the top and down the back of the backrest, while the front face and seat are a light ash grey smooth fabric, minimalist studio environment, soft overhead diffused light, front isometric view, photorealistic.",
+            "Extreme close-up macro photography of the Two Tone Wrap fabric and texture, showcasing the fine details, stitching, and high-quality material finish in a luxurious soft-lit environment."
+          ]
+        }
+      },
+      {
+        "id": "item_005",
+        "selection_metadata": {
+          "type_id": "type_elevated_contemporary",
+          "subtype_id": "subtype_exposed_block_leg",
+          "variation_id": "var_wood_capped_utility",
+          "public_display_name": "Wood Capped Utility",
+          "is_active": true
+        },
+        "commerce_data": {
+          "price_range": null,
+          "item_code": null
+        },
+        "product_information": {
+          "design_intent": "To integrate hard surface utility directly into the soft seating architecture, merging the function of a side table and an armrest.",
+          "visual_signature": "A structured, plush seating system sitting on massive wooden blocks, featuring extended armrests that are flat-topped and capped with rigid, dark wood paneling.",
+          "dimensions": {
+            "typical_proportions": "Seat height: 45cm; Total height: 78cm; Seat depth: 100cm",
+            "scale_description": "Substantial, heavy, architecturally integrated"
+          },
+          "stylistic_influences": [
+            "Mid-Century Modern Utility",
+            "Contemporary Brutalism"
+          ],
+          "functional_features": [
+            "Built-in hard surface for drinks/items",
+            "High ground clearance for cleaning"
+          ]
+        },
+        "image_generation_data": {
+          "structure": {
+            "seat_count": "Modular extended run or L-shape",
+            "arm_style": "Wide, low, capped with flush dark wood veneer panels",
+            "back_style": "Smooth, low-profile",
+            "leg_style": "Massive, visible, dark solid wood rectangular blocks",
+            "frame_shape": "Linear with sharp geometric armrest terminations"
+          },
+          "distinguishing_features": [
+            "Integrated flat dark wood panels on armrest tops",
+            "Pronounced, heavy wooden block legs"
+          ],
+          "negative_features": [
+            "NOT featuring soft, sloped, or curved armrests",
+            "NOT flush to the floor",
+            "NOT lacking visible support legs"
+          ],
+          "gallery": [
+            "A highly structured elevated contemporary sofa resting on massive dark walnut rectangular block legs, upholstered in textured heavy bouclé fabric, featuring wide, low armrests that are capped with flat, flush dark walnut wood panels serving as integrated side tables, well-lit modern living room setting, cinematic lighting, 45-degree angle, photorealistic product photography.",
+            "Extreme close-up macro photography of the Wood Capped Utility fabric and texture, showcasing the fine details, stitching, and high-quality material finish in a luxurious soft-lit environment."
+          ]
+        }
+      },
+      {
+        "id": "item_006",
+        "selection_metadata": {
+          "type_id": "type_tub_style_hybrid",
+          "subtype_id": "subtype_cloud_base_crossover",
+          "variation_id": "var_metallic_pin_leg",
+          "public_display_name": "Metallic Pin Leg",
+          "is_active": true
+        },
+        "commerce_data": {
+          "price_range": null,
+          "item_code": null
+        },
+        "product_information": {
+          "design_intent": "To subvert the visual weight of a heavy, continuous tub shell by suspending it on delicate, impossibly thin hardware.",
+          "visual_signature": "A thick, continuous C-shaped upholstered shell (back and arms uniform height) that appears to float unsteadily on ultra-thin, dark metallic stiletto legs.",
+          "dimensions": {
+            "typical_proportions": "Seat height: 40cm; Total height: 70cm; Seat depth: 85cm",
+            "scale_description": "Top-heavy, visually suspended, enveloping"
+          },
+          "stylistic_influences": [
+            "1970s Italian Space Age",
+            "Contemporary Soft Minimalism"
+          ],
+          "functional_features": [
+            "Enveloping acoustic/visual privacy",
+            "High floor visibility"
+          ]
+        },
+        "image_generation_data": {
+          "structure": {
+            "seat_count": "1 seater (armchair) or 2 seater",
+            "arm_style": "Continuous shell, unbroken curve into backrest",
+            "back_style": "Uniform height with arms, wrapping inward",
+            "leg_style": "Ultra-thin, dark metallic cylindrical pin legs",
+            "frame_shape": "Curved, enveloping C-shape or U-shape"
+          },
+          "distinguishing_features": [
+            "Continuous unbroken height of arms and backrest",
+            "High-contrast structural juxtaposition (heavy top, needle-thin legs)"
+          ],
+          "negative_features": [
+            "NOT supported by a heavy plinth or wooden frame",
+            "NOT featuring separated or dropped armrests",
+            "NOT angular or orthogonal in the upper body"
+          ],
+          "gallery": [
+            "A modern tub-style hybrid armchair, featuring a thick, enveloping C-shaped upper shell where the armrests and backrest are a continuous unbroken uniform height, upholstered in smooth cream fabric, juxtaposed by being suspended on ultra-thin minimalist dark metallic pin legs, standing on a textured rug in a bright, airy architectural space, hyper-realistic, straight front profile shot.",
+            "Extreme close-up macro photography of the Metallic Pin Leg fabric and texture, showcasing the fine details, stitching, and high-quality material finish in a luxurious soft-lit environment."
+          ]
+        }
+      }
+    ]
+  }
+}

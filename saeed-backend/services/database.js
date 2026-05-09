@@ -74,9 +74,15 @@ async function initSchema() {
       district_city     TEXT DEFAULT '',
 
       -- ── Journey Selections ──────────────────────────────────────────────────
-      style_selected    TEXT DEFAULT '',
-      capacity_selected TEXT DEFAULT '',
-      visit_type        TEXT DEFAULT '',
+      selected_model_id TEXT DEFAULT '',
+      visit_mode        TEXT DEFAULT '',
+      preferred_contact_time TEXT DEFAULT '',
+      room_size_known   INTEGER DEFAULT 0,
+      room_length       REAL DEFAULT NULL,
+      room_width        REAL DEFAULT NULL,
+      color_preference  TEXT DEFAULT '',
+      material_preference TEXT DEFAULT '',
+      photo_urls        TEXT DEFAULT '[]',
       vision_notes      TEXT DEFAULT '',
 
       -- ── Journey Tracking ────────────────────────────────────────────────────
@@ -126,7 +132,9 @@ async function upsertLead(data) {
   const {
     order_id, session_id,
     name = "", phone = "", district_city = "",
-    style_selected = "", capacity_selected = "", visit_type = "",
+    selected_model_id = "", visit_mode = "", preferred_contact_time = "",
+    room_size_known = 0, room_length = null, room_width = null,
+    color_preference = "", material_preference = "", photo_urls = "[]",
     vision_notes = "", last_step = "hero", status = "draft",
     score = 0, time_spent = 0, source = "website",
     user_agent = "", referrer = "", ip = "", company_name = "",
@@ -139,18 +147,26 @@ async function upsertLead(data) {
   await run(`
     INSERT INTO leads (
       order_id, session_id, name, phone, district_city,
-      style_selected, capacity_selected, visit_type, vision_notes,
-      last_step, status, score, time_spent,
+      selected_model_id, visit_mode, preferred_contact_time,
+      room_size_known, room_length, room_width,
+      color_preference, material_preference, photo_urls,
+      vision_notes, last_step, status, score, time_spent,
       source, user_agent, referrer, ip, company_name
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(order_id) DO UPDATE SET
       -- NOTE: 'source' intentionally excluded to preserve first-touch attribution
       name              = excluded.name,
       phone             = excluded.phone,
       district_city     = excluded.district_city,
-      style_selected    = excluded.style_selected,
-      capacity_selected = excluded.capacity_selected,
-      visit_type        = excluded.visit_type,
+      selected_model_id = excluded.selected_model_id,
+      visit_mode        = excluded.visit_mode,
+      preferred_contact_time = excluded.preferred_contact_time,
+      room_size_known   = excluded.room_size_known,
+      room_length       = excluded.room_length,
+      room_width        = excluded.room_width,
+      color_preference  = excluded.color_preference,
+      material_preference = excluded.material_preference,
+      photo_urls        = excluded.photo_urls,
       vision_notes      = excluded.vision_notes,
       last_step         = excluded.last_step,
       status            = excluded.status,
@@ -162,8 +178,10 @@ async function upsertLead(data) {
       updated_at        = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
   `, [
     order_id, session_id, name, phone, district_city,
-    style_selected, capacity_selected, visit_type, vision_notes,
-    last_step, status, score, time_spent,
+    selected_model_id, visit_mode, preferred_contact_time,
+    room_size_known, room_length, room_width,
+    color_preference, material_preference, photo_urls,
+    vision_notes, last_step, status, score, time_spent,
     source, user_agent, referrer, ip, company_name,
   ]);
 
@@ -175,8 +193,10 @@ function getLeadByOrderId(order_id) {
   return get(`
     SELECT
       order_id, name, phone, district_city,
-      style_selected, capacity_selected, visit_type, vision_notes,
-      last_step, status, score, time_spent, source,
+      selected_model_id, visit_mode, preferred_contact_time,
+      room_size_known, room_length, room_width,
+      color_preference, material_preference, photo_urls,
+      vision_notes, last_step, status, score, time_spent, source,
       lead_status, sales_notes, contacted_at,
       created_at, updated_at
     FROM leads WHERE order_id = ?
@@ -187,8 +207,10 @@ function getAllLeads() {
   return all(`
     SELECT
       order_id, name, phone, district_city,
-      style_selected, capacity_selected, visit_type, vision_notes,
-      last_step, status, score, time_spent, source,
+      selected_model_id, visit_mode, preferred_contact_time,
+      room_size_known, room_length, room_width,
+      color_preference, material_preference, photo_urls,
+      vision_notes, last_step, status, score, time_spent, source,
       lead_status, sales_notes, contacted_at,
       created_at, updated_at
     FROM leads

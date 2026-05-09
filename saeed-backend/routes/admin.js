@@ -86,13 +86,12 @@ router.get("/login", (req, res) => {
 router.post("/login", loginLimiter, express.urlencoded({ extended: false }), (req, res) => {
   const { password } = req.body;
 
-  // Constant-time comparison to prevent timing attacks on password check
-  const submitted = Buffer.from(password || "");
-  const correct   = Buffer.from(config.adminPassword);
-  const match = submitted.length === correct.length &&
-    crypto.timingSafeEqual(submitted, correct);
+  // Hash both passwords first to ensure equal length before timingSafeEqual,
+  // preventing attackers from brute-forcing the password length via timing.
+  const submittedHash = crypto.createHash("sha256").update(password || "").digest();
+  const correctHash   = crypto.createHash("sha256").update(config.adminPassword).digest();
 
-  if (!match) {
+  if (!crypto.timingSafeEqual(submittedHash, correctHash)) {
     return res.status(401).send(loginPage("Incorrect password. Try again."));
   }
 
@@ -127,14 +126,22 @@ router.get("/csv", requireAuth, asyncHandler(async (req, res) => {
 
   const headers = [
     "order_id", "session_id", "name", "phone", "district_city",
-    "style_selected", "capacity_selected", "visit_type", "vision_notes",
-    "last_step", "status", "score", "time_spent", "source",
+    "selected_model_id", "visit_mode", "preferred_contact_time", "room_size_known",
+    "room_length", "room_width", "color_preference", "material_preference",
+    "vision_notes", "last_step", "status", "score", "time_spent", "source",
     "lead_status", "sales_notes", "contacted_at", "created_at", "updated_at",
   ];
 
   const escape = (val) => {
     if (val == null) return "";
-    const str = String(val).replace(/"/g, '""');
+    let str = String(val);
+    
+    // Prevent CSV Injection (Formula Injection)
+    if (/^[=+\-@]/.test(str)) {
+      str = "'" + str;
+    }
+
+    str = str.replace(/"/g, '""');
     return str.includes(",") || str.includes('"') || str.includes("\n")
       ? `"${str}"`
       : str;
@@ -227,8 +234,10 @@ function dashboardPage(leads, stats) {
       <td>${escHtml(l.name)}</td>
       <td>${escHtml(l.phone)}</td>
       <td>${escHtml(l.district_city)}</td>
-      <td>${escHtml(l.style_selected)}</td>
-      <td>${escHtml(l.capacity_selected)}</td>
+      <td><span style="font-size:0.75rem;">${escHtml(l.selected_model_id)}</span></td>
+      <td><span style="font-size:0.75rem;">${escHtml(l.visit_mode)}</span></td>
+      <td><span style="font-size:0.75rem;">${l.room_length || '?' }x${l.room_width || '?'}</span></td>
+      <td><span style="font-size:0.75rem;">${escHtml(l.material_preference)}</span></td>
       <td>${l.score ?? 0}</td>
       <td>${l.status === "final"
         ? '<span style="color:#4ade80;font-weight:600;">Final</span>'
@@ -328,8 +337,10 @@ function dashboardPage(leads, stats) {
               <th>Name</th>
               <th>Phone</th>
               <th>City / District</th>
-              <th>Style</th>
-              <th>Capacity</th>
+              <th>Model</th>
+              <th>Mode</th>
+              <th>Room Size</th>
+              <th>Material</th>
               <th>Score</th>
               <th>Status</th>
               <th>CRM Status</th>
