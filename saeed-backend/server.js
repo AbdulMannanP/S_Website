@@ -29,8 +29,9 @@ const notFound     = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
 const { initSchema } = require("./services/database");
 
-const leadRoute  = require("./routes/lead");
-const adminRoute = require("./routes/admin");
+const leadRoute    = require("./routes/lead");
+const adminRoute   = require("./routes/admin");
+const adminApi     = require("./routes/adminApi");
 
 const app = express();
 
@@ -49,7 +50,17 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || config.allowedOrigins.includes(origin)) {
+      // Allow requests with no origin (like mobile apps, curl, or direct navigations)
+      if (!origin || origin === "null") {
+        return callback(null, true);
+      }
+
+      // Check against allowed list or allow local development origins
+      if (
+        config.allowedOrigins.includes(origin) ||
+        origin.includes("localhost") ||
+        origin.includes("127.0.0.1")
+      ) {
         callback(null, true);
       } else {
         const corsError = new Error("CORS: origin not allowed");
@@ -58,7 +69,7 @@ app.use(
       }
     },
     methods:      ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
+    allowedHeaders: ["Content-Type", "x-user-email"],
     credentials:  true,
   })
 );
@@ -104,11 +115,30 @@ app.get("/api/session", (req, res) => {
   });
 });
 
+/**
+ * GET /api/config
+ * Exposes non-sensitive configuration to the frontend (e.g., Supabase Public Anon Key)
+ */
+app.get("/api/config", (req, res) => {
+  res.status(200).json({
+    success: true,
+    supabaseUrl: config.supabaseUrl,
+    supabaseAnonKey: config.supabaseAnonKey,
+  });
+});
+
 // ─── Lead Route (rate-limited) ────────────────────────────────────────────────
 app.use("/api/lead", leadLimiter, leadRoute);
 
-// ─── Admin Route ──────────────────────────────────────────────────────────────
+// ─── Admin Routes ─────────────────────────────────────────────────────────────
 app.use("/admin", adminRoute);
+app.use("/api/admin", adminApi);
+
+// ─── Dashboard & Auth Routes (Frontend) ───────────────────────────────────────
+app.get("/dashboard/client", (req, res) => res.sendFile(path.join(frontendPath, "dashboard", "client.html")));
+app.get("/dashboard/admin", (req, res) => res.sendFile(path.join(frontendPath, "dashboard", "admin.html")));
+app.get("/dashboard/production", (req, res) => res.sendFile(path.join(frontendPath, "dashboard", "production.html")));
+app.get("/auth", (req, res) => res.sendFile(path.join(frontendPath, "auth.html")));
 
 // ─── 404 + Error Handlers (must be last) ─────────────────────────────────────
 app.use(notFound);

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saeed Furniture | Admin Control Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/auth.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Cairo', sans-serif; background-color: #FAF9F6; color: #1c1c1e; }
+    .gold-text { color: #c9a96e; }
+    .gold-bg { background-color: #c9a96e; }
+    [x-cloak] { display: none !important; }
+
+    .kanban-column { min-height: 70vh; }
+    .lead-card { transition: all 0.2s ease; }
+    .lead-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,169,110,0.15); }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #F0EEE9; }
+    ::-webkit-scrollbar-thumb { background: #d9d4c8; border-radius: 10px; }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .toast-enter { animation: toastIn 0.35s cubic-bezier(0.22,1,0.36,1) forwards; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col" x-data="adminDashboard()" x-init="initDashboard()" x-cloak>
+
+  <!-- Toast Notification -->
+  <div x-show="toast.show" x-transition class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] px-6 py-3 rounded-2xl font-bold text-sm shadow-xl toast-enter flex items-center gap-3"
+       :class="toast.type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'"
+       style="display:none;">
+    <svg x-show="toast.type === 'success'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+    <svg x-show="toast.type === 'error'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <span x-text="toast.message"></span>
+  </div>
+
+  <!-- Nav -->
+  <nav class="border-b border-stone-200 px-6 py-4 flex justify-between items-center bg-white sticky top-0 z-40 shadow-sm">
+    <div class="flex items-center gap-6">
+      <a href="/">
+        <img src="/images/logo.png" alt="Saeed Furniture" class="h-7 object-contain" style="filter: sepia(0.4) saturate(1.8) hue-rotate(5deg) brightness(0.7);">
+      </a>
+      <span class="text-[0.65rem] font-bold uppercase tracking-widest text-stone-400 border-l border-stone-200 pl-4">Admin</span>
+    </div>
+
+    <div class="flex-1 max-w-md mx-8 relative hidden md:block">
+      <input type="text" x-model="searchQuery" placeholder="Search by name, phone, or order ID..."
+             class="w-full bg-stone-100 border border-stone-200 rounded-full py-2 px-4 pl-10 text-sm text-stone-800 outline-none focus:border-[#c9a96e] transition-colors">
+      <svg class="absolute left-3 top-2.5 text-stone-400" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <span class="text-[0.65rem] text-stone-400 uppercase font-bold tracking-widest" x-text="$store.saeedAuth.user?.email"></span>
+      <button @click="$store.saeedAuth.signOut()" class="text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-stone-800 transition-colors">Logout</button>
+    </div>
+  </nav>
+
+  <main class="flex-1 p-6 flex flex-col h-full">
+
+    <!-- Access Denied -->
+    <div x-show="!$store.saeedAuth.isLoading && !$store.saeedAuth.user" class="text-center py-20">
+      <h2 class="text-2xl text-red-500 font-bold mb-4">Access Denied</h2>
+      <p class="text-stone-500 mb-4">Please log in to access the admin panel.</p>
+      <a href="/auth" class="gold-bg text-black font-bold px-6 py-3 rounded-xl uppercase tracking-widest text-sm">Go to Login</a>
+    </div>
+
+    <div x-show="$store.saeedAuth.user" class="flex flex-col h-full">
+      <!-- Header row -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <div>
+          <h1 class="text-3xl font-black tracking-tight text-stone-900">Pipeline <span class="gold-text">Overview</span></h1>
+          <p class="text-stone-400 text-xs mt-1 uppercase tracking-widest">Managing <span x-text="leads.length"></span> active orders</p>
+        </div>
+        <div class="flex gap-2">
+          <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-stone-800 text-white' : 'text-stone-500 border border-stone-200 hover:border-stone-400'" class="px-4 py-1.5 text-[0.6rem] font-bold uppercase tracking-widest rounded-full transition-all">All</button>
+          <button @click="filter = 'urgent'" :class="filter === 'urgent' ? 'bg-red-100 text-red-600 border-red-200' : 'text-stone-500 border border-stone-200 hover:border-stone-400'" class="px-4 py-1.5 text-[0.6rem] font-bold uppercase tracking-widest rounded-full transition-all border">Urgent</button>
+          <button @click="filter = 'vip'" :class="filter === 'vip' ? 'bg-[#c9a96e]/10 text-[#c9a96e] border-[#c9a96e]/30' : 'text-stone-500 border border-stone-200 hover:border-stone-400'" class="px-4 py-1.5 text-[0.6rem] font-bold uppercase tracking-widest rounded-full transition-all border">VIP</button>
+        </div>
+      </div>
+
+      <!-- Kanban Board -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-5 flex-1 items-start">
+        <template x-for="column in columns" :key="column.id">
+          <div class="bg-stone-100/70 rounded-2xl p-4 border border-stone-200 kanban-column">
+            <h3 class="font-bold text-[0.65rem] uppercase tracking-[0.2em] text-stone-400 mb-5 flex justify-between items-center px-1">
+              <span x-text="column.label"></span>
+              <span class="bg-white text-stone-500 border border-stone-200 px-2 py-0.5 rounded-full text-[0.6rem]" x-text="filteredLeads.filter(l => l.lead_status === column.id).length"></span>
+            </h3>
+
+            <div class="space-y-3">
+              <template x-for="lead in filteredLeads.filter(l => l.lead_status === column.id)" :key="lead.order_id">
+                <div class="lead-card bg-white p-5 rounded-2xl border border-stone-200 cursor-pointer shadow-sm" @click="openModal(lead)">
+                  <div class="flex justify-between items-start mb-3">
+                    <div class="font-black text-xs tracking-widest text-stone-400 font-mono" x-text="String(lead.order_id).slice(0,8).toUpperCase()"></div>
+                    <div x-show="lead.home_visit_completed" class="w-2 h-2 rounded-full bg-green-500"></div>
+                  </div>
+                  <div class="text-sm font-bold text-stone-800 mb-1" x-text="lead.name || 'Anonymous Client'"></div>
+                  <div class="text-xs text-stone-400 mb-4 line-clamp-1" x-text="lead.selected_model_id || 'No configuration'"></div>
+
+                  <div class="flex justify-between items-center pt-3 border-t border-stone-100">
+                    <div class="flex items-center gap-2">
+                      <div class="w-5 h-5 rounded-full flex items-center justify-center text-[8px] font-black border"
+                           :class="lead.assigned_to ? 'bg-[#c9a96e]/10 text-[#c9a96e] border-[#c9a96e]/30' : 'bg-stone-100 text-stone-400 border-stone-200'"
+                           x-text="lead.assigned_to ? '✓' : '?'"></div>
+                      <span class="text-[0.55rem] uppercase font-bold tracking-widest"
+                            :class="lead.assigned_to ? 'text-stone-600' : 'text-stone-300'"
+                            x-text="lead.assigned_to ? 'Assigned' : 'Unassigned'"></span>
+                    </div>
+                    <div class="text-[0.55rem] text-stone-400 font-mono" x-text="formatDate(lead.created_at)"></div>
+                  </div>
+                </div>
+              </template>
+            </div>
+
+            <div x-show="filteredLeads.filter(l => l.lead_status === column.id).length === 0" class="py-10 text-center border-2 border-dashed border-stone-200 rounded-2xl mt-2">
+              <span class="text-[0.6rem] uppercase tracking-widest text-stone-300 font-bold">No Orders</span>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </main>
+
+  <!-- Order Detail Modal -->
+  <div x-show="selectedLead" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
+       x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+       style="display: none;">
+    <div class="bg-white rounded-3xl w-full max-w-3xl mx-4 overflow-hidden shadow-2xl" @click.away="discardModal()">
+
+      <!-- Modal Header -->
+      <div class="px-8 py-6 border-b border-stone-100 flex justify-between items-center">
+        <div>
+          <h2 class="text-xl font-black tracking-tight text-stone-900">Order <span class="gold-text font-mono" x-text="String(selectedLead?.order_id || '').slice(0,8).toUpperCase()"></span></h2>
+          <p class="text-stone-400 text-xs mt-1 uppercase tracking-widest" x-text="`Received ${formatFullDate(selectedLead?.created_at)}`"></p>
+        </div>
+        <button @click="discardModal()" class="w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center text-stone-500 hover:bg-stone-200 transition-all">×</button>
+      </div>
+
+      <!-- Modal Error -->
+      <div x-show="modalError" x-transition class="mx-8 mt-4 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm font-bold" x-text="modalError"></div>
+
+      <!-- Modal Body -->
+      <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-8 max-h-[58vh] overflow-y-auto">
+
+        <!-- Left: Client Details -->
+        <div class="space-y-6">
+          <div>
+            <label class="block text-[0.6rem] font-bold text-stone-400 uppercase tracking-[0.2em] mb-2">Client</label>
+            <div class="bg-stone-50 p-4 rounded-2xl border border-stone-100">
+              <div class="text-base font-bold text-stone-900 mb-1" x-text="selectedLead?.name || 'Not provided'"></div>
+              <div class="text-[#c9a96e] font-mono text-sm mb-1" x-text="selectedLead?.phone || '—'"></div>
+              <div class="text-stone-400 text-xs" x-text="selectedLead?.district_city || 'City not specified'"></div>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[0.6rem] font-bold text-stone-400 uppercase tracking-[0.2em] mb-2">Configuration</label>
+            <div class="bg-stone-50 p-4 rounded-2xl border border-stone-100">
+              <div class="text-sm font-bold text-stone-800" x-text="selectedLead?.selected_model_id || 'Generic Majlis'"></div>
+              <div class="text-xs text-stone-400 mt-2">
+                <span>Visit: <span class="text-stone-600 font-bold" x-text="selectedLead?.visit_mode || '—'"></span></span>
+              </div>
+            </div>
+          </div>
+
+          <div x-show="selectedLead?.vision_notes">
+            <label class="block text-[0.6rem] font-bold text-stone-400 uppercase tracking-[0.2em] mb-2">Vision Notes</label>
+            <p class="text-sm text-stone-600 leading-relaxed italic border-l-2 border-[#c9a96e]/40 pl-3" x-text="`&quot;${selectedLead?.vision_notes}&quot;`"></p>
+          </div>
+        </div>
+
+        <!-- Right: CRM Controls -->
+        <div class="space-y-6 border-l border-stone-100 pl-0 md:pl-8">
+
+          <div>
+            <label class="block text-[0.6rem] font-bold text-stone-400 uppercase tracking-[0.2em] mb-2">Status</label>
+            <select x-model="editData.lead_status" class="w-full bg-stone-50 border border-stone-200 rounded-xl p-3 text-sm text-stone-800 outline-none focus:border-[#c9a96e] transition-all">
+              <option value="new">New Lead</option>
+              <option value="contacted">Measurement Phase</option>
+              <option value="qualified">In Production</option>
+              <option value="won">Ready for Delivery</option>
+              <option value="lost">Lost / On Hold</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[0.6rem] font-bold text-stone-400 uppercase tracking-[0.2em] mb-2">Home Visit</label>
+            <label class="flex items-center gap-4 cursor-pointer">
+              <div class="relative w-11 h-6 rounded-full transition-all duration-300 border"
+                   :class="editData.home_visit_completed ? 'bg-green-500 border-green-500' : 'bg-stone-200 border-stone-300'">
+                <input type="checkbox" x-model="editData.home_visit_completed" class="sr-only">
+                <div class="absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow transition-all duration-300"
+                     :class="editData.home_visit_completed ? 'translate-x-5' : ''"></div>
+              </div>
+              <span class="text-sm font-bold"
+                    :class="editData.home_visit_completed ? 'text-green-600' : 'text-stone-400'"
+                    x-text="editData.home_visit_completed ? 'Visit Completed' : 'Pending Visit'"></span>
+            </label>
+          </div>
+
+          <div>
+            <label class="block text-[0.6rem] font-bold text-stone-400 uppercase tracking-[0.2em] mb-2">Assign to Craftsman</label>
+            <select x-model="editData.assigned_to" class="w-full bg-stone-50 border border-stone-200 rounded-xl p-3 text-sm text-stone-800 outline-none focus:border-[#c9a96e] transition-all">
+              <option value="">Unassigned</option>
+              <template x-for="emp in employees" :key="emp.id">
+                <option :value="emp.id" x-text="emp.email"></option>
+              </template>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[0.6rem] font-bold text-stone-400 uppercase tracking-[0.2em] mb-2">Internal Notes</label>
+            <textarea x-model="editData.sales_notes" rows="3" placeholder="Private notes for the team..."
+                      class="w-full bg-stone-50 border border-stone-200 rounded-xl p-3 text-sm text-stone-800 outline-none focus:border-[#c9a96e] transition-all resize-none"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-8 py-5 border-t border-stone-100 flex justify-between items-center bg-stone-50/50">
+
+        <!-- Delete with confirm -->
+        <div>
+          <button x-show="!confirmDelete" @click="confirmDelete = true"
+                  :disabled="isSaving"
+                  class="px-5 py-2.5 rounded-xl border border-red-200 text-red-400 font-bold text-xs uppercase tracking-widest hover:border-red-400 hover:text-red-600 transition-all">
+            Delete Order
+          </button>
+          <div x-show="confirmDelete" class="flex items-center gap-2">
+            <span class="text-xs font-bold text-red-600">Are you sure?</span>
+            <button @click="deleteLead()" :disabled="isSaving"
+                    class="px-4 py-2 rounded-lg bg-red-500 text-white font-black text-xs uppercase tracking-widest hover:bg-red-600 transition-all flex items-center gap-2">
+              <svg x-show="isSaving" class="animate-spin" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+              <span x-text="isSaving ? 'Deleting...' : 'Yes, Delete'"></span>
+            </button>
+            <button @click="confirmDelete = false" class="px-4 py-2 rounded-lg border border-stone-200 text-stone-500 font-bold text-xs uppercase tracking-widest hover:bg-stone-100 transition-all">Cancel</button>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button @click="discardModal()" class="px-6 py-2.5 rounded-xl border border-stone-200 text-stone-500 font-bold text-xs uppercase tracking-widest hover:bg-stone-100 transition-all">Discard</button>
+          <button @click="saveLead()" :disabled="isSaving"
+                  class="px-6 py-2.5 rounded-xl gold-bg text-black font-black text-xs uppercase tracking-widest hover:opacity-90 transition-all flex items-center gap-2"
+                  :class="isSaving ? 'opacity-60 cursor-not-allowed' : ''">
+            <svg x-show="isSaving" class="animate-spin" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+            <span x-text="isSaving ? 'Saving...' : 'Save Changes'"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function adminDashboard() {
+      return {
+        leads: [],
+        isLoading: true,
+        isSaving: false,
+        confirmDelete: false,
+        modalError: '',
+        searchQuery: '',
+        filter: 'all',
+        selectedLead: null,
+        editData: { lead_status: 'new', home_visit_completed: false, assigned_to: '', sales_notes: '' },
+        employees: [],
+        toast: { show: false, message: '', type: 'success' },
+
+        columns: [
+          { id: 'new',       label: 'New Leads' },
+          { id: 'contacted', label: 'Measurements' },
+          { id: 'qualified', label: 'In Production' },
+          { id: 'won',       label: 'Ready for Delivery' }
+        ],
+
+        showToast(message, type = 'success') {
+          this.toast = { show: true, message, type };
+          setTimeout(() => { this.toast.show = false; }, 3500);
+        },
+
+        async initDashboard() {
+          let attempts = 0;
+          while (Alpine.store('saeedAuth').isLoading && attempts < 30) {
+            await new Promise(r => setTimeout(r, 100));
+            attempts++;
+          }
+          await Promise.all([this.fetchLeads(), this.fetchEmployees()]);
+          this.isLoading = false;
+        },
+
+        async fetchEmployees() {
+          try {
+            const auth = Alpine.store('saeedAuth');
+            if (!auth?.supabase) return;
+            const { data, error } = await auth.supabase
+              .from('profiles').select('id, email, role').eq('role', 'employee');
+            if (!error) this.employees = data || [];
+          } catch(e) { console.error('fetchEmployees:', e); }
+        },
+
+        async fetchLeads() {
+          try {
+            const auth = Alpine.store('saeedAuth');
+            if (!auth?.supabase) return;
+            const { data, error } = await auth.supabase
+              .from('orders').select('*').order('created_at', { ascending: false });
+            if (error) throw error;
+            this.leads = (data || []).map(row => {
+              const conf = row.configuration_details || {};
+              return {
+                id: row.id,
+                order_id: row.id,
+                client_id: row.client_id,
+                lead_status: (row.status === 'Lead Received' ? 'new' : row.status) || conf.status || 'new',
+                created_at: row.created_at,
+                name: conf.name,
+                phone: conf.phone,
+                visit_mode: conf.visit_preference,
+                district_city: conf.city_selected,
+                score: conf.score || 0,
+                selected_model_id: conf.style_selected || conf.model_id,
+                vision_notes: conf.vision_notes,
+                home_visit_completed: row.home_visit_completed || false,
+                assigned_to: row.assigned_to || '',
+                sales_notes: row.sales_notes || ''
+              };
+            });
+          } catch(e) { console.error('fetchLeads:', e); }
+        },
+
+        get filteredLeads() {
+          let list = this.leads;
+          if (this.searchQuery) {
+            const q = this.searchQuery.toLowerCase();
+            list = list.filter(l =>
+              String(l.order_id).toLowerCase().includes(q) ||
+              (l.phone && l.phone.includes(q)) ||
+              (l.name && l.name.toLowerCase().includes(q))
+            );
+          }
+          if (this.filter === 'urgent') list = list.filter(l => l.score >= 180 && l.lead_status === 'new');
+          else if (this.filter === 'vip') list = list.filter(l => l.visit_mode === 'VIP Private');
+          return list;
+        },
+
+        openModal(lead) {
+          this.selectedLead = lead;
+          this.confirmDelete = false;
+          this.modalError = '';
+          this.editData = {
+            lead_status: lead.lead_status || 'new',
+            home_visit_completed: !!lead.home_visit_completed,
+            assigned_to: lead.assigned_to || '',
+            sales_notes: lead.sales_notes || ''
+          };
+        },
+
+        discardModal() {
+          this.selectedLead = null;
+          this.confirmDelete = false;
+          this.modalError = '';
+        },
+
+        async saveLead() {
+          if (!this.selectedLead || this.isSaving) return;
+          this.isSaving = true;
+          this.modalError = '';
+          try {
+            const auth = Alpine.store('saeedAuth');
+            const { data, error } = await auth.supabase
+              .from('orders')
+              .update({
+                status: this.editData.lead_status,
+                home_visit_completed: this.editData.home_visit_completed,
+                assigned_to: this.editData.assigned_to || null,
+                sales_notes: this.editData.sales_notes
+              })
+              .eq('id', this.selectedLead.id)
+              .select().single();
+
+            if (error) throw error;
+
+            // Update local state
+            const conf = data.configuration_details || {};
+            const updated = {
+              id: data.id, order_id: data.id, client_id: data.client_id,
+              lead_status: (data.status === 'Lead Received' ? 'new' : data.status) || 'new',
+              created_at: data.created_at,
+              name: conf.name, phone: conf.phone,
+              visit_mode: conf.visit_preference, district_city: conf.city_selected,
+              score: conf.score || 0, selected_model_id: conf.style_selected || conf.model_id,
+              vision_notes: conf.vision_notes,
+              home_visit_completed: data.home_visit_completed || false,
+              assigned_to: data.assigned_to || '', sales_notes: data.sales_notes || ''
+            };
+            const idx = this.leads.findIndex(l => l.id === updated.id);
+            if (idx !== -1) this.leads[idx] = updated;
+
+            this.discardModal();
+            this.showToast('Order updated successfully.');
+          } catch(e) {
+            this.modalError = e.message || 'Failed to save. Please try again.';
+          } finally { this.isSaving = false; }
+        },
+
+        async deleteLead() {
+          if (!this.selectedLead || this.isSaving) return;
+          this.isSaving = true;
+          this.modalError = '';
+          try {
+            const auth = Alpine.store('saeedAuth');
+            const { error } = await auth.supabase
+              .from('orders').delete().eq('id', this.selectedLead.id);
+            if (error) throw error;
+            this.leads = this.leads.filter(l => l.id !== this.selectedLead.id);
+            this.discardModal();
+            this.showToast('Order deleted.', 'success');
+          } catch(e) {
+            this.modalError = e.message || 'Delete failed. Please try again.';
+            this.confirmDelete = false;
+          } finally { this.isSaving = false; }
+        },
+
+        formatDate(iso) {
+          if (!iso) return '';
+          const d = new Date(iso);
+          return `${d.getDate()}/${d.getMonth()+1}`;
+        },
+        formatFullDate(iso) {
+          if (!iso) return '';
+          return new Date(iso).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+        }
+      };
+    }
+  </script>
+</body>
+</html>

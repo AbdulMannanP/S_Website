@@ -1,0 +1,11 @@
+{
+  "name": "saeed-furniture-root",
+  "version": "1.0.0",
+  "description": "Root package for Saeed Furniture project deployment",
+  "scripts": {
+    "install:backend": "cd saeed-backend && npm install",
+    "build": "npm run install:backend",
+    "start": "cd saeed-backend && npm start"
+  },
+  "private": true
+}

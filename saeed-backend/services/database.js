@@ -106,6 +106,9 @@ async function initSchema() {
                           CHECK(lead_status IN ('new', 'contacted', 'qualified', 'lost', 'won')),
       sales_notes       TEXT DEFAULT '',
       contacted_at      TEXT DEFAULT NULL,
+      home_visit_completed INTEGER DEFAULT 0,
+      assigned_to       TEXT DEFAULT NULL,
+      email             TEXT DEFAULT NULL,
 
       -- ── Timestamps ──────────────────────────────────────────────────────────
       created_at        TEXT DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
@@ -118,6 +121,17 @@ async function initSchema() {
   await run(`CREATE INDEX IF NOT EXISTS idx_leads_lead_status ON leads(lead_status)`);
   await run(`CREATE INDEX IF NOT EXISTS idx_leads_created_at  ON leads(created_at)`);
   await run(`CREATE INDEX IF NOT EXISTS idx_leads_phone       ON leads(phone)`);
+
+  // ── Safe column migrations for existing databases ───────────────────────────
+  // SQLite doesn't support IF NOT EXISTS for columns; we catch the error silently.
+  const migrations = [
+    `ALTER TABLE leads ADD COLUMN home_visit_completed INTEGER DEFAULT 0`,
+    `ALTER TABLE leads ADD COLUMN assigned_to TEXT DEFAULT NULL`,
+    `ALTER TABLE leads ADD COLUMN email TEXT DEFAULT NULL`,
+  ];
+  for (const sql of migrations) {
+    try { await run(sql); } catch (e) { /* column already exists */ }
+  }
 
   console.log("[DB] Schema ready.");
 }
@@ -138,6 +152,7 @@ async function upsertLead(data) {
     vision_notes = "", last_step = "hero", status = "draft",
     score = 0, time_spent = 0, source = "website",
     user_agent = "", referrer = "", ip = "", company_name = "",
+    email = null,
   } = data;
 
   // Check if this is an insert or update
@@ -151,8 +166,8 @@ async function upsertLead(data) {
       room_size_known, room_length, room_width,
       color_preference, material_preference, photo_urls,
       vision_notes, last_step, status, score, time_spent,
-      source, user_agent, referrer, ip, company_name
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      source, user_agent, referrer, ip, company_name, email
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(order_id) DO UPDATE SET
       -- NOTE: 'source' intentionally excluded to preserve first-touch attribution
       name              = excluded.name,
@@ -175,6 +190,7 @@ async function upsertLead(data) {
       user_agent        = excluded.user_agent,
       referrer          = excluded.referrer,
       ip                = excluded.ip,
+      email             = COALESCE(excluded.email, leads.email),
       updated_at        = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
   `, [
     order_id, session_id, name, phone, district_city,
@@ -182,7 +198,7 @@ async function upsertLead(data) {
     room_size_known, room_length, room_width,
     color_preference, material_preference, photo_urls,
     vision_notes, last_step, status, score, time_spent,
-    source, user_agent, referrer, ip, company_name,
+    source, user_agent, referrer, ip, company_name, email,
   ]);
 
   return { order_id, action };
@@ -197,7 +213,7 @@ function getLeadByOrderId(order_id) {
       room_size_known, room_length, room_width,
       color_preference, material_preference, photo_urls,
       vision_notes, last_step, status, score, time_spent, source,
-      lead_status, sales_notes, contacted_at,
+      lead_status, sales_notes, contacted_at, home_visit_completed, assigned_to,
       created_at, updated_at
     FROM leads WHERE order_id = ?
   `, [order_id]);
@@ -211,7 +227,7 @@ function getAllLeads() {
       room_size_known, room_length, room_width,
       color_preference, material_preference, photo_urls,
       vision_notes, last_step, status, score, time_spent, source,
-      lead_status, sales_notes, contacted_at,
+      lead_status, sales_notes, contacted_at, home_visit_completed, assigned_to,
       created_at, updated_at
     FROM leads
     ORDER BY created_at DESC
@@ -229,11 +245,43 @@ async function getStats() {
   `);
 }
 
+function getLeadsByEmail(email) {
+  return all(`
+    SELECT
+      order_id, name, phone, district_city,
+      selected_model_id, visit_mode, preferred_contact_time,
+      room_size_known, room_length, room_width,
+      color_preference, material_preference, photo_urls,
+      vision_notes, last_step, status, score, time_spent, source,
+      lead_status, sales_notes, contacted_at, home_visit_completed, assigned_to,
+      created_at, updated_at
+    FROM leads
+    WHERE email = ?
+    ORDER BY created_at DESC
+  `, [email]);
+}
+
+async function updateLeadCRM(order_id, data) {
+  const { lead_status, sales_notes, home_visit_completed, assigned_to } = data;
+  
+  return run(`
+    UPDATE leads SET
+      lead_status = COALESCE(?, lead_status),
+      sales_notes = COALESCE(?, sales_notes),
+      home_visit_completed = COALESCE(?, home_visit_completed),
+      assigned_to = COALESCE(?, assigned_to),
+      updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
+    WHERE order_id = ?
+  `, [lead_status, sales_notes, home_visit_completed, assigned_to, order_id]);
+}
+
 // ─── Exports ──────────────────────────────────────────────────────────────────
 module.exports = {
   initSchema,
   upsertLead,
   getLeadByOrderId,
   getAllLeads,
+  getLeadsByEmail,
   getStats,
+  updateLeadCRM,
 };

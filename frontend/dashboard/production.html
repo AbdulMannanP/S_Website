@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saeed Furniture | Employee Workshop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/auth.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #FAF9F6;
+      color: #1c1c1e;
+      min-height: 100vh;
+    }
+    .gold-text { color: #c9a96e; }
+    .gold-bg { background-color: #c9a96e; }
+    .gold-border { border-color: #c9a96e; }
+    [x-cloak] { display: none !important; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.4s ease forwards; }
+
+    .task-card { transition: border-color 0.2s ease, transform 0.2s ease; }
+    .task-card:hover { border-color: rgba(201,169,110,0.3); transform: translateY(-2px); }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #1a1a22 25%, #252530 50%, #1a1a22 75%);
+      background-size: 200% auto;
+      animation: shimmer 1.5s linear infinite;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body class="min-h-screen" x-data="workshopDashboard()" x-init="initDashboard()" x-cloak>
+
+  <!-- ── Navigation ──────────────────────────────────────────── -->
+  <nav class="border-b border-stone-900 px-6 py-4 flex justify-between items-center bg-[#0a0a0a] sticky top-0 z-50">
+    <div class="flex items-center gap-4">
+      <a href="/">
+        <img src="/images/logo.png" alt="Saeed Furniture" class="h-7 object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+      </a>
+      <span class="text-[0.65rem] font-bold uppercase tracking-widest text-white/40 border-l border-white/10 pl-4">Workshop</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <span class="text-white/40 text-xs font-bold uppercase tracking-widest hidden md:block" x-text="$store.saeedAuth.user?.email || ''"></span>
+      <button @click="$store.saeedAuth.signOut()" class="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors">Logout</button>
+    </div>
+  </nav>
+
+  <!-- ── Loading Skeleton ──────────────────────────────────────── -->
+  <div x-show="isLoading" class="max-w-4xl mx-auto px-6 py-12 space-y-4">
+    <div class="skeleton h-8 w-48 mb-10"></div>
+    <div class="skeleton h-40 w-full rounded-3xl"></div>
+    <div class="skeleton h-40 w-full rounded-3xl"></div>
+  </div>
+
+  <!-- ── Main Content ──────────────────────────────────────────── -->
+  <main x-show="!isLoading" class="max-w-4xl mx-auto px-6 py-12">
+
+    <!-- Access Denied -->
+    <div x-show="!$store.saeedAuth.user || $store.saeedAuth.role !== 'employee'" class="text-center py-24">
+      <div class="w-20 h-20 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-6 border border-red-500/20">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h2 class="text-2xl font-bold text-red-400 mb-3">Unauthorized Access</h2>
+      <p class="text-white/40 mb-6">This area is restricted to assigned employees only.</p>
+      <a href="/auth" class="gold-bg text-black font-bold px-6 py-3 rounded-xl uppercase tracking-widest text-xs">Go to Login</a>
+    </div>
+
+    <!-- Workshop Content (employees only) -->
+    <div x-show="$store.saeedAuth.user && $store.saeedAuth.role === 'employee'" class="fade-up">
+
+      <!-- Header -->
+      <div class="mb-10">
+        <h1 class="text-3xl font-black tracking-tight text-stone-900">My <span class="gold-text">Workshop</span></h1>
+        <p class="text-stone-500 text-sm mt-1 uppercase tracking-widest">
+          <span x-text="tasks.length"></span> order<span x-show="tasks.length !== 1">s</span> assigned to you
+        </p>
+      </div>
+
+      <!-- Empty State -->
+      <div x-show="tasks.length === 0" class="text-center py-24 border-2 border-dashed border-white/5 rounded-3xl">
+        <svg class="mx-auto mb-6 text-white/10" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        </svg>
+        <p class="text-white/20 font-bold uppercase tracking-widest text-sm">No tasks assigned yet</p>
+        <p class="text-white/10 text-xs mt-2">Check back with your administrator.</p>
+      </div>
+
+      <!-- Task Cards -->
+      <div class="space-y-6">
+        <template x-for="(task, idx) in tasks" :key="task.id">
+          <div class="bg-white border border-stone-200 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+               :style="`animation-delay: ${idx * 80}ms`">
+            <!-- Gold status bar -->
+            <div class="h-[3px] w-full" :style="`background: linear-gradient(90deg, transparent, #c9a96e ${getStatusProgress(task.status)}%, transparent)`"></div>
+
+            <div class="p-8">
+              <!-- Top Row -->
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+                <div>
+                  <h3 class="text-xl font-bold text-stone-900" x-text="task.model || 'Custom Majlis Configuration'"></h3>
+                  <div class="flex items-center gap-3 mt-2">
+                    <code class="text-[#c9a96e] text-xs font-mono bg-[#c9a96e]/10 border border-[#c9a96e]/20 px-3 py-1 rounded-full" x-text="'#' + task.id.slice(0, 8).toUpperCase()"></code>
+                    <span class="text-stone-400 text-xs" x-text="formatDate(task.created_at)"></span>
+                  </div>
+                </div>
+                <span class="flex-shrink-0 text-xs font-black uppercase tracking-widest px-4 py-2 rounded-full border"
+                      :class="getStatusStyle(task.status)"
+                      x-text="task.status || 'Lead Received'"></span>
+              </div>
+
+              <!-- Spec Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8 p-5 bg-stone-50 rounded-2xl border border-stone-100">
+                <div x-show="task.conf.name">
+                  <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Client</div>
+                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.name || '—'"></div>
+                </div>
+                <div x-show="task.conf.phone">
+                  <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Contact</div>
+                  <div class="text-sm font-bold text-[#c9a96e] font-mono" x-text="task.conf.phone || '—'"></div>
+                </div>
+                <div x-show="task.conf.city_selected">
+                  <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Location</div>
+                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.city_selected || '—'"></div>
+                </div>
+                <div x-show="task.conf.style_selected">
+                  <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Style</div>
+                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.style_selected || '—'"></div>
+                </div>
+                <div x-show="task.conf.capacity_selected">
+                  <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Capacity</div>
+                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.capacity_selected || '—'"></div>
+                </div>
+                <div x-show="task.conf.visit_preference">
+                  <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Visit Type</div>
+                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.visit_preference || '—'"></div>
+                </div>
+              </div>
+
+              <!-- Vision Notes -->
+              <div x-show="task.conf.vision_notes" class="mb-8 p-4 border-l-2 border-[#c9a96e]/40 bg-[#c9a96e]/5 rounded-r-xl">
+                <p class="text-xs text-stone-400 uppercase tracking-widest mb-1 font-bold">Client's Vision</p>
+                <p class="text-sm text-stone-600 italic" x-text="`&quot;${task.conf.vision_notes}&quot;`"></p>
+              </div>
+
+              <!-- Status Action Buttons -->
+              <div class="border-t border-stone-100 pt-6">
+                <p class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-4 font-bold">Update Status</p>
+                <div class="flex flex-wrap gap-3">
+                  <template x-for="action in getNextActions(task.status)" :key="action.value">
+                    <button @click="updateStatus(task, action.value)"
+                            :disabled="task._saving"
+                            class="flex items-center gap-2 border px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all"
+                            :class="action.style">
+                      <svg x-show="task._saving" class="animate-spin" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                      <span x-text="action.label"></span>
+                    </button>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function workshopDashboard() {
+      return {
+        tasks: [],
+        isLoading: true,
+
+        async initDashboard() {
+          let attempts = 0;
+          while (Alpine.store('saeedAuth').isLoading && attempts < 30) {
+            await new Promise(r => setTimeout(r, 100));
+            attempts++;
+          }
+
+          const auth = Alpine.store('saeedAuth');
+          if (!auth.user) {
+            window.location.href = '/auth';
+            return;
+          }
+          if (auth.role !== 'employee') {
+            this.isLoading = false;
+            return;
+          }
+
+          await this.fetchTasks();
+          this.isLoading = false;
+        },
+
+        async fetchTasks() {
+          try {
+            const auth = Alpine.store('saeedAuth');
+            if (!auth || !auth.supabase) return;
+
+            // Restricted: Only fetch orders assigned to THIS employee's UUID
+            const { data, error } = await auth.supabase
+              .from('orders')
+              .select('*')
+              .eq('assigned_to', auth.user.id)
+              .order('created_at', { ascending: false });
+
+            if (error) throw error;
+
+            this.tasks = (data || []).map(row => ({
+              ...row,
+              model: (row.configuration_details?.style_selected || row.configuration_details?.selected_model_id) || null,
+              conf: row.configuration_details || {},
+              _saving: false
+            }));
+          } catch (e) {
+            console.error('Fetch tasks failed:', e);
+            this.tasks = [];
+          }
+        },
+
+        async updateStatus(task, newStatus) {
+          task._saving = true;
+          try {
+            const auth = Alpine.store('saeedAuth');
+            const { error } = await auth.supabase
+              .from('orders')
+              .update({ status: newStatus })
+              .eq('id', task.id);
+
+            if (error) throw error;
+            task.status = newStatus;
+          } catch (e) {
+            console.error('Status update failed:', e);
+          } finally {
+            task._saving = false;
+          }
+        },
+
+        getNextActions(status) {
+          const flow = {
+            'Lead Received':      [{ value: 'Measurement Scheduled', label: 'Schedule Measurement', style: 'border-blue-500/40 text-blue-400 hover:bg-blue-500/10' }],
+            'Measurement Scheduled': [{ value: 'In Manufacturing',   label: 'Start Manufacturing', style: 'border-[#c9a96e]/40 text-[#c9a96e] hover:bg-[#c9a96e]/10' }],
+            'In Manufacturing':   [{ value: 'Quality Check',         label: 'Send to QC',          style: 'border-purple-500/40 text-purple-400 hover:bg-purple-500/10' }],
+            'Quality Check':      [{ value: 'Ready for Delivery',    label: 'Mark Ready',          style: 'border-green-500/40 text-green-400 hover:bg-green-500/10' }],
+            'Ready for Delivery': []
+          };
+          return flow[status] || [];
+        },
+
+        getStatusProgress(status) {
+          const map = {
+            'Lead Received': 10,
+            'Measurement Scheduled': 30,
+            'In Manufacturing': 58,
+            'Quality Check': 80,
+            'Ready for Delivery': 100
+          };
+          return map[status] ?? 10;
+        },
+
+        getStatusStyle(status) {
+          const map = {
+            'Lead Received':         'border-white/10 text-white/40',
+            'Measurement Scheduled': 'border-blue-500/30 text-blue-400',
+            'In Manufacturing':      'border-[#c9a96e]/30 text-[#c9a96e]',
+            'Quality Check':         'border-purple-500/30 text-purple-400',
+            'Ready for Delivery':    'border-green-500/30 text-green-400'
+          };
+          return map[status] || 'border-white/10 text-white/40';
+        },
+
+        formatDate(iso) {
+          if (!iso) return '';
+          return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+      };
+    }
+  </script>
+</body>
+</html>

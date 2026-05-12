@@ -74,6 +74,8 @@ function sanitizeLead(body = {}) {
     name:              sanitizeStr(body.name || body.fullName, 100),
     phone:             sanitizeStr(body.phone || body.mobileNumber, 20),
     district_city:     sanitizeStr(body.district_city || body.areaCity, 100),
+    style_selected:    sanitizeStr(body.style_selected, 100),
+    capacity_selected: sanitizeStr(body.capacity_selected, 100),
     selected_model_id: sanitizeStr(
       body.selected_model_id || 
       body.selectedModelId || 
@@ -95,7 +97,21 @@ function sanitizeLead(body = {}) {
     source:            sanitizeStr(body.source, 50)  || "website",
     user_agent:        sanitizeStr(body.user_agent,       300),
     referrer:          sanitizeStr(body.referrer,         500),
+    email:             sanitizeStr(body.email,            100).toLowerCase(),
     company_name:      sanitizeStr(body.company_name,     100), // honeypot
+  };
+}
+
+/**
+ * sanitizeLeadCRM(body)
+ * Sanitises input for CRM-only updates.
+ */
+function sanitizeLeadCRM(body = {}) {
+  return {
+    lead_status: ["new", "contacted", "qualified", "lost", "won"].includes(body.lead_status) ? body.lead_status : null,
+    sales_notes: sanitizeStr(body.sales_notes || body.salesNotes, 1000),
+    home_visit_completed: (body.home_visit_completed === true || body.home_visit_completed === 1 || body.home_visit_completed === "1" || body.home_visit_completed === "true") ? 1 : 0,
+    assigned_to: sanitizeStr(body.assigned_to || body.assignedTo, 100),
   };
 }
 
@@ -111,9 +127,9 @@ function sanitizeLead(body = {}) {
  */
 function calculateScore(lead) {
   let score = 0;
-  if (lead.selected_model_id) score += 10;
-  if (lead.visit_mode)        score += 20;
-  if (lead.phone)             score += 80;
+  if (lead.style_selected || lead.selected_model_id) score += 10;
+  if (lead.capacity_selected) score += 20;
+  if (lead.phone && isValidKSAPhone(lead.phone)) score += 80;
   if (lead.status === "final") score += 100;
   return score;
 }
@@ -125,4 +141,5 @@ module.exports = {
   isValidKSAPhone,
   isBot,
   calculateScore,
+  sanitizeLeadCRM,
 };

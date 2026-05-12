@@ -10,9 +10,11 @@
   <meta property="og:type"        content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/auth.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -130,34 +132,57 @@
     <div class="h-full bg-gold transition-all duration-700 ease-out shadow-[0_0_10px_rgba(201,169,110,0.5)]" :style="'width:' + progress + '%'"></div>
   </div>
 
-  <!-- ── Loading Screen ──────────────────────────────────── -->
-  <div class="fixed inset-0 bg-ivory flex flex-col items-center justify-center gap-4 z-[9999] transition-opacity duration-500" x-show="loading" x-cloak x-transition.opacity>
-    <div class="text-3xl font-extrabold text-gold tracking-widest">SF</div>
-    <div class="flex gap-2">
-      <span class="w-2 h-2 bg-bronze rounded-full animate-bounce"></span>
-      <span class="w-2 h-2 bg-bronze rounded-full animate-bounce" style="animation-delay: 200ms"></span>
-      <span class="w-2 h-2 bg-bronze rounded-full animate-bounce" style="animation-delay: 400ms"></span>
+  <!-- ── Splash Screen (Bilingual Brand) ─────────────────── -->
+  <div class="fixed inset-0 flex flex-col items-center justify-center z-[9999]"
+       style="background: radial-gradient(ellipse at top, #131318 0%, #080809 55%, #04040a 100%);"
+       x-show="loading" x-cloak
+       x-transition:leave="transition ease-in-out duration-700"
+       x-transition:leave-start="opacity-100"
+       x-transition:leave-end="opacity-0">
+    <div class="flex flex-col items-center gap-6 animate-[fadeIn_0.8s_ease_forwards]" style="animation: splashIn 0.9s cubic-bezier(0.22,1,0.36,1) forwards;">
+      <img src="images/logo.png" alt="Saeed Furniture"
+           class="h-16 object-contain"
+           style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.15);">
+      <div class="text-center space-y-2">
+        <p class="text-white text-2xl font-bold" style="font-family: 'Noto Kufi Arabic', sans-serif; letter-spacing: 0.05em;">مرحباً بكم في شركة سعيد</p>
+        <p class="text-white/40 text-sm font-medium tracking-[0.25em] uppercase">Welcome to Saeed Furniture</p>
+      </div>
+      <div class="flex gap-2 mt-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e] animate-bounce"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e] animate-bounce" style="animation-delay: 180ms"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e] animate-bounce" style="animation-delay: 360ms"></span>
+      </div>
     </div>
+    <style>
+      @keyframes splashIn {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+    </style>
   </div>
 
   <!-- ── Header ──────────────────────────────────────────── -->
-  <header :class="{'bg-ivory shadow-md': scrolled, 'bg-transparent': !scrolled}" class="fixed top-0 inset-x-0 z-[1000] h-16 flex items-center justify-between px-5 sm:px-10 transition-all duration-500">
-    <div class="h-8 flex items-center">
-      <img src="images/logo.png" alt="Saeed Furniture" class="h-full object-contain filter invert opacity-90 transition-all duration-500" :class="{'invert-0 opacity-100': scrolled || isSelectionMode}">
+  <header class="fixed top-0 inset-x-0 z-[1000] h-16 flex items-center justify-between px-5 sm:px-10 transition-all duration-500 bg-[#080809] shadow-sm">
+    <div class="h-8 flex items-center gap-3">
+      <img src="images/logo.png" alt="Saeed Furniture" class="h-full object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+      <span class="text-[0.85rem] font-bold text-white/80"
+            style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة سعيد</span>
     </div>
     
-    <nav class="hidden md:flex gap-8 text-[0.85rem] font-bold text-bronze/80 uppercase tracking-widest min-h-[44px] items-center">
+    <nav class="hidden md:flex gap-8 text-[0.85rem] font-bold text-white/70 uppercase tracking-widest min-h-[44px] items-center">
       <a href="#about" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
       <a href="#faq" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></a>
       <a href="#" @click.prevent="scrollToFooter()" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'تواصل معنا' : 'Contact'"></a>
-      <a href="#order" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'اطلب الآن' : 'Order'"></a>
+      <button @click="handleOrderClick()" 
+              class="hover:text-gold transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-widest text-[0.85rem] text-white/70" 
+              x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
+      </button>
     </nav>
     
     <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
-      <button @click="toggleLang()" class="text-[0.75rem] font-extrabold text-bronze hover:text-gold transition-colors uppercase tracking-widest px-2 py-1 border border-bronze/10 rounded bg-white/5 flex-shrink-0">
+      <button @click="toggleLang()" class="text-[0.75rem] font-extrabold text-white/70 hover:text-gold transition-colors uppercase tracking-widest px-2 py-1 border border-white/20 rounded bg-white/5 flex-shrink-0">
         <span x-text="lang === 'ar' ? 'EN' : 'AR'"></span>
       </button>
-      <a href="#order" class="md:hidden text-[0.75rem] font-bold text-gold uppercase tracking-widest border border-gold/30 px-3 py-1.5 rounded-full flex-shrink-0" x-text="lang === 'ar' ? 'اطلب' : 'Order'"></a>
     </div>
   </header>
 
@@ -178,7 +203,6 @@
         <h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] text-white mb-6 drop-shadow-2xl" x-text="lang === 'ar' ? content.hero?.titleArabic : 'Luxury Majlis with Authentic Saudi Touch'"></h1>
         <p class="text-xl md:text-2xl text-white/80 leading-relaxed mb-12 max-w-[500px] mx-auto font-medium" x-text="lang === 'ar' ? content.hero?.subtitleArabic : 'Custom furniture built specifically for your home. We serve clients across the Kingdom.'"></p>
 
-        
       </div>
       
       <!-- Scroll Cue Whisper -->
@@ -238,7 +262,8 @@
         <div class="order-2 md:order-1">
           <div class="text-[0.7rem] font-bold text-gold tracking-[0.2em] uppercase mb-4" x-text="lang === 'ar' ? 'اكتشف خياراتنا' : 'Explore Our Options'"></div>
           <h2 class="text-3xl md:text-5xl font-extrabold text-bronze leading-tight mb-6" x-text="lang === 'ar' ? 'عملية مبسطة لاختيار أثاثك' : 'A Simplified Process for Your Furniture'"></h2>
-          <p class="text-lg text-bronze/70 leading-relaxed mb-6 font-medium" x-text="lang === 'ar' ? 'استكشف خياراتنا المتعددة. اختر الألوان والخامات التي تناسب مساحتك. نحن نقوم بالتصنيع والتوصيل إلى منزلك بدون أي تكلفة إضافية.' : 'Explore our options. Choose your colors and materials. We build it and deliver it to your residence at no cost.'"></p>
+          <p class="text-lg text-bronze/70 leading-relaxed mb-4 font-medium" x-text="lang === 'ar' ? `في شركة سعيد للأثاث، نُعرف بين أفضل صناع أثاث الكنب وخبراء الكنب التفصيل في السعودية بإبداع كنب عربي فاخر ومقاعد غرف الاستقبال. كل طلب هو عبارة عن طقم كنب مخصص أو جلسة مجلس تفصيل، يُصنع بالكامل كأثاث حسب الطلب في السعودية، مُصمم ليناسب ذوقك ومبني خصيصاً لمنزلك. من الاستشارة الأولى وحتى اللمسة الأخيرة، نتبع نهجاً احترافياً في تصميم الكنب المخصص لإنتاج أثاث مجالس فاخر – طابع شخصي، جودة تدوم، وحرفية ترتقي بتجربة استقبال ضيوفك.` : `At Saeed Furniture Company — شركة سعيد للأثاث — we are known among the best sofa furniture makers and custom sofa makers in KSA for creating premium Arabic sofas and reception-room seating. Every commission is a custom-made sofa set or bespoke majlis seating, entirely made-to-order furniture in Saudi Arabia, designed to your taste and built for your home. From the first consultation to the final stitch, we follow a custom sofa design KSA approach that results in luxury majlis furniture – personal, lasting, and crafted to elevate your guest room experience.`"></p>
+          <p class="text-lg text-bronze/70 leading-relaxed mb-6 font-medium" x-text="lang === 'ar' ? `عملية التصنيع حسب الطلب لدينا تزيل أي حيرة. بعد اختيارك للموديل، نزورك في منزلك أو نرحب بك في معرضنا – وبصفتنا مصنع كنب متكامل، لا نطلب منك أبداً قياس الغرفة بنفسك؛ نحن نقيسها بالنيابة عنك. ثم يقوم حرفيونا ببناء الهيكل، وتطبيق الطلاء الواقي، وتركيب الإسفنج عالي الكثافة، وتفصيل التنجيد يدوياً، لنقدم لك أفضل تجربة لاقتناء كنب تفصيل وأثاث مجالس في السعودية. سواء كنت تطلب طقم كنب مجلس عربي، أو تجهيز كامل من الأثاث المصنوع يدوياً، أو أثاث خشبي تفصيل مع ستائر متناسقة، فإن النتيجة النهائية هي أثاث داخلي للمجالس يعكس المعنى الحقيقي للأثاث المخصص بأعلى معايير الجودة.` : `Our made-to-order process removes all uncertainty. After you select a model, we visit your home or welcome you to our showroom – as a full-service sofa manufacturer, we never ask you to premeasure the room; we measure it for you. Our artisans then build the frame, apply protective coatings, place high-density sponge, and tailor the upholstery by hand, delivering the best place to buy custom sofa experiences for custom majlis furniture in Saudi Arabia. Whether you order an Arabic majlis sofa set, a complete handcrafted furniture Saudi Arabia installation, or bespoke wood furniture Saudi Arabia with matching curtains, the final result is majlis interior furniture that reflects true tailor-made furniture with quality and welcomes family and guests beautifully.`"></p>
           <p class="text-[0.8rem] text-bronze/40 font-bold uppercase tracking-widest" x-text="lang === 'ar' ? '* تطبق الشروط والأحكام' : '* Terms & Conditions apply'"></p>
         </div>
 
@@ -285,6 +310,61 @@
             </button>
             <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 2 ? 'max-height: 200px' : ''">
               <p class="pb-5 text-bronze/70 leading-relaxed" x-text="lang === 'ar' ? 'لديك تحكم كامل في المواد والألوان. يمكنك تحديد اختياراتك إما أثناء زيارة منزلية مجانية مجدولة من قبل فريقنا، أو عن طريق زيارة أقرب معرض لنا.' : 'You have complete control over materials and colors. You can make your selections either during a scheduled free home visit by our team, or by visiting our nearest shop.'"></p>
+            </div>
+          </div>
+
+          <!-- Q1 -->
+          <div class="border border-ivory-darker rounded-2xl bg-ivory overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 3 ? null : 3">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `أرى أن كنبكم يُفصل حسب الطلب. ماذا يحدث بالضبط بعد تأكيد الطلب؟` : `I see your sofas are made-to-order. What exactly happens after I place an order?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 3}">▼</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 3 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed" x-text="lang === 'ar' ? `في شركة سعيد للأثاث، والتي تُعد من أبرز مصنعي الكنب التفصيل في السعودية، كل قطعة هي أثاث يُصنع حسب الطلب. بعد اختيارك للتصميم الأساسي، نلتقي بك لاعتماد الأقمشة والألوان. ثم يقوم مشغلنا ببناء الهيكل الخشبي الصلب، وتطبيق الطلاء الواقي، وتركيب الإسفنج عالي الكثافة، وإتمام التنجيد. ستحصل على طقم كنب تفصيل صُنع خصيصاً لمقاسات غرفتك، وليس منتجاً جاهزاً.` : `At Saeed Furniture, recognised among the custom sofa makers in KSA, every piece is made-to-order furniture Saudi Arabia. Once you select a base style, we meet you to finalize fabric and colours. Our workshop then builds the solid frame, applies protective coatings, sets the high-density sponge, and completes the upholstery. You get a custom-made sofa set built for your exact room, not a pre-stocked item.`"></p>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="border border-ivory-darker rounded-2xl bg-ivory overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 4 ? null : 4">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `لا أعرف مقاسات غرفتي الدقيقة بعد. هل تأتون لأخذ المقاسات بنفسكم؟` : `I don’t know my exact room measurements yet. Do you come measure it for me?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 4}">▼</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 4 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed" x-text="lang === 'ar' ? `نعم! على عكس متاجر التجزئة العادية، وبصفتنا مصنع كنب متخصص، نرسل فريقنا إليك في زيارة منزلية مجانية. يقومون بأخذ كافة المقاسات حتى لا تقلق بشأنها. هذا ما يجعلنا الوجهة الأمثل لشراء الكنب التفصيل؛ ارفع طلبك أولاً، ونتولى نحن أخذ المقاسات. نحن نغطي طلبات تفصيل الأثاث في الرياض والزيارات لكافة المدن الرئيسية.` : `Yes! Unlike standard retailers, as a dedicated sofa manufacturer, we send our team to you for a free home visit. They take every dimension so you don't have to worry. This makes us the best place to buy custom sofas; place your order first, and we handle the measurements. We cover tailor-made furniture, Riyadh appointments, and visits to all major KSA cities.`"></p>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="border border-ivory-darker rounded-2xl bg-ivory overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 5 ? null : 5">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `أشعر بالقلق من اختيار القماش عبر الإنترنت. هل يمكنني رؤية الخامات ولمسها أولاً؟` : `I’m worried about choosing fabric online. Can I see and touch the materials first?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 5}">▼</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 5 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed" x-text="lang === 'ar' ? `بكل تأكيد. يجب أن يكون اختيار المواد تجربة شخصية ملموسة. نحن نحضر عينات الأقمشة إلى منزلك أو خلال موعدك في المعرض لتتمكن من لمس جودة الأثاث المصنوع يدوياً في السعودية بنفسك. هذا هو جوهر عملية تصميم الكنب المخصص لدينا، لضمان أن القماش يبدو مثالياً في إضاءة غرفتك قبل البدء في القص.` : `Absolutely. Material selection must be an in-person experience. We bring the swatches to your home or showroom appointment so you can feel the handcrafted furniture in Saudi Arabia quality firsthand. This is the heart of our custom sofa design KSA process, ensuring the fabric looks perfect in your room's lighting before any cutting begins.`"></p>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="border border-ivory-darker rounded-2xl bg-ivory overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 6 ? null : 6">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `هل سيهبط الكنب أو يفقد شكله بمرور الوقت؟ ما نوع المواد التي تستخدمونها؟` : `Will the sofa sink or lose its shape over time? What kind of materials do you use?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 6}">▼</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 6 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed" x-text="lang === 'ar' ? `لا، لأننا نستخدم إسفنج ممتاز عالي الكثافة، وهو أمر حيوي في مناخ المملكة لمقاومة الهبوط تحت الاستخدام اليومي الكثيف. في كل طقم كنب مجلس عربي نصنعه، ندمج هذا الإسفنج مع أقمشة متينة وهياكل من الخشب الصلب. كل تفصيلة تعكس أعلى معايير الحرفية في الأثاث المصنوع حسب الطلب في السعودية.` : `No, because we use premium high-density sponge, which is vital in Saudi Arabia’s climate to resist sagging under heavy daily use. In every Arabic majlis sofa set we build, we pair that sponge with durable fabrics and solid wood frames. Every detail reflects the highest standard of made-to-order furniture Saudi Arabia craftsmanship.`"></p>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="border border-ivory-darker rounded-2xl bg-ivory overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 7 ? null : 7">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `من سيقوم بصنع الكنب الخاص بي؟ هل هو إنتاج مصانع أم عمل يدوي؟` : `Who is actually building my sofa? Is it mass-produced or made by hand?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 7}">▼</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 7 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed" x-text="lang === 'ar' ? `يُصنع الكنب الخاص بك يدوياً على يد حرفيين يمتلكون خبرة تزيد عن عقدين في تصميم مجالس تفصيل راقية. هذا يعني أن المفاصل متينة، ومساند الأذرع مصقولة بنعومة فائقة، والأقمشة تصطف بشكل جميل. عندما تشتري أثاث مجالس داخلية من فريقنا، فأنت تستثمر في أثاث تفصيل حقيقي صُنع بأيدي أمهر الحرفيين، وليس بديلاً تجارياً من إنتاج المصانع.` : `Your sofa is built by hand by craftsmen who have over two decades of experience in bespoke majlis seating. This means joints are rigid, armrests are perfectly smooth, and fabrics align beautifully. When you buy majlis interior furniture from us, you are investing in genuine tailor-made furniture built by master artisans, never a mass-produced factory alternative.`"></p>
             </div>
           </div>
 
@@ -512,12 +592,19 @@
               <!-- Name -->
               <div class="group rtl-input-line">
                 <label class="block text-[0.8rem] font-bold text-white/40 mb-3 uppercase tracking-widest group-focus-within:text-gold transition-colors" x-text="lang === 'ar' ? 'الاسم بالكامل' : 'Full Name'"></label>
-                <input class="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl outline-none transition-all duration-300 font-bold" x-model="form.name" @blur="autoSave()">
+                <input class="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl outline-none transition-all duration-300 font-bold"
+                       x-model="form.name"
+                       @blur="autoSave()">
               </div>
               <!-- Phone -->
               <div class="group rtl-input-line">
                 <label class="block text-[0.8rem] font-bold text-white/40 mb-3 uppercase tracking-widest group-focus-within:text-gold transition-colors" x-text="lang === 'ar' ? 'رقم الجوال' : 'Mobile Number'"></label>
-                <input class="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl outline-none transition-all duration-300 text-left ltr font-bold" dir="ltr" type="tel" x-model="form.phone" @blur="autoSave()">
+                <input class="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl outline-none transition-all duration-300 text-left ltr font-bold" dir="ltr"
+                       type="tel" maxlength="15"
+                       x-model="form.phone"
+                       @input="form.phone = $event.target.value.replace(/[^\d+]/g,'').replace(/(?!^)\+/g,''); $event.target.value = form.phone"
+                       @blur="autoSave()">
+                <p x-show="phoneError" x-transition class="text-red-400 text-xs mt-2 font-bold" x-text="phoneError"></p>
               </div>
               
               <!-- Visit Type Toggle (Velvet Glide) -->
@@ -617,19 +704,21 @@
         </div>
       </div>
     </div>
-    <div class="mt-16 pt-8 border-t border-ivory-darker text-[0.7rem] text-bronze/40 font-bold uppercase tracking-[0.15em] text-center">
-      &copy; 2026 Saeed Furniture. All Rights Reserved.
+    <div class="mt-16 pt-8 border-t border-ivory-darker text-[0.7rem] text-bronze/40 font-bold uppercase tracking-[0.15em] relative pb-4">
+      <a href="/auth" class="absolute bottom-0 left-4 text-[0.5rem] opacity-30 hover:opacity-100 transition-opacity">Atelier Login</a>
+      <div class="text-center">&copy; 2026 Saeed Furniture. All Rights Reserved.</div>
     </div>
   </footer>
 
   
-  <!-- ── Floating CTA (Selection Mode Trigger) ────────────── -->
-  <button class="fixed bottom-8 start-1/2 -translate-x-1/2 bg-gold/90 backdrop-blur-md text-[#080809] px-10 py-4 rounded-full font-extrabold text-lg shadow-[0_8px_30px_rgba(201,169,110,0.3)] z-[1000] hover:scale-105 active:scale-95 transition-all duration-300 border border-gold/40 flex items-center gap-3"
+  <!-- ── Ultimate Floating CTA (Glowing + Floating) ──────── -->
+  <button class="fixed bottom-10 start-1/2 -translate-x-1/2 bg-white text-black px-12 py-5 rounded-full font-black text-lg uppercase tracking-widest z-[1000] shadow-[0_0_50px_rgba(201,169,110,0.4)] hover:shadow-gold/60 transform hover:-translate-y-2 active:scale-95 transition-all duration-500 border border-gold/20 flex items-center gap-3"
           x-show="!isSelectionMode"
-          x-transition
-          @click="isSelectionMode = true; window.scrollTo({top: 0, behavior: 'smooth'})">
-    <span x-text="lang === 'ar' ? 'ابدأ رحلتك' : 'Start your journey'"></span>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" :class="lang === 'ar' ? 'rotate-180' : ''"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          x-transition:enter="transition ease-out duration-500"
+          x-transition:enter-start="opacity-0 translate-y-10"
+          x-transition:enter-end="opacity-100 -translate-y-0"
+          @click="isSelectionMode = true; step = 'selection'; window.scrollTo({top: 0, behavior: 'smooth'})">
+    <span x-text="lang === 'ar' ? (content.hero?.ctaArabic || 'ابدأ رحلتك') : (content.hero?.ctaEnglish || 'Start Your Journey →')"></span>
   </button>
 
   <!-- ── Floating WhatsApp Button ────────────────────────── -->
@@ -644,6 +733,113 @@
     </a>
   </div>
 
+  <!-- ── Auth Modal (Email/Password) ────────────────────── -->
+  <div x-data="{ tab: 'signin', email: '', password: '', showPass: false, loading: false, error: '' }"
+       x-show="$store.saeedAuth && $store.saeedAuth.showAuthModal" 
+       class="fixed inset-0 z-[2000] flex items-center justify-center bg-black/70 backdrop-blur-xl"
+       x-transition:enter="transition ease-out duration-300"
+       x-transition:enter-start="opacity-0 scale-95"
+       x-transition:enter-end="opacity-100 scale-100"
+       x-transition:leave="transition ease-in duration-200"
+       x-transition:leave-start="opacity-100 scale-100"
+       x-transition:leave-end="opacity-0 scale-95"
+       style="display: none;">
+    <div class="bg-[#0e0e10] border border-white/10 rounded-3xl p-8 max-w-[420px] w-full mx-4 shadow-[0_32px_80px_rgba(0,0,0,0.8)] relative" @click.stop>
+      <button @click="$store.saeedAuth.showAuthModal = false; error = ''" class="absolute top-5 right-5 text-white/30 hover:text-white text-xl transition-colors">&times;</button>
+      
+      <!-- Logo + Brand Name -->
+      <div class="text-center mb-8 pt-2">
+        <img src="/images/logo.png" alt="Saeed Furniture" class="h-10 mx-auto object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+        <p class="text-white text-lg font-bold mt-3" style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة سعيد</p>
+        <p class="text-white/30 text-[0.65rem] mt-1 uppercase tracking-widest" x-text="lang === 'ar' ? 'اتيليه المجالس' : 'Bespoke Majlis Atelier'"></p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex border border-white/10 rounded-2xl p-1 mb-8">
+        <button @click="tab = 'signin'; error = ''" 
+                :class="tab === 'signin' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'"
+                class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all"
+                x-text="lang === 'ar' ? 'تسجيل الدخول' : 'Sign In'"></button>
+        <button @click="tab = 'signup'; error = ''" 
+                :class="tab === 'signup' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'"
+                class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all"
+                x-text="lang === 'ar' ? 'إنشاء حساب' : 'Create Account'"></button>
+      </div>
+
+      <!-- Error -->
+      <div x-show="error" x-transition class="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-xl px-4 py-3 mb-6 text-center" x-text="error"></div>
+
+      <!-- Fields -->
+      <div class="space-y-6">
+        <div>
+          <label class="block text-[0.7rem] font-bold text-white/30 mb-3 uppercase tracking-widest" x-text="lang === 'ar' ? 'البريد الإلكتروني' : 'Email Address'"></label>
+          <input type="email" x-model="email" autocomplete="email"
+                 class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e]"
+                 :placeholder="lang === 'ar' ? 'example@email.com' : 'example@email.com'">
+        </div>
+        <div class="relative">
+          <label class="block text-[0.7rem] font-bold text-white/30 mb-3 uppercase tracking-widest" x-text="lang === 'ar' ? 'كلمة المرور' : 'Password'"></label>
+          <input :type="showPass ? 'text' : 'password'" x-model="password" autocomplete="current-password"
+                 class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e] pr-10"
+                 :placeholder="lang === 'ar' ? '••••••••' : '••••••••'">
+          <button type="button" @click="showPass = !showPass" class="absolute right-0 bottom-3 text-white/30 hover:text-white transition-colors">
+            <svg x-show="!showPass" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg x-show="showPass" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <button @click="async () => {
+        if (!email || !password) { error = lang === 'ar' ? 'يرجى ملء جميع الحقول' : 'Please fill in all fields'; return; }
+        loading = true; error = '';
+        try {
+          let result;
+          if (tab === 'signin') {
+            result = await $store.saeedAuth.signInWithPassword(email, password);
+            if (result.error) {
+              error = lang === 'ar' ? 'البريد أو كلمة المرور غير صحيحة' : 'Incorrect email or password. Please try again.';
+            } else {
+              $store.saeedAuth.showAuthModal = false;
+              email = ''; password = ''; error = '';
+              if ($store.saeedAuth.pendingAction) {
+                $store.saeedAuth.pendingAction();
+                $store.saeedAuth.pendingAction = null;
+              }
+            }
+          } else {
+            result = await $store.saeedAuth.signUp(email, password);
+            if (result.error) {
+              const msg = result.error.message || '';
+              if (msg.toLowerCase().includes('already registered') || msg.toLowerCase().includes('already exists') || msg.toLowerCase().includes('user already')) {
+                error = lang === 'ar' ? 'هذا البريد مسجّل مسبقاً. يرجى التبديل إلى تسجيل الدخول.' : 'This email is already registered. Please switch to Sign In.';
+              } else {
+                error = msg || (lang === 'ar' ? 'حدث خطأ أثناء إنشاء الحساب' : 'An error occurred during sign up.');
+              }
+            } else {
+              $store.saeedAuth.showAuthModal = false;
+              email = ''; password = ''; error = '';
+              if ($store.saeedAuth.pendingAction) {
+                $store.saeedAuth.pendingAction();
+                $store.saeedAuth.pendingAction = null;
+              }
+            }
+          }
+        } catch(e) {
+          error = lang === 'ar' ? 'حدث خطأ غير متوقع' : 'An unexpected error occurred';
+        } finally { loading = false; }
+      }" 
+      class="w-full mt-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3"
+      :class="loading ? 'bg-white/10 text-white/40 cursor-not-allowed' : 'bg-[#c9a96e] text-black hover:bg-[#d4b87a]'"
+      :disabled="loading">
+        <svg x-show="loading" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+        <span x-text="loading ? (lang === 'ar' ? 'جاري...' : 'Please wait...') : (tab === 'signin' ? (lang === 'ar' ? 'دخول' : 'Sign In') : (lang === 'ar' ? 'إنشاء الحساب' : 'Create Account'))"></span>
+      </button>
+
+      <p class="text-center text-white/20 text-[0.65rem] mt-6 uppercase tracking-widest" x-text="lang === 'ar' ? 'بياناتك آمنة ومحمية' : 'Your data is secure & protected'"></p>
+    </div>
+  </div>
+
   <!-- ── App Logic ─────────────────────────────────────────── -->
   <script>
   // Relative URL
@@ -655,11 +851,12 @@
       /* ── UI State ─────────────────────────────────────── */
       lang:              'ar',
       isSelectionMode:   false,
-      step:              'hero', // We keep step='hero' to prevent immediate autosave firing, UI maps 'hero' and 'style' to the first wizard step.
+      step:              'hero', // hero, selection, form, success
       progress:          5,
       loading:           true,
       submitting:        false,
       submitError:       '',
+      phoneError:        '',
       accessoriesClicked: false,
       scrolled:          false,
       highlightWhatsApp: false,
@@ -692,7 +889,8 @@
         user_agent:        '',
         referrer:          '',
         company_name:      '',
-        preferred_contact_time: 'Morning'
+        preferred_contact_time: 'Morning',
+        email:             ''
       },
 
       /* ── Catalog Hierarchy State ──────────────────────── */
@@ -702,7 +900,6 @@
       selectedSubtype:   null,
       selectedVariation: null,
       showOptional:      false,
-      step:              'hero', // hero, selection, form, success
 
       /* ── init ─────────────────────────────────────────── */
       async init() {
@@ -741,6 +938,25 @@
 
         this.loading = false;
 
+        // Watch auth state — smart pre-fill name/phone when user logs in
+        this.$watch('$store.saeedAuth.user', (user) => {
+          if (user) {
+            this.form.email = user.email;
+            const auth = Alpine.store('saeedAuth');
+            if (!this.form.name  && auth.fullName) this.form.name  = auth.fullName;
+            if (!this.form.phone && auth.phone)    this.form.phone = auth.phone;
+          }
+        });
+        // Also pre-fill immediately if already logged in at load time
+        Alpine.nextTick(() => {
+          const auth = Alpine.store('saeedAuth');
+          if (auth?.user) {
+            if (!this.form.name  && auth.fullName) this.form.name  = auth.fullName;
+            if (!this.form.phone && auth.phone)    this.form.phone = auth.phone;
+            this.form.email = auth.user.email || '';
+          }
+        });
+
         setInterval(() => {
           if (this.form.status === 'final') return;
           this.form.time_spent += 25;
@@ -750,9 +966,13 @@
         document.addEventListener('visibilitychange', () => {
           if (document.visibilityState === 'hidden') {
             if (!this.form.order_id || this.form.order_id === 'SF-LOCAL') return;
+            const auth = Alpine.store('saeedAuth');
+            const headers = { 'Content-Type': 'application/json' };
+            if (auth?.user?.email) headers['x-user-email'] = auth.user.email;
+            
             fetch(`${API}/api/lead`, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: headers,
               body: JSON.stringify(this.form),
               keepalive: true
             }).catch(() => {});
@@ -774,22 +994,31 @@
 
       /* ── autoSave ─────────────────────────────────────── */
       async autoSave() {
-        if (!this.form.order_id || this.form.order_id === 'SF-LOCAL') return;
+        if (!this.isSelectionMode || !this.form.order_id || this.form.order_id === 'SF-LOCAL' || this.submitting) return;
+
+        // Prevent multiple concurrent saves
         if (autoSaveController) autoSaveController.abort();
         autoSaveController = new AbortController();
+
         try {
+          const auth = Alpine.store('saeedAuth');
+          const headers = { 'Content-Type': 'application/json' };
+          if (auth?.user?.email) headers['x-user-email'] = auth.user.email;
+
           await fetch(`${API}/api/lead`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: headers,
             body: JSON.stringify(this.form),
             signal: autoSaveController.signal
           });
-        } catch (_) {}
+        } catch (e) {
+          if (e.name !== 'AbortError') console.warn('[AUTOSAVE] failed');
+        }
       },
 
       calculateScore() {
         let s = 0;
-        if (this.form.style_selected)    s += 10;
+        if (this.form.style_selected || this.form.selected_model_id) s += 10;
         if (this.form.capacity_selected) s += 20;
         if (this.form.phone.trim())      s += 80;
         if (this.form.status === 'final') s += 100;
@@ -806,7 +1035,7 @@
       },
 
       updateProgress() {
-        const map = { hero: 5, style: 25, capacity: 45, 'soft-phone': 65, form: 82, success: 100 };
+        const map = { hero: 5, selection: 45, form: 82, success: 100 };
         this.progress = map[this.step] ?? 5;
       },
 
@@ -861,18 +1090,39 @@
         this.form.score = this.calculateScore();
         this.goToStep('form');
       },
+
+      /* ── Order Button Handler (Auth Gate) ─────────────── */
+      handleOrderClick() {
+        const auth = Alpine.store('saeedAuth');
+        if (!auth.user) {
+          auth.showAuthModal = true;
+          auth.pendingAction = () => { window.location.href = '/dashboard/client'; };
+        } else {
+          window.location.href = '/dashboard/client';
+        }
+      },
       async submitForm() {
         if (this.submitting) return;
-        if (autoSaveController) autoSaveController.abort();
+        const auth = Alpine.store('saeedAuth');
         
+        // Require Authentication
+        if (!auth.user) {
+          auth.pendingAction = () => { this.submitForm(); };
+          auth.showAuthModal = true;
+          return;
+        }
+
         if (!this.form.name.trim()) {
           this.submitError = this.lang === 'ar' ? 'الرجاء إدخال اسمك الكريم' : 'Please enter your name';
           return;
         }
-        if (!this.form.phone.trim()) {
-          this.submitError = this.lang === 'ar' ? 'الرجاء إدخال رقم جوالك' : 'Please enter your phone number';
+        const digits = this.form.phone.replace(/\D/g, '');
+        if (!this.form.phone.trim() || digits.length < 9) {
+          this.phoneError = this.lang === 'ar' ? 'يرجى إدخال رقم جوال صحيح (9 أرقام على الأقل)' : 'Please enter a valid phone number (min 9 digits)';
+          this.submitError = this.phoneError;
           return;
         }
+        this.phoneError = '';
 
         const prevStatus = this.form.status;
         const prevStep = this.form.last_step;
@@ -884,22 +1134,32 @@
         this.form.score   = this.calculateScore();
 
         try {
-          const r = await fetch(`${API}/api/lead`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.form)
+          const { data, error } = await auth.supabase
+            .from('orders')
+            .insert({
+              client_id: auth.user.id,
+              configuration_details: this.form,
+              status: 'new'
+            });
+
+          if (error) throw error;
+
+          // Background: upsert name+phone into profiles for next visit
+          auth.supabase.from('profiles').update({
+            full_name: this.form.name,
+            phone:     this.form.phone
+          }).eq('id', auth.user.id).then(() => {
+            Alpine.store('saeedAuth').fullName = this.form.name;
+            Alpine.store('saeedAuth').phone    = this.form.phone;
           });
-          const d = await r.json();
-          if (d.success) {
-            if (d.order_id) this.form.order_id = d.order_id;
-            this.goToStep('success');
-          } else {
-            this.submitError = this.lang === 'ar' ? 'حدث خطأ. يرجى المحاولة مرة أخرى.' : 'Error occurred. Please try again.';
-            this.form.status = prevStatus;
-            this.form.last_step = prevStep;
-          }
+
+          // Sync with local backend for dashboard parity
+          await this.autoSave();
+          
+          window.location.href = '/dashboard/client';
         } catch (e) {
-          this.submitError = this.lang === 'ar' ? 'تعذّر الاتصال بالخادم. يرجى المحاولة لاحقاً.' : 'Network error. Please try again.';
+          console.error('Submission error:', e);
+          this.submitError = this.lang === 'ar' ? 'تعذّر حفظ الطلب. يرجى المحاولة لاحقاً.' : 'Failed to save order. Please try again.';
           this.form.status = prevStatus;
           this.form.last_step = prevStep;
         } finally {
@@ -907,7 +1167,7 @@
         }
       },
 
-      /* ── Selection Logic ──────────────────────────────── */
+      /* ── Selection Logic (OPEN — no auth gate) ───────── */
       selectType(type) {
         this.selectedType = type;
         this.selectionLevel = 'subtype';
@@ -925,7 +1185,12 @@
       selectVariation(variation) {
         this.selectedVariation = variation;
         this.form.selected_model_id = `${this.selectedType.public_display_name} - ${variation.public_display_name}`;
-        this.step = 'form';
+        
+        // Map to legacy fields for scoring/backend compatibility
+        this.form.style_selected = this.selectedType.public_display_name;
+        this.form.capacity_selected = this.selectedSubtype.public_display_name;
+        
+        this.goToStep('form');
         this.autoSave();
       },
       closeSelectionMode() {

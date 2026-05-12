@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: saeed-furniture
+    env: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: ALLOWED_ORIGINS
+        value: "*"
+      - fromGroup: saeed-furniture-secrets
+    autoDeploy: true
+
+envVarGroups:
+  - name: saeed-furniture-secrets
+    envVars:
+      - key: ADMIN_PASSWORD
+      - key: SESSION_SECRET
+      - key: SUPABASE_URL
+      - key: SUPABASE_ANON_KEY

@@ -46,6 +46,10 @@ const config = {
   // Session cookie config
   cookieName:      "sf_admin",
   cookieMaxAge:    8 * 60 * 60 * 1000,           // 8 hours in ms
+
+  // Supabase
+  supabaseUrl:     optional("SUPABASE_URL", ""),
+  supabaseAnonKey: optional("SUPABASE_ANON_KEY", ""),
 };
 
 module.exports = config;

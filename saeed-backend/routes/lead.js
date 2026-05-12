@@ -19,7 +19,20 @@ const express       = require("express");
 const router        = express.Router();
 const asyncHandler  = require("../utils/asyncHandler");
 const { sanitizeLead, isBot, isValidKSAPhone, calculateScore } = require("../utils/validator");
-const { upsertLead } = require("../services/database");
+const { upsertLead, getLeadsByEmail } = require("../services/database");
+
+// ─── GET /api/lead/mine ──────────────────────────────────────────────────────
+router.get(
+  "/mine",
+  asyncHandler(async (req, res) => {
+    const email = req.headers["x-user-email"];
+    if (!email) {
+      return res.status(200).json({ success: true, orders: [] });
+    }
+    const orders = await getLeadsByEmail(email);
+    return res.status(200).json({ success: true, orders });
+  })
+);
 
 // ─── POST /api/lead ───────────────────────────────────────────────────────────
 router.post(
@@ -68,7 +81,10 @@ router.post(
       );
     }
 
-    // 7. Upsert into SQLite
+    // 7. Attach email if logged in (from header)
+    lead.email = req.headers["x-user-email"] || null;
+
+    // 8. Upsert into SQLite
     const result = await upsertLead(lead);
 
     // 8. Respond

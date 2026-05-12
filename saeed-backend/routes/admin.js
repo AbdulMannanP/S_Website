@@ -34,49 +34,15 @@ const loginLimiter = rateLimit({
   message: { success: false, message: "Too many login attempts. Please wait before trying again." },
 });
 
-// ─── Cookie Helpers ───────────────────────────────────────────────────────────
+const { requireAuth } = require("../middleware/auth");
 
-function signToken(value) {
-  return crypto
-    .createHmac("sha256", config.sessionSecret)
-    .update(value)
-    .digest("hex");
-}
+// ─── Auth Guard Middleware (Traditional) ───────────────────────────────────────
+const adminAuth = requireAuth(false);
 
-function createSessionToken() {
-  const payload = `${Date.now()}-${crypto.randomUUID()}`;
-  const sig     = signToken(payload);
-  return `${payload}.${sig}`;
-}
-
-function isValidToken(token) {
-  if (!token || typeof token !== "string") return false;
-  const lastDot = token.lastIndexOf(".");
-  if (lastDot === -1) return false;
-  const payload  = token.slice(0, lastDot);
-  const sig      = token.slice(lastDot + 1);
-  const expected = signToken(payload);
-  // Constant-time comparison to prevent timing attacks
-  try {
-    return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
-  } catch {
-    return false;
-  }
-}
-
-function isAuthenticated(req) {
-  const token = req.cookies?.[config.cookieName];
-  return isValidToken(token);
-}
-
-// ─── Auth Guard Middleware ────────────────────────────────────────────────────
-
-function requireAuth(req, res, next) {
-  if (isAuthenticated(req)) return next();
-  res.redirect("/admin/login");
-}
 
 // ─── Login Page ───────────────────────────────────────────────────────────────
+
+const { isAuthenticated } = require("../middleware/auth");
 
 router.get("/login", (req, res) => {
   if (isAuthenticated(req)) return res.redirect("/admin");
@@ -105,6 +71,16 @@ router.post("/login", loginLimiter, express.urlencoded({ extended: false }), (re
   res.redirect("/admin");
 });
 
+// ─── Token Creation Helper ────────────────────────────────────────────────────
+function createSessionToken() {
+  const payload = `${Date.now()}-${crypto.randomUUID()}`;
+  const sig = crypto
+    .createHmac("sha256", config.sessionSecret)
+    .update(payload)
+    .digest("hex");
+  return `${payload}.${sig}`;
+}
+
 // ─── Logout ───────────────────────────────────────────────────────────────────
 
 router.get("/logout", (req, res) => {
@@ -114,14 +90,14 @@ router.get("/logout", (req, res) => {
 
 // ─── Dashboard ────────────────────────────────────────────────────────────────
 
-router.get("/", requireAuth, asyncHandler(async (req, res) => {
+router.get("/", adminAuth, asyncHandler(async (req, res) => {
   const [leads, stats] = await Promise.all([getAllLeads(), getStats()]);
   res.send(dashboardPage(leads, stats));
 }));
 
 // ─── CSV Export ───────────────────────────────────────────────────────────────
 
-router.get("/csv", requireAuth, asyncHandler(async (req, res) => {
+router.get("/csv", adminAuth, asyncHandler(async (req, res) => {
   const leads = await getAllLeads();
 
   const headers = [
