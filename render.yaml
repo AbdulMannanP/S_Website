@@ -19,6 +19,10 @@ envVarGroups:
   - name: saeed-furniture-secrets
     envVars:
       - key: ADMIN_PASSWORD
+        sync: false
       - key: SESSION_SECRET
+        generateValue: true
       - key: SUPABASE_URL
+        sync: false
       - key: SUPABASE_ANON_KEY
+        sync: false
