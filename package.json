@@ -5,11 +5,11 @@
   "scripts": {
     "install:backend": "cd saeed-backend && npm install",
     "build:css": "npx @tailwindcss/cli -i ./frontend/input.css -o ./frontend/dist/output.css --minify",
-    "build": "npm run install:backend && npm run build:css",
+    "build": "npm install && npm run install:backend && npm run build:css",
     "start": "cd saeed-backend && npm start"
   },
   "private": true,
-  "devDependencies": {
+  "dependencies": {
     "@tailwindcss/cli": "^4.3.0",
     "tailwindcss": "^4.3.0"
   }
