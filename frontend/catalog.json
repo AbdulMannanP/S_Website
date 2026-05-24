@@ -482,6 +482,59 @@
             "Extreme close-up macro photography of the Metallic Pin Leg fabric and texture, showcasing the fine details, stitching, and high-quality material finish in a luxurious soft-lit environment."
           ]
         }
+      },
+      {
+        "id": "item_007",
+        "selection_metadata": {
+          "type_id": "type_modern_floor_majlis",
+          "subtype_id": "subtype_elevated_peg_base",
+          "variation_id": "var_continuous_sweep",
+          "public_display_name": "Continuous Sweep",
+          "is_active": true
+        },
+        "commerce_data": {
+          "price_range": null,
+          "item_code": null
+        },
+        "product_information": {
+          "design_intent": "To provide a massive, monolithic floor-seating volume that appears to hover slightly above the ground, maintaining traditional comfort with a modern architectural lift.",
+          "visual_signature": "A continuous, heavy seating run with smooth, tight upholstery, supported by very short, recessed minimalist metal peg legs that create a thin line of shadow beneath the unit.",
+          "dimensions": {
+            "typical_proportions": "Seat height: 35cm; Total height: 70cm; Seat depth: 90cm",
+            "scale_description": "Massive, horizontally dominant, slightly elevated"
+          },
+          "stylistic_influences": [
+            "Modernist Saudi Majlis",
+            "Minimalist Industrial Design"
+          ],
+          "functional_features": [
+            "Easy floor cleaning access",
+            "Hovering aesthetic"
+          ]
+        },
+        "image_generation_data": {
+          "structure": {
+            "seat_count": "Modular (continuous)",
+            "arm_style": "Thick, square upholstered ends",
+            "back_style": "Smooth, flat, tightly upholstered",
+            "leg_style": "Short (2-inch) minimalist black metal peg legs",
+            "frame_shape": "Linear with sharp 90-degree corners"
+          },
+          "distinguishing_features": [
+            "Slight elevation (peg legs)",
+            "Shadow gap beneath the sofa",
+            "Uniform monochromatic upholstery"
+          ],
+          "negative_features": [
+            "NOT flush to the floor",
+            "NOT featuring visible wood frames",
+            "NOT tufted"
+          ],
+          "gallery": [
+            "A modern luxury floor majlis sofa elevated slightly on minimalist 2-inch black metal peg legs, upholstered in a heavy textured charcoal grey fabric, monolithic rectangular modules, sharp geometric lines, photographed in a high-end desert villa interior with floor-to-ceiling windows, warm golden hour sunlight, 45-degree architectural shot, 8k resolution.",
+            "Extreme close-up macro photography of the Continuous Sweep fabric and texture, showcasing the fine details, stitching, and high-quality material finish in a luxurious soft-lit environment."
+          ]
+        }
       }
     ]
   }

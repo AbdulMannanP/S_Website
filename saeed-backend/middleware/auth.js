@@ -24,6 +24,13 @@ function isValidToken(token) {
   const sig      = token.slice(lastDot + 1);
   const expected = signToken(payload);
   
+  // Extract timestamp from payload and verify expiration
+  const [timestampStr] = payload.split("-");
+  const timestamp = parseInt(timestampStr, 10);
+  if (isNaN(timestamp) || Date.now() - timestamp > config.cookieMaxAge) {
+    return false; // Token expired
+  }
+  
   // Constant-time comparison to prevent timing attacks
   try {
     return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));

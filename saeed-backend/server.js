@@ -39,7 +39,16 @@ app.set("trust proxy", 1); // Trust first proxy (e.g. load balancer or CDN) for 
 
 // ─── Security Headers ─────────────────────────────────────────────────────────
 app.use(helmet({
-  contentSecurityPolicy: false, // Admin HTML is inline — CSP disabled for now
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://unpkg.com"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'"]
+    }
+  },
 }));
 
 // ─── Body Parsers ─────────────────────────────────────────────────────────────
@@ -173,7 +182,7 @@ async function start() {
 ╠══════════════════════════════════════════════╣
 ║  Port        : ${String(config.port).padEnd(28)}║
 ║  Environment : ${config.nodeEnv.padEnd(28)}║
-║  Database    : leads.db (SQLite + WAL)       ║
+║  Database    : Supabase (PostgreSQL)         ║
 ║  Admin       : http://localhost:${String(config.port).padEnd(14)}║
 ║               /admin                         ║
 ╚══════════════════════════════════════════════╝
