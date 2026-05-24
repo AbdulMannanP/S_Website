@@ -396,17 +396,17 @@
     <section id="order" class="min-h-screen bg-[#080809] text-white relative" x-show="isSelectionMode" x-cloak>
 
         <!-- LOOKBOOK UI (Hard Reset — Strict Flex Layout) -->
-        <div x-show="step === 'selection' || step === 'hero'" x-transition:enter="transition ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="fixed inset-0 w-screen h-screen z-[100] overflow-hidden" x-init="$watch('isSelectionMode', val => { if(val) setTimeout(() => initSwiper(), 100) })" x-data="{ sidebarOpen: true }">
+        <div x-show="step === 'selection' || step === 'hero'" x-transition:enter="transition ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="fixed inset-0 w-screen h-screen z-[100] overflow-hidden bg-[#080809]" x-init="$watch('isSelectionMode', val => { if(val) setTimeout(() => initSwiper(), 100) })" x-data="{ sidebarOpen: true }">
           
           <!-- ═══ LAYER 0: Full-Bleed Hero Background Image ═══ -->
           <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-br from-[#111114] to-[#0a0a0d] animate-pulse" x-show="!heroImageLoaded"></div>
             <div :style="`background-image: url('${selectedVariationUrl || (IMAGE_BASE_URL + 'images/hero.png')}')`"
                  class="w-full h-full bg-cover bg-[center_60%] transition-all duration-[1.2s] ease-[cubic-bezier(0.2,0.8,0.2,1)]"
-                 :class="heroImageLoaded ? 'opacity-60' : 'opacity-0'"></div>
+                 :class="heroImageLoaded ? 'opacity-100' : 'opacity-0'"></div>
             <!-- Dark Gradient Overlays for text readability -->
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0d] via-[#0a0a0d]/60 to-[#0a0a0d]/30"></div>
-            <div class="absolute inset-0 bg-gradient-to-r from-[#0a0a0d]/50 via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-black/20"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0d]/90 via-[#0a0a0d]/40 to-transparent"></div>
           </div>
 
           <!-- ═══ LAYER 1: UI Layout — Strict flex-col ═══ -->
@@ -491,8 +491,8 @@
                   <div class="swiper lookbook-swiper w-full h-[160px] md:h-[200px] touch-pan-x">
                     <div class="swiper-wrapper flex items-end">
                       <template x-for="(item, index) in lookbookItems" :key="item.id">
-                        <div class="swiper-slide cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded-2xl overflow-hidden border group shadow-2xl relative" 
-                             :class="lookbookStageVisible ? (swiper?.activeIndex === index ? 'w-[240px] h-[160px] md:w-[300px] md:h-[200px] border-gold/40 scale-100 opacity-100' : 'w-[200px] h-[130px] md:w-[240px] md:h-[160px] border-white/5 scale-[0.9] opacity-40') : 'w-[260px] h-[160px] md:w-[300px] md:h-[200px] border-white/10'"
+                        <div class="swiper-slide cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded-lg overflow-hidden border group shadow-2xl relative w-24 h-24 md:w-32 md:h-32 aspect-square" 
+                             :class="lookbookStageVisible ? (swiper?.activeIndex === index ? 'border-gold/60 scale-110 opacity-100' : 'border-white/10 scale-100 opacity-60') : 'border-transparent'"
                              @click="if(lookbookStageVisible && swiper?.activeIndex !== index) swiper.slideTo(index); else lookbookStageVisible = true"
                              x-data="{ imgLoaded: false }">
                           <!-- Skeleton -->
@@ -952,21 +952,13 @@
       initSwiper() {
         if(this.swiper || typeof Swiper === 'undefined') return;
         this.swiper = new Swiper('.lookbook-swiper', {
-          effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,
           slidesPerView: 'auto',
-          spaceBetween: 30,
+          spaceBetween: 16,
           touchStartPreventDefault: false,
           touchReleaseOnEdges: true,
           passiveListeners: true,
-          coverflowEffect: {
-            rotate: 10,
-            stretch: 0,
-            depth: 150,
-            modifier: 1.5,
-            slideShadows: true,
-          },
           on: {
             sliderMove: () => { 
               if(!this.lookbookStageVisible) this.lookbookStageVisible = true; 
