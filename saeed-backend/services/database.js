@@ -4,7 +4,7 @@ const { createClient } = require("@supabase/supabase-js");
 const config = require("../config/env");
 
 // ─── Initialize Supabase Client ───────────────────────────────────────────────
-const supabase = createClient(config.supabaseUrl, config.supabaseKey);
+const supabase = createClient(config.supabaseUrl, config.supabaseServiceKey || config.supabaseAnonKey);
 
 async function initSchema() {
   // Schema is managed manually in Supabase SQL Editor.

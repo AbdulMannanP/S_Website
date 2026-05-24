@@ -49,7 +49,8 @@ const config = {
 
   // Supabase Config
   supabaseUrl:     required("SUPABASE_URL"),
-  supabaseKey:     optional("SUPABASE_SERVICE_ROLE_KEY") || required("SUPABASE_ANON_KEY"),
+  supabaseAnonKey: required("SUPABASE_ANON_KEY"),
+  supabaseServiceKey: optional("SUPABASE_SERVICE_ROLE_KEY"),
 };
 
 module.exports = config;

@@ -4,8 +4,13 @@
   "description": "Root package for Saeed Furniture project deployment",
   "scripts": {
     "install:backend": "cd saeed-backend && npm install",
-    "build": "npm run install:backend",
+    "build:css": "npx @tailwindcss/cli -i ./frontend/input.css -o ./frontend/dist/output.css --minify",
+    "build": "npm run install:backend && npm run build:css",
     "start": "cd saeed-backend && npm start"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
+  }
 }
