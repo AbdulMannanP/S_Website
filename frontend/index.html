@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
   <title>سعيد للأثاث | Saeed Furniture — مجالس فاخرة</title>
   <meta name="description" content="مجالس فاخرة مصنوعة في المملكة العربية السعودية. تصاميم عصرية وتراثية. زيارة منزلية مجانية.">
   <meta property="og:title"       content="سعيد للأثاث | Luxury Majlis KSA">
@@ -1016,6 +1017,15 @@
       async init() {
         this.form.user_agent = navigator.userAgent;
         this.form.referrer   = document.referrer;
+
+        // Safety timeout: force splash screen dismissal after 2.5s
+        // even if a non-critical asset (favicon, CDN image) fails to load
+        const splashTimeout = setTimeout(() => {
+          if (this.loading) {
+            console.warn('[SPLASH] Safety timeout — forcing transition');
+            this.loading = false;
+          }
+        }, 2500);
         
         // Load language preference from local storage if exists
         const savedLang = localStorage.getItem('saeed_lang');
@@ -1047,6 +1057,7 @@
           this.form.session_id = crypto.randomUUID?.() || 'local-session';
         }
 
+        clearTimeout(splashTimeout);
         this.loading = false;
 
         // Watch auth state — smart pre-fill name/phone when user logs in

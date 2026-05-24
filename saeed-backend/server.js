@@ -90,6 +90,9 @@ app.use(
 const frontendPath = path.join(__dirname, "..", "frontend");
 app.use(express.static(frontendPath));
 
+// ─── Favicon (prevent 404 on browser auto-request) ─────────────────────────
+app.get("/favicon.ico", (req, res) => res.status(204).end());
+
 // ─── Global Rate Limiter ──────────────────────────────────────────────────────
 app.use(globalLimiter);
 
