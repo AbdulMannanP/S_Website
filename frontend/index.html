@@ -159,7 +159,7 @@
   <!-- ── Header ──────────────────────────────────────────── -->
   <header class="fixed top-0 inset-x-0 z-50 h-16 flex items-center justify-between px-5 sm:px-10 transition-all duration-500 bg-white shadow-sm">
     <div class="h-8 flex items-center gap-3">
-      <img src="https://ik.imagekit.io/de7qvcvqv/logo.png" loading="eager" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain">
+      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="eager" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain">
     </div>
     
     <nav class="hidden md:flex gap-8 text-[0.85rem] font-bold text-[#0a0a0d]/70 uppercase tracking-widest min-h-[44px] items-center">
@@ -211,7 +211,7 @@
     <section id="hero" class="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-5 overflow-hidden animate-sweep">
       <!-- High-res Background Image with Overlay -->
       <div class="absolute inset-0 z-[-1] bg-[#080809]" x-data="{ loaded: true }">
-        <img src="https://ik.imagekit.io/de7qvcvqv/hero.png?v=2" srcset="https://ik.imagekit.io/de7qvcvqv/hero.png?tr=w-600,f-webp,q-auto&v=2 600w, https://ik.imagekit.io/de7qvcvqv/hero.png?v=2 2000w" sizes="100vw" loading="eager" class="w-full h-full object-cover object-bottom md:object-center brightness-[0.6] transition-transform duration-[3s] ease-out" :class="loaded ? 'scale-100' : 'scale-110'" alt="Luxury Majlis" x-init="setTimeout(() => loaded = true, 50)">
+        <img src="https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2" srcset="https://ik.imagekit.io/de7qvcvqv/images/hero.png?tr=w-600,f-webp,q-auto&v=2 600w, https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2 2000w" sizes="100vw" loading="eager" class="w-full h-full object-cover object-bottom md:object-center brightness-[0.6] transition-transform duration-[3s] ease-out" :class="loaded ? 'scale-100' : 'scale-110'" alt="Luxury Majlis" x-init="setTimeout(() => loaded = true, 50)">
         <div class="absolute inset-0 bg-gradient-to-t from-[#080809] to-transparent"></div>
       </div>
 
@@ -536,7 +536,7 @@
           
           <!-- Checkout Header -->
           <div class="absolute top-0 inset-x-0 z-50 flex justify-between items-center px-6 md:px-12 py-5 bg-black/40 backdrop-blur-md border-b border-white/5">
-            <img src="https://ik.imagekit.io/de7qvcvqv/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain" style="filter: brightness(0) invert(1);">
+            <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain" style="filter: brightness(0) invert(1);">
             <button class="flex items-center gap-2 text-white/70 hover:text-gold transition-all duration-300 group" aria-label="Return to Home" @click="activeView = 'home'; step = 'hero'; isSelectionMode = false; window.scrollTo({top:0, behavior:'smooth'});">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform duration-300 group-hover:-translate-x-1" :class="lang === 'ar' ? 'rotate-180' : ''"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
               <span class="text-[0.65rem] font-bold uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'العودة للرئيسية' : 'Return to Home'"></span>
@@ -680,7 +680,7 @@
   <footer id="footer" class="bg-ivory py-20 px-5 transition-opacity duration-500 border-t border-ivory-darker" x-show="!loading" x-cloak>
     <div class="max-w-[1000px] mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left" :class="lang === 'ar' ? 'md:text-right' : 'md:text-left'">
       <div>
-        <img src="https://ik.imagekit.io/de7qvcvqv/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain mx-auto md:mx-0 mb-6">
+        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain mx-auto md:mx-0 mb-6">
         <p class="text-bronze/60 text-sm leading-relaxed mb-6" x-text="lang === 'ar' ? 'أثاث فاخر ومجالس مفصلة تعكس الفخامة الهادئة.' : 'Luxury made-to-order majlis reflecting quiet luxury.'"></p>
       </div>
       <div>
