@@ -23,6 +23,7 @@ const helmet   = require("helmet");
 const cors     = require("cors");
 const crypto   = require("crypto");
 const cookieParser = require("cookie-parser");
+const compression = require("compression");
 
 const { globalLimiter, leadLimiter } = require("./middleware/rateLimiter");
 const notFound     = require("./middleware/notFound");
@@ -34,6 +35,7 @@ const adminRoute   = require("./routes/admin");
 const adminApi     = require("./routes/adminApi");
 
 const app = express();
+app.use(compression());
 
 app.set("trust proxy", 1); // Trust first proxy (e.g. load balancer or CDN) for correct rate limiting
 
@@ -42,11 +44,11 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://unpkg.com"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://unpkg.com", "https://cdn.jsdelivr.net"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'"]
+      connectSrc: ["'self'", "https://*.supabase.co", "wss://*.supabase.co"]
     }
   },
 }));
