@@ -12,9 +12,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="https://ik.imagekit.io/de7qvcvqv/images/hero.png">
   
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/auth.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="js/auth.js"></script>
   <link rel="stylesheet" href="/dist/output.css">
   <style>
     /* Carousel snap behavior */
@@ -156,30 +157,29 @@
   </div>
 
   <!-- ── Header ──────────────────────────────────────────── -->
-  <header class="fixed top-0 inset-x-0 z-50 h-16 flex items-center justify-between px-5 sm:px-10 transition-all duration-500" :class="scrolled ? 'bg-[#080809]/95 backdrop-blur-md shadow-sm' : 'bg-transparent'">
-    <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0d] via-[#0a0a0d]/70 to-transparent z-[-1] pointer-events-none opacity-90" x-show="!scrolled"></div>
+  <header class="fixed top-0 inset-x-0 z-50 h-16 flex items-center justify-between px-5 sm:px-10 transition-all duration-500 bg-white shadow-sm">
     <div class="h-8 flex items-center gap-3">
-      <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture" class="h-full object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
-      <span class="text-[0.85rem] font-bold text-white/80"
+      <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture" class="h-full object-contain" style="filter: brightness(0) saturate(1.5) hue-rotate(5deg);">
+      <span class="text-[0.85rem] font-bold text-[#0a0a0d]"
             style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة سعيد</span>
     </div>
     
-    <nav class="hidden md:flex gap-8 text-[0.85rem] font-bold text-white/70 uppercase tracking-widest min-h-[44px] items-center">
+    <nav class="hidden md:flex gap-8 text-[0.85rem] font-bold text-[#0a0a0d]/70 uppercase tracking-widest min-h-[44px] items-center">
       <a href="#about" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
       <a href="#faq" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></a>
       <a href="#" @click.prevent="scrollToFooter()" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'تواصل معنا' : 'Contact'"></a>
       <button @click="handleOrderClick()" 
-              class="hover:text-gold transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-widest text-[0.85rem] text-white/70" 
+              class="hover:text-gold transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-widest text-[0.85rem] text-[#0a0a0d]/70" 
               x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
       </button>
     </nav>
     
     <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
-      <button @click="toggleLang()" class="text-[0.75rem] font-extrabold text-white/70 hover:text-gold transition-colors uppercase tracking-widest px-2 py-1 border border-white/20 rounded bg-white/5 flex-shrink-0">
+      <button @click="toggleLang()" class="text-[0.75rem] font-extrabold text-[#0a0a0d]/70 hover:text-gold transition-colors uppercase tracking-widest px-2 py-1 border border-[#0a0a0d]/20 rounded bg-transparent flex-shrink-0">
         <span x-text="lang === 'ar' ? 'EN' : 'AR'"></span>
       </button>
       <!-- Mobile Hamburger -->
-      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-gold transition-colors">
+      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-10 h-10 flex items-center justify-center text-[#0a0a0d]/70 hover:text-gold transition-colors">
         <svg x-show="!mobileMenuOpen" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         <svg x-show="mobileMenuOpen" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
@@ -213,7 +213,7 @@
     <section id="hero" class="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-5 overflow-hidden animate-sweep">
       <!-- High-res Background Image with Overlay -->
       <div class="absolute inset-0 z-[-1] bg-[#080809]" x-data="{ loaded: true }">
-        <img :src="IMAGE_BASE_URL + 'images/hero.png'" loading="eager" class="w-full h-full object-cover object-bottom md:object-center brightness-[0.6] transition-transform duration-[3s] ease-out" :class="loaded ? 'scale-100' : 'scale-110'" alt="Luxury Majlis" x-init="setTimeout(() => loaded = true, 50)">
+        <img :src="IMAGE_BASE_URL + 'images/hero.png'" :srcset="`${IMAGE_BASE_URL}images/hero.png?tr=w-600,f-webp,q-auto 600w, ${IMAGE_BASE_URL}images/hero.png 2000w`" sizes="100vw" loading="eager" class="w-full h-full object-cover object-bottom md:object-center brightness-[0.6] transition-transform duration-[3s] ease-out" :class="loaded ? 'scale-100' : 'scale-110'" alt="Luxury Majlis" x-init="setTimeout(() => loaded = true, 50)">
         <div class="absolute inset-0 bg-gradient-to-t from-[#080809] to-transparent"></div>
       </div>
 
@@ -288,7 +288,7 @@
           </div>
 
           <!-- Column 2: Center Image Carousel -->
-          <div class="w-full h-[600px] rounded-t-full rounded-b-full overflow-hidden shadow-[0_30px_80px_-15px_rgba(201,169,110,0.4)] bg-[#080809] border-4 border-ivory relative group animate-fade-in-up" style="animation-delay: 300ms;" x-data="{ timer: null, next() { this.$refs.carousel.scrollBy({ left: this.$refs.carousel.clientWidth, behavior: 'smooth' }); if(this.$refs.carousel.scrollLeft >= this.$refs.carousel.scrollWidth - this.$refs.carousel.clientWidth - 10) { this.$refs.carousel.scrollTo({ left: 0, behavior: 'smooth' }); } } }" x-init="timer = setInterval(() => next(), 4000)">
+          <div class="w-full h-[600px] rounded-t-full rounded-b-full overflow-hidden shadow-[0_30px_80px_-15px_rgba(201,169,110,0.4)] bg-[#080809] border-4 border-ivory relative group animate-fade-in-up" style="animation-delay: 300ms;" x-data="{ timer: null, next() { const clientW = this.$refs.carousel.clientWidth; const scrollW = this.$refs.carousel.scrollWidth; const scrollL = this.$refs.carousel.scrollLeft; requestAnimationFrame(() => { this.$refs.carousel.scrollBy({ left: clientW, behavior: 'smooth' }); if(scrollL >= scrollW - clientW - 10) { this.$refs.carousel.scrollTo({ left: 0, behavior: 'smooth' }); } }); } }" x-init="timer = setInterval(() => next(), 4000)">
             <div x-ref="carousel" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar">
               <div class="relative w-full h-full snap-center flex-none" x-data="{ loaded: false }">
                 <img :src="IMAGE_BASE_URL + 'images/modern.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-700" :class="loaded ? 'blur-0' : 'blur-md'" alt="Modern">
