@@ -42,23 +42,23 @@
   </div>
 
   <!-- Nav -->
-  <nav class="border-b border-stone-200 px-6 py-4 flex justify-between items-center bg-white sticky top-0 z-40 shadow-sm">
+  <nav class="border-b border-stone-900 px-6 py-4 flex justify-between items-center bg-[#0a0a0a] sticky top-0 z-40 shadow-sm">
     <div class="flex items-center gap-6">
       <a href="/">
-        <img src="/images/logo.png" alt="Saeed Furniture" class="h-7 object-contain" style="filter: sepia(0.4) saturate(1.8) hue-rotate(5deg) brightness(0.7);">
+        <img src="/images/logo.png" alt="Saeed Furniture" class="h-7 object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
       </a>
-      <span class="text-[0.65rem] font-bold uppercase tracking-widest text-stone-400 border-l border-stone-200 pl-4">Admin</span>
+      <span class="text-[0.65rem] font-bold uppercase tracking-widest text-white/40 border-l border-white/10 pl-4">Admin Control</span>
     </div>
 
     <div class="flex-1 max-w-md mx-8 relative hidden md:block">
       <input type="text" x-model="searchQuery" placeholder="Search by name, phone, or order ID..."
-             class="w-full bg-stone-100 border border-stone-200 rounded-full py-2 px-4 pl-10 text-sm text-stone-800 outline-none focus:border-[#c9a96e] transition-colors">
-      <svg class="absolute left-3 top-2.5 text-stone-400" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+             class="w-full bg-white/5 border border-white/10 rounded-full py-2 px-4 pl-10 text-sm text-white outline-none focus:border-[#c9a96e] transition-colors">
+      <svg class="absolute left-3 top-2.5 text-white/30" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     </div>
 
     <div class="flex items-center gap-4">
-      <span class="text-[0.65rem] text-stone-400 uppercase font-bold tracking-widest" x-text="$store.saeedAuth.user?.email"></span>
-      <button @click="$store.saeedAuth.signOut()" class="text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-stone-800 transition-colors">Logout</button>
+      <span class="text-[0.65rem] text-white/40 uppercase font-bold tracking-widest" x-text="$store.saeedAuth.user?.email"></span>
+      <button @click="$store.saeedAuth.signOut()" class="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors">Logout</button>
     </div>
   </nav>
 
