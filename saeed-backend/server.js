@@ -44,11 +44,11 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://unpkg.com", "https://cdn.jsdelivr.net"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdn.tailwindcss.com", "https://unpkg.com", "https://cdn.jsdelivr.net"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
       imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "https://*.supabase.co", "wss://*.supabase.co"]
+      connectSrc: ["'self'", "https://*.supabase.co", "wss://*.supabase.co", "https://cdn.jsdelivr.net", "https://unpkg.com"]
     }
   },
 }));
@@ -88,7 +88,10 @@ app.use(
 // ─── Serve Frontend Static Files ────────────────────────────────────────────
 // Serves index.html and all assets from ../frontend at http://localhost:3001
 const frontendPath = path.join(__dirname, "..", "frontend");
-app.use(express.static(frontendPath));
+app.use(express.static(frontendPath, { maxAge: '30d' }));
+
+// ─── Favicon (prevent 404 on browser auto-request) ─────────────────────────
+app.get("/favicon.ico", (req, res) => res.status(204).end());
 
 // ─── Global Rate Limiter ──────────────────────────────────────────────────────
 app.use(globalLimiter);

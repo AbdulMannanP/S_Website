@@ -2,15 +2,25 @@
   "name": "saeed-furniture-root",
   "version": "1.0.0",
   "description": "Root package for Saeed Furniture project deployment",
+  "workspaces": [
+    "saeed-backend"
+  ],
   "scripts": {
-    "install:backend": "cd saeed-backend && npm install",
     "build:css": "npx @tailwindcss/cli -i ./frontend/input.css -o ./frontend/dist/output.css --minify",
-    "build": "npm run install:backend && npm run build:css",
+    "build": "npm run build:css",
     "start": "cd saeed-backend && npm start"
   },
   "private": true,
-  "devDependencies": {
+  "dependencies": {
+    "@supabase/supabase-js": "^2.106.1",
     "@tailwindcss/cli": "^4.3.0",
+    "compression": "^1.8.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "express-rate-limit": "^7.2.0",
+    "helmet": "^7.1.0",
     "tailwindcss": "^4.3.0"
   }
 }

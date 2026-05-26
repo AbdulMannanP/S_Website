@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
   <title>سعيد للأثاث | Saeed Furniture — مجالس فاخرة</title>
   <meta name="description" content="مجالس فاخرة مصنوعة في المملكة العربية السعودية. تصاميم عصرية وتراثية. زيارة منزلية مجانية.">
   <meta property="og:title"       content="سعيد للأثاث | Luxury Majlis KSA">
@@ -11,9 +12,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="https://ik.imagekit.io/de7qvcvqv/images/hero.png">
   
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/auth.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="js/auth.js"></script>
   <link rel="stylesheet" href="/dist/output.css">
   <style>
     /* Carousel snap behavior */
@@ -118,7 +120,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </head>
-<body class="bg-ivory text-bronze font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-gold/30 selection:text-bronze" x-data="saeedApp()" x-init="init()" @scroll.window="scrolled = (window.pageYOffset > 50)">
+<body :class="isNightMode ? 'bg-[#080809] text-white/90' : 'bg-ivory text-bronze'" class="font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-gold/30 transition-colors duration-1000" x-data="saeedApp()" x-init="init()" @scroll.window="scrolled = (window.pageYOffset > 50)">
 
   <!-- ── Progress Indicator ──────────────────────────────── -->
   <div class="fixed top-0 inset-x-0 h-[3px] bg-ivory-darker z-[200]" x-show="step !== 'success' && step !== 'hero'">
@@ -155,29 +157,27 @@
   </div>
 
   <!-- ── Header ──────────────────────────────────────────── -->
-  <header class="fixed top-0 inset-x-0 z-50 h-16 flex items-center justify-between px-5 sm:px-10 transition-all duration-500 bg-[#080809] shadow-sm">
+  <header class="fixed top-0 inset-x-0 z-50 h-16 flex items-center justify-between px-5 sm:px-10 transition-all duration-500 bg-white shadow-sm">
     <div class="h-8 flex items-center gap-3">
-      <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture" class="h-full object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
-      <span class="text-[0.85rem] font-bold text-white/80"
-            style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة سعيد</span>
+      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="eager" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain">
     </div>
     
-    <nav class="hidden md:flex gap-8 text-[0.85rem] font-bold text-white/70 uppercase tracking-widest min-h-[44px] items-center">
-      <a href="#about" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
-      <a href="#faq" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></a>
+    <nav class="hidden md:flex gap-8 text-[0.85rem] font-bold text-[#0a0a0d]/70 uppercase tracking-widest min-h-[44px] items-center">
+      <a href="#about" x-show="!isSelectionMode" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
+      <a href="#faq" x-show="!isSelectionMode" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></a>
       <a href="#" @click.prevent="scrollToFooter()" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'تواصل معنا' : 'Contact'"></a>
       <button @click="handleOrderClick()" 
-              class="hover:text-gold transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-widest text-[0.85rem] text-white/70" 
+              class="hover:text-gold transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-widest text-[0.85rem] text-[#0a0a0d]/70" 
               x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
       </button>
     </nav>
     
     <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
-      <button @click="toggleLang()" class="text-[0.75rem] font-extrabold text-white/70 hover:text-gold transition-colors uppercase tracking-widest px-2 py-1 border border-white/20 rounded bg-white/5 flex-shrink-0">
+      <button @click="toggleLang()" class="text-[0.75rem] font-extrabold text-[#0a0a0d]/70 hover:text-gold transition-colors uppercase tracking-widest px-2 py-1 border border-[#0a0a0d]/20 rounded bg-transparent flex-shrink-0">
         <span x-text="lang === 'ar' ? 'EN' : 'AR'"></span>
       </button>
       <!-- Mobile Hamburger -->
-      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-gold transition-colors">
+      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-10 h-10 flex items-center justify-center text-[#0a0a0d]/70 hover:text-gold transition-colors">
         <svg x-show="!mobileMenuOpen" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         <svg x-show="mobileMenuOpen" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
@@ -198,7 +198,7 @@
     <a href="#" @click.prevent="scrollToFooter(); mobileMenuOpen = false" class="text-2xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'تواصل معنا' : 'Contact'"></a>
     <button @click="handleOrderClick(); mobileMenuOpen = false" class="text-2xl font-light text-gold hover:text-gold/80 transition-colors uppercase tracking-[0.3em]" x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')"></button>
     <div class="w-12 h-[1px] bg-gold/30 my-4"></div>
-    <button @click="isSelectionMode = true; step = 'selection'; mobileMenuOpen = false; window.scrollTo({top: 0})" class="px-10 py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.2em] text-sm hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-all duration-300">
+    <button @click="isSelectionMode = true; step = 'selection'; mobileMenuOpen = false; window.scrollTo({top: 0})" class="px-6 py-3 md:px-10 md:py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.2em] text-xs md:text-sm hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-all duration-300">
       <span x-text="lang === 'ar' ? 'ابدأ رحلتك' : 'Start Your Journey'"></span>
     </button>
   </div>
@@ -206,24 +206,23 @@
   <!-- ── Main Journey ────────────────────────────────────── -->
   <main class="transition-all duration-500 pt-16" x-show="!loading" x-cloak>
 
-    <div x-show="!isSelectionMode" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+    <div x-show="!isSelectionMode" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 pointer-events-auto" x-transition:leave-end="opacity-0 pointer-events-none">
     <!-- ══ HERO SECTION ════════════════════════════════════ -->
     <section id="hero" class="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-5 overflow-hidden animate-sweep">
       <!-- High-res Background Image with Overlay -->
       <div class="absolute inset-0 z-[-1] bg-[#080809]" x-data="{ loaded: true }">
-        <img :src="IMAGE_BASE_URL + 'images/hero.png'" loading="eager" class="w-full h-full object-cover brightness-[0.6] transition-transform duration-[3s] ease-out" :class="loaded ? 'scale-100' : 'scale-110'" alt="Luxury Majlis" x-init="setTimeout(() => loaded = true, 50)">
+        <img src="https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2" srcset="https://ik.imagekit.io/de7qvcvqv/images/hero.png?tr=w-600,f-webp,q-auto&v=2 600w, https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2 2000w" sizes="100vw" loading="eager" class="w-full h-full object-cover object-bottom md:object-center brightness-[0.6] transition-transform duration-[3s] ease-out" :class="loaded ? 'scale-100' : 'scale-110'" alt="Luxury Majlis" x-init="setTimeout(() => loaded = true, 50)">
         <div class="absolute inset-0 bg-gradient-to-t from-[#080809] to-transparent"></div>
       </div>
 
       <!-- Hero Content -->
-      <div class="max-w-[700px] mb-8 mt-16">
-        <h1 class="text-3xl sm:text-5xl md:text-7xl font-extrabold leading-[1.1] text-white mb-6 drop-shadow-2xl" x-text="lang === 'ar' ? content.hero?.titleArabic : 'Luxury Majlis with Authentic Saudi Touch'"></h1>
-        <p class="text-xl md:text-2xl text-white/80 leading-relaxed mb-12 max-w-[500px] mx-auto font-medium" x-text="lang === 'ar' ? content.hero?.subtitleArabic : 'Custom furniture built specifically for your home. We serve clients across the Kingdom.'"></p>
-
+      <div class="max-w-[700px] mb-8 mt-16 z-10 relative">
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-[1.1] text-white mb-6" style="text-shadow: 0 4px 30px rgba(0,0,0,0.8);" x-text="lang === 'ar' ? content.hero?.titleArabic : 'Luxury Majlis with Authentic Saudi Touch'"></h1>
+        <p class="text-sm md:text-base text-white leading-relaxed mb-12 max-w-[500px] mx-auto font-medium" style="text-shadow: 0 2px 15px rgba(0,0,0,0.9), 0 0 5px rgba(0,0,0,0.5);" x-text="lang === 'ar' ? content.hero?.subtitleArabic : 'Custom furniture built specifically for your home. We serve clients across the Kingdom.'"></p>
       </div>
       
       <!-- Scroll Cue Whisper -->
-      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center transition-opacity duration-500" :class="scrolled ? 'opacity-0' : 'opacity-100'">
+      <div class="absolute bottom-32 md:bottom-36 left-1/2 -translate-x-1/2 flex flex-col items-center transition-opacity duration-500" :class="scrolled ? 'opacity-0' : 'opacity-100'">
         <div class="w-[1px] h-12 bg-gradient-to-b from-transparent via-gold to-gold animate-pulse"></div>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="2" class="mt-2 animate-bounce"><path d="M19 12l-7 7-7-7"/></svg>
       </div>
@@ -273,21 +272,28 @@
     </section>
 
         <!-- ══ ABOUT SECTION (Editorial Magazine Layout) ═══════════════════════════════════ -->
-    <section id="about" class="py-32 px-5 bg-ivory-darker border-b border-ivory arabesque-bg relative overflow-hidden">
+    <section id="about" class="py-16 px-5 bg-ivory-darker border-b border-ivory arabesque-bg relative overflow-hidden">
       <div class="max-w-[1400px] mx-auto opacity-0 translate-y-8 transition-all duration-1000 ease-out" x-intersect="$el.classList.remove('opacity-0', 'translate-y-8')">
         
         <div class="grid lg:grid-cols-[1fr_350px_1fr] xl:grid-cols-[1fr_450px_1fr] gap-12 lg:gap-16 items-start">
           
           <!-- Column 1: Lead-in & P1 -->
           <div class="space-y-8 lg:mt-16 animate-fade-in-up" style="animation-delay: 200ms;">
-             <div class="text-[0.65rem] font-bold text-gold tracking-[0.2em] uppercase mb-4" x-text="lang === 'ar' ? 'اكتشف خياراتنا' : 'Explore Our Options'"></div>
-             <p class="text-3xl md:text-4xl font-light text-bronze leading-snug tracking-wide" x-text="lang === 'ar' ? 'في شركة سعيد للأثاث، نُعرف بين أفضل صناع أثاث الكنب وخبراء الكنب التفصيل في السعودية.' : 'At Saeed Furniture Company — شركة سعيد للأثاث — we are known among the best sofa furniture makers and custom sofa makers in KSA for creating premium Arabic sofas and reception-room seating.'"></p>
-             <div class="w-12 h-[1px] bg-gold my-8"></div>
-             <p class="text-lg text-bronze/60 leading-loose font-light" x-text="lang === 'ar' ? 'كل طلب هو عبارة عن طقم كنب مخصص أو جلسة مجلس تفصيل، يُصنع بالكامل كأثاث حسب الطلب في السعودية، مُصمم ليناسب ذوقك ومبني خصيصاً لمنزلك. من الاستشارة الأولى وحتى اللمسة الأخيرة، نتبع نهجاً احترافياً في تصميم الكنب المخصص لإنتاج أثاث مجالس فاخر – طابع شخصي، جودة تدوم، وحرفية ترتقي بتجربة استقبال ضيوفك.' : 'Every commission is a custom-made sofa set or bespoke majlis seating, entirely made-to-order furniture in Saudi Arabia, designed to your taste and built for your home. From the first consultation to the final stitch, we follow a custom sofa design KSA approach that results in luxury majlis furniture – personal, lasting, and crafted to elevate your guest room experience.'"></p>
+             <!-- Sofa Line Art Vector -->
+             <svg class="w-16 h-8 text-gold/60 mx-auto lg:mx-0" viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 35h80M15 35v-5a5 5 0 015-5h60a5 5 0 015 5v5M25 25v-5a5 5 0 015-5h40a5 5 0 015 5v5"/></svg>
+             <h2 class="text-3xl md:text-5xl font-extrabold text-gold uppercase mb-4 font-cairo" x-text="lang === 'ar' ? 'اكتشف خياراتنا' : 'Explore Our Options'"></h2>
+             <div x-data="{ expanded: false }">
+               <div :class="expanded ? '' : 'line-clamp-3 md:line-clamp-4'">
+                 <p class="text-lg md:text-xl font-medium text-stone-800 leading-snug tracking-wide" x-text="lang === 'ar' ? 'في شركة سعيد للأثاث، نُعرف بين أفضل صناع أثاث الكنب وخبراء الكنب التفصيل في السعودية.' : 'At Saeed Furniture Company — شركة سعيد للأثاث — we are known among the best sofa furniture makers and custom sofa makers in KSA for creating premium Arabic sofas and reception-room seating.'"></p>
+                 <div class="w-12 h-[1px] bg-gold my-8" x-show="expanded"></div>
+                 <p class="text-lg text-stone-800 leading-loose font-medium" x-show="expanded" x-text="lang === 'ar' ? 'كل طلب هو عبارة عن طقم كنب مخصص أو جلسة مجلس تفصيل، يُصنع بالكامل كأثاث حسب الطلب في السعودية، مُصمم ليناسب ذوقك ومبني خصيصاً لمنزلك. من الاستشارة الأولى وحتى اللمسة الأخيرة، نتبع نهجاً احترافياً في تصميم الكنب المخصص لإنتاج أثاث مجالس فاخر – طابع شخصي، جودة تدوم، وحرفية ترتقي بتجربة استقبال ضيوفك.' : 'Every commission is a custom-made sofa set or bespoke majlis seating, entirely made-to-order furniture in Saudi Arabia, designed to your taste and built for your home. From the first consultation to the final stitch, we follow a custom sofa design KSA approach that results in luxury majlis furniture – personal, lasting, and crafted to elevate your guest room experience.'"></p>
+               </div>
+               <button @click="expanded = !expanded" x-text="expanded ? 'Read Less' : 'Read More'" class="mt-4 text-sm text-yellow-600 hover:text-yellow-500 uppercase tracking-widest font-bold focus:outline-none"></button>
+             </div>
           </div>
 
           <!-- Column 2: Center Image Carousel -->
-          <div class="w-full h-[600px] rounded-t-full rounded-b-full overflow-hidden shadow-[0_30px_80px_-15px_rgba(201,169,110,0.4)] bg-[#080809] border-4 border-ivory relative group animate-fade-in-up" style="animation-delay: 300ms;" x-data="{ timer: null, next() { this.$refs.carousel.scrollBy({ left: this.$refs.carousel.clientWidth, behavior: 'smooth' }); if(this.$refs.carousel.scrollLeft >= this.$refs.carousel.scrollWidth - this.$refs.carousel.clientWidth - 10) { this.$refs.carousel.scrollTo({ left: 0, behavior: 'smooth' }); } } }" x-init="timer = setInterval(() => next(), 4000)">
+          <div class="w-full h-[600px] rounded-t-full rounded-b-full overflow-hidden shadow-[0_30px_80px_-15px_rgba(201,169,110,0.4)] bg-[#080809] border-4 border-ivory relative group animate-fade-in-up" style="animation-delay: 300ms;" x-data="{ timer: null, next() { const clientW = this.$refs.carousel.clientWidth; const scrollW = this.$refs.carousel.scrollWidth; const scrollL = this.$refs.carousel.scrollLeft; requestAnimationFrame(() => { this.$refs.carousel.scrollBy({ left: clientW, behavior: 'smooth' }); if(scrollL >= scrollW - clientW - 10) { this.$refs.carousel.scrollTo({ left: 0, behavior: 'smooth' }); } }); } }" x-init="timer = setInterval(() => next(), 4000)">
             <div x-ref="carousel" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar">
               <div class="relative w-full h-full snap-center flex-none" x-data="{ loaded: false }">
                 <img :src="IMAGE_BASE_URL + 'images/modern.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-700" :class="loaded ? 'blur-0' : 'blur-md'" alt="Modern">
@@ -303,9 +309,9 @@
 
           <!-- Column 3: P2 & P3 -->
           <div class="space-y-8 lg:mt-32 animate-fade-in-up" style="animation-delay: 400ms;">
-             <p class="text-lg text-bronze/60 leading-loose font-light" x-text="lang === 'ar' ? 'عملية التصنيع حسب الطلب لدينا تزيل أي حيرة. بعد اختيارك للموديل، نزورك في منزلك أو نرحب بك في معرضنا – وبصفتنا مصنع كنب متكامل، لا نطلب منك أبداً قياس الغرفة بنفسك؛ نحن نقيسها بالنيابة عنك.' : 'Our made-to-order process removes all uncertainty. After you select a model, we visit your home or welcome you to our showroom – as a full-service sofa manufacturer, we never ask you to premeasure the room; we measure it for you.'"></p>
-             <p class="text-lg text-bronze/60 leading-loose font-light" x-text="lang === 'ar' ? 'ثم يقوم حرفيونا ببناء الهيكل، وتطبيق الطلاء الواقي، وتركيب الإسفنج عالي الكثافة، وتفصيل التنجيد يدوياً، لنقدم لك أفضل تجربة لاقتناء كنب تفصيل وأثاث مجالس في السعودية. سواء كنت تطلب طقم كنب مجلس عربي، أو تجهيز كامل من الأثاث المصنوع يدوياً، أو أثاث خشبي تفصيل مع ستائر متناسقة، فإن النتيجة النهائية هي أثاث داخلي للمجالس يعكس المعنى الحقيقي للأثاث المخصص بأعلى معايير الجودة.' : 'Our artisans then build the frame, apply protective coatings, place high-density sponge, and tailor the upholstery by hand, delivering the best place to buy custom sofa experiences for custom majlis furniture in Saudi Arabia. Whether you order an Arabic majlis sofa set, a complete handcrafted furniture Saudi Arabia installation, or bespoke wood furniture Saudi Arabia with matching curtains, the final result is majlis interior furniture that reflects true tailor-made furniture with quality and welcomes family and guests beautifully.'"></p>
-             <p class="text-[0.8rem] text-bronze/40 font-bold uppercase tracking-widest mt-12" x-text="lang === 'ar' ? '* تطبق الشروط والأحكام' : '* Terms & Conditions apply'"></p>
+             <p class="text-lg text-stone-800 leading-loose font-medium" x-text="lang === 'ar' ? 'عملية التصنيع حسب الطلب لدينا تزيل أي حيرة. بعد اختيارك للموديل، نزورك في منزلك أو نرحب بك في معرضنا – وبصفتنا مصنع كنب متكامل، لا نطلب منك أبداً قياس الغرفة بنفسك؛ نحن نقيسها بالنيابة عنك.' : 'Our made-to-order process removes all uncertainty. After you select a model, we visit your home or welcome you to our showroom – as a full-service sofa manufacturer, we never ask you to premeasure the room; we measure it for you.'"></p>
+             <p class="text-lg text-stone-800 leading-loose font-medium" x-text="lang === 'ar' ? 'ثم يقوم حرفيونا ببناء الهيكل، وتطبيق الطلاء الواقي، وتركيب الإسفنج عالي الكثافة، وتفصيل التنجيد يدوياً، لنقدم لك أفضل تجربة لاقتناء كنب تفصيل وأثاث مجالس في السعودية. سواء كنت تطلب طقم كنب مجلس عربي، أو تجهيز كامل من الأثاث المصنوع يدوياً، أو أثاث خشبي تفصيل مع ستائر متناسقة، فإن النتيجة النهائية هي أثاث داخلي للمجالس يعكس المعنى الحقيقي للأثاث المخصص بأعلى معايير الجودة.' : 'Our artisans then build the frame, apply protective coatings, place high-density sponge, and tailor the upholstery by hand, delivering the best place to buy custom sofa experiences for custom majlis furniture in Saudi Arabia. Whether you order an Arabic majlis sofa set, a complete handcrafted furniture Saudi Arabia installation, or bespoke wood furniture Saudi Arabia with matching curtains, the final result is majlis interior furniture that reflects true tailor-made furniture with quality and welcomes family and guests beautifully.'"></p>
+             <p class="text-[0.8rem] text-stone-500 font-bold uppercase tracking-widest mt-12" x-text="lang === 'ar' ? '* تطبق الشروط والأحكام' : '* Terms & Conditions apply'"></p>
           </div>
 
         </div>
@@ -314,8 +320,9 @@
 <!-- ══ FAQ SECTION ═════════════════════════════════════ -->
     <section id="faq" class="py-24 px-5 bg-ivory border-b border-ivory-darker arabesque-bg relative">
       <div class="max-w-[700px] mx-auto opacity-0 translate-y-8 transition-all duration-1000 ease-out" x-intersect="$el.classList.remove('opacity-0', 'translate-y-8')">
-        <div class="text-[0.7rem] font-bold text-gold tracking-[0.3em] uppercase mb-4 text-center" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></div>
-        <h2 class="text-3xl md:text-5xl font-extrabold text-bronze leading-tight mb-12 text-center" x-text="lang === 'ar' ? 'كيف نعمل؟' : 'How it works'"></h2>
+        <svg class="w-16 h-8 text-gold/60 mx-auto mb-4" viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 35h80M15 35v-5a5 5 0 015-5h60a5 5 0 015 5v5M25 25v-5a5 5 0 015-5h40a5 5 0 015 5v5"/></svg>
+        <h2 class="text-3xl md:text-5xl font-extrabold text-gold uppercase mb-4 text-center font-cairo" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></h2>
+        <div class="text-xl font-medium text-stone-800 leading-tight mb-12 text-center" x-text="lang === 'ar' ? 'كيف نعمل؟' : 'How it works'"></div>
         
         <div class="space-y-4" x-data="{ active: null }">
 
@@ -394,34 +401,34 @@
     <section id="order" class="min-h-screen bg-[#080809] text-white relative" x-show="isSelectionMode" x-cloak>
 
         <!-- LOOKBOOK UI (Hard Reset — Strict Flex Layout) -->
-        <div x-show="step === 'selection' || step === 'hero'" x-transition:enter="transition ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="fixed inset-0 w-screen h-screen z-[100] overflow-hidden" x-init="$watch('isSelectionMode', val => { if(val) setTimeout(() => initSwiper(), 100) })" x-data="{ sidebarOpen: true }">
+        <div x-show="step === 'selection' || step === 'hero'" x-transition:enter="transition ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="fixed inset-0 w-screen h-screen z-[100] overflow-hidden bg-[#080809]" x-init="$watch('isSelectionMode', val => { if(val) setTimeout(() => initSwiper(), 100) })" x-data="{ sidebarOpen: true }">
           
           <!-- ═══ LAYER 0: Full-Bleed Hero Background Image ═══ -->
           <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-br from-[#111114] to-[#0a0a0d] animate-pulse" x-show="!heroImageLoaded"></div>
             <div :style="`background-image: url('${selectedVariationUrl || (IMAGE_BASE_URL + 'images/hero.png')}')`"
                  class="w-full h-full bg-cover bg-[center_60%] transition-all duration-[1.2s] ease-[cubic-bezier(0.2,0.8,0.2,1)]"
-                 :class="heroImageLoaded ? 'opacity-60' : 'opacity-0'"></div>
+                 :class="heroImageLoaded ? 'opacity-100' : 'opacity-0'"></div>
             <!-- Dark Gradient Overlays for text readability -->
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0d] via-[#0a0a0d]/60 to-[#0a0a0d]/30"></div>
-            <div class="absolute inset-0 bg-gradient-to-r from-[#0a0a0d]/50 via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+            <div class="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-[#0a0a0d] to-transparent pointer-events-none"></div>
           </div>
 
           <!-- ═══ LAYER 1: UI Layout — Strict flex-col ═══ -->
           <div class="relative z-10 flex flex-col h-full">
 
             <!-- ── ROW 1: Top Navigation Bar ── -->
-            <div class="flex-shrink-0 flex justify-between items-center px-4 md:px-12 py-5 bg-black/30 backdrop-blur-md border-b border-white/5">
+            <div class="flex-shrink-0 flex justify-between items-center px-4 md:px-12 py-5 bg-white shadow-sm border-b border-gray-100">
               <div class="flex items-center gap-6">
-                <div class="text-lg font-extrabold text-white tracking-widest uppercase" x-text="lang === 'ar' ? (content.brand?.nameArabic || 'سعيد للأثاث') : (content.brand?.name || 'Saeed Furniture')"></div>
+                <div class="text-lg font-extrabold text-[#0a0a0d] tracking-widest uppercase" x-text="lang === 'ar' ? (content.brand?.nameArabic || 'سعيد للأثاث') : (content.brand?.name || 'Saeed Furniture')"></div>
                 <!-- Sidebar Toggle (Hamburger) -->
-                <button @click="sidebarOpen = !sidebarOpen" class="flex items-center gap-2 text-white/40 hover:text-gold transition-all duration-300 min-h-[44px] px-3 -mx-3" style="touch-action: manipulation;">
+                <button @click="sidebarOpen = !sidebarOpen" class="flex items-center gap-2 text-stone-500 hover:text-gold transition-all duration-300 min-h-[44px] px-3 -mx-3" style="touch-action: manipulation;">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
                   <span class="text-[0.6rem] font-bold uppercase tracking-[0.3em]" x-text="sidebarOpen ? (lang === 'ar' ? 'إغلاق' : 'Close') : (lang === 'ar' ? 'المجموعات' : 'Collections')"></span>
                 </button>
               </div>
               <!-- Minimalist Back Arrow -->
-              <button class="flex items-center gap-3 text-white/40 hover:text-gold transition-all duration-300 group min-h-[44px] px-3 -mx-3" @click="goBack()" style="touch-action: manipulation;">
+              <button class="flex items-center gap-3 text-stone-500 hover:text-gold transition-all duration-300 group min-h-[44px] px-3 -mx-3" @click="showExitPopup = true" aria-label="Go Back" style="touch-action: manipulation;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform duration-300 group-hover:-translate-x-1" :class="lang === 'ar' ? 'rotate-180' : ''"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                 <span class="text-[0.6rem] font-normal uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'العودة' : 'Back'"></span>
               </button>
@@ -465,7 +472,7 @@
                 </div>
 
                 <!-- Model Title + CTA Block (ONLY when stage IS visible) -->
-                <div x-show="lookbookStageVisible" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" class="px-4 md:px-12 mb-6">
+                <div x-show="lookbookStageVisible" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" class="px-4 md:px-12 mb-12 relative z-20">
                   <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6">
                     <!-- Model Name (contained width) -->
                     <div class="max-w-[600px]">
@@ -474,23 +481,31 @@
                     </div>
                     <!-- Unified CTA Group -->
                     <div class="flex items-center gap-3 bg-black/30 backdrop-blur-xl rounded-full p-1.5 border border-white/10 flex-shrink-0">
-                      <button @click="shareReference()" class="w-11 h-11 rounded-full bg-white/5 text-white/50 flex items-center justify-center hover:bg-white/10 hover:text-gold transition-all duration-300 min-h-[44px]" :title="lang === 'ar' ? 'مشاركة التصميم' : 'Share Design'">
+                      <button @click="shareReference()" class="w-11 h-11 rounded-full bg-white/5 text-white/50 flex items-center justify-center hover:bg-white/10 hover:text-gold transition-all duration-300 min-h-[44px]" aria-label="Share Design" :title="lang === 'ar' ? 'مشاركة التصميم' : 'Share Design'">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
                       </button>
-                      <button @click="selectVariation(selectedVariation)" class="px-7 py-3 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.15em] text-xs hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] hover:-translate-y-0.5 transition-all duration-300 min-h-[44px]">
+                      <button @click="selectVariation(selectedVariation)" class="px-8 py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.15em] text-xs hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-transform duration-300 hover:scale-105 active:scale-95 min-h-[44px]">
                         <span x-text="lang === 'ar' ? 'تحديد وتخصيص' : 'Select & Customize'"></span>
                       </button>
                     </div>
                   </div>
+                  <!-- Model Variations Sub-Gallery -->
+                  <div class="mt-6 flex gap-4 overflow-x-auto hide-scrollbar pb-2" x-show="selectedVariationItem?.gallery?.length > 1">
+                     <template x-for="(vImg, i) in selectedVariationItem?.gallery" :key="i">
+                        <button @click="selectedVariationUrl = vImg; heroImageLoaded = false; let img = new Image(); img.onload = () => heroImageLoaded = true; img.src = vImg;" class="w-16 h-16 md:w-20 md:h-20 rounded-md overflow-hidden border-2 transition-all duration-300 flex-shrink-0 bg-black/50" :class="selectedVariationUrl === vImg ? 'border-gold scale-110 shadow-[0_0_20px_rgba(201,169,110,0.4)]' : 'border-transparent opacity-60 hover:opacity-100 hover:scale-105'">
+                           <img :src="vImg" class="w-full h-full object-cover">
+                        </button>
+                     </template>
+                  </div>
                 </div>
 
                 <!-- ── Carousel (Strict bottom zone — never overlaps title) ── -->
-                <div class="flex-shrink-0 px-2 md:px-12">
-                  <div class="swiper lookbook-swiper w-full h-[160px] md:h-[200px] touch-pan-x">
-                    <div class="swiper-wrapper flex items-end">
+                <div class="flex-shrink-0 px-2 md:px-12 relative z-20">
+                  <div class="swiper lookbook-swiper w-full touch-pan-x pb-8">
+                    <div class="swiper-wrapper flex items-center">
                       <template x-for="(item, index) in lookbookItems" :key="item.id">
-                        <div class="swiper-slide cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded-2xl overflow-hidden border group shadow-2xl relative" 
-                             :class="lookbookStageVisible ? (swiper?.activeIndex === index ? 'w-[240px] h-[160px] md:w-[300px] md:h-[200px] border-gold/40 scale-100 opacity-100' : 'w-[200px] h-[130px] md:w-[240px] md:h-[160px] border-white/5 scale-[0.9] opacity-40') : 'w-[260px] h-[160px] md:w-[300px] md:h-[200px] border-white/10'"
+                        <div class="swiper-slide cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded-lg overflow-hidden border group shadow-2xl relative !w-24 !h-24 md:!w-28 md:!h-28 aspect-square" 
+                             :class="lookbookStageVisible ? (swiper?.activeIndex === index ? 'border-gold/60 scale-110 opacity-100 z-10' : 'border-white/10 scale-100 opacity-60 z-0') : 'border-transparent'"
                              @click="if(lookbookStageVisible && swiper?.activeIndex !== index) swiper.slideTo(index); else lookbookStageVisible = true"
                              x-data="{ imgLoaded: false }">
                           <!-- Skeleton -->
@@ -515,6 +530,46 @@
               </div><!-- END CENTER -->
             </div><!-- END ROW 2 -->
           </div><!-- END LAYER 1 -->
+
+          <!-- ══ EXIT-INTENT FULL-SCREEN INTERCEPTOR ══ -->
+          <div x-show="showExitPopup" 
+               x-transition:enter="transition ease-out duration-500" 
+               x-transition:enter-start="opacity-0 scale-95" 
+               x-transition:enter-end="opacity-100 scale-100"
+               x-transition:leave="transition ease-in duration-300" 
+               x-transition:leave-start="opacity-100 scale-100" 
+               x-transition:leave-end="opacity-0 scale-95"
+               class="fixed inset-0 z-[150] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 text-center">
+            
+            <!-- Close / Escape Hatch -->
+            <button @click="showExitPopup = false; isSelectionMode = false; window.scrollTo({top: 0, behavior: 'smooth'});" class="absolute top-8 right-8 text-white/50 hover:text-white transition-colors" aria-label="Close and return to Home">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-12 tracking-wide" x-text="lang === 'ar' ? 'لم تجد ما تبحث عنه؟' : 'Could not find what you were looking for?'"></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-[800px]">
+              
+              <!-- Option 1: WhatsApp -->
+              <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450') + '?text=' + encodeURIComponent(lang === 'ar' ? 'مرحباً، لدي بعض الصور المرجعية وأود الاستفسار عن تفصيلها' : 'Hello, I have some reference images and would like to inquire about custom building them')" target="_blank"
+                 class="aspect-square flex flex-col items-center justify-center gap-6 bg-stone-900 border border-stone-700 rounded-3xl p-8 hover:scale-105 hover:border-[#25d366] hover:shadow-[0_0_40px_rgba(37,211,102,0.2)] transition-all duration-300 group">
+                <div class="w-20 h-20 rounded-full bg-[#25d366]/20 flex items-center justify-center text-[#25d366] group-hover:bg-[#25d366] group-hover:text-white transition-colors duration-300">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-white text-center" x-text="lang === 'ar' ? 'أرسل لنا صوراً مرجعية' : 'Share Reference Images'"></h3>
+              </a>
+
+              <!-- Option 2: Portfolio -->
+              <button @click="showExitPopup = false; step = 'hero'; isSelectionMode = false; window.scrollTo({top: 0, behavior: 'smooth'});"
+                 class="aspect-square flex flex-col items-center justify-center gap-6 bg-stone-900 border border-stone-700 rounded-3xl p-8 hover:scale-105 hover:border-gold hover:shadow-[0_0_40px_rgba(201,169,110,0.2)] transition-all duration-300 group">
+                <div class="w-20 h-20 rounded-full bg-gold/10 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-stone-900 transition-colors duration-300">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21v-5a4 4 0 00-8 0v5"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-white text-center" x-text="lang === 'ar' ? 'تصفح سابقة أعمالنا' : 'Browse Past Portfolio'"></h3>
+              </button>
+
+            </div>
+          </div>
         </div>
 
         
@@ -527,19 +582,23 @@
              id="lead-form-container"
              class="fixed inset-0 w-screen h-screen z-[100] overflow-y-auto bg-gradient-to-b from-[#0a0a0d] to-[#111114]">
           
+          <!-- Checkout Header -->
+          <div class="absolute top-0 inset-x-0 z-50 flex justify-between items-center px-6 md:px-12 py-5 bg-black/40 backdrop-blur-md border-b border-white/5">
+            <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain" style="filter: brightness(0) invert(1);">
+            <button class="flex items-center gap-2 text-white/70 hover:text-gold transition-all duration-300 group" aria-label="Return to Home" @click="activeView = 'home'; step = 'hero'; isSelectionMode = false; window.scrollTo({top:0, behavior:'smooth'});">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform duration-300 group-hover:-translate-x-1" :class="lang === 'ar' ? 'rotate-180' : ''"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'العودة للرئيسية' : 'Return to Home'"></span>
+            </button>
+          </div>
+
           <!-- Compact Header Image -->
-          <div class="relative h-[30vh] w-full overflow-hidden">
+          <div class="relative h-[30vh] w-full overflow-hidden pt-16">
             <img :src="selectedVariationUrl || (IMAGE_BASE_URL + 'images/hero.png')" loading="lazy" class="w-full h-full object-cover object-[center_60%] opacity-40">
             <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0d] via-[#0a0a0d]/70 to-transparent"></div>
             <div class="absolute bottom-8 left-8 md:left-16 z-10">
               <div class="text-gold/80 text-[0.6rem] font-bold uppercase tracking-[0.5em] mb-2" x-text="selectedType?.public_display_name"></div>
               <h2 class="text-3xl md:text-4xl font-light text-white tracking-wide" style="text-shadow: 0 2px 30px rgba(0,0,0,0.5);" x-text="selectedVariation?.public_display_name"></h2>
             </div>
-            <!-- Back button -->
-            <button class="absolute top-6 right-6 md:right-10 flex items-center gap-2 text-white/40 hover:text-gold transition-all duration-300 group z-20" @click="step = 'selection'; lookbookStageVisible = true;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform duration-300 group-hover:-translate-x-1" :class="lang === 'ar' ? 'rotate-180' : ''"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-              <span class="text-[0.6rem] font-normal uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'العودة' : 'Back'"></span>
-            </button>
           </div>
 
           <!-- Form Body -->
@@ -669,7 +728,7 @@
   <footer id="footer" class="bg-ivory py-20 px-5 transition-opacity duration-500 border-t border-ivory-darker" x-show="!loading" x-cloak>
     <div class="max-w-[1000px] mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left" :class="lang === 'ar' ? 'md:text-right' : 'md:text-left'">
       <div>
-        <div class="text-xl font-extrabold text-bronze mb-6 tracking-widest uppercase" x-text="lang === 'ar' ? (content.brand?.nameArabic || 'سعيد للأثاث') : (content.brand?.name || 'Saeed Furniture')"></div>
+        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain mx-auto md:mx-0 mb-6">
         <p class="text-bronze/60 text-sm leading-relaxed mb-6" x-text="lang === 'ar' ? 'أثاث فاخر ومجالس مفصلة تعكس الفخامة الهادئة.' : 'Luxury made-to-order majlis reflecting quiet luxury.'"></p>
       </div>
       <div>
@@ -705,22 +764,23 @@
 
   
   <!-- ── Ultimate Floating CTA (Glowing + Floating) ──────── -->
-  <button class="fixed bottom-10 start-1/2 -translate-x-1/2 bg-white text-black px-12 py-5 rounded-full font-black text-lg uppercase tracking-widest z-40 shadow-[0_0_50px_rgba(201,169,110,0.4)] hover:shadow-gold/60 transform hover:-translate-y-2 active:scale-95 transition-all duration-500 border border-gold/20 flex items-center gap-3"
+  <button class="fixed bottom-8 md:bottom-10 start-1/2 -translate-x-1/2 bg-gold text-[#0a0a0d] px-12 md:px-14 py-5 md:py-6 rounded-full font-black text-lg uppercase tracking-widest z-40 shadow-[0_0_50px_rgba(201,169,110,0.4)] hover:shadow-gold/60 transition-transform duration-300 hover:scale-105 active:scale-95 border border-white/20 flex items-center gap-3"
           x-show="!isSelectionMode"
           x-transition:enter="transition ease-out duration-500"
           x-transition:enter-start="opacity-0 translate-y-10"
           x-transition:enter-end="opacity-100 -translate-y-0"
           @click="isSelectionMode = true; step = 'selection'; window.scrollTo({top: 0, behavior: 'smooth'})">
-    <span x-text="lang === 'ar' ? (content.hero?.ctaArabic || 'ابدأ رحلتك') : (content.hero?.ctaEnglish || 'Start Your Journey →')"></span>
+    <span x-html="lang === 'ar' ? (content.hero?.ctaArabic || 'ابدأ <span class=\'text-sm opacity-80\'>رحلتك</span>') : (content.hero?.ctaEnglish || 'Start <span class=\'text-xs md:text-sm font-bold opacity-80 tracking-normal\'>Your Journey</span> &rarr;')"></span>
   </button>
 
   <!-- ── Floating WhatsApp Button ────────────────────────── -->
   <div class="fixed bottom-8 end-6 z-40 animate-pulse-ring rounded-full">
-    <a class="w-16 h-16 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] relative z-10 transition-transform duration-300 hover:scale-110 active:scale-90"
+    <a class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] relative z-10 transition-transform duration-300 hover:scale-110 active:scale-90"
+       aria-label="Contact us on WhatsApp"
        :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
        @click="onWhatsAppClick()"
        :title="lang === 'ar' ? 'تحدث معنا على واتساب' : 'Chat with us on WhatsApp'">
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+      <svg class="w-6 h-6 md:w-[30px] md:h-[30px]" viewBox="0 0 24 24" fill="currentColor">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
       </svg>
     </a>
@@ -847,6 +907,9 @@
       lang:              'ar',
       isSelectionMode:   false,
       step:              'hero', // hero, selection, form, success
+      showExitPopup:     false,
+      selectedVariationItem: null,
+      isNightMode:       false,
       progress:          5,
       loading:           true,
       submitting:        false,
@@ -912,6 +975,9 @@
           type.subtypes.forEach(subtype => {
             if(!subtype.variations) return;
             subtype.variations.forEach(variation => {
+              const mainImg = IMAGE_BASE_URL + ['images/hero.png?v=2','images/modern.png','images/authentic.png','images/heritage.png'][imgIndex % 4];
+              const var1 = IMAGE_BASE_URL + ['images/modern.png','images/authentic.png','images/heritage.png','images/hero.png?v=2'][imgIndex % 4];
+              const var2 = IMAGE_BASE_URL + ['images/authentic.png','images/heritage.png','images/hero.png?v=2','images/modern.png'][imgIndex % 4];
               items.push({
                 type: type,
                 subtype: subtype,
@@ -920,8 +986,10 @@
                 catalog_item_id: variation.catalog_item_id,
                 name: variation.public_display_name,
                 typeName: type.public_display_name,
-                unsplashUrl: IMAGE_BASE_URL + ['images/hero.png','images/modern.png','images/authentic.png','images/heritage.png'][imgIndex++ % 4]
+                unsplashUrl: mainImg,
+                gallery: [mainImg, var1, var2]
               });
+              imgIndex++;
             });
           });
         });
@@ -950,21 +1018,13 @@
       initSwiper() {
         if(this.swiper || typeof Swiper === 'undefined') return;
         this.swiper = new Swiper('.lookbook-swiper', {
-          effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,
           slidesPerView: 'auto',
-          spaceBetween: 30,
+          spaceBetween: 16,
           touchStartPreventDefault: false,
           touchReleaseOnEdges: true,
           passiveListeners: true,
-          coverflowEffect: {
-            rotate: 10,
-            stretch: 0,
-            depth: 150,
-            modifier: 1.5,
-            slideShadows: true,
-          },
           on: {
             sliderMove: () => { 
               if(!this.lookbookStageVisible) this.lookbookStageVisible = true; 
@@ -978,12 +1038,13 @@
                 this.selectedSubtype = item.subtype;
                 this.selectedType = item.type;
                 this.selectedVariationUrl = item.unsplashUrl;
+                this.selectedVariationItem = item;
                 
                 // Preload to trigger fade-in transition
                 const img = new Image();
                 img.onload = () => { this.heroImageLoaded = true; };
                 img.onerror = () => { this.heroImageLoaded = true; };
-                img.src = item.unsplashUrl || IMAGE_BASE_URL + 'images/hero.png';
+                img.src = item.unsplashUrl || IMAGE_BASE_URL + 'images/hero.png?v=2';
               }
             }
           }
@@ -994,6 +1055,7 @@
           this.selectedSubtype = items[0].subtype;
           this.selectedType = items[0].type;
           this.selectedVariationUrl = items[0].unsplashUrl;
+          this.selectedVariationItem = items[0];
           
           this.heroImageLoaded = false;
           const img = new Image();
@@ -1014,8 +1076,20 @@
 
       /* ── init ─────────────────────────────────────────── */
       async init() {
+        const currentHour = new Date().getHours();
+        this.isNightMode = currentHour >= 18 || currentHour < 6;
+        
         this.form.user_agent = navigator.userAgent;
         this.form.referrer   = document.referrer;
+
+        // Safety timeout: force splash screen dismissal after 2.5s
+        // even if a non-critical asset (favicon, CDN image) fails to load
+        const splashTimeout = setTimeout(() => {
+          if (this.loading) {
+            console.warn('[SPLASH] Safety timeout — forcing transition');
+            this.loading = false;
+          }
+        }, 2500);
         
         // Load language preference from local storage if exists
         const savedLang = localStorage.getItem('saeed_lang');
@@ -1047,6 +1121,7 @@
           this.form.session_id = crypto.randomUUID?.() || 'local-session';
         }
 
+        clearTimeout(splashTimeout);
         this.loading = false;
 
         // Watch auth state — smart pre-fill name/phone when user logs in
