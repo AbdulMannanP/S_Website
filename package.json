@@ -2,10 +2,12 @@
   "name": "saeed-furniture-root",
   "version": "1.0.0",
   "description": "Root package for Saeed Furniture project deployment",
+  "workspaces": [
+    "saeed-backend"
+  ],
   "scripts": {
-    "install:backend": "cd saeed-backend && npm install",
     "build:css": "npx @tailwindcss/cli -i ./frontend/input.css -o ./frontend/dist/output.css --minify",
-    "build": "npm install && npm run install:backend && npm run build:css",
+    "build": "npm run build:css",
     "start": "cd saeed-backend && npm start"
   },
   "private": true,
