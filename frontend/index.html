@@ -120,7 +120,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </head>
-<body class="bg-ivory text-bronze font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-gold/30 selection:text-bronze" x-data="saeedApp()" x-init="init()" @scroll.window="scrolled = (window.pageYOffset > 50)">
+<body :class="isNightMode ? 'bg-[#080809] text-white/90' : 'bg-ivory text-bronze'" class="font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-gold/30 transition-colors duration-1000" x-data="saeedApp()" x-init="init()" @scroll.window="scrolled = (window.pageYOffset > 50)">
 
   <!-- ── Progress Indicator ──────────────────────────────── -->
   <div class="fixed top-0 inset-x-0 h-[3px] bg-ivory-darker z-[200]" x-show="step !== 'success' && step !== 'hero'">
@@ -909,6 +909,7 @@
       step:              'hero', // hero, selection, form, success
       showExitPopup:     false,
       selectedVariationItem: null,
+      isNightMode:       false,
       progress:          5,
       loading:           true,
       submitting:        false,
@@ -1075,6 +1076,9 @@
 
       /* ── init ─────────────────────────────────────────── */
       async init() {
+        const currentHour = new Date().getHours();
+        this.isNightMode = currentHour >= 18 || currentHour < 6;
+        
         this.form.user_agent = navigator.userAgent;
         this.form.referrer   = document.referrer;
 
