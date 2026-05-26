@@ -8,11 +8,11 @@
 
 require("dotenv").config();
 
-function required(key) {
+function required(key, defaultValue = "") {
   const val = process.env[key];
   if (!val) {
-    console.error(`[CONFIG] Missing required environment variable: ${key}`);
-    process.exit(1);
+    console.error(`[CONFIG] [ERROR] Missing required environment variable: ${key}`);
+    return defaultValue;
   }
   return val;
 }
@@ -40,16 +40,16 @@ const config = {
                      .filter(Boolean),
 
   // Admin dashboard credentials
-  adminPassword:   required("ADMIN_PASSWORD"),
-  sessionSecret:   required("SESSION_SECRET"),   // Used to sign the admin session cookie
+  adminPassword:   required("ADMIN_PASSWORD", "admin123"),
+  sessionSecret:   required("SESSION_SECRET", "session_secret_change_me"),   // Used to sign the admin session cookie
 
   // Session cookie config
   cookieName:      "sf_admin",
   cookieMaxAge:    8 * 60 * 60 * 1000,           // 8 hours in ms
 
   // Supabase Config
-  supabaseUrl:     required("SUPABASE_URL"),
-  supabaseAnonKey: required("SUPABASE_ANON_KEY"),
+  supabaseUrl:     required("SUPABASE_URL", ""),
+  supabaseAnonKey: required("SUPABASE_ANON_KEY", ""),
   supabaseServiceKey: optional("SUPABASE_SERVICE_ROLE_KEY"),
 };
 

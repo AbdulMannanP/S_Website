@@ -4,14 +4,33 @@ const { createClient } = require("@supabase/supabase-js");
 const config = require("../config/env");
 
 // ─── Initialize Supabase Client ───────────────────────────────────────────────
-const supabase = createClient(config.supabaseUrl, config.supabaseServiceKey || config.supabaseAnonKey);
+let supabase = null;
+if (config.supabaseUrl && (config.supabaseServiceKey || config.supabaseAnonKey)) {
+  try {
+    supabase = createClient(config.supabaseUrl, config.supabaseServiceKey || config.supabaseAnonKey);
+  } catch (err) {
+    console.error("[DB] Failed to initialize Supabase client:", err.message);
+  }
+} else {
+  console.error("[DB] Supabase credentials missing (SUPABASE_URL / SUPABASE_ANON_KEY). Database operations will fail.");
+}
+
+function checkDb() {
+  if (!supabase) {
+    throw new Error("[DB] Supabase client is not initialized. Check environment variables.");
+  }
+}
 
 async function initSchema() {
-  // Schema is managed manually in Supabase SQL Editor.
-  console.log("[DB] Connected to Supabase");
+  if (!supabase) {
+    console.warn("[DB] [WARNING] Supabase is not connected because credentials are missing.");
+  } else {
+    console.log("[DB] Connected to Supabase");
+  }
 }
 
 async function upsertLead(data) {
+  checkDb();
   const {
     order_id, session_id,
     name = "", phone = "", district_city = "",
@@ -57,6 +76,7 @@ async function upsertLead(data) {
 }
 
 async function getLeadByOrderId(order_id) {
+  checkDb();
   const { data, error } = await supabase
     .from('leads')
     .select('*')
@@ -68,6 +88,7 @@ async function getLeadByOrderId(order_id) {
 }
 
 async function getAllLeads() {
+  checkDb();
   const { data, error } = await supabase
     .from('leads')
     .select('*')
@@ -78,6 +99,7 @@ async function getAllLeads() {
 }
 
 async function getStats() {
+  checkDb();
   const { data, error } = await supabase.rpc('get_leads_stats');
   if (error) throw error;
   
@@ -90,6 +112,7 @@ async function getStats() {
 }
 
 async function getLeadsByEmail(email) {
+  checkDb();
   const { data, error } = await supabase
     .from('leads')
     .select('*')
@@ -101,6 +124,7 @@ async function getLeadsByEmail(email) {
 }
 
 async function updateLeadCRM(order_id, data) {
+  checkDb();
   const { lead_status, sales_notes, home_visit_completed, assigned_to } = data;
   
   const payload = {};
