@@ -4,7 +4,7 @@
   "description": "Root package for Saeed Furniture project deployment",
   "scripts": {
     "build:css": "npx @tailwindcss/cli -i ./frontend/input.css -o ./frontend/dist/output.css --minify",
-    "build": "echo 'Build complete'",
+    "build": "node -e \"require('fs').rmSync('node_modules', {recursive:true, force:true})\" && npm install && echo 'Build complete'",
     "start": "node ./saeed-backend/server.js"
   },
   "private": true,
