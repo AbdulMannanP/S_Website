@@ -207,220 +207,205 @@
   <main class="transition-all duration-500 pt-16" x-show="!loading" x-cloak>
 
     <div x-show="!isSelectionMode" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 pointer-events-auto" x-transition:leave-end="opacity-0 pointer-events-none">
-    <!-- ══ CHRONOLOGICAL HUB ══════════════════════════════ -->
-    <section id="hero" class="relative h-screen min-h-[600px] max-h-[1000px] overflow-hidden" aria-label="Immersive Showroom Hub">
+    <!-- ══ HERO — PREMIUM SPLIT LAYOUT ═══════════════════ -->
+    <section id="hero" class="relative flex flex-col" style="min-height:100svh" aria-label="Saeed Furniture Showroom">
 
-      <!-- ── LAYER 0: Stacked Dual-Image Architecture ── -->
-      <!-- DAY Layer -->
-      <img src="https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2"
-           srcset="https://ik.imagekit.io/de7qvcvqv/images/hero.png?tr=w-800,f-webp,q-80 800w, https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2 1920w"
-           sizes="100vw"
-           loading="eager"
-           alt="Saeed Furniture Showroom — Day"
-           class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[2000ms] ease-in-out"
-           :class="isNight() ? 'opacity-0' : 'opacity-100'">
+      <!-- TOP: Split content + image -->
+      <div class="flex flex-col lg:flex-row flex-1" style="min-height:82vh">
 
-      <!-- NIGHT Layer -->
-      <img src="https://ik.imagekit.io/de7qvcvqv/images/modern.png?v=2"
-           srcset="https://ik.imagekit.io/de7qvcvqv/images/modern.png?tr=w-800,f-webp,q-80 800w, https://ik.imagekit.io/de7qvcvqv/images/modern.png?v=2 1920w"
-           sizes="100vw"
-           loading="eager"
-           alt="Saeed Furniture Showroom — Night"
-           class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[2000ms] ease-in-out"
-           :class="isNight() ? 'opacity-100' : 'opacity-0'">
+        <!-- LEFT — Content Panel -->
+        <div class="relative flex flex-col justify-center px-8 sm:px-14 lg:px-20 py-24 lg:py-0 lg:w-[44%] transition-colors duration-[2000ms]"
+             :style="isNight()
+               ? 'background:linear-gradient(140deg,#0c0c11 0%,#14121d 100%)'
+               : 'background:linear-gradient(140deg,#faf8f3 0%,#f2e8d8 100%)'">
 
-      <!-- Atmospheric Gradient Overlay — adapts to time state -->
-      <div class="absolute inset-0 pointer-events-none transition-all duration-[2000ms]"
-           :class="isNight()
-             ? 'bg-gradient-to-t from-[#04040a]/90 via-[#080809]/40 to-[#060610]/20'
-             : 'bg-gradient-to-t from-[#080809]/80 via-[#0a0a0d]/20 to-transparent'">
-      </div>
+          <!-- Time pill -->
+          <div class="flex items-center gap-2 mb-8">
+            <div class="w-1.5 h-1.5 rounded-full animate-pulse"
+                 :style="isNight() ? 'background:#fbbf24' : 'background:#c9a96e'"></div>
+            <span class="text-[0.6rem] font-bold uppercase tracking-[0.35em] transition-colors duration-[2000ms]"
+                  :style="isNight() ? 'color:rgba(251,191,36,0.8)' : 'color:#c9a96e'"
+                  x-text="isNight()
+                    ? (lang==='ar' ? 'مساء الخير — المعرض مفتوح' : 'Good Evening — Showroom Open')
+                    : (lang==='ar' ? 'صباح الخير — تصفح مجموعاتنا' : 'Good Day — Explore Our Collections')"></span>
+          </div>
 
-      <!-- ── LAYER 1: Responsive SVG Hotspot Overlay ── -->
-      <!-- viewBox 0 0 100 100 so all coords are percentages -->
-      <svg class="absolute inset-0 w-full h-full z-20"
-           viewBox="0 0 100 100"
-           preserveAspectRatio="none"
-           xmlns="http://www.w3.org/2000/svg"
-           aria-hidden="true">
+          <!-- Logo -->
+          <div class="mb-7">
+            <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png"
+                 alt="Saeed Furniture"
+                 class="h-10 w-auto object-contain transition-all duration-[2000ms]"
+                 :style="isNight()
+                   ? 'filter:invert(1) sepia(1) saturate(1.4) brightness(1.15)'
+                   : 'filter:none'">
+          </div>
 
-        <!-- Zone 1: The Majlis (Left/Center Foreground) -->
-        <polygon
-          points="0,35 48,35 50,100 0,100"
-          class="fill-transparent cursor-pointer transition-all duration-300"
-          :class="hubHoveredZone === 'majlis' ? 'fill-[#c9a96e]/10' : 'fill-transparent'"
-          @mouseenter="hubHoveredZone = 'majlis'"
-          @mouseleave="hubHoveredZone = null"
-          @click="routeHubZone('majlis')"
-          @touchend.prevent="routeHubZone('majlis')"
-          role="button"
-          :aria-label="lang === 'ar' ? 'المجلس الفاخر' : 'Luxury Majlis'"/>
+          <!-- Main Headline -->
+          <h1 class="font-light leading-[1.1] mb-6 transition-colors duration-[2000ms]"
+              style="font-family:'Playfair Display','Georgia',serif; font-size:clamp(2.4rem,5vw,3.8rem);"
+              :style="isNight() ? 'color:#f5f0e8' : 'color:#2e2416'">
+            <span x-show="lang !== 'ar'">
+              Elevate Your<br><em style="font-style:italic">Living Space</em>
+            </span>
+            <span x-show="lang === 'ar'" x-text="content.hero?.titleArabic || 'أثاث فاخر بلمسة سعودية'"></span>
+          </h1>
 
-        <!-- Zone 2: Bespoke Kitchens (Center Background) -->
-        <polygon
-          points="32,0 68,0 62,38 38,38"
-          class="fill-transparent cursor-pointer transition-all duration-300"
-          :class="hubHoveredZone === 'kitchens' ? 'fill-[#c9a96e]/10' : 'fill-transparent'"
-          @mouseenter="hubHoveredZone = 'kitchens'"
-          @mouseleave="hubHoveredZone = null"
-          @click="routeHubZone('kitchens')"
-          @touchend.prevent="routeHubZone('kitchens')"
-          role="button"
-          :aria-label="lang === 'ar' ? 'مطابخ مخصصة' : 'Bespoke Kitchens'"/>
+          <!-- Subtitle -->
+          <p class="text-sm sm:text-[0.95rem] leading-relaxed mb-10 max-w-[360px] transition-colors duration-[2000ms]"
+             :style="isNight() ? 'color:rgba(245,240,232,0.55)' : 'color:rgba(46,36,22,0.6)'"
+             x-text="lang==='ar'
+               ? (content.hero?.subtitleArabic || 'أثاث مخصص لمنزلك بلمسة سعودية أصيلة')
+               : 'Bespoke furniture crafted for refined Saudi living. التوصيل لجميع أنحاء المملكة.'"></p>
 
-        <!-- Zone 3: Premium Cots (Right Midground, left of bed) -->
-        <polygon
-          points="55,25 70,25 70,68 55,68"
-          class="fill-transparent cursor-pointer transition-all duration-300"
-          :class="hubHoveredZone === 'cots' ? 'fill-[#c9a96e]/10' : 'fill-transparent'"
-          @mouseenter="hubHoveredZone = 'cots'"
-          @mouseleave="hubHoveredZone = null"
-          @click="routeHubZone('cots')"
-          @touchend.prevent="routeHubZone('cots')"
-          role="button"
-          :aria-label="lang === 'ar' ? 'الأسرة الفاخرة' : 'Premium Cots'"/>
+          <!-- CTA -->
+          <div class="flex flex-wrap items-center gap-4">
+            <button @click="routeHubZone('majlis')"
+                    class="group relative overflow-hidden rounded-full font-bold uppercase tracking-[0.2em] text-xs transition-all duration-300 hover:scale-105 active:scale-95"
+                    style="padding:1rem 2.5rem;"
+                    :style="isNight()
+                      ? 'background:#c9a96e; color:#0a0a0a; box-shadow:0 4px 20px rgba(201,169,110,0.35)'
+                      : 'background:#2e2416; color:#faf8f3; box-shadow:0 4px 20px rgba(46,36,22,0.25)'">
+              <span x-text="lang==='ar' ? 'ابدأ رحلتك' : 'Shop Now'"></span>
+              <span class="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </button>
+            <a href="#usp"
+               class="text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-300 hover:opacity-100"
+               :style="isNight() ? 'color:rgba(245,240,232,0.35)' : 'color:rgba(46,36,22,0.35)'"
+               x-text="lang==='ar' ? 'اكتشف المزيد' : 'Learn More'"></a>
+          </div>
 
-        <!-- Zone 4: Arabian Bedroom Sets (Right Midground) -->
-        <polygon
-          points="67,30 85,30 85,82 67,82"
-          class="fill-transparent cursor-pointer transition-all duration-300"
-          :class="hubHoveredZone === 'bedroom' ? 'fill-[#c9a96e]/10' : 'fill-transparent'"
-          @mouseenter="hubHoveredZone = 'bedroom'"
-          @mouseleave="hubHoveredZone = null"
-          @click="routeHubZone('bedroom')"
-          @touchend.prevent="routeHubZone('bedroom')"
-          role="button"
-          :aria-label="lang === 'ar' ? 'غرف نوم عربية' : 'Arabian Bedroom Sets'"/>
-
-        <!-- Zone 5: Storage & Almirahs (Right Background) -->
-        <polygon
-          points="83,8 100,8 100,62 83,62"
-          class="fill-transparent cursor-pointer transition-all duration-300"
-          :class="hubHoveredZone === 'storage' ? 'fill-[#c9a96e]/10' : 'fill-transparent'"
-          @mouseenter="hubHoveredZone = 'storage'"
-          @mouseleave="hubHoveredZone = null"
-          @click="routeHubZone('storage')"
-          @touchend.prevent="routeHubZone('storage')"
-          role="button"
-          :aria-label="lang === 'ar' ? 'خزائن التخزين' : 'Storage & Almirahs'"/>
-      </svg>
-
-      <!-- ── LAYER 2: Atmospheric Floating Zone Labels ── -->
-
-      <!-- Label 1: The Majlis -->
-      <div class="absolute z-30 pointer-events-none transition-all duration-300"
-           style="left: 18%; top: 62%;"
-           :class="hubHoveredZone === 'majlis' ? 'scale-110' : 'scale-100'">
-        <div class="text-[0.55rem] font-bold uppercase tracking-[0.4em] mb-1 transition-all duration-[2000ms]"
-             :class="isNight() ? 'text-yellow-300/80 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-gold/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
-             x-text="lang === 'ar' ? 'انقر للاستكشاف' : 'Tap to Explore'"></div>
-        <div class="font-cormorant text-xl md:text-2xl font-light leading-tight transition-all duration-[2000ms]"
-             style="font-family: 'Playfair Display', 'Georgia', serif;"
-             :class="isNight() ? 'text-stone-100 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
-             x-text="lang === 'ar' ? 'المجلس الفاخر' : 'The Majlis'"></div>
-        <!-- Animated underline -->
-        <div class="mt-1.5 h-[1px] transition-all duration-500"
-             :class="hubHoveredZone === 'majlis' ? 'w-full bg-gold' : 'w-0 bg-gold'"></div>
-      </div>
-
-      <!-- Label 2: Bespoke Kitchens -->
-      <div class="absolute z-30 pointer-events-none transition-all duration-300"
-           style="left: 46%; top: 22%;"
-           :class="hubHoveredZone === 'kitchens' ? 'scale-110' : 'scale-100'">
-        <div class="text-[0.55rem] font-bold uppercase tracking-[0.4em] mb-1 transition-all duration-[2000ms]"
-             :class="isNight() ? 'text-yellow-300/80 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-gold/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
-             x-text="lang === 'ar' ? 'قريباً' : 'Coming Soon'"></div>
-        <div class="font-light text-lg leading-tight transition-all duration-[2000ms]"
-             style="font-family: 'Playfair Display', 'Georgia', serif;"
-             :class="isNight() ? 'text-stone-100 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
-             x-text="lang === 'ar' ? 'المطابخ المخصصة' : 'Bespoke Kitchens'"></div>
-        <div class="mt-1.5 h-[1px] transition-all duration-500"
-             :class="hubHoveredZone === 'kitchens' ? 'w-full bg-gold' : 'w-0 bg-gold'"></div>
-      </div>
-
-      <!-- Label 3: Premium Cots -->
-      <div class="absolute z-30 pointer-events-none transition-all duration-300"
-           style="left: 57%; top: 44%;"
-           :class="hubHoveredZone === 'cots' ? 'scale-110' : 'scale-100'">
-        <div class="text-[0.55rem] font-bold uppercase tracking-[0.4em] mb-1 transition-all duration-[2000ms]"
-             :class="isNight() ? 'text-yellow-300/80 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-gold/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
-             x-text="lang === 'ar' ? 'قريباً' : 'Coming Soon'"></div>
-        <div class="font-light text-lg leading-tight transition-all duration-[2000ms]"
-             style="font-family: 'Playfair Display', 'Georgia', serif;"
-             :class="isNight() ? 'text-stone-100 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
-             x-text="lang === 'ar' ? 'الأسرة الفاخرة' : 'Premium Cots'"></div>
-        <div class="mt-1.5 h-[1px] transition-all duration-500"
-             :class="hubHoveredZone === 'cots' ? 'w-full bg-gold' : 'w-0 bg-gold'"></div>
-      </div>
-
-      <!-- Label 4: Arabian Bedroom Sets -->
-      <div class="absolute z-30 pointer-events-none transition-all duration-300"
-           style="left: 68%; top: 52%;"
-           :class="hubHoveredZone === 'bedroom' ? 'scale-110' : 'scale-100'">
-        <div class="text-[0.55rem] font-bold uppercase tracking-[0.4em] mb-1 transition-all duration-[2000ms]"
-             :class="isNight() ? 'text-yellow-300/80 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-gold/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
-             x-text="lang === 'ar' ? 'قريباً' : 'Coming Soon'"></div>
-        <div class="font-light text-lg leading-tight transition-all duration-[2000ms]"
-             style="font-family: 'Playfair Display', 'Georgia', serif;"
-             :class="isNight() ? 'text-stone-100 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
-             x-text="lang === 'ar' ? 'غرف نوم عربية' : 'Arabian Bedroom Sets'"></div>
-        <div class="mt-1.5 h-[1px] transition-all duration-500"
-             :class="hubHoveredZone === 'bedroom' ? 'w-full bg-gold' : 'w-0 bg-gold'"></div>
-      </div>
-
-      <!-- Label 5: Storage & Almirahs -->
-      <div class="absolute z-30 pointer-events-none transition-all duration-300"
-           style="left: 84%; top: 28%;"
-           :class="hubHoveredZone === 'storage' ? 'scale-110' : 'scale-100'">
-        <div class="text-[0.55rem] font-bold uppercase tracking-[0.4em] mb-1 transition-all duration-[2000ms]"
-             :class="isNight() ? 'text-yellow-300/80 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-gold/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
-             x-text="lang === 'ar' ? 'قريباً' : 'Coming Soon'"></div>
-        <div class="font-light text-base leading-tight transition-all duration-[2000ms]"
-             style="font-family: 'Playfair Display', 'Georgia', serif;"
-             :class="isNight() ? 'text-stone-100 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
-             x-text="lang === 'ar' ? 'الخزائن والأدراج' : 'Storage & Almirahs'"></div>
-        <div class="mt-1.5 h-[1px] transition-all duration-500"
-             :class="hubHoveredZone === 'storage' ? 'w-full bg-gold' : 'w-0 bg-gold'"></div>
-      </div>
-
-      <!-- ── LAYER 3: Hero Content Block ── -->
-      <div class="absolute bottom-0 inset-x-0 z-30 px-6 md:px-16 pb-16 md:pb-20 pointer-events-none">
-        <!-- Time indicator pill -->
-        <div class="flex items-center gap-2 mb-5 transition-all duration-[2000ms]"
-             :class="isNight() ? 'opacity-100' : 'opacity-75'">
-          <div class="w-1.5 h-1.5 rounded-full animate-pulse transition-colors duration-[2000ms]"
-               :class="isNight() ? 'bg-yellow-400' : 'bg-gold'"></div>
-          <span class="text-[0.6rem] font-bold uppercase tracking-[0.35em] transition-all duration-[2000ms]"
-                :class="isNight() ? 'text-yellow-300/90 drop-shadow-[0_0_6px_rgba(234,179,8,0.5)]' : 'text-white/70'"
-                x-text="isNight() ? (lang === 'ar' ? 'جلسة مسائية — المعرض مفتوح' : 'Evening Session — Showroom Open') : (lang === 'ar' ? 'جلسة نهارية — تصفح المجموعات' : 'Day Session — Explore Collections')"></span>
+          <!-- Bottom gold line accent -->
+          <div class="absolute bottom-0 inset-x-0 h-[2px]"
+               style="background:linear-gradient(to right,transparent,#c9a96e 50%,transparent)"></div>
         </div>
 
-        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4 leading-tight"
-            style="font-family: 'Playfair Display', 'Georgia', serif; text-shadow: 0 4px 40px rgba(0,0,0,0.7);"
-            x-text="lang === 'ar' ? (content.hero?.titleArabic || 'أثاث فاخر بلمسة سعودية') : 'Luxury Majlis with Authentic Saudi Touch'"></h1>
-        <p class="text-sm md:text-base text-white/70 max-w-[440px] leading-relaxed mb-8"
-           x-text="lang === 'ar' ? (content.hero?.subtitleArabic || 'اختر منطقتك في المعرض للاستكشاف') : 'Hover a showroom zone above to explore our collections.'"></p>
-
-        <div class="flex items-center gap-4 pointer-events-auto">
-          <button @click="routeHubZone('majlis')"
-                  class="px-8 py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.2em] text-xs hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-all duration-300 hover:scale-105 active:scale-95">
-            <span x-text="lang === 'ar' ? 'استكشف المجلس' : 'Explore Majlis'"></span>
-          </button>
-          <a href="#usp" class="flex items-center gap-2 text-white/50 hover:text-gold transition-colors duration-300 text-xs font-bold uppercase tracking-[0.2em]">
-            <span x-text="lang === 'ar' ? 'اكتشف المزيد' : 'Discover More'"></span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
-          </a>
+        <!-- RIGHT — Hero Image with Day/Night Crossfade -->
+        <div class="relative lg:w-[56%] overflow-hidden" style="min-height:50vw">
+          <!-- DAY -->
+          <img src="https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2"
+               srcset="https://ik.imagekit.io/de7qvcvqv/images/hero.png?tr=w-900,f-webp,q-85 900w, https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2 1600w"
+               sizes="(max-width:1024px) 100vw, 56vw"
+               loading="eager"
+               alt="Luxury Saudi Majlis — Day"
+               class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[2000ms]"
+               :style="isNight() ? 'opacity:0' : 'opacity:1'">
+          <!-- NIGHT -->
+          <img src="https://ik.imagekit.io/de7qvcvqv/images/modern.png?v=2"
+               srcset="https://ik.imagekit.io/de7qvcvqv/images/modern.png?tr=w-900,f-webp,q-85 900w, https://ik.imagekit.io/de7qvcvqv/images/modern.png?v=2 1600w"
+               sizes="(max-width:1024px) 100vw, 56vw"
+               loading="eager"
+               alt="Luxury Saudi Majlis — Night"
+               class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[2000ms]"
+               :style="isNight() ? 'opacity:1' : 'opacity:0'">
+          <!-- Soft edge blend into left panel -->
+          <div class="absolute inset-y-0 left-0 w-24 lg:w-32 pointer-events-none transition-all duration-[2000ms]"
+               :style="isNight()
+                 ? 'background:linear-gradient(to right,#0c0c11,transparent)'
+                 : 'background:linear-gradient(to right,#f2e8d8,transparent)'"></div>
         </div>
       </div>
 
-      <!-- Scroll Cue -->
-      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center z-30 transition-opacity duration-500 pointer-events-none"
-           :class="scrolled ? 'opacity-0' : 'opacity-100'">
-        <div class="w-[1px] h-8 bg-gradient-to-b from-transparent via-gold to-gold animate-pulse"></div>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="2" class="mt-1 animate-bounce"><path d="M19 12l-7 7-7-7"/></svg>
+      <!-- BOTTOM: Collection Category Navigation Cards -->
+      <div class="transition-colors duration-[2000ms]"
+           :style="isNight()
+             ? 'background:#0c0c11; border-top:1px solid rgba(201,169,110,0.1)'
+             : 'background:#f2e8d8; border-top:1px solid rgba(201,169,110,0.2)'">
+        <div class="max-w-[1200px] mx-auto px-5 py-7">
+
+          <!-- Divider label -->
+          <p class="text-center text-[0.58rem] font-bold uppercase tracking-[0.5em] mb-5 transition-colors duration-[2000ms]"
+             :style="isNight() ? 'color:rgba(201,169,110,0.5)' : 'color:rgba(46,36,22,0.4)'"
+             x-text="lang==='ar' ? 'تصفح مجموعاتنا' : 'Browse Our Collections'"></p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+
+            <!-- THE MAJLIS — Active / Available -->
+            <button @click="routeHubZone('majlis')"
+                    class="flex flex-col items-center gap-3 p-4 rounded-xl transition-all duration-300 hover:-translate-y-1"
+                    :style="isNight()
+                      ? 'background:rgba(201,169,110,0.1); border:1px solid rgba(201,169,110,0.25); box-shadow:0 4px 20px rgba(201,169,110,0.1)'
+                      : 'background:#fff; border:1px solid rgba(201,169,110,0.3); box-shadow:0 4px 16px rgba(0,0,0,0.07)'">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center"
+                   :style="isNight() ? 'background:rgba(201,169,110,0.15)' : 'background:rgba(201,169,110,0.12)'">
+                <svg width="20" height="20" fill="none" stroke="#c9a96e" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              </div>
+              <div>
+                <p class="text-[0.68rem] font-bold uppercase tracking-widest mb-0.5" style="color:#c9a96e" x-text="lang==='ar' ? 'المجلس' : 'The Majlis'"></p>
+                <p class="text-[0.58rem] transition-colors duration-[2000ms]" :style="isNight() ? 'color:rgba(201,169,110,0.5)' : 'color:rgba(46,36,22,0.45)'" x-text="lang==='ar' ? 'متاح الآن' : 'Available Now'"></p>
+              </div>
+            </button>
+
+            <!-- BESPOKE KITCHENS -->
+            <button @click="routeHubZone('kitchens')"
+                    class="flex flex-col items-center gap-3 p-4 rounded-xl transition-all duration-300 hover:-translate-y-1"
+                    :style="isNight()
+                      ? 'background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07)'
+                      : 'background:rgba(255,255,255,0.6); border:1px solid rgba(201,169,110,0.12); box-shadow:0 2px 8px rgba(0,0,0,0.04)'">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center"
+                   :style="isNight() ? 'background:rgba(255,255,255,0.04)' : 'background:rgba(46,36,22,0.05)'">
+                <svg width="20" height="20" fill="none" stroke-width="1.5" viewBox="0 0 24 24" :style="isNight() ? 'stroke:rgba(245,240,232,0.3)' : 'stroke:rgba(46,36,22,0.3)'"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>
+              </div>
+              <div>
+                <p class="text-[0.68rem] font-bold uppercase tracking-widest mb-0.5 transition-colors duration-[2000ms]" :style="isNight() ? 'color:rgba(245,240,232,0.35)' : 'color:rgba(46,36,22,0.35)'" x-text="lang==='ar' ? 'المطابخ' : 'Bespoke Kitchens'"></p>
+                <p class="text-[0.58rem] transition-colors duration-[2000ms]" :style="isNight() ? 'color:rgba(245,240,232,0.2)' : 'color:rgba(46,36,22,0.3)'" x-text="lang==='ar' ? 'قريباً' : 'Coming Soon'"></p>
+              </div>
+            </button>
+
+            <!-- PREMIUM COTS -->
+            <button @click="routeHubZone('cots')"
+                    class="flex flex-col items-center gap-3 p-4 rounded-xl transition-all duration-300 hover:-translate-y-1"
+                    :style="isNight()
+                      ? 'background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07)'
+                      : 'background:rgba(255,255,255,0.6); border:1px solid rgba(201,169,110,0.12); box-shadow:0 2px 8px rgba(0,0,0,0.04)'">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center"
+                   :style="isNight() ? 'background:rgba(255,255,255,0.04)' : 'background:rgba(46,36,22,0.05)'">
+                <svg width="20" height="20" fill="none" stroke-width="1.5" viewBox="0 0 24 24" :style="isNight() ? 'stroke:rgba(245,240,232,0.3)' : 'stroke:rgba(46,36,22,0.3)'"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75"/></svg>
+              </div>
+              <div>
+                <p class="text-[0.68rem] font-bold uppercase tracking-widest mb-0.5 transition-colors duration-[2000ms]" :style="isNight() ? 'color:rgba(245,240,232,0.35)' : 'color:rgba(46,36,22,0.35)'" x-text="lang==='ar' ? 'الأسرة الفاخرة' : 'Premium Cots'"></p>
+                <p class="text-[0.58rem] transition-colors duration-[2000ms]" :style="isNight() ? 'color:rgba(245,240,232,0.2)' : 'color:rgba(46,36,22,0.3)'" x-text="lang==='ar' ? 'قريباً' : 'Coming Soon'"></p>
+              </div>
+            </button>
+
+            <!-- ARABIAN BEDROOM SETS -->
+            <button @click="routeHubZone('bedroom')"
+                    class="flex flex-col items-center gap-3 p-4 rounded-xl transition-all duration-300 hover:-translate-y-1"
+                    :style="isNight()
+                      ? 'background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07)'
+                      : 'background:rgba(255,255,255,0.6); border:1px solid rgba(201,169,110,0.12); box-shadow:0 2px 8px rgba(0,0,0,0.04)'">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center"
+                   :style="isNight() ? 'background:rgba(255,255,255,0.04)' : 'background:rgba(46,36,22,0.05)'">
+                <svg width="20" height="20" fill="none" stroke-width="1.5" viewBox="0 0 24 24" :style="isNight() ? 'stroke:rgba(245,240,232,0.3)' : 'stroke:rgba(46,36,22,0.3)'"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+              </div>
+              <div>
+                <p class="text-[0.68rem] font-bold uppercase tracking-widest mb-0.5 transition-colors duration-[2000ms]" :style="isNight() ? 'color:rgba(245,240,232,0.35)' : 'color:rgba(46,36,22,0.35)'" x-text="lang==='ar' ? 'غرف النوم' : 'Bedroom Sets'"></p>
+                <p class="text-[0.58rem] transition-colors duration-[2000ms]" :style="isNight() ? 'color:rgba(245,240,232,0.2)' : 'color:rgba(46,36,22,0.3)'" x-text="lang==='ar' ? 'قريباً' : 'Coming Soon'"></p>
+              </div>
+            </button>
+
+            <!-- STORAGE & ALMIRAHS -->
+            <button @click="routeHubZone('storage')"
+                    class="flex flex-col items-center gap-3 p-4 rounded-xl transition-all duration-300 hover:-translate-y-1 col-span-2 sm:col-span-1"
+                    :style="isNight()
+                      ? 'background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07)'
+                      : 'background:rgba(255,255,255,0.6); border:1px solid rgba(201,169,110,0.12); box-shadow:0 2px 8px rgba(0,0,0,0.04)'">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center"
+                   :style="isNight() ? 'background:rgba(255,255,255,0.04)' : 'background:rgba(46,36,22,0.05)'">
+                <svg width="20" height="20" fill="none" stroke-width="1.5" viewBox="0 0 24 24" :style="isNight() ? 'stroke:rgba(245,240,232,0.3)' : 'stroke:rgba(46,36,22,0.3)'"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>
+              </div>
+              <div>
+                <p class="text-[0.68rem] font-bold uppercase tracking-widest mb-0.5 transition-colors duration-[2000ms]" :style="isNight() ? 'color:rgba(245,240,232,0.35)' : 'color:rgba(46,36,22,0.35)'" x-text="lang==='ar' ? 'الخزائن' : 'Storage'"></p>
+                <p class="text-[0.58rem] transition-colors duration-[2000ms]" :style="isNight() ? 'color:rgba(245,240,232,0.2)' : 'color:rgba(46,36,22,0.3)'" x-text="lang==='ar' ? 'قريباً' : 'Coming Soon'"></p>
+              </div>
+            </button>
+
+          </div>
+        </div>
       </div>
 
     </section>
+
+
 
     <!-- ══ USP GRID SECTION ════════════════════════════════ -->
     <section id="usp" class="py-20 px-5 bg-white border-b border-ivory-darker arabesque-bg relative">
