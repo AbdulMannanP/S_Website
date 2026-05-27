@@ -105,6 +105,113 @@
       opacity: 0;
     }
     /* Subtle noise texture overlay */
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
+  <title>سعيد للأثاث | Saeed Furniture — مجالس فاخرة</title>
+  <meta name="description" content="مجالس فاخرة مصنوعة في المملكة العربية السعودية. تصاميم عصرية وتراثية. زيارة منزلية مجانية.">
+  <meta property="og:title"       content="سعيد للأثاث | Luxury Majlis KSA">
+  <meta property="og:description" content="أثاث مخصص بتصاميم تناسب قلب منزلك.">
+  <meta property="og:type"        content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="https://ik.imagekit.io/de7qvcvqv/images/hero.png">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="js/auth.js"></script>
+  <link rel="stylesheet" href="/dist/output.css">
+  <style>
+    /* Carousel snap behavior */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .gold-lines-bg {
+      background-image: 
+        linear-gradient(45deg, transparent 48%, #c9a96e 49%, #c9a96e 51%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, #c9a96e 49%, #c9a96e 51%, transparent 52%);
+      background-size: 200px 200px;
+      opacity: 0.05;
+    }
+    .gold-strip {
+      position: absolute;
+      background: linear-gradient(to bottom, transparent, #c9a96e, transparent);
+      width: 1px;
+      height: 100%;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    /* Phase 2 Enhancements */
+    @keyframes sweep-shimmer {
+      0% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+      50% { opacity: 0.3; }
+      100% { transform: translateX(200%) skewX(-15deg); opacity: 0; }
+    }
+    .animate-sweep::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 50%; height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+      animation: sweep-shimmer 2s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes draw-line {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    .animate-draw-line {
+      animation: draw-line 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .arabesque-bg {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23c9a96e" d="M50 0C50 25 75 50 100 50C75 50 50 75 50 100C50 75 25 50 0 50C25 50 50 25 50 0Z" opacity="0.03"/></svg>');
+      background-size: 100px 100px;
+    }
+
+    .rtl-input-line {
+      position: relative;
+    }
+    .rtl-input-line::after {
+      content: ''; position: absolute; bottom: 0; right: 0; height: 2px; width: 0;
+      background: #c9a96e; transition: width 0.4s ease;
+    }
+    .rtl-input-line:focus-within::after { width: 100%; }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    .animate-pulse-ring::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      border: 2px solid #25D366; animation: pulse-ring 2s infinite cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @keyframes draw-check {
+      to { stroke-dashoffset: 0; }
+    }
+    .animate-draw-check {
+      stroke-dasharray: 50; stroke-dashoffset: 50;
+      animation: draw-check 1s ease-out forwards;
+      animation-delay: 0.3s;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    /* Subtle noise texture overlay */
     .noise-overlay::before {
       content: '';
       position: absolute;
@@ -119,6 +226,39 @@
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- GSAP & Lenis Setup -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+  <style>
+    /* Custom Cursor Styles */
+    .custom-cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 10px; height: 10px;
+      background: #c9a96e;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-radius 0.3s ease, opacity 0.3s ease;
+      display: none;
+      opacity: 0;
+    }
+    @media (pointer: fine) {
+      .custom-cursor { display: block; }
+      /* Hide default cursor only when hovering bound elements */
+      .cursor-bound { cursor: none !important; }
+    }
+    .custom-cursor.active {
+      opacity: 1;
+      width: 60px; height: 60px;
+      background: rgba(201,169,110, 0.15);
+      border: 1px solid rgba(201,169,110, 0.6);
+      backdrop-filter: blur(2px);
+    }
+  </style>
 </head>
 <body :class="isNightMode ? 'bg-[#080809] text-white/90' : 'bg-ivory text-bronze'" class="font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-gold/30 transition-colors duration-1000" x-data="saeedApp()" x-init="init()" @scroll.window="scrolled = (window.pageYOffset > 50)">
 
@@ -257,7 +397,7 @@
         <!-- Zone 1: The Majlis — Left / Center Foreground -->
         <polygon
           points="0,30 46,30 48,100 0,100"
-          :fill="hubHoveredZone === 'majlis' ? 'rgba(201,169,110,0.13)' : 'transparent'"
+          fill="transparent" :fill="hubHoveredZone === 'majlis' ? 'rgba(201,169,110,0.13)' : 'transparent'"
           style="cursor:pointer; pointer-events:all; transition:fill 300ms ease;"
           @mouseenter="hubHoveredZone = 'majlis'"
           @mouseleave="hubHoveredZone = null"
@@ -269,7 +409,7 @@
         <!-- Zone 2: Bespoke Kitchens — Center Background -->
         <polygon
           points="33,0 67,0 61,36 39,36"
-          :fill="hubHoveredZone === 'kitchens' ? 'rgba(201,169,110,0.13)' : 'transparent'"
+          fill="transparent" :fill="hubHoveredZone === 'kitchens' ? 'rgba(201,169,110,0.13)' : 'transparent'"
           style="cursor:pointer; pointer-events:all; transition:fill 300ms ease;"
           @mouseenter="hubHoveredZone = 'kitchens'"
           @mouseleave="hubHoveredZone = null"
@@ -281,7 +421,7 @@
         <!-- Zone 3: Premium Cots — Right Midground -->
         <polygon
           points="54,22 70,22 70,70 54,70"
-          :fill="hubHoveredZone === 'cots' ? 'rgba(201,169,110,0.13)' : 'transparent'"
+          fill="transparent" :fill="hubHoveredZone === 'cots' ? 'rgba(201,169,110,0.13)' : 'transparent'"
           style="cursor:pointer; pointer-events:all; transition:fill 300ms ease;"
           @mouseenter="hubHoveredZone = 'cots'"
           @mouseleave="hubHoveredZone = null"
@@ -293,7 +433,7 @@
         <!-- Zone 4: Arabian Bedroom Sets — Right Midground -->
         <polygon
           points="67,28 85,28 85,82 67,82"
-          :fill="hubHoveredZone === 'bedroom' ? 'rgba(201,169,110,0.13)' : 'transparent'"
+          fill="transparent" :fill="hubHoveredZone === 'bedroom' ? 'rgba(201,169,110,0.13)' : 'transparent'"
           style="cursor:pointer; pointer-events:all; transition:fill 300ms ease;"
           @mouseenter="hubHoveredZone = 'bedroom'"
           @mouseleave="hubHoveredZone = null"
@@ -305,7 +445,7 @@
         <!-- Zone 5: Storage & Almirahs — Right Background -->
         <polygon
           points="83,6 100,6 100,60 83,60"
-          :fill="hubHoveredZone === 'storage' ? 'rgba(201,169,110,0.13)' : 'transparent'"
+          fill="transparent" :fill="hubHoveredZone === 'storage' ? 'rgba(201,169,110,0.13)' : 'transparent'"
           style="cursor:pointer; pointer-events:all; transition:fill 300ms ease;"
           @mouseenter="hubHoveredZone = 'storage'"
           @mouseleave="hubHoveredZone = null"
@@ -484,16 +624,16 @@
     </section>
 
     <!-- ══ USP GRID SECTION ════════════════════════════════ -->
-    <section id="usp" class="py-20 px-5 bg-white border-b border-ivory-darker arabesque-bg relative">
+    <section id="usp" class="py-32 px-5 bg-white border-b border-ivory-darker arabesque-bg relative">
       <!-- Section Title Fade + Gold Line Reveal -->
-      <div class="max-w-[1000px] mx-auto text-center mb-12 opacity-0 translate-y-4 transition-all duration-700" x-intersect="$el.classList.remove('opacity-0', 'translate-y-4')">
+      <div class="max-w-[1000px] mx-auto text-center mb-12 gsap-reveal opacity-0">
         <div class="inline-block relative">
-          <div class="w-0 h-[1px] bg-gold absolute -top-4 right-0 transition-all duration-[1.5s] delay-300" x-intersect="$el.classList.add('w-full')"></div>
+          <div class="w-full h-[1px] bg-gold absolute -top-4 right-0 gsap-line origin-right transform scale-x-0"></div>
           <h2 class="text-3xl font-bold text-bronze uppercase tracking-[0.2em]" x-text="lang === 'ar' ? 'مميزاتنا' : 'Our Features'"></h2>
         </div>
       </div>
       
-      <div class="max-w-[1000px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 opacity-0 translate-y-8 transition-all duration-1000 ease-out" x-intersect="$el.classList.remove('opacity-0', 'translate-y-8')">
+      <div class="max-w-[1000px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 gsap-reveal opacity-0">
         
         <div class="flex flex-col items-center text-center gap-4">
           <div class="w-16 h-16 rounded-full bg-ivory flex items-center justify-center text-gold border border-gold/20 shadow-sm">
@@ -504,7 +644,7 @@
 
         <div class="flex flex-col items-center text-center gap-4">
           <div class="w-16 h-16 rounded-full bg-ivory flex items-center justify-center text-gold border border-gold/20 shadow-sm">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 11l6-6m0 0l-6-6m6 6H7"></path></svg>
           </div>
           <h3 class="text-[0.9rem] font-extrabold text-bronze uppercase tracking-widest" x-text="lang === 'ar' ? 'زيارة منزلية مجانية' : 'Free Home Visit'"></h3>
         </div>
@@ -527,8 +667,8 @@
     </section>
 
         <!-- ══ ABOUT SECTION (Editorial Magazine Layout) ═══════════════════════════════════ -->
-    <section id="about" class="py-16 px-5 bg-ivory-darker border-b border-ivory arabesque-bg relative overflow-hidden">
-      <div class="max-w-[1400px] mx-auto opacity-0 translate-y-8 transition-all duration-1000 ease-out" x-intersect="$el.classList.remove('opacity-0', 'translate-y-8')">
+    <section id="about" class="py-32 px-5 bg-ivory-darker border-b border-ivory arabesque-bg relative overflow-hidden">
+      <div class="max-w-[1400px] mx-auto gsap-reveal opacity-0">
         
         <div class="grid lg:grid-cols-[1fr_350px_1fr] xl:grid-cols-[1fr_450px_1fr] gap-12 lg:gap-16 items-start">
           
@@ -550,14 +690,23 @@
           <!-- Column 2: Center Image Carousel -->
           <div class="w-full h-[600px] rounded-t-full rounded-b-full overflow-hidden shadow-[0_30px_80px_-15px_rgba(201,169,110,0.4)] bg-[#080809] border-4 border-ivory relative group animate-fade-in-up" style="animation-delay: 300ms;" x-data="{ timer: null, next() { const clientW = this.$refs.carousel.clientWidth; const scrollW = this.$refs.carousel.scrollWidth; const scrollL = this.$refs.carousel.scrollLeft; requestAnimationFrame(() => { this.$refs.carousel.scrollBy({ left: clientW, behavior: 'smooth' }); if(scrollL >= scrollW - clientW - 10) { this.$refs.carousel.scrollTo({ left: 0, behavior: 'smooth' }); } }); } }" x-init="timer = setInterval(() => next(), 4000)">
             <div x-ref="carousel" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar">
-              <div class="relative w-full h-full snap-center flex-none" x-data="{ loaded: false }">
-                <img :src="IMAGE_BASE_URL + 'images/modern.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-700" :class="loaded ? 'blur-0' : 'blur-md'" alt="Modern">
+              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                <div class="absolute inset-0 overflow-hidden bg-black">
+                  <img :src="IMAGE_BASE_URL + 'images/modern.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Modern">
+                </div>
+                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
               </div>
-              <div class="relative w-full h-full snap-center flex-none" x-data="{ loaded: false }">
-                <img :src="IMAGE_BASE_URL + 'images/authentic.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-700" :class="loaded ? 'blur-0' : 'blur-md'" alt="Authentic">
+              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                <div class="absolute inset-0 overflow-hidden bg-black">
+                  <img :src="IMAGE_BASE_URL + 'images/authentic.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Authentic">
+                </div>
+                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
               </div>
-              <div class="relative w-full h-full snap-center flex-none" x-data="{ loaded: false }">
-                <img :src="IMAGE_BASE_URL + 'images/heritage.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-700" :class="loaded ? 'blur-0' : 'blur-md'" alt="Heritage">
+              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                <div class="absolute inset-0 overflow-hidden bg-black">
+                  <img :src="IMAGE_BASE_URL + 'images/heritage.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Heritage">
+                </div>
+                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
               </div>
             </div>
           </div>
@@ -573,8 +722,8 @@
       </div>
     </section>
 <!-- ══ FAQ SECTION ═════════════════════════════════════ -->
-    <section id="faq" class="py-24 px-5 bg-ivory border-b border-ivory-darker arabesque-bg relative">
-      <div class="max-w-[700px] mx-auto opacity-0 translate-y-8 transition-all duration-1000 ease-out" x-intersect="$el.classList.remove('opacity-0', 'translate-y-8')">
+    <section id="faq" class="py-32 px-5 bg-ivory border-b border-ivory-darker arabesque-bg relative">
+      <div class="max-w-[700px] mx-auto gsap-reveal opacity-0">
         <svg class="w-16 h-8 text-gold/60 mx-auto mb-4" viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 35h80M15 35v-5a5 5 0 015-5h60a5 5 0 015 5v5M25 25v-5a5 5 0 015-5h40a5 5 0 015 5v5"/></svg>
         <h2 class="text-3xl md:text-5xl font-extrabold text-gold uppercase mb-4 text-center font-cairo" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></h2>
         <div class="text-xl font-medium text-stone-800 leading-tight mb-12 text-center" x-text="lang === 'ar' ? 'كيف نعمل؟' : 'How it works'"></div>
@@ -952,7 +1101,7 @@
         <div x-show="isSelectionMode" class="min-h-screen"></div>
 
         <!-- Success State -->
-        <div x-show="step === 'success'" x-transition:enter="transition ease-out duration-600 delay-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" class="max-w-[700px] mx-auto text-center py-24">
+        <div x-show="step === 'success'" x-transition:enter="transition ease-out duration-600 delay-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" class="max-w-[700px] mx-auto text-center py-32">
           <div class="w-36 h-36 rounded-full flex items-center justify-center mx-auto mb-12 relative">
             <div class="absolute inset-0 bg-gold/10 rounded-full border border-gold/20"></div>
             <div class="absolute inset-0 bg-gold/20 rounded-full animate-ping opacity-20" style="animation-duration: 2s"></div>
@@ -980,7 +1129,7 @@
   </main>
 
   <!-- ── Footer ───────────────────────────────────────────── -->
-  <footer id="footer" class="bg-ivory py-20 px-5 transition-opacity duration-500 border-t border-ivory-darker" x-show="!loading" x-cloak>
+  <footer id="footer" class="bg-ivory py-32 px-5 transition-opacity duration-500 border-t border-ivory-darker" x-show="!loading" x-cloak>
     <div class="max-w-[1000px] mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left" :class="lang === 'ar' ? 'md:text-right' : 'md:text-left'">
       <div>
         <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain mx-auto md:mx-0 mb-6">
@@ -1730,6 +1879,134 @@
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
     <span class="text-white/80 text-sm font-bold" x-text="toastMessage"></span>
   </div>
+
+  <!-- Custom Cursor DOM -->
+  <div id="customCursor" class="custom-cursor"></div>
+
+  <!-- GSAP, Lenis & Cursor Initialization -->
+  <script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+      // 1. Lenis Smooth Scroll
+      if (typeof Lenis !== 'undefined') {
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          direction: 'vertical',
+          gestureDirection: 'vertical',
+          smooth: true,
+          mouseMultiplier: 1,
+          smoothTouch: false,
+          touchMultiplier: 2,
+          infinite: false,
+        })
+
+        function raf(time) {
+          lenis.raf(time)
+          requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
+
+        // Sync GSAP ScrollTrigger with Lenis
+        if (typeof ScrollTrigger !== 'undefined') {
+          lenis.on('scroll', ScrollTrigger.update)
+          gsap.ticker.add((time)=>{
+            lenis.raf(time * 1000)
+          })
+          gsap.ticker.lagSmoothing(0)
+        }
+      }
+
+      
+      // 3. GSAP Scroll Reveals
+      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Standard reveals
+        gsap.utils.toArray('.gsap-reveal').forEach(elem => {
+          gsap.fromTo(elem, 
+            { y: 60, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1.2,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: elem,
+                start: "top 85%",
+                toggleActions: "play none none none"
+              }
+            }
+          );
+        });
+
+        // Gold line reveal
+        gsap.utils.toArray('.gsap-line').forEach(line => {
+          gsap.to(line, {
+            scaleX: 1,
+            duration: 1.5,
+            ease: "power3.inOut",
+            scrollTrigger: {
+              trigger: line,
+              start: "top 85%"
+            }
+          });
+        });
+
+        // Parallax effect on hero backgrounds or section backgrounds if applicable
+        // The arabesque-bg can have a subtle parallax
+        gsap.utils.toArray('section.arabesque-bg').forEach(sec => {
+          gsap.to(sec, {
+            backgroundPosition: "50% 100px",
+            ease: "none",
+            scrollTrigger: {
+              trigger: sec,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true
+            }
+          });
+        });
+      }
+
+      // 2. Custom Magnetic Cursor Logic
+      const cursor = document.getElementById('customCursor');
+      if (window.matchMedia("(pointer: fine)").matches && cursor) {
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let cursorX = mouseX;
+        let cursorY = mouseY;
+        let speed = 0.2;
+
+        window.addEventListener('mousemove', e => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+          let distX = mouseX - cursorX;
+          let distY = mouseY - cursorY;
+          cursorX = cursorX + (distX * speed);
+          cursorY = cursorY + (distY * speed);
+          cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+          requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        function bindCursorHover() {
+          const hoverElements = document.querySelectorAll('a:not(.cursor-bound), button:not(.cursor-bound), [role="button"]:not(.cursor-bound), input:not(.cursor-bound), textarea:not(.cursor-bound)');
+          hoverElements.forEach(el => {
+            el.classList.add('cursor-bound');
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+          });
+        }
+        bindCursorHover();
+
+        const observer = new MutationObserver(() => bindCursorHover());
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
+    });
+  </script>
 
 </body>
 </html>
