@@ -207,25 +207,219 @@
   <main class="transition-all duration-500 pt-16" x-show="!loading" x-cloak>
 
     <div x-show="!isSelectionMode" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 pointer-events-auto" x-transition:leave-end="opacity-0 pointer-events-none">
-    <!-- ══ HERO SECTION ════════════════════════════════════ -->
-    <section id="hero" class="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-5 overflow-hidden animate-sweep">
-      <!-- High-res Background Image with Overlay -->
-      <div class="absolute inset-0 z-[-1] bg-[#080809]" x-data="{ loaded: true }">
-        <img src="https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2" srcset="https://ik.imagekit.io/de7qvcvqv/images/hero.png?tr=w-600,f-webp,q-auto&v=2 600w, https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2 2000w" sizes="100vw" loading="eager" class="w-full h-full object-cover object-bottom md:object-center brightness-[0.6] transition-transform duration-[3s] ease-out" :class="loaded ? 'scale-100' : 'scale-110'" alt="Luxury Majlis" x-init="setTimeout(() => loaded = true, 50)">
-        <div class="absolute inset-0 bg-gradient-to-t from-[#080809] to-transparent"></div>
+    <!-- ══ CHRONOLOGICAL HUB ══════════════════════════════ -->
+    <section id="hero" class="relative h-screen min-h-[600px] max-h-[1000px] overflow-hidden" aria-label="Immersive Showroom Hub">
+
+      <!-- ── LAYER 0: Stacked Dual-Image Architecture ── -->
+      <!-- DAY Layer -->
+      <img src="https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2"
+           srcset="https://ik.imagekit.io/de7qvcvqv/images/hero.png?tr=w-800,f-webp,q-80 800w, https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2 1920w"
+           sizes="100vw"
+           loading="eager"
+           alt="Saeed Furniture Showroom — Day"
+           class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[2000ms] ease-in-out"
+           :class="isNight() ? 'opacity-0' : 'opacity-100'">
+
+      <!-- NIGHT Layer -->
+      <img src="https://ik.imagekit.io/de7qvcvqv/images/modern.png?v=2"
+           srcset="https://ik.imagekit.io/de7qvcvqv/images/modern.png?tr=w-800,f-webp,q-80 800w, https://ik.imagekit.io/de7qvcvqv/images/modern.png?v=2 1920w"
+           sizes="100vw"
+           loading="eager"
+           alt="Saeed Furniture Showroom — Night"
+           class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[2000ms] ease-in-out"
+           :class="isNight() ? 'opacity-100' : 'opacity-0'">
+
+      <!-- Atmospheric Gradient Overlay — adapts to time state -->
+      <div class="absolute inset-0 pointer-events-none transition-all duration-[2000ms]"
+           :class="isNight()
+             ? 'bg-gradient-to-t from-[#04040a]/90 via-[#080809]/40 to-[#060610]/20'
+             : 'bg-gradient-to-t from-[#080809]/80 via-[#0a0a0d]/20 to-transparent'">
       </div>
 
-      <!-- Hero Content -->
-      <div class="max-w-[700px] mb-8 mt-16 z-10 relative">
-        <h1 class="text-3xl md:text-5xl font-extrabold leading-[1.1] text-white mb-6" style="text-shadow: 0 4px 30px rgba(0,0,0,0.8);" x-text="lang === 'ar' ? content.hero?.titleArabic : 'Luxury Majlis with Authentic Saudi Touch'"></h1>
-        <p class="text-sm md:text-base text-white leading-relaxed mb-12 max-w-[500px] mx-auto font-medium" style="text-shadow: 0 2px 15px rgba(0,0,0,0.9), 0 0 5px rgba(0,0,0,0.5);" x-text="lang === 'ar' ? content.hero?.subtitleArabic : 'Custom furniture built specifically for your home. We serve clients across the Kingdom.'"></p>
+      <!-- ── LAYER 1: Responsive SVG Hotspot Overlay ── -->
+      <!-- viewBox 0 0 100 100 so all coords are percentages -->
+      <svg class="absolute inset-0 w-full h-full z-20"
+           viewBox="0 0 100 100"
+           preserveAspectRatio="none"
+           xmlns="http://www.w3.org/2000/svg"
+           aria-hidden="true">
+
+        <!-- Zone 1: The Majlis (Left/Center Foreground) -->
+        <polygon
+          points="0,35 48,35 50,100 0,100"
+          class="fill-transparent cursor-pointer transition-all duration-300"
+          :class="hubHoveredZone === 'majlis' ? 'fill-[#c9a96e]/10' : 'fill-transparent'"
+          @mouseenter="hubHoveredZone = 'majlis'"
+          @mouseleave="hubHoveredZone = null"
+          @click="routeHubZone('majlis')"
+          @touchend.prevent="routeHubZone('majlis')"
+          role="button"
+          :aria-label="lang === 'ar' ? 'المجلس الفاخر' : 'Luxury Majlis'"/>
+
+        <!-- Zone 2: Bespoke Kitchens (Center Background) -->
+        <polygon
+          points="32,0 68,0 62,38 38,38"
+          class="fill-transparent cursor-pointer transition-all duration-300"
+          :class="hubHoveredZone === 'kitchens' ? 'fill-[#c9a96e]/10' : 'fill-transparent'"
+          @mouseenter="hubHoveredZone = 'kitchens'"
+          @mouseleave="hubHoveredZone = null"
+          @click="routeHubZone('kitchens')"
+          @touchend.prevent="routeHubZone('kitchens')"
+          role="button"
+          :aria-label="lang === 'ar' ? 'مطابخ مخصصة' : 'Bespoke Kitchens'"/>
+
+        <!-- Zone 3: Premium Cots (Right Midground, left of bed) -->
+        <polygon
+          points="55,25 70,25 70,68 55,68"
+          class="fill-transparent cursor-pointer transition-all duration-300"
+          :class="hubHoveredZone === 'cots' ? 'fill-[#c9a96e]/10' : 'fill-transparent'"
+          @mouseenter="hubHoveredZone = 'cots'"
+          @mouseleave="hubHoveredZone = null"
+          @click="routeHubZone('cots')"
+          @touchend.prevent="routeHubZone('cots')"
+          role="button"
+          :aria-label="lang === 'ar' ? 'الأسرة الفاخرة' : 'Premium Cots'"/>
+
+        <!-- Zone 4: Arabian Bedroom Sets (Right Midground) -->
+        <polygon
+          points="67,30 85,30 85,82 67,82"
+          class="fill-transparent cursor-pointer transition-all duration-300"
+          :class="hubHoveredZone === 'bedroom' ? 'fill-[#c9a96e]/10' : 'fill-transparent'"
+          @mouseenter="hubHoveredZone = 'bedroom'"
+          @mouseleave="hubHoveredZone = null"
+          @click="routeHubZone('bedroom')"
+          @touchend.prevent="routeHubZone('bedroom')"
+          role="button"
+          :aria-label="lang === 'ar' ? 'غرف نوم عربية' : 'Arabian Bedroom Sets'"/>
+
+        <!-- Zone 5: Storage & Almirahs (Right Background) -->
+        <polygon
+          points="83,8 100,8 100,62 83,62"
+          class="fill-transparent cursor-pointer transition-all duration-300"
+          :class="hubHoveredZone === 'storage' ? 'fill-[#c9a96e]/10' : 'fill-transparent'"
+          @mouseenter="hubHoveredZone = 'storage'"
+          @mouseleave="hubHoveredZone = null"
+          @click="routeHubZone('storage')"
+          @touchend.prevent="routeHubZone('storage')"
+          role="button"
+          :aria-label="lang === 'ar' ? 'خزائن التخزين' : 'Storage & Almirahs'"/>
+      </svg>
+
+      <!-- ── LAYER 2: Atmospheric Floating Zone Labels ── -->
+
+      <!-- Label 1: The Majlis -->
+      <div class="absolute z-30 pointer-events-none transition-all duration-300"
+           style="left: 18%; top: 62%;"
+           :class="hubHoveredZone === 'majlis' ? 'scale-110' : 'scale-100'">
+        <div class="text-[0.55rem] font-bold uppercase tracking-[0.4em] mb-1 transition-all duration-[2000ms]"
+             :class="isNight() ? 'text-yellow-300/80 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-gold/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
+             x-text="lang === 'ar' ? 'انقر للاستكشاف' : 'Tap to Explore'"></div>
+        <div class="font-cormorant text-xl md:text-2xl font-light leading-tight transition-all duration-[2000ms]"
+             style="font-family: 'Playfair Display', 'Georgia', serif;"
+             :class="isNight() ? 'text-stone-100 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
+             x-text="lang === 'ar' ? 'المجلس الفاخر' : 'The Majlis'"></div>
+        <!-- Animated underline -->
+        <div class="mt-1.5 h-[1px] transition-all duration-500"
+             :class="hubHoveredZone === 'majlis' ? 'w-full bg-gold' : 'w-0 bg-gold'"></div>
       </div>
-      
-      <!-- Scroll Cue Whisper -->
-      <div class="absolute bottom-32 md:bottom-36 left-1/2 -translate-x-1/2 flex flex-col items-center transition-opacity duration-500" :class="scrolled ? 'opacity-0' : 'opacity-100'">
-        <div class="w-[1px] h-12 bg-gradient-to-b from-transparent via-gold to-gold animate-pulse"></div>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="2" class="mt-2 animate-bounce"><path d="M19 12l-7 7-7-7"/></svg>
+
+      <!-- Label 2: Bespoke Kitchens -->
+      <div class="absolute z-30 pointer-events-none transition-all duration-300"
+           style="left: 46%; top: 22%;"
+           :class="hubHoveredZone === 'kitchens' ? 'scale-110' : 'scale-100'">
+        <div class="text-[0.55rem] font-bold uppercase tracking-[0.4em] mb-1 transition-all duration-[2000ms]"
+             :class="isNight() ? 'text-yellow-300/80 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-gold/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
+             x-text="lang === 'ar' ? 'قريباً' : 'Coming Soon'"></div>
+        <div class="font-light text-lg leading-tight transition-all duration-[2000ms]"
+             style="font-family: 'Playfair Display', 'Georgia', serif;"
+             :class="isNight() ? 'text-stone-100 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
+             x-text="lang === 'ar' ? 'المطابخ المخصصة' : 'Bespoke Kitchens'"></div>
+        <div class="mt-1.5 h-[1px] transition-all duration-500"
+             :class="hubHoveredZone === 'kitchens' ? 'w-full bg-gold' : 'w-0 bg-gold'"></div>
       </div>
+
+      <!-- Label 3: Premium Cots -->
+      <div class="absolute z-30 pointer-events-none transition-all duration-300"
+           style="left: 57%; top: 44%;"
+           :class="hubHoveredZone === 'cots' ? 'scale-110' : 'scale-100'">
+        <div class="text-[0.55rem] font-bold uppercase tracking-[0.4em] mb-1 transition-all duration-[2000ms]"
+             :class="isNight() ? 'text-yellow-300/80 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-gold/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
+             x-text="lang === 'ar' ? 'قريباً' : 'Coming Soon'"></div>
+        <div class="font-light text-lg leading-tight transition-all duration-[2000ms]"
+             style="font-family: 'Playfair Display', 'Georgia', serif;"
+             :class="isNight() ? 'text-stone-100 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
+             x-text="lang === 'ar' ? 'الأسرة الفاخرة' : 'Premium Cots'"></div>
+        <div class="mt-1.5 h-[1px] transition-all duration-500"
+             :class="hubHoveredZone === 'cots' ? 'w-full bg-gold' : 'w-0 bg-gold'"></div>
+      </div>
+
+      <!-- Label 4: Arabian Bedroom Sets -->
+      <div class="absolute z-30 pointer-events-none transition-all duration-300"
+           style="left: 68%; top: 52%;"
+           :class="hubHoveredZone === 'bedroom' ? 'scale-110' : 'scale-100'">
+        <div class="text-[0.55rem] font-bold uppercase tracking-[0.4em] mb-1 transition-all duration-[2000ms]"
+             :class="isNight() ? 'text-yellow-300/80 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-gold/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
+             x-text="lang === 'ar' ? 'قريباً' : 'Coming Soon'"></div>
+        <div class="font-light text-lg leading-tight transition-all duration-[2000ms]"
+             style="font-family: 'Playfair Display', 'Georgia', serif;"
+             :class="isNight() ? 'text-stone-100 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
+             x-text="lang === 'ar' ? 'غرف نوم عربية' : 'Arabian Bedroom Sets'"></div>
+        <div class="mt-1.5 h-[1px] transition-all duration-500"
+             :class="hubHoveredZone === 'bedroom' ? 'w-full bg-gold' : 'w-0 bg-gold'"></div>
+      </div>
+
+      <!-- Label 5: Storage & Almirahs -->
+      <div class="absolute z-30 pointer-events-none transition-all duration-300"
+           style="left: 84%; top: 28%;"
+           :class="hubHoveredZone === 'storage' ? 'scale-110' : 'scale-100'">
+        <div class="text-[0.55rem] font-bold uppercase tracking-[0.4em] mb-1 transition-all duration-[2000ms]"
+             :class="isNight() ? 'text-yellow-300/80 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-gold/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
+             x-text="lang === 'ar' ? 'قريباً' : 'Coming Soon'"></div>
+        <div class="font-light text-base leading-tight transition-all duration-[2000ms]"
+             style="font-family: 'Playfair Display', 'Georgia', serif;"
+             :class="isNight() ? 'text-stone-100 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'"
+             x-text="lang === 'ar' ? 'الخزائن والأدراج' : 'Storage & Almirahs'"></div>
+        <div class="mt-1.5 h-[1px] transition-all duration-500"
+             :class="hubHoveredZone === 'storage' ? 'w-full bg-gold' : 'w-0 bg-gold'"></div>
+      </div>
+
+      <!-- ── LAYER 3: Hero Content Block ── -->
+      <div class="absolute bottom-0 inset-x-0 z-30 px-6 md:px-16 pb-16 md:pb-20 pointer-events-none">
+        <!-- Time indicator pill -->
+        <div class="flex items-center gap-2 mb-5 transition-all duration-[2000ms]"
+             :class="isNight() ? 'opacity-100' : 'opacity-75'">
+          <div class="w-1.5 h-1.5 rounded-full animate-pulse transition-colors duration-[2000ms]"
+               :class="isNight() ? 'bg-yellow-400' : 'bg-gold'"></div>
+          <span class="text-[0.6rem] font-bold uppercase tracking-[0.35em] transition-all duration-[2000ms]"
+                :class="isNight() ? 'text-yellow-300/90 drop-shadow-[0_0_6px_rgba(234,179,8,0.5)]' : 'text-white/70'"
+                x-text="isNight() ? (lang === 'ar' ? 'جلسة مسائية — المعرض مفتوح' : 'Evening Session — Showroom Open') : (lang === 'ar' ? 'جلسة نهارية — تصفح المجموعات' : 'Day Session — Explore Collections')"></span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4 leading-tight"
+            style="font-family: 'Playfair Display', 'Georgia', serif; text-shadow: 0 4px 40px rgba(0,0,0,0.7);"
+            x-text="lang === 'ar' ? (content.hero?.titleArabic || 'أثاث فاخر بلمسة سعودية') : 'Luxury Majlis with Authentic Saudi Touch'"></h1>
+        <p class="text-sm md:text-base text-white/70 max-w-[440px] leading-relaxed mb-8"
+           x-text="lang === 'ar' ? (content.hero?.subtitleArabic || 'اختر منطقتك في المعرض للاستكشاف') : 'Hover a showroom zone above to explore our collections.'"></p>
+
+        <div class="flex items-center gap-4 pointer-events-auto">
+          <button @click="routeHubZone('majlis')"
+                  class="px-8 py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.2em] text-xs hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-all duration-300 hover:scale-105 active:scale-95">
+            <span x-text="lang === 'ar' ? 'استكشف المجلس' : 'Explore Majlis'"></span>
+          </button>
+          <a href="#usp" class="flex items-center gap-2 text-white/50 hover:text-gold transition-colors duration-300 text-xs font-bold uppercase tracking-[0.2em]">
+            <span x-text="lang === 'ar' ? 'اكتشف المزيد' : 'Discover More'"></span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Scroll Cue -->
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center z-30 transition-opacity duration-500 pointer-events-none"
+           :class="scrolled ? 'opacity-0' : 'opacity-100'">
+        <div class="w-[1px] h-8 bg-gradient-to-b from-transparent via-gold to-gold animate-pulse"></div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="2" class="mt-1 animate-bounce"><path d="M19 12l-7 7-7-7"/></svg>
+      </div>
+
     </section>
 
     <!-- ══ USP GRID SECTION ════════════════════════════════ -->
@@ -910,6 +1104,8 @@
       showExitPopup:     false,
       selectedVariationItem: null,
       isNightMode:       false,
+      currentHour:       new Date().getHours(), // Chronological Hub: real-time hour
+      hubHoveredZone:    null,                  // which SVG zone is hovered
       progress:          5,
       loading:           true,
       submitting:        false,
@@ -1080,9 +1276,45 @@
       },
 
       /* ── init ─────────────────────────────────────────── */
+      /* ── Chronological State Helper ───────────────────── */
+      isNight() {
+        return this.currentHour < 6 || this.currentHour >= 18;
+      },
+
+      showHubToast(msgEn, msgAr) {
+        this.toastMessage = this.lang === 'ar' ? msgAr : msgEn;
+        this.toastVisible = true;
+        setTimeout(() => { this.toastVisible = false; }, 3200);
+      },
+
+      routeHubZone(zone) {
+        if (zone === 'majlis') {
+          this.isSelectionMode = true;
+          this.step = 'selection';
+          window.scrollTo({ top: 0 });
+        } else {
+          const labels = {
+            kitchens: ['Bespoke Kitchens — Coming Soon', 'المطابخ المخصصة — قريباً'],
+            cots:     ['Premium Cots — Coming Soon',     'الأسرة الفاخرة — قريباً'],
+            bedroom:  ['Arabian Bedroom Sets — Coming Soon', 'غرف النوم العربية — قريباً'],
+            storage:  ['Storage & Almirahs — Coming Soon', 'خزائن التخزين — قريباً'],
+          };
+          const [en, ar] = labels[zone] || ['Coming Soon', 'قريباً'];
+          this.showHubToast(en, ar);
+        }
+      },
+
       async init() {
         const currentHour = new Date().getHours();
+        this.currentHour = currentHour;
         this.isNightMode = currentHour >= 18 || currentHour < 6;
+
+        // Twilight Crossfade — re-check every 60s for threshold crossing
+        setInterval(() => {
+          const h = new Date().getHours();
+          this.currentHour = h;
+          this.isNightMode = h >= 18 || h < 6;
+        }, 60_000);
         
         this.form.user_agent = navigator.userAgent;
         this.form.referrer   = document.referrer;
