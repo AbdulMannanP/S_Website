@@ -349,7 +349,7 @@
     <div x-show="!isSelectionMode" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 pointer-events-auto" x-transition:leave-end="opacity-0 pointer-events-none">
     <!-- ══ IMMERSIVE CHRONOLOGICAL HUB ═══════════════════════════════════ -->
     <section id="hero"
-             class="relative overflow-hidden bg-stone-950"
+             class="relative overflow-hidden "
              style="height:100svh; min-height:600px; max-height:1000px;"
              aria-label="Saeed Furniture Immersive Showroom">
 
@@ -361,9 +361,9 @@
            sizes="100vw"
            loading="eager"
            alt="Luxury Saudi Majlis — Daytime"
-           class="absolute inset-0 w-full h-full object-cover object-center"
-           style="transition:opacity 2000ms ease-in-out;"
-           :style="'opacity:' + (isNight() ? '0' : '1')">
+           class="absolute inset-0 w-full h-full object-cover z-0"
+           
+           >
 
       <!-- NIGHT image — modern.png -->
       <img src="https://ik.imagekit.io/de7qvcvqv/images/modern.png?v=2"
@@ -371,24 +371,17 @@
            sizes="100vw"
            loading="eager"
            alt="Luxury Saudi Majlis — Night"
-           class="absolute inset-0 w-full h-full object-cover object-center"
-           style="transition:opacity 2000ms ease-in-out;"
-           :style="'opacity:' + (isNight() ? '1' : '0')">
+           class="absolute inset-0 w-full h-full object-cover z-0"
+           
+           >
 
-      <!-- Atmospheric vignette — deepens at night -->
-      <div class="absolute inset-0 pointer-events-none"
-           style="transition:background 2000ms ease-in-out;"
-           :style="isNight()
-             ? 'background:linear-gradient(to top, rgba(4,4,10,0.92) 0%, rgba(8,8,9,0.45) 50%, rgba(6,6,16,0.25) 100%)'
-             : 'background:linear-gradient(to top, rgba(8,8,9,0.82) 0%, rgba(10,10,13,0.22) 55%, transparent 100%)'">
-      </div>
+      
 
       <!-- ── LAYER 1: Full-Screen SVG Hotspot Matrix ──
            KEY FIX: fill driven by Alpine :fill attribute binding (NOT Tailwind fill-* classes).
            SVG attributes always work; Tailwind JIT cannot reliably process SVG fill at runtime.
            pointer-events:all ensures transparent polygons remain clickable. -->
-      <svg class="absolute inset-0 w-full h-full"
-           style="z-index:20;"
+      <svg class="absolute inset-0 w-full h-full z-10 pointer-events-none"
            viewBox="0 0 100 100"
            preserveAspectRatio="none"
            xmlns="http://www.w3.org/2000/svg"
@@ -397,8 +390,8 @@
         <!-- Zone 1: The Majlis — Left / Center Foreground -->
         <polygon
           points="0,30 46,30 48,100 0,100"
-          fill="transparent" :fill="hubHoveredZone === 'majlis' ? 'rgba(201,169,110,0.13)' : 'transparent'"
-          style="cursor:pointer; pointer-events:all; transition:fill 300ms ease;"
+          fill="transparent" fill="transparent" stroke="none"
+          class="cursor-pointer" pointer-events="auto"
           @mouseenter="hubHoveredZone = 'majlis'"
           @mouseleave="hubHoveredZone = null"
           @click="routeHubZone('majlis')"
@@ -409,8 +402,8 @@
         <!-- Zone 2: Bespoke Kitchens — Center Background -->
         <polygon
           points="33,0 67,0 61,36 39,36"
-          fill="transparent" :fill="hubHoveredZone === 'kitchens' ? 'rgba(201,169,110,0.13)' : 'transparent'"
-          style="cursor:pointer; pointer-events:all; transition:fill 300ms ease;"
+          fill="transparent" fill="transparent" stroke="none"
+          class="cursor-pointer" pointer-events="auto"
           @mouseenter="hubHoveredZone = 'kitchens'"
           @mouseleave="hubHoveredZone = null"
           @click="routeHubZone('kitchens')"
@@ -421,8 +414,8 @@
         <!-- Zone 3: Premium Cots — Right Midground -->
         <polygon
           points="54,22 70,22 70,70 54,70"
-          fill="transparent" :fill="hubHoveredZone === 'cots' ? 'rgba(201,169,110,0.13)' : 'transparent'"
-          style="cursor:pointer; pointer-events:all; transition:fill 300ms ease;"
+          fill="transparent" fill="transparent" stroke="none"
+          class="cursor-pointer" pointer-events="auto"
           @mouseenter="hubHoveredZone = 'cots'"
           @mouseleave="hubHoveredZone = null"
           @click="routeHubZone('cots')"
@@ -433,8 +426,8 @@
         <!-- Zone 4: Arabian Bedroom Sets — Right Midground -->
         <polygon
           points="67,28 85,28 85,82 67,82"
-          fill="transparent" :fill="hubHoveredZone === 'bedroom' ? 'rgba(201,169,110,0.13)' : 'transparent'"
-          style="cursor:pointer; pointer-events:all; transition:fill 300ms ease;"
+          fill="transparent" fill="transparent" stroke="none"
+          class="cursor-pointer" pointer-events="auto"
           @mouseenter="hubHoveredZone = 'bedroom'"
           @mouseleave="hubHoveredZone = null"
           @click="routeHubZone('bedroom')"
@@ -445,8 +438,8 @@
         <!-- Zone 5: Storage & Almirahs — Right Background -->
         <polygon
           points="83,6 100,6 100,60 83,60"
-          fill="transparent" :fill="hubHoveredZone === 'storage' ? 'rgba(201,169,110,0.13)' : 'transparent'"
-          style="cursor:pointer; pointer-events:all; transition:fill 300ms ease;"
+          fill="transparent" fill="transparent" stroke="none"
+          class="cursor-pointer" pointer-events="auto"
           @mouseenter="hubHoveredZone = 'storage'"
           @mouseleave="hubHoveredZone = null"
           @click="routeHubZone('storage')"
@@ -462,7 +455,7 @@
 
       <!-- Label 1: The Majlis Collection -->
       <div class="absolute pointer-events-none"
-           style="z-index:30; left:14%; top:60%; transition:transform 300ms ease;"
+           class="z-20" style="left:14%; top:60%; transition:transform 300ms ease;"
            :style="hubHoveredZone === 'majlis' ? 'transform:scale(1.1)' : 'transform:scale(1)'">
         <!-- eyebrow -->
         <p class="text-[0.55rem] font-bold uppercase tracking-[0.45em] mb-1"
@@ -485,7 +478,7 @@
 
       <!-- Label 2: Bespoke Kitchens -->
       <div class="absolute pointer-events-none"
-           style="z-index:30; left:43%; top:18%; transition:transform 300ms ease;"
+           class="z-20" style="left:43%; top:18%; transition:transform 300ms ease;"
            :style="hubHoveredZone === 'kitchens' ? 'transform:scale(1.1)' : 'transform:scale(1)'">
         <p class="text-[0.55rem] font-bold uppercase tracking-[0.45em] mb-1"
            style="transition:all 2000ms ease;"
@@ -505,7 +498,7 @@
 
       <!-- Label 3: Premium Cots -->
       <div class="absolute pointer-events-none"
-           style="z-index:30; left:56%; top:40%; transition:transform 300ms ease;"
+           class="z-20" style="left:56%; top:40%; transition:transform 300ms ease;"
            :style="hubHoveredZone === 'cots' ? 'transform:scale(1.1)' : 'transform:scale(1)'">
         <p class="text-[0.55rem] font-bold uppercase tracking-[0.45em] mb-1"
            style="transition:all 2000ms ease;"
@@ -525,7 +518,7 @@
 
       <!-- Label 4: Arabian Bedroom Sets -->
       <div class="absolute pointer-events-none"
-           style="z-index:30; left:68%; top:48%; transition:transform 300ms ease;"
+           class="z-20" style="left:68%; top:48%; transition:transform 300ms ease;"
            :style="hubHoveredZone === 'bedroom' ? 'transform:scale(1.1)' : 'transform:scale(1)'">
         <p class="text-[0.55rem] font-bold uppercase tracking-[0.45em] mb-1"
            style="transition:all 2000ms ease;"
@@ -545,7 +538,7 @@
 
       <!-- Label 5: Storage & Almirahs -->
       <div class="absolute pointer-events-none"
-           style="z-index:30; left:84%; top:24%; transition:transform 300ms ease;"
+           class="z-20" style="left:84%; top:24%; transition:transform 300ms ease;"
            :style="hubHoveredZone === 'storage' ? 'transform:scale(1.1)' : 'transform:scale(1)'">
         <p class="text-[0.55rem] font-bold uppercase tracking-[0.45em] mb-1"
            style="transition:all 2000ms ease;"
@@ -569,7 +562,7 @@
 
         <!-- Circadian time indicator pill -->
         <div class="flex items-center gap-2 mb-5"
-             style="transition:opacity 2000ms ease;"
+             
              :style="isNight() ? 'opacity:1' : 'opacity:0.75'">
           <div class="rounded-full animate-pulse"
                style="width:6px; height:6px; transition:background 2000ms ease;"
