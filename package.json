@@ -2,9 +2,6 @@
   "name": "saeed-furniture-root",
   "version": "1.0.0",
   "description": "Root package for Saeed Furniture project deployment",
-  "workspaces": [
-    "saeed-backend"
-  ],
   "scripts": {
     "build:css": "npx @tailwindcss/cli -i ./frontend/input.css -o ./frontend/dist/output.css --minify",
     "build": "echo 'Build complete'",
