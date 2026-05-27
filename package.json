@@ -8,7 +8,7 @@
   "scripts": {
     "build:css": "npx @tailwindcss/cli -i ./frontend/input.css -o ./frontend/dist/output.css --minify",
     "build": "echo 'Build complete'",
-    "start": "cd saeed-backend && npm start"
+    "start": "node ./saeed-backend/server.js"
   },
   "private": true,
   "dependencies": {
