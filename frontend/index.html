@@ -1707,17 +1707,7 @@
               });
             });
 
-            poly.addEventListener('click', () => {
-              // Intense glow feedback
-              anime({
-                targets: poly,
-                fill: 'rgba(201,169,110,0.6)',
-                duration: 200,
-                direction: 'alternate',
-                easing: 'easeInOutQuad'
-              });
-              
-              // Fade entire hub
+            // Fade entire hub
               anime({
                 targets: '#hero',
                 opacity: 0,
