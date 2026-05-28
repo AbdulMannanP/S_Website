@@ -298,29 +298,32 @@
   </div>
 
   <!-- ── Header ──────────────────────────────────────────── -->
-  <header class="fixed top-0 inset-x-0 z-50 h-16 flex items-center justify-between px-5 sm:px-10 transition-all duration-500 bg-white shadow-sm">
-    <div class="h-8 flex items-center gap-3">
-      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="eager" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain">
+  <header class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out border-b border-transparent"
+          :class="scrolled ? 'bg-[#080809]/80 backdrop-blur-xl shadow-2xl border-white/5' : 'bg-transparent border-transparent pt-4'">
+    <div class="h-10 flex items-center gap-4 transition-transform duration-500 hover:scale-105">
+      <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture" class="h-full object-contain drop-shadow-[0_0_15px_rgba(201,169,110,0.3)]" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
+      <span class="text-[0.95rem] font-bold text-white/90 tracking-wide drop-shadow-md"
+            style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة سعيد</span>
     </div>
     
-    <nav class="hidden md:flex gap-8 text-[0.85rem] font-bold text-[#0a0a0d]/70 uppercase tracking-widest min-h-[44px] items-center">
-      <a href="#about" x-show="!isSelectionMode" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
-      <a href="#faq" x-show="!isSelectionMode" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></a>
-      <a href="#" @click.prevent="scrollToFooter()" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'تواصل معنا' : 'Contact'"></a>
+    <nav class="hidden md:flex gap-10 text-[0.8rem] font-bold text-white/60 uppercase tracking-[0.15em] min-h-[44px] items-center">
+      <a href="#about" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] hover:shadow-[0_0_10px_rgba(201,169,110,0.5)]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
+      <a href="#faq" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></a>
+      <a href="#" @click.prevent="scrollToFooter()" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'تواصل معنا' : 'Contact'"></a>
       <button @click="handleOrderClick()" 
-              class="hover:text-gold transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-widest text-[0.85rem] text-[#0a0a0d]/70" 
+              class="relative hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.15em] text-[0.8rem] text-[#c9a96e] overflow-hidden group" 
               x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
       </button>
     </nav>
     
-    <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
-      <button @click="toggleLang()" class="text-[0.75rem] font-extrabold text-[#0a0a0d]/70 hover:text-gold transition-colors uppercase tracking-widest px-2 py-1 border border-[#0a0a0d]/20 rounded bg-transparent flex-shrink-0">
+    <div class="flex items-center gap-5 flex-shrink-0" dir="ltr">
+      <button @click="toggleLang()" class="text-[0.7rem] font-extrabold text-white/60 hover:text-[#c9a96e] transition-colors uppercase tracking-widest px-3 py-1.5 border border-white/10 rounded-md backdrop-blur-sm bg-white/5 flex-shrink-0 hover:bg-white/10">
         <span x-text="lang === 'ar' ? 'EN' : 'AR'"></span>
       </button>
       <!-- Mobile Hamburger -->
-      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-10 h-10 flex items-center justify-center text-[#0a0a0d]/70 hover:text-gold transition-colors">
-        <svg x-show="!mobileMenuOpen" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <svg x-show="mobileMenuOpen" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-[#c9a96e] transition-colors">
+        <svg x-show="!mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg x-show="mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
   </header>
@@ -361,20 +364,6 @@
            class="absolute inset-0 w-full h-full object-cover z-10 opacity-0"
            alt="Night Room Hero">
 
-      <!-- LAYER 1: Header -->
-      <header class="absolute top-0 inset-x-0 z-50 flex items-center justify-between px-8 py-6 pointer-events-none">
-        <div class="flex items-center gap-3">
-          <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" alt="Saeed Furniture" class="h-10 w-auto pointer-events-auto" style="filter: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(805%) hue-rotate(352deg) brightness(85%) contrast(85%);">
-          <span class="text-[#c9a96e] font-bold text-xl tracking-widest uppercase">Saeed Furniture</span>
-        </div>
-        <nav class="hidden md:flex items-center gap-8 text-[#c9a96e] font-bold text-sm tracking-widest uppercase pointer-events-auto">
-          <a href="#about" class="hover:text-white transition-colors">About</a>
-          <a href="#faq" class="hover:text-white transition-colors">FAQs</a>
-          <a href="#contact" class="hover:text-white transition-colors">Contact</a>
-          <button class="px-6 py-2 border-2 border-[#c9a96e] hover:bg-[#c9a96e] hover:text-stone-950 transition-all rounded-sm">Our Designs</button>
-        </nav>
-      </header>
-
       <!-- LAYER 2: Text Overlays -->
       <!-- LAYER 2: Floating CTA -->
       <button class="pointer-events-auto absolute bottom-10 left-1/2 transform -translate-x-1/2 z-40 px-8 py-4 bg-[#c9a96e] text-stone-950 font-bold tracking-[0.2em] uppercase rounded-sm hover:scale-105 hover:shadow-[0_0_20px_rgba(201,169,110,0.4)] transition-all">
@@ -401,24 +390,7 @@
         <polygon id="poly-almirah" data-target="almirah" points="80,20 95,20 95,50 80,50" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" />
       </svg>
 
-      <!-- LAYER 4: Floating Labels -->
-      <div id="label-majlis" class="floating-label absolute z-30 pointer-events-none opacity-0 transition-all duration-300" style="left:25%; top:75%;">
-        <span class="text-[#c9a96e] text-2xl font-bold uppercase drop-shadow-[0_0_10px_rgba(201,169,110,0.8)]">The Majlis</span>
-      </div>
-      <div id="label-kitchens" class="floating-label absolute z-30 pointer-events-none opacity-0 transition-all duration-300" style="left:52%; top:35%; transform:translateX(-50%);">
-        <span class="text-[#c9a96e] text-xl font-bold uppercase drop-shadow-[0_0_10px_rgba(201,169,110,0.8)]">Bespoke Kitchens</span>
-      </div>
-      <div id="label-cots" class="floating-label absolute z-30 pointer-events-none opacity-0 transition-all duration-300" style="left:70%; top:62%; transform:translateX(-50%);">
-        <span class="text-[#c9a96e] text-xl font-bold uppercase drop-shadow-[0_0_10px_rgba(201,169,110,0.8)]">Premium Cots</span>
-      </div>
-      <div id="label-bedroom" class="floating-label absolute z-30 pointer-events-none opacity-0 transition-all duration-300" style="left:87%; top:65%; transform:translateX(-50%);">
-        <span class="text-[#c9a96e] text-xl font-bold uppercase drop-shadow-[0_0_10px_rgba(201,169,110,0.8)]">Arabian Bedroom Sets</span>
-      </div>
-      <div id="label-almirah" class="floating-label absolute z-30 pointer-events-none opacity-0 transition-all duration-300" style="left:87%; top:35%; transform:translateX(-50%);">
-        <span class="text-[#c9a96e] text-xl font-bold uppercase drop-shadow-[0_0_10px_rgba(201,169,110,0.8)]">Storage & Almirahs</span>
-      </div>
-
-    </section>
+      </section>
     <!-- ══ USP GRID SECTION ════════════════════════════════ -->
     <section id="usp" class="py-32 px-5 bg-white border-b border-ivory-darker arabesque-bg relative mt-24">
       <!-- Section Title Fade + Gold Line Reveal -->

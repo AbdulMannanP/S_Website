@@ -196,8 +196,8 @@
             window.location.href = '/auth';
             return;
           }
-          if (auth.role !== 'employee') {
-            this.isLoading = false;
+          if (auth.role !== 'employee' && auth.role !== 'admin') {
+            window.location.href = '/dashboard/client';
             return;
           }
 
