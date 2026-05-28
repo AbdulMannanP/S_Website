@@ -252,19 +252,19 @@
            viewBox="0 0 100 100" preserveAspectRatio="none">
         
         <!-- The Majlis (Lower Left) -->
-        <polygon id="poly-majlis" data-target="majlis" points="0,50 50,50 50,100 0,100" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" @click="activeShowroom = 'majlis'; window.scrollTo({top:0})" />
+        <polygon id="poly-majlis" data-target="majlis" points="0,50 50,50 50,100 0,100" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" @click="activeShowroom = 'majlis'; window.scrollTo({top:0})" @mouseenter="hoverTarget = 'majlis'" @mouseleave="hoverTarget = null" />
         
         <!-- Bespoke Kitchens (Center Back) -->
-        <polygon id="poly-kitchens" data-target="kitchens" points="40,25 65,25 65,45 40,45" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" @click="activeShowroom = 'kitchen'; window.scrollTo({top:0})" />
+        <polygon id="poly-kitchens" data-target="kitchens" points="40,25 65,25 65,45 40,45" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" @click="activeShowroom = 'kitchen'; window.scrollTo({top:0})" @mouseenter="hoverTarget = 'kitchen'" @mouseleave="hoverTarget = null" />
         
         <!-- Premium Cots (Right Center) -->
-        <polygon id="poly-cots" data-target="cots" points="65,55 75,55 75,70 65,70" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" @click="activeShowroom = 'cot'; window.scrollTo({top:0})" />
+        <polygon id="poly-cots" data-target="cots" points="65,55 75,55 75,70 65,70" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" @click="activeShowroom = 'cot'; window.scrollTo({top:0})" @mouseenter="hoverTarget = 'cot'" @mouseleave="hoverTarget = null" />
         
         <!-- Arabian Bedroom (Far Right Mid) -->
-        <polygon id="poly-bedroom" data-target="bedroom" points="75,50 100,50 100,80 75,80" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" @click="activeShowroom = 'bedroom'; window.scrollTo({top:0})" />
+        <polygon id="poly-bedroom" data-target="bedroom" points="75,50 100,50 100,80 75,80" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" @click="activeShowroom = 'bedroom'; window.scrollTo({top:0})" @mouseenter="hoverTarget = 'bedroom'" @mouseleave="hoverTarget = null" />
         
         <!-- Storage & Almirahs (Far Right Back) -->
-        <polygon id="poly-almirah" data-target="almirah" points="80,20 95,20 95,50 80,50" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" @click="activeShowroom = 'almirah'; window.scrollTo({top:0})" />
+        <polygon id="poly-almirah" data-target="almirah" points="80,20 95,20 95,50 80,50" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" @click="activeShowroom = 'almirah'; window.scrollTo({top:0})" @mouseenter="hoverTarget = 'almirah'" @mouseleave="hoverTarget = null" />
       </svg>
 
       <!-- LAYER 4: Visual Pulse Markers -->
@@ -281,6 +281,35 @@
         <div class="absolute top-[35%] left-[87.5%] -translate-x-1/2 -translate-y-1/2 animate-pulse w-4 h-4 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)] border-2 border-gold/50" style="animation-delay: 800ms;"></div>
       </div>
 
+
+      <!-- LAYER 5: Hover Labels -->
+      <div class="absolute inset-0 z-30 pointer-events-none">
+        <!-- Majlis Label -->
+        <div class="absolute top-[75%] left-[25%] -translate-x-1/2 -translate-y-10 transition-all duration-300"
+             :class="hoverTarget === 'majlis' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'">
+          <span class="bg-black/80 backdrop-blur-md text-[#c9a96e] text-xs px-3 py-1.5 rounded-full border border-[#c9a96e]/30 shadow-[0_0_15px_rgba(0,0,0,0.5)] tracking-widest uppercase font-bold" x-text="lang === 'ar' ? 'المجلس' : 'The Majlis'"></span>
+        </div>
+        <!-- Kitchens Label -->
+        <div class="absolute top-[35%] left-[52.5%] -translate-x-1/2 -translate-y-10 transition-all duration-300"
+             :class="hoverTarget === 'kitchen' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'">
+          <span class="bg-black/80 backdrop-blur-md text-[#c9a96e] text-xs px-3 py-1.5 rounded-full border border-[#c9a96e]/30 shadow-[0_0_15px_rgba(0,0,0,0.5)] tracking-widest uppercase font-bold" x-text="lang === 'ar' ? 'المطابخ' : 'Bespoke Kitchens'"></span>
+        </div>
+        <!-- Cots Label -->
+        <div class="absolute top-[62.5%] left-[70%] -translate-x-1/2 -translate-y-10 transition-all duration-300"
+             :class="hoverTarget === 'cot' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'">
+          <span class="bg-black/80 backdrop-blur-md text-[#c9a96e] text-xs px-3 py-1.5 rounded-full border border-[#c9a96e]/30 shadow-[0_0_15px_rgba(0,0,0,0.5)] tracking-widest uppercase font-bold" x-text="lang === 'ar' ? 'الأسرة' : 'Premium Cots'"></span>
+        </div>
+        <!-- Bedroom Label -->
+        <div class="absolute top-[65%] left-[87.5%] -translate-x-1/2 -translate-y-10 transition-all duration-300"
+             :class="hoverTarget === 'bedroom' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'">
+          <span class="bg-black/80 backdrop-blur-md text-[#c9a96e] text-xs px-3 py-1.5 rounded-full border border-[#c9a96e]/30 shadow-[0_0_15px_rgba(0,0,0,0.5)] tracking-widest uppercase font-bold" x-text="lang === 'ar' ? 'غرف النوم' : 'Arabian Bedroom'"></span>
+        </div>
+        <!-- Almirah Label -->
+        <div class="absolute top-[35%] left-[87.5%] -translate-x-1/2 -translate-y-10 transition-all duration-300"
+             :class="hoverTarget === 'almirah' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'">
+          <span class="bg-black/80 backdrop-blur-md text-[#c9a96e] text-xs px-3 py-1.5 rounded-full border border-[#c9a96e]/30 shadow-[0_0_15px_rgba(0,0,0,0.5)] tracking-widest uppercase font-bold" x-text="lang === 'ar' ? 'الخزائن' : 'Storage & Almirah'"></span>
+        </div>
+      </div>
       </section>
     <!-- ══ USP GRID SECTION ════════════════════════════════ -->
     <section id="usp" class="py-12 md:py-24 px-5 bg-white border-b border-ivory-darker arabesque-bg relative mt-16 md:mt-24">
