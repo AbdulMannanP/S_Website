@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Saeed Furniture | My Atelier</title>
+  <meta name="description" content="Manage your Saeed Furniture orders, tracking, and atelier customizations in KSA.">
   <link rel="stylesheet" href="/dist/output.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/js/auth.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="/js/auth.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -42,6 +43,7 @@
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: #F0EEE9; }
     ::-webkit-scrollbar-thumb { background: #d9d4c8; border-radius: 10px; }
+    [x-cloak] { display: none !important; }
   </style>
 </head>
 <body x-data="clientDashboard()" x-init="initDashboard()">
@@ -60,17 +62,17 @@
   </nav>
 
   <!-- ── Loading Skeleton ──────────────────────────────── -->
-  <div x-show="isLoading" class="max-w-5xl mx-auto px-6 py-12 space-y-6">
+  <div x-show="isLoading" x-cloak class="max-w-5xl mx-auto px-6 py-12 space-y-6">
     <div class="skeleton h-10 w-48 mb-12"></div>
     <div class="skeleton h-64 w-full rounded-3xl"></div>
     <div class="skeleton h-48 w-full rounded-3xl"></div>
   </div>
 
   <!-- ── Main Content ──────────────────────────────────── -->
-  <main x-show="!isLoading" class="max-w-5xl mx-auto px-6 py-12">
+  <main x-show="!isLoading" x-cloak class="max-w-5xl mx-auto px-6 py-12">
 
     <!-- ── CONDITION A: Empty State ───────────────────── -->
-    <div x-show="orders.length === 0" class="fade-up flex flex-col items-center justify-center text-center py-24 min-h-[60vh]">
+    <div x-show="orders.length === 0" x-cloak class="fade-up flex flex-col items-center justify-center text-center py-24 min-h-[60vh]">
       <!-- Decorative ring -->
       <div class="relative mb-12">
         <div class="w-40 h-40 rounded-full border border-white/5 flex items-center justify-center">
@@ -85,9 +87,9 @@
         </div>
       </div>
 
-      <h1 class="text-4xl font-black mb-4 tracking-tight leading-tight text-stone-900">
+      <h2 class="text-4xl font-black mb-4 tracking-tight leading-tight text-stone-900">
         Your atelier is <span class="gold">empty.</span>
-      </h1>
+      </h2>
       <p class="text-stone-500 text-lg max-w-md leading-relaxed mb-12">
         Begin your bespoke journey. Every great Majlis starts with a single choice.
       </p>
@@ -109,7 +111,7 @@
     </div>
 
     <!-- ── CONDITION B: Active Orders ─────────────────── -->
-    <div x-show="orders.length > 0" class="fade-up">
+    <div x-show="orders.length > 0" x-cloak class="fade-up">
       <!-- Header row -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
         <div>

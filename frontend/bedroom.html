@@ -108,7 +108,7 @@
   <script defer src="https://unpkg.com/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <!-- GSAP & Lenis Setup -->
   
@@ -204,7 +204,7 @@
         <span x-text="lang === 'ar' ? 'EN' : 'AR'"></span>
       </button>
       <!-- Mobile Hamburger -->
-      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-[#c9a96e] transition-colors">
+      <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-[#c9a96e] transition-colors">
         <svg x-show="!mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         <svg x-show="mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -266,7 +266,142 @@
         <div class="w-12 h-px bg-[#c9a96e] mx-auto mt-8"></div>
       </div>
     </section>
-  </main>
+  
+
+  <!-- ══ ABOUT SECTION (Editorial Magazine Layout) ═══════════════════════════════════ -->
+    <section id="about" class="py-12 md:py-24 px-5 bg-ivory-darker border-b border-ivory arabesque-bg relative overflow-hidden">
+      <div class="max-w-[1400px] mx-auto gsap-reveal opacity-0">
+        
+        <div class="flex flex-col lg:grid lg:grid-cols-[1fr_350px_1fr] xl:grid-cols-[1fr_450px_1fr] gap-8 lg:gap-16 items-start">
+          
+          <!-- Column 1: Lead-in & P1 -->
+          <div class="space-y-6 md:space-y-8 lg:mt-16 animate-fade-in-up" style="animation-delay: 200ms;">
+             <!-- Sofa Line Art Vector -->
+             <svg class="w-16 h-8 text-gold/60 mx-auto lg:mx-0" viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 35h80M15 35v-5a5 5 0 015-5h60a5 5 0 015 5v5M25 25v-5a5 5 0 015-5h40a5 5 0 015 5v5"/></svg>
+             <h2 class="text-3xl md:text-5xl font-extrabold text-gold uppercase mb-4 font-cairo" x-text="lang === 'ar' ? 'اكتشف خياراتنا' : 'Explore Our Options'"></h2>
+             <div x-data="{ expanded: false }">
+               <div :class="expanded ? '' : 'line-clamp-3 md:line-clamp-4'">
+                 <p class="text-lg md:text-xl font-medium text-stone-800 leading-snug tracking-wide" x-text="lang === 'ar' ? 'في شركة سعيد للأثاث، نُعرف بين أفضل صناع أثاث الكنب وخبراء الكنب التفصيل في السعودية.' : 'At Saeed Furniture Company — شركة سعيد للأثاث — we are known among the best sofa furniture makers and custom sofa makers in KSA for creating premium Arabic sofas and reception-room seating.'"></p>
+                 <div class="w-12 h-[1px] bg-gold my-8" x-show="expanded"></div>
+                 <p class="text-lg text-stone-800 leading-loose font-medium" x-show="expanded" x-text="lang === 'ar' ? 'كل طلب هو عبارة عن طقم كنب مخصص أو جلسة مجلس تفصيل، يُصنع بالكامل كأثاث حسب الطلب في السعودية، مُصمم ليناسب ذوقك ومبني خصيصاً لمنزلك. من الاستشارة الأولى وحتى اللمسة الأخيرة، نتبع نهجاً احترافياً في تصميم الكنب المخصص لإنتاج أثاث مجالس فاخر – طابع شخصي، جودة تدوم، وحرفية ترتقي بتجربة استقبال ضيوفك.' : 'Every commission is a custom-made sofa set or bespoke majlis seating, entirely made-to-order furniture in Saudi Arabia, designed to your taste and built for your home. From the first consultation to the final stitch, we follow a custom sofa design KSA approach that results in luxury majlis furniture – personal, lasting, and crafted to elevate your guest room experience.'"></p>
+               </div>
+               <button @click="expanded = !expanded" x-text="expanded ? 'Read Less' : 'Read More'" class="mt-4 text-sm text-yellow-600 hover:text-yellow-500 uppercase tracking-widest font-bold focus:outline-none"></button>
+             </div>
+          </div>
+
+          <!-- Column 2: Center Image Carousel -->
+          <div class="w-full h-[300px] md:h-[500px] lg:h-[600px] rounded-t-full rounded-b-full overflow-hidden shadow-[0_30px_80px_-15px_rgba(201,169,110,0.4)] bg-[#080809] border-4 border-ivory relative group animate-fade-in-up" style="animation-delay: 300ms;" x-data="{ timer: null, next() { const clientW = this.$refs.carousel.clientWidth; const scrollW = this.$refs.carousel.scrollWidth; const scrollL = this.$refs.carousel.scrollLeft; requestAnimationFrame(() => { this.$refs.carousel.scrollBy({ left: clientW, behavior: 'smooth' }); if(scrollL >= scrollW - clientW - 10) { this.$refs.carousel.scrollTo({ left: 0, behavior: 'smooth' }); } }); } }" x-init="timer = setInterval(() => next(), 4000)">
+            <div x-ref="carousel" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar">
+              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                <div class="absolute inset-0 overflow-hidden bg-black">
+                  <img :src="IMAGE_BASE_URL + 'images/modern.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Modern">
+                </div>
+                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
+              </div>
+              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                <div class="absolute inset-0 overflow-hidden bg-black">
+                  <img :src="IMAGE_BASE_URL + 'images/authentic.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Authentic">
+                </div>
+                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
+              </div>
+              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                <div class="absolute inset-0 overflow-hidden bg-black">
+                  <img :src="IMAGE_BASE_URL + 'images/heritage.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Heritage">
+                </div>
+                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: P2 & P3 -->
+          <div class="space-y-6 md:space-y-8 lg:mt-32 animate-fade-in-up" style="animation-delay: 400ms;">
+             <p class="text-lg text-stone-800 leading-loose font-medium" x-text="lang === 'ar' ? 'عملية التصنيع حسب الطلب لدينا تزيل أي حيرة. بعد اختيارك للموديل، نزورك في منزلك أو نرحب بك في معرضنا – وبصفتنا مصنع كنب متكامل، لا نطلب منك أبداً قياس الغرفة بنفسك؛ نحن نقيسها بالنيابة عنك.' : 'Our made-to-order process removes all uncertainty. After you select a model, we visit your home or welcome you to our showroom – as a full-service sofa manufacturer, we never ask you to premeasure the room; we measure it for you.'"></p>
+             <p class="text-lg text-stone-800 leading-loose font-medium" x-text="lang === 'ar' ? 'ثم يقوم حرفيونا ببناء الهيكل، وتطبيق الطلاء الواقي، وتركيب الإسفنج عالي الكثافة، وتفصيل التنجيد يدوياً، لنقدم لك أفضل تجربة لاقتناء كنب تفصيل وأثاث مجالس في السعودية. سواء كنت تطلب طقم كنب مجلس عربي، أو تجهيز كامل من الأثاث المصنوع يدوياً، أو أثاث خشبي تفصيل مع ستائر متناسقة، فإن النتيجة النهائية هي أثاث داخلي للمجالس يعكس المعنى الحقيقي للأثاث المخصص بأعلى معايير الجودة.' : 'Our artisans then build the frame, apply protective coatings, place high-density sponge, and tailor the upholstery by hand, delivering the best place to buy custom sofa experiences for custom majlis furniture in Saudi Arabia. Whether you order an Arabic majlis sofa set, a complete handcrafted furniture Saudi Arabia installation, or bespoke wood furniture Saudi Arabia with matching curtains, the final result is majlis interior furniture that reflects true tailor-made furniture with quality and welcomes family and guests beautifully.'"></p>
+             <p class="text-[0.8rem] text-stone-500 font-bold uppercase tracking-widest mt-12" x-text="lang === 'ar' ? '* تطبق الشروط والأحكام' : '* Terms & Conditions apply'"></p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+<!-- ══ FAQ SECTION ═════════════════════════════════════ -->
+    <section id="faq" class="py-12 md:py-24 px-5 bg-ivory border-b border-ivory-darker arabesque-bg relative">
+      <div class="max-w-[700px] mx-auto gsap-reveal opacity-0">
+        <svg class="w-16 h-8 text-gold/60 mx-auto mb-4" viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 35h80M15 35v-5a5 5 0 015-5h60a5 5 0 015 5v5M25 25v-5a5 5 0 015-5h40a5 5 0 015 5v5"/></svg>
+        <h2 class="text-3xl md:text-5xl font-extrabold text-gold uppercase mb-4 text-center font-cairo" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></h2>
+        <div class="text-xl font-medium text-stone-800 leading-tight mb-12 text-center" x-text="lang === 'ar' ? 'كيف نعمل؟' : 'How it works'"></div>
+        
+        <div class="space-y-4" x-data="{ active: null }">
+
+          <!-- Q1: Made to Order -->
+          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 1 ? null : 1">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `أرى أن كنبكم يُفصل حسب الطلب. ماذا يحدث بالضبط بعد تأكيد الطلب؟` : `I see your sofas are made-to-order. What exactly happens after I place an order?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 1}">▼</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 1 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `في شركة سعيد للأثاث، والتي تُعد من أبرز مصنعي الكنب التفصيل في السعودية، كل قطعة هي أثاث يُصنع حسب الطلب. بعد اختيارك للتصميم الأساسي، نلتقي بك لاعتماد الأقمشة والألوان. ثم يقوم مشغلنا ببناء الهيكل الخشبي الصلب، وتطبيق الطلاء الواقي، وتركيب الإسفنج عالي الكثافة، وإتمام التنجيد. ستحصل على طقم كنب تفصيل صُنع خصيصاً لمقاسات غرفتك، وليس منتجاً جاهزاً.` : `At Saeed Furniture, recognised among the custom sofa makers in KSA, every piece is made-to-order furniture Saudi Arabia. Once you select a base style, we meet you to finalize fabric and colours. Our workshop then builds the solid frame, applies protective coatings, sets the high-density sponge, and completes the upholstery. You get a custom-made sofa set built for your exact room, not a pre-stocked item.`"></p>
+            </div>
+          </div>
+
+          <!-- Q2: Measurements -->
+          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 2 ? null : 2">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `لا أعرف مقاسات غرفتي الدقيقة بعد. هل تأتون لأخذ المقاسات بنفسكم؟` : `I don’t know my exact room measurements yet. Do you come measure it for me?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 2}">▼</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 2 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `نعم! على عكس متاجر التجزئة العادية، وبصفتنا مصنع كنب متخصص، نرسل فريقنا إليك في زيارة منزلية مجانية. يقومون بأخذ كافة المقاسات حتى لا تقلق بشأنها. هذا ما يجعلنا الوجهة الأمثل لشراء الكنب التفصيل؛ ارفع طلبك أولاً، ونتولى نحن أخذ المقاسات. نحن نغطي طلبات تفصيل الأثاث في الرياض والزيارات لكافة المدن الرئيسية.` : `Yes! Unlike standard retailers, as a dedicated sofa manufacturer, we send our team to you for a free home visit. They take every dimension so you don't have to worry. This makes us the best place to buy custom sofas; place your order first, and we handle the measurements. We cover tailor-made furniture, Riyadh appointments, and visits to all major KSA cities.`"></p>
+            </div>
+          </div>
+
+          <!-- Q3: Fabric Online -->
+          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 3 ? null : 3">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `أشعر بالقلق من اختيار القماش عبر الإنترنت. هل يمكنني رؤية الخامات ولمسها أولاً؟` : `I’m worried about choosing fabric online. Can I see and touch the materials first?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 3}">▼</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 3 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `بكل تأكيد. يجب أن يكون اختيار المواد تجربة شخصية ملموسة. نحن نحضر عينات الأقمشة إلى منزلك أو خلال موعدك في المعرض لتتمكن من لمس جودة الأثاث المصنوع يدوياً في السعودية بنفسك. هذا هو جوهر عملية تصميم الكنب المخصص لدينا، لضمان أن القماش يبدو مثالياً في إضاءة غرفتك قبل البدء في القص.` : `Absolutely. Material selection must be an in-person experience. We bring the swatches to your home or showroom appointment so you can feel the handcrafted furniture in Saudi Arabia quality firsthand. This is the heart of our custom sofa design KSA process, ensuring the fabric looks perfect in your room's lighting before any cutting begins.`"></p>
+            </div>
+          </div>
+
+          <!-- Q4: Choose Colors -->
+          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 4 ? null : 4">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? 'متى يمكنني اختيار الألوان؟' : 'When do I get to choose the colours?'"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 4}">▼</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 4 ? 'max-height: 200px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? 'لديك تحكم كامل في المواد والألوان. يمكنك تحديد اختياراتك إما أثناء زيارة منزلية مجانية مجدولة من قبل فريقنا، أو عن طريق زيارة أقرب معرض لنا.' : 'You have complete control over materials and colors. You can make your selections either during a scheduled free home visit by our team, or by visiting our nearest shop.'"></p>
+            </div>
+          </div>
+
+          <!-- Q5: Sink or lose shape -->
+          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 5 ? null : 5">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `هل سيهبط الكنب أو يفقد شكله بمرور الوقت؟ ما نوع المواد التي تستخدمونها؟` : `Will the sofa sink or lose its shape over time? What kind of materials do you use?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 5}">▼</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 5 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `لا، لأننا نستخدم إسفنج ممتاز عالي الكثافة، وهو أمر حيوي في مناخ المملكة لمقاومة الهبوط تحت الاستخدام اليومي الكثيف. في كل طقم كنب مجلس عربي نصنعه، ندمج هذا الإسفنج مع أقمشة متينة وهياكل من الخشب الصلب. كل تفصيلة تعكس أعلى معايير الحرفية في الأثاث المصنوع حسب الطلب في السعودية.` : `No, because we use premium high-density sponge, which is vital in Saudi Arabia’s climate to resist sagging under heavy daily use. In every Arabic majlis sofa set we build, we pair that sponge with durable fabrics and solid wood frames. Every detail reflects the highest standard of made-to-order furniture Saudi Arabia craftsmanship.`"></p>
+            </div>
+          </div>
+
+          <!-- Q6: Who is building -->
+          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 6 ? null : 6">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `من سيقوم بصنع الكنب الخاص بي؟ هل هو إنتاج مصانع أم عمل يدوي؟` : `Who is actually building my sofa? Is it mass-produced or made by hand?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 6}">▼</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 6 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `يُصنع الكنب الخاص بك يدوياً على يد حرفيين يمتلكون خبرة تزيد عن عقدين في تصميم مجالس تفصيل راقية. هذا يعني أن المفاصل متينة، ومساند الأذرع مصقولة بنعومة فائقة، والأقمشة تصطف بشكل جميل. عندما تشتري أثاث مجالس داخلية من فريقنا، فأنت تستثمر في أثاث تفصيل حقيقي صُنع بأيدي أمهر الحرفيين، وليس بديلاً تجارياً من إنتاج المصانع.` : `Your sofa is built by hand by craftsmen who have over two decades of experience in bespoke majlis seating. This means joints are rigid, armrests are perfectly smooth, and fabrics align beautifully. When you buy majlis interior furniture from us, you are investing in genuine tailor-made furniture built by master artisans, never a mass-produced factory alternative.`"></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+</main>
 <!-- ── Footer ───────────────────────────────────────────── -->
   <footer id="footer" class="bg-ivory py-12 md:py-24 px-5 transition-opacity duration-500 border-t border-ivory-darker" x-show="!loading" x-cloak>
     <div class="max-w-[1000px] mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left" :class="lang === 'ar' ? 'md:text-right' : 'md:text-left'">
@@ -368,7 +503,7 @@
           <input :type="showPass ? 'text' : 'password'" x-model="password" autocomplete="current-password"
                  class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-base md:text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e] pr-10"
                  :placeholder="lang === 'ar' ? '••••••••' : '••••••••'">
-          <button type="button" @click="showPass = !showPass" class="absolute right-0 bottom-3 text-white/30 hover:text-white transition-colors">
+          <button type="button" @click="showPass = !showPass" aria-label="Toggle Password Visibility" class="absolute right-0 bottom-3 text-white/30 hover:text-white transition-colors">
             <svg x-show="!showPass" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             <svg x-show="showPass" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
           </button>
@@ -1156,7 +1291,7 @@
                 easing: 'easeInOutQuad',
                 complete: () => {
                   // Navigate to category page logic
-                  console.log(`Navigating to ${zone}...`);
+                  
                   // For now, simulate routing by triggering the alpine state
                   // Assuming window.saeedApp exists
                   window.location.hash = zone;
@@ -1233,7 +1368,8 @@
         <div class="w-12 h-px bg-[#c9a96e] mx-auto mt-8"></div>
       </div>
     </section>
-  </div>
+  
 
   
 </body>
+</html>

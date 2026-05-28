@@ -98,7 +98,7 @@ for fname, fpath in FILES.items():
 
     # ── MOBILE / RESPONSIVE ───────────────────────────────────────────────
     # Large py/px without mobile override
-    big_padding = re.findall(r'py-(?:32|28|24)(?!\s)', raw)
+    big_padding = re.findall(r'(?<!\w:)py-(?:32|28|24)(?!\s)', raw)
     if big_padding:
         issues.append(f'[MOBILE] Large vertical padding without mobile override: {set(big_padding)}')
     
@@ -110,7 +110,7 @@ for fname, fpath in FILES.items():
                 break
 
     # Fixed widths that might overflow
-    fixed_wide = re.findall(r'w-\[([6-9]\d\d|[1-9]\d{3})px\]', raw)
+    fixed_wide = re.findall(r'(?<!max-)(?<!min-)w-\[([6-9]\d\d|[1-9]\d{3})px\]', raw)
     if fixed_wide:
         issues.append(f'[MOBILE] Fixed px widths that may overflow: {set(fixed_wide[:3])}')
 
