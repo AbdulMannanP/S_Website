@@ -189,7 +189,7 @@
             style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة سعيد</span>
     </div>
     
-    <nav class="hidden md:flex items-center gap-8 text-[0.8rem] font-bold text-white/60 uppercase tracking-[0.15em] min-h-[44px]">
+    <nav class="hidden md:flex items-center space-x-8 text-[0.8rem] font-bold text-white/60 uppercase tracking-[0.15em] min-h-[44px]">
       <a href="#about" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] hover:shadow-[0_0_10px_rgba(201,169,110,0.5)]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
       <a href="#faq" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></a>
       <a href="#" @click.prevent="scrollToFooter()" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'تواصل معنا' : 'Contact'"></a>
@@ -226,7 +226,7 @@
     <button @click="handleOrderClick(); mobileMenuOpen = false" class="text-2xl font-light text-gold hover:text-gold/80 transition-colors uppercase tracking-[0.3em]" x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')"></button>
     <div class="w-12 h-[1px] bg-gold/30 my-4"></div>
     <button @click="isSelectionMode = true; step = 'selection'; mobileMenuOpen = false; window.scrollTo({top: 0})" class="px-6 py-3 md:px-10 md:py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.2em] text-xs md:text-sm hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-all duration-300">
-      <span x-text="lang === 'ar' ? 'ابدأ رحلتك' : 'Start Your Journey'"></span>
+      <span x-text="lang === 'ar' ? '' : ''"></span>
     </button>
   </div>
 
