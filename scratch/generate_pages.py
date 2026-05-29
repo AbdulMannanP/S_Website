@@ -1,83 +1,107 @@
 import os
+import re
 
-with open('frontend/index.html', 'r', encoding='utf-8') as f:
-    html = f.read()
-
-main_tag = '<main class="transition-all duration-500 pt-20"'
-header_part = html[:html.find(main_tag)]
-
-footer_tag = '<!-- ── Footer ───────────────────────────────────────────── -->'
-footer_part = html[html.find(footer_tag):]
-footer_part = footer_part.replace('x-show="!loading && activeShowroom === \'gateway\'"', 'x-show="!loading"')
-
+# Colors and configuration for the 5 pages
 pages = {
     'majlis': {
-        'bg': 'bg-emerald-950',
-        'title': 'The Majlis',
-        'cta_en': 'Craft Your Legacy',
-        'cta_ar': 'اصنع إرثك'
+        'name': 'Majlis / مجلس',
+        'text_color': 'text-emerald-900',
+        'bg_color': 'bg-neutral-100',
+        'accent_color': 'bg-amber-500',
+        'accent_text': 'text-amber-500',
+        'image': 'https://ik.imagekit.io/de7qvcvqv/images/Night%20room%20Hero?updatedAt=1779819465172' # generic placeholder
     },
     'kitchen': {
-        'bg': 'bg-slate-900',
-        'title': 'Bespoke Kitchens',
-        'cta_en': 'Design Your Culinary Space',
-        'cta_ar': 'صمم مساحة الطهي الخاصة بك'
+        'name': 'Kitchen / مطبخ',
+        'text_color': 'text-slate-800',
+        'bg_color': 'bg-neutral-100',
+        'accent_color': 'bg-yellow-600',
+        'accent_text': 'text-yellow-600',
+        'image': 'https://ik.imagekit.io/de7qvcvqv/images/Night%20room%20Hero?updatedAt=1779819465172'
     },
     'bedroom': {
-        'bg': 'bg-indigo-950',
-        'title': 'Arabian Bedroom',
-        'cta_en': 'Awaken In Luxury',
-        'cta_ar': 'استيقظ في الرفاهية'
+        'name': 'Bedroom / غرفة نوم',
+        'text_color': 'text-indigo-950',
+        'bg_color': 'bg-slate-300',
+        'accent_color': 'bg-indigo-950',
+        'accent_text': 'text-indigo-950',
+        'image': 'https://ik.imagekit.io/de7qvcvqv/images/Night%20room%20Hero?updatedAt=1779819465172'
     },
     'cot': {
-        'bg': 'bg-teal-900',
-        'title': 'Premium Cots',
-        'cta_en': 'Nurture The Future',
-        'cta_ar': 'ارعى المستقبل'
+        'name': 'Cot / سرير أطفال',
+        'text_color': 'text-teal-800',
+        'bg_color': 'bg-stone-200',
+        'accent_color': 'bg-teal-800',
+        'accent_text': 'text-teal-800',
+        'image': 'https://ik.imagekit.io/de7qvcvqv/images/Night%20room%20Hero?updatedAt=1779819465172'
     },
     'almirah': {
-        'bg': 'bg-neutral-900',
-        'title': 'Architectural Storage',
-        'cta_en': 'Organize Elegantly',
-        'cta_ar': 'نظم بأناقة'
+        'name': 'Almirah / خزانة',
+        'text_color': 'text-neutral-900',
+        'bg_color': 'bg-neutral-100',
+        'accent_color': 'bg-amber-900',
+        'accent_text': 'text-amber-900',
+        'image': 'https://ik.imagekit.io/de7qvcvqv/images/Night%20room%20Hero?updatedAt=1779819465172'
     }
 }
 
-for slug, data in pages.items():
-    page_html = header_part + f'''
-  <!-- ── Main Content for {slug} ────────────────────────────────────── -->
-  <main class="transition-all duration-500 pt-20" x-show="!loading" x-cloak>
+def build_page(key, config, index_html):
+    # Extract head
+    head_match = re.search(r'(<!DOCTYPE html>.*?<body[^>]*>)', index_html, re.DOTALL)
+    head = head_match.group(1) if head_match else '<!DOCTYPE html><html><body>'
     
-    <!-- Phase 3: The Plain-Color Hero Sections (100vh) -->
-    <div class="h-screen w-full relative {data['bg']} flex items-center justify-center">
-      <!-- Back Navigation -->
-      <div class="absolute top-24 left-8 z-50">
-        <a href="/" class="flex items-center gap-2 text-white/90 hover:text-white transition-all duration-300 group bg-[#080809]/80 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 hover:border-[#c9a96e]/50 shadow-lg">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform group-hover:-translate-x-1"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em]" x-text="lang === 'ar' ? 'العودة للمعرض' : 'Back to Master Room'"></span>
-        </a>
-      </div>
+    # Extract header
+    header_match = re.search(r'(<header.*?</header>)', index_html, re.DOTALL)
+    header = header_match.group(1) if header_match else '<header></header>'
+    
+    # Extract footer
+    footer_match = re.search(r'(<footer.*?>.*?</footer>)', index_html, re.DOTALL)
+    footer = footer_match.group(1) if footer_match else '<footer></footer>'
 
-      <!-- Unique Bilingual Call-To-Action Button -->
-      <button onclick="window.location.href='/#order'" class="px-10 py-4 bg-[#c9a96e] text-stone-950 font-bold tracking-[0.25em] uppercase text-sm rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-all duration-300 z-10 relative">
-        <span x-text="lang === 'ar' ? '{data['cta_ar']}' : '{data['cta_en']}'"></span>
-      </button>
-    </div>
+    # Remove Alpine state references from body tag if necessary
+    head = re.sub(r'x-data="saeedApp\(\)"', '', head)
 
-    <!-- Phase 4: The Themed "Under Construction" Canvas -->
-    <section class="min-h-[50vh] bg-stone-50 py-20 px-6 flex flex-col items-center justify-center text-center">
-      <div class="max-w-xl mx-auto">
-        <div class="w-12 h-px bg-[#c9a96e] mx-auto mb-8"></div>
-        <p class="text-[0.65rem] uppercase tracking-[0.4em] text-[#c9a96e] font-bold mb-4" x-text="lang === 'ar' ? 'معرض {data['title']} الرقمي' : '{data['title']} Digital Showroom'"></p>
-        <h2 class="text-2xl md:text-3xl font-light text-stone-900 mb-4" x-text="lang === 'ar' ? 'المعرض الرقمي قيد الإنشاء' : 'Digital Showroom Under Construction'"></h2>
-        <p class="text-stone-500 text-sm leading-relaxed" x-text="lang === 'ar' ? 'نعمل على بناء تجربة رقمية استثنائية لعرض مجموعتنا الكاملة من {data['title']}. عد قريباً.' : 'Check back soon for the full {data['title']} collection.'"></p>
-        <div class="w-12 h-px bg-[#c9a96e] mx-auto mt-8"></div>
-      </div>
+    html = f"""{head}
+    {header}
+    
+    <!-- Section A: Back Button -->
+    <a href="/" class="fixed top-24 left-6 z-50 px-4 py-2 bg-white/10 text-white backdrop-blur-md rounded-lg border border-white/20 hover:bg-white/30 transition-all font-cairo flex items-center gap-2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Master Room
+    </a>
+
+    <!-- Section B: 100vh Hero -->
+    <section class="relative w-full h-screen">
+        <img src="{config['image']}" class="absolute inset-0 w-full h-full object-cover z-0" alt="{config['name']}">
+        <div class="absolute inset-0 bg-black/40 z-10"></div>
+        
+        <div class="absolute bottom-12 inset-x-0 flex justify-center z-20">
+            <button class="px-8 py-4 {config['accent_color']} text-white font-bold rounded-lg shadow-lg hover:scale-105 transition-transform uppercase tracking-widest">
+                Explore {config['name']}
+            </button>
+        </div>
     </section>
-  </main>
-''' + footer_part
 
-    with open(f'frontend/{slug}.html', 'w', encoding='utf-8') as f:
-        f.write(page_html)
+    <!-- Section C: Under Construction -->
+    <section class="min-h-[50vh] flex flex-col items-center justify-center {config['bg_color']} {config['text_color']} p-8 text-center">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="mb-6 opacity-70">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <h2 class="text-3xl md:text-5xl font-extrabold mb-4 font-cairo">Digital Showroom Under Construction</h2>
+        <p class="text-xl md:text-2xl max-w-2xl opacity-80 font-cairo">Check back soon for the full {config['name']} collection.</p>
+    </section>
 
-print("Generated 5 pages successfully.")
+    {footer}
+</body>
+</html>
+"""
+    with open(f"frontend/{key}.html", "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"Created {key}.html")
+
+with open('frontend/index.html', 'r', encoding='utf-8') as f:
+    idx = f.read()
+
+for key, config in pages.items():
+    build_page(key, config, idx)
+
