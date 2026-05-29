@@ -1,414 +1,11 @@
-﻿<!DOCTYPE html>
-<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="data:,">
-  <title>Saeed Furniture | Majlis Collection</title>
-  <meta name="description" content="Luxury bespoke majlis crafted to order. Explore the Saeed Furniture Majlis collection.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/dist/output.css">
-  
-  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="js/auth.js"></script>
-  <script defer src="/js/app.js"></script>
-  <script defer src="/js/portfolio.js"></script>
-  <script defer src="https://unpkg.com/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
-  <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
-    .hide-scrollbar::-webkit-scrollbar { display: none; }
-    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  
-    
-
-    /* pf roots */
-.pf-scope {
-      --sand:    #f5ede0;
-      --sand-2:  #eddcca;
-      --warm:    #c9a96e;
-      --brown:   #5c3d2e;
-      --muted:   #9e8874;
-      --dark:    #1a0f0a;
-    }
-
-    
-
-    
-
-    /* â”€â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pf-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(245, 237, 224, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(92, 61, 46, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 32px;
-    }
-
-    .pf-header-logo { height: 36px; width: auto; object-fit: contain; }
-
-    .pf-back {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    .pf-back:hover { color: var(--warm); }
-    .pf-back svg { transition: transform 0.3s; }
-    .pf-back:hover svg { transform: translateX(-4px); }
-
-    /* â”€â”€â”€ Hero Label â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pf-hero {
-      padding: 64px 32px 40px;
-      text-align: center;
-    }
-    .pf-hero-eyebrow {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.45em;
-      text-transform: uppercase;
-      color: var(--warm);
-      margin-bottom: 16px;
-    }
-    .pf-hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 300;
-      color: var(--brown);
-      line-height: 1.1;
-      letter-spacing: 0.02em;
-      margin-bottom: 20px;
-    }
-    .pf-hero-subtitle {
-      font-size: 0.95rem;
-      color: var(--muted);
-      font-weight: 400;
-      max-width: 480px;
-      margin: 0 auto;
-      line-height: 1.75;
-    }
-    .pf-divider {
-      width: 48px;
-      height: 1px;
-      background: var(--warm);
-      margin: 32px auto 0;
-      opacity: 0.5;
-    }
-
-    /* â”€â”€â”€ Filter Tabs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pf-filters {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      padding: 32px 24px 24px;
-      flex-wrap: wrap;
-    }
-    .pf-filter-btn {
-      padding: 8px 22px;
-      border-radius: 100px;
-      border: 1px solid rgba(92,61,46,0.2);
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      background: transparent;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .pf-filter-btn:hover,
-    .pf-filter-btn.active {
-      background: var(--warm);
-      border-color: var(--warm);
-      color: white;
-    }
-
-    /* â”€â”€â”€ Masonry Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pf-grid {
-      padding: 0 24px 80px;
-      column-count: 2;
-      column-gap: 16px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    @media (min-width: 900px) {
-      .pf-grid { column-count: 3; column-gap: 20px; padding: 0 40px 100px; }
-    }
-    @media (max-width: 480px) {
-      .pf-grid { column-count: 1; padding: 0 16px 60px; }
-    }
-
-    /* â”€â”€â”€ Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pf-card {
-      break-inside: avoid;
-      position: relative;
-      border-radius: 20px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      cursor: pointer;
-      background: #d4c4b0;
-      box-shadow: 0 4px 20px rgba(92,61,46,0.08);
-      transition: transform 0.5s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.5s;
-    }
-    .pf-card:hover {
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 20px 60px rgba(92,61,46,0.18);
-    }
-    .pf-card img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-      transition: transform 0.8s cubic-bezier(0.2,0.8,0.2,1);
-    }
-    .pf-card:hover img { transform: scale(1.04); }
-
-    /* Card text overlay */
-    .pf-card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(26,15,10,0.08) 0%, rgba(26,15,10,0.65) 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 18px;
-      opacity: 1;
-      transition: opacity 0.4s;
-    }
-
-    /* Card top: logo mark */
-    .pf-card-logo {
-      width: 36px;
-      height: auto;
-      opacity: 0.9;
-      filter: brightness(0) invert(1);
-    }
-    .pf-card-logo-wordmark {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.6rem;
-      font-weight: 600;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.9);
-      margin-top: 2px;
-    }
-
-    /* Card bottom: text */
-    .pf-card-bottom {}
-    .pf-card-tag {
-      font-size: 0.55rem;
-      font-weight: 700;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.65);
-      margin-bottom: 6px;
-    }
-    .pf-card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1rem, 2.5vw, 1.4rem);
-      font-weight: 400;
-      color: white;
-      line-height: 1.2;
-      margin-bottom: 10px;
-    }
-    .pf-card-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      background: rgba(201,169,110,0.85);
-      border-radius: 100px;
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: white;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 0.3s;
-      backdrop-filter: blur(8px);
-    }
-    .pf-card-cta:hover { background: rgba(201,169,110,1); }
-
-    /* Featured card (full-width span) */
-    .pf-card.featured {
-      break-inside: avoid;
-    }
-
-    /* â”€â”€â”€ Lightbox â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pf-lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: rgba(26,15,10,0.92);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .pf-lightbox-inner {
-      position: relative;
-      max-width: 900px;
-      width: 100%;
-      border-radius: 24px;
-      overflow: hidden;
-      background: var(--sand-2);
-    }
-    .pf-lightbox-img {
-      width: 100%;
-      max-height: 75vh;
-      object-fit: cover;
-      display: block;
-    }
-    .pf-lightbox-info {
-      padding: 24px 32px 28px;
-    }
-    .pf-lightbox-tag {
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--warm);
-      margin-bottom: 8px;
-    }
-    .pf-lightbox-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
-      font-weight: 400;
-      color: var(--brown);
-      margin-bottom: 8px;
-    }
-    .pf-lightbox-desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-    .pf-lightbox-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(26,15,10,0.5);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      transition: background 0.3s;
-    }
-    .pf-lightbox-close:hover { background: var(--warm); }
-
-    .pf-lightbox-wa {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      background: #25d366;
-      border-radius: 100px;
-      color: white;
-      font-weight: 700;
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-      text-decoration: none;
-      transition: opacity 0.3s;
-    }
-    .pf-lightbox-wa:hover { opacity: 0.85; }
-
-    /* â”€â”€â”€ CTA Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pf-cta-footer {
-      background: var(--brown);
-      padding: 80px 32px;
-      text-align: center;
-    }
-    .pf-cta-footer-eyebrow {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--warm);
-      margin-bottom: 20px;
-    }
-    .pf-cta-footer-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 300;
-      color: rgba(245,237,224,0.95);
-      margin-bottom: 12px;
-    }
-    .pf-cta-footer-sub {
-      font-size: 0.9rem;
-      color: rgba(245,237,224,0.5);
-      margin-bottom: 40px;
-    }
-    .pf-cta-footer-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 16px 40px;
-      background: var(--warm);
-      color: white;
-      font-weight: 700;
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: all 0.3s;
-      border: none;
-      cursor: pointer;
-    }
-    .pf-cta-footer-btn:hover {
-      background: #d4b87a;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(201,169,110,0.4);
-    }
-
-    /* Animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up { animation: fadeUp 0.7s ease both; }
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.35s; }
-
-    [x-cloak] { display: none !important; }
-  
-  </style>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
-</head>
-<body class="m-0 p-0 overflow-x-hidden bg-[#080809] text-white font-sans" x-data="saeedApp()" x-init="showPortfolio = false; isSelectionMode = true; step = 'selection'; initSwiper(); activeShowroom = 'majlis';">
+﻿<!DO
   <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
   <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
     <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
   </div>
-  <!-- ===================== UNIFIED GLOBAL HEADER ===================== -->
-  <header class="fixed top-0 inset-x-0 z-[150] bg-stone-950/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
+  <div class="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-black/70 to-transparent z-40 pointer-events-none"></div>
+<!-- ===================== UNIFIED GLOBAL HEADER ===================== -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-stone-950/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
       
       <!-- Left: Logo & Brand -->
@@ -462,6 +59,7 @@
   </header>
   <!-- Padding for fixed header -->
   <div class="h-20"></div>
+<a href="/index.html" class="absolute top-28 left-8 z-50 flex items-center gap-2 text-stone-300 hover:text-amber-500 transition-colors duration-500 bg-black/20 hover:bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm text-sm tracking-widest border border-white/10">← RETURN TO HUB</a>
 
 <section id="order" class="min-h-screen bg-[#080809] text-white relative"  x-cloak>
 
@@ -481,6 +79,7 @@
 
           <!-- â•â•â• LAYER 1: UI Layout — Strict flex-col â•â•â• -->
           <div class="relative z-10 flex flex-col h-full">
+  <div class="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-black/80 to-transparent z-40 pointer-events-none"></div>
 
             <!-- â”€â”€ ROW 2: Main Content Area (fills remaining space) â”€â”€ -->
             <div class="flex-1 flex relative overflow-hidden">
@@ -577,7 +176,13 @@
 
               </div><!-- END CENTER -->
             </div><!-- END ROW 2 -->
-          </div><!-- END LAYER 1 -->
+          </div>
+<a href="#portfolio" class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-stone-400 hover:text-amber-500 transition-colors duration-500 z-40">
+<span class="text-xs tracking-[0.2em] uppercase">Explore the Portfolio</span>
+<svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+</a>
+
+<!-- END LAYER 1 -->
 
           <!-- â•â• EXIT-INTENT FULL-SCREEN INTERCEPTOR â•â• -->
           <div x-show="showExitPopup" 
@@ -637,6 +242,10 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform duration-300 group-hover:-translate-x-1" :class="lang === 'ar' ? 'rotate-180' : ''"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
               <span class="text-[0.65rem] font-bold uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'العودة Ù„Ù„Ø±Ø¦ÙŠØ³ÙŠØ©' : 'Return to Home'"></span>
             </button>
+            <a href="https://wa.me/?text=Explore%20the%20Majlis%20Collection%20by%20Saeed%20Furniture:%20https://saeedfurniture.com/majlis.html" target="_blank" class="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-stone-400 hover:text-green-500 transition-colors duration-500 border border-stone-700 hover:border-green-500 px-4 py-2 rounded-sm mt-3 w-full justify-center">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.489-1.761-1.663-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Share Collection
+            </a>
           </div>
 
           <!-- Compact Header Image -->
@@ -786,11 +395,12 @@
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
 
-    <div class="bg-[#f5ede0] min-h-screen">
-      CTYPE html>
+    <section id="portfolio" class="min-h-screen py-20 bg-stone-900">
+      
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio — Saeed Furniture | Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø«</title>
@@ -806,6 +416,8 @@
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <style>
+  html { scroll-behavior: smooth; }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -822,7 +434,7 @@
     body {
       font-family: 'Inter', 'Cairo', sans-serif;
       background-color: var(--sand);
-      color: var(--brown);
+      color: rgba(245,237,224,0.95);
       min-height: 100vh;
     }
 
@@ -851,7 +463,7 @@
       font-weight: 700;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: rgba(245,237,224,0.6);
       text-decoration: none;
       transition: color 0.3s;
     }
@@ -876,14 +488,14 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.5rem, 6vw, 4.5rem);
       font-weight: 300;
-      color: var(--brown);
+      color: rgba(245,237,224,0.95);
       line-height: 1.1;
       letter-spacing: 0.02em;
       margin-bottom: 20px;
     }
     .pf-hero-subtitle {
       font-size: 0.95rem;
-      color: var(--muted);
+      color: rgba(245,237,224,0.6);
       font-weight: 400;
       max-width: 480px;
       margin: 0 auto;
@@ -913,7 +525,7 @@
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: rgba(245,237,224,0.6);
       background: transparent;
       cursor: pointer;
       transition: all 0.3s;
@@ -1054,7 +666,7 @@
       width: 100%;
       border-radius: 24px;
       overflow: hidden;
-      background: var(--sand-2);
+      background: #1a1a1a;
     }
     .pf-lightbox-img {
       width: 100%;
@@ -1077,12 +689,12 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.8rem;
       font-weight: 400;
-      color: var(--brown);
+      color: rgba(245,237,224,0.95);
       margin-bottom: 8px;
     }
     .pf-lightbox-desc {
       font-size: 0.85rem;
-      color: var(--muted);
+      color: rgba(245,237,224,0.6);
       line-height: 1.7;
       margin-bottom: 20px;
     }
@@ -1184,7 +796,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
 </head>
-<div class="w-full" x-data="portfolioApp()" x-init="init()">
+<section id="portfolio" class="min-h-screen py-20 bg-stone-900 w-full" x-data="portfolioApp()" x-init="init()">
   <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
   <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
     <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
@@ -1244,24 +856,11 @@
   </header>
   <!-- Padding for fixed header -->
   <div class="h-20"></div>
+<a href="/index.html" class="absolute top-28 left-8 z-50 flex items-center gap-2 text-stone-300 hover:text-amber-500 transition-colors duration-500 bg-black/20 hover:bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm text-sm tracking-widest border border-white/10">← RETURN TO HUB</a>
 
 
   <!-- â•â•â• HEADER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <header class="pf-header">
-    <a href="/">
-      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" class="pf-header-logo" alt="Saeed Furniture" onerror="this.src='https://ik.imagekit.io/de7qvcvqvhttps://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778'">
-    </a>
-    <nav style="display:flex; gap:2rem; align-items:center;">
-      <a href="/select.html" class="pf-back" style="border:none; font-size:0.65rem; letter-spacing:0.2em; font-weight:700; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='var(--muted)'">Collections</a>
-      <a href="/about.html" class="pf-back" style="border:none; font-size:0.65rem; letter-spacing:0.2em; font-weight:700; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='var(--muted)'">About</a>
-      <a href="/faq.html" class="pf-back" style="border:none; font-size:0.65rem; letter-spacing:0.2em; font-weight:700; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='var(--muted)'">FAQ</a>
-      <a href="/contact.html" class="pf-back" style="border:none; font-size:0.65rem; letter-spacing:0.2em; font-weight:700; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
-      <a href="/" class="pf-back">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        <span x-text="lang === 'ar' ? 'العودة' : 'Back to Home'"></span>
-      </a>
-    </nav>
-  </header>
+  
 
   <!-- â•â•â• HERO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <div class="pf-hero">
@@ -1313,6 +912,10 @@
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               <span x-text="lang === 'ar' ? 'Ø·Ù„Ø¨ Ù…Ù…Ø§Ø«Ù„' : 'Order Similar'"></span>
             </button>
+            <a href="https://wa.me/?text=Explore%20the%20Majlis%20Collection%20by%20Saeed%20Furniture:%20https://saeedfurniture.com/majlis.html" target="_blank" class="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-stone-400 hover:text-green-500 transition-colors duration-500 border border-stone-700 hover:border-green-500 px-4 py-2 rounded-sm mt-3 w-full justify-center">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.489-1.761-1.663-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Share Collection
+            </a>
           </div>
         </div>
       </div>
@@ -1368,12 +971,10 @@
   </div>
 
   
-</body>
-</html>
+
 
     </div>
   </div>
 
-</body>
-</html>
+
 
