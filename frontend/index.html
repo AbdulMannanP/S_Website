@@ -2,6 +2,7 @@
 <html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
+  <meta property="og:title" content="Saeed Furniture | Luxury Bespoke Seating KSA">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:,">
@@ -493,7 +494,7 @@
   <a href="/index.html" class="pointer-events-auto flex items-center gap-4 group">
     <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1);">
     <div class="hidden sm:block">
-      <h1 class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</h1>
+      <span class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</span>
       <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
     </div>
   </a>
@@ -667,7 +668,7 @@
        class="fixed inset-0 z-[150] bg-stone-950 overflow-y-auto">
        
     <!-- Close Button -->
-    <button @click="showCollections = false" class="fixed top-6 right-6 md:top-10 md:right-10 z-[160] w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white/50 hover:text-white hover:bg-white/20 transition-all border border-white/10">
+    <button @click="showCollections = false" aria-label="Close Collections" class="fixed top-6 right-6 md:top-10 md:right-10 z-[160] w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white/50 hover:text-white hover:bg-white/20 transition-all border border-white/10">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
 
@@ -747,7 +748,7 @@
         <!-- 2. Bedroom -->
         <a href="/bedroom.html" class="category-card card-animate" aria-label="Explore Bedroom Collection">
           <div class="category-card__topbar"></div>
-          <img src="/images/modern.png" alt="Bedroom Collection" class="category-card__img" />
+          <img loading="lazy" src="/images/modern.png" alt="Bedroom Collection" class="category-card__img" />
           <div class="category-card__overlay"></div>
           <div class="category-card__glass"></div>
           <div class="category-card__content">
@@ -767,7 +768,7 @@
         <!-- 3. Kitchen -->
         <a href="/kitchen.html" class="category-card card-animate" aria-label="Explore Kitchen Collection">
           <div class="category-card__topbar"></div>
-          <img src="/images/authentic.png" alt="Kitchen Collection" class="category-card__img" />
+          <img loading="lazy" src="/images/authentic.png" alt="Kitchen Collection" class="category-card__img" />
           <div class="category-card__overlay"></div>
           <div class="category-card__glass"></div>
           <div class="category-card__content">
@@ -787,7 +788,7 @@
         <!-- 4. Cot -->
         <a href="/cot.html" class="category-card card-animate" aria-label="Explore Cot Collection">
           <div class="category-card__topbar"></div>
-          <img src="/images/heritage.png" alt="Cot Collection" class="category-card__img" />
+          <img loading="lazy" src="/images/heritage.png" alt="Cot Collection" class="category-card__img" />
           <div class="category-card__overlay"></div>
           <div class="category-card__glass"></div>
           <div class="category-card__content">
@@ -807,7 +808,7 @@
         <!-- 5. Almirah -->
         <a href="/almirah.html" class="category-card card-animate" aria-label="Explore Almirah Collection">
           <div class="category-card__topbar"></div>
-          <img src="/images/modern_majlis.png" alt="Almirah Collection" class="category-card__img" />
+          <img loading="lazy" src="/images/modern_majlis.png" alt="Almirah Collection" class="category-card__img" />
           <div class="category-card__overlay"></div>
           <div class="category-card__glass"></div>
           <div class="category-card__content">

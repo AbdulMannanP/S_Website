@@ -1,4 +1,35 @@
-﻿<!DO
+<!DOCTYPE html>
+<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
+  <title>Saeed Furniture | Majlis Collection</title>
+  <meta name="description" content="Luxury bespoke majlis crafted to order. Explore the Saeed Furniture Majlis collection.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/dist/output.css">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="js/auth.js"></script>
+  <script defer src="/js/app.js"></script>
+  <script defer src="/js/portfolio.js"></script>
+  <script defer src="https://unpkg.com/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    [x-cloak] { display: none !important; }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body class="m-0 p-0 overflow-x-hidden bg-[#080809] text-white font-sans" x-data="saeedApp()" x-init="showPortfolio = false; isSelectionMode = true; step = 'selection'; initSwiper(); activeShowroom = 'majlis';">
   <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
   <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
     <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
@@ -12,7 +43,7 @@
       <a href="/index.html" class="flex items-center gap-4 group">
         <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.2));">
         <div class="hidden sm:block">
-          <h1 class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</h1>
+          <span class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</span>
           <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
         </div>
       </a>
@@ -135,7 +166,7 @@
                   <div class="mt-6 flex gap-4 overflow-x-auto hide-scrollbar pb-2" x-show="selectedVariationItem?.gallery?.length > 1">
                      <template x-for="(vImg, i) in selectedVariationItem?.gallery" :key="i">
                         <button @click="selectedVariationUrl = vImg; heroImageLoaded = false; let img = new Image(); img.onload = () => heroImageLoaded = true; img.src = vImg;" class="w-16 h-16 md:w-20 md:h-20 rounded-md overflow-hidden border-2 transition-all duration-300 flex-shrink-0 bg-black/50" :class="selectedVariationUrl === vImg ? 'border-gold scale-110 shadow-[0_0_20px_rgba(201,169,110,0.4)]' : 'border-transparent opacity-60 hover:opacity-100 hover:scale-105'">
-                           <img :src="vImg" :alt="selectedVariation?.public_display_name || 'Furniture Variation'" class="w-full h-full object-cover">
+                           <img loading="lazy" :src="vImg" :alt="selectedVariation?.public_display_name || 'Furniture Variation'" class="w-full h-full object-cover">
                         </button>
                      </template>
                   </div>
@@ -386,29 +417,12 @@
        class="fixed inset-0 z-[200] bg-stone-950 overflow-y-auto pf-scope text-[#5c3d2e]">
        
     <!-- Close Button -->
-    <button @click="showPortfolio = false" class="fixed top-6 right-6 md:top-10 md:right-10 z-[250] w-12 h-12 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white/80 hover:text-gold hover:bg-black/60 transition-all border border-white/20">
+    <button @click="showPortfolio = false" aria-label="Close Portfolio" class="fixed top-6 right-6 md:top-10 md:right-10 z-[250] w-12 h-12 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white/80 hover:text-gold hover:bg-black/60 transition-all border border-white/20">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
 
-    <section id="portfolio" class="min-h-screen py-20 bg-stone-900">
-      
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio — Saeed Furniture | Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø«</title>
-  <meta name="description" content="Browse our past portfolio of bespoke majlis sets and luxury sofas crafted in Saudi Arabia. Saeed Furniture — made to order furniture KSA." />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-
-  <!-- Alpine.js -->
-  <script defer src="/js/portfolio.js"></script>
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
 
   <style>
   html { scroll-behavior: smooth; }
@@ -789,8 +803,7 @@
     [x-cloak] { display: none !important; }
   </style>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
-</head>
+  
 <section id="portfolio" class="min-h-screen py-20 bg-stone-900 w-full" x-data="portfolioApp()" x-init="init()">
   <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
   <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
@@ -809,10 +822,10 @@
   <!-- â•â•â• HERO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <div class="pf-hero">
     <div class="pf-hero-eyebrow fade-up" x-text="lang === 'ar' ? 'Ø£Ø¹Ù…Ø§Ù„Ù†Ø§ Ø§Ù„Ù…Ù†Ø¬Ø²Ø©' : 'Our Completed Works'"></div>
-    <h1 class="pf-hero-title fade-up delay-1">
+    <h2 class="pf-hero-title fade-up delay-1">
       <span x-show="lang !== 'ar'">The Portfolio</span>
       <span x-show="lang === 'ar'" style="font-family:'Cairo',sans-serif; font-weight:300;">Ø³Ø§Ø¨Ù‚Ø© Ø£Ø¹Ù…Ø§Ù„Ù†Ø§</span>
-    </h1>
+    </h2>
     <p class="pf-hero-subtitle fade-up delay-2"
        x-text="lang === 'ar' ? 'ÙƒÙ„ Ù‚Ø·Ø¹Ø© Ù‚ØµØ©. ÙƒÙ„ Ù…Ø¬Ù„Ø³ ØªØ¹Ø¨ÙŠØ± Ø¹Ù† Ù‡ÙˆÙŠØ©. ØªØµÙØ­ Ù…Ø¬Ù…ÙˆØ¹Ø© Ù…Ø®ØªØ§Ø±Ø© Ù…Ù† Ø£Ø¹Ù…Ø§Ù„Ù†Ø§ Ø§Ù„Ù…Ù†Ø¬Ø²Ø© ÙÙŠ Ø§Ù„صناعة تدوم (Craftsmanship That Endures).' : 'Every piece is a story. Every majlis an expression of identity. Browse a curated selection of our completed works across Saudi Arabia.'">
     </p>
@@ -852,7 +865,7 @@
           <div class="pf-card-bottom">
             <div class="pf-card-tag" x-text="lang === 'ar' ? item.tagAr : item.tag"></div>
             <div class="pf-card-title" x-text="lang === 'ar' ? item.titleAr : item.title"></div>
-            <button class="pf-card-cta">
+            <button class="pf-card-cta" aria-label="View Project Details">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               <span x-text="lang === 'ar' ? 'Ø·Ù„Ø¨ Ù…Ù…Ø§Ø«Ù„' : 'Order Similar'"></span>
             </button>
@@ -882,7 +895,7 @@
          x-transition:enter-end="opacity-100 scale-100">
       <template x-if="lightboxItem">
         <div>
-          <img :src="lightboxItem.image" :alt="lightboxItem.title" class="pf-lightbox-img">
+          <img loading="lazy" :src="lightboxItem.image" :alt="lightboxItem.title" class="pf-lightbox-img">
           <button class="pf-lightbox-close" @click="lightboxItem = null" aria-label="Close">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
@@ -917,8 +930,7 @@
   
 
 
-    </div>
-  </div>
-
-
-
+    </section>
+</div>
+</body>
+</html>
