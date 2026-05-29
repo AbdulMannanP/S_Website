@@ -1,0 +1,282 @@
+commit f5c3f9ac2393361728ad10b48ae808f9a8c7c0f5
+Author: Salmaan <salmaan@example.com>
+Date:   Thu May 28 10:09:47 2026 +0530
+
+    fix: mobile compactness audit - 21 responsive improvements
+
+diff --git a/frontend/index.html b/frontend/index.html
+index 2aebc46..680c1e8 100644
+--- a/frontend/index.html
++++ b/frontend/index.html
+@@ -221,9 +221,9 @@
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="fixed inset-0 z-[90] bg-[#080809]/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 md:hidden">
+-    <a href="#about" @click="mobileMenuOpen = false" class="text-2xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? '┘à┘å ┘å╪¡┘å' : 'About'"></a>
+-    <a href="#faq" @click="mobileMenuOpen = false" class="text-2xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? '╪º┘ä╪ú╪│╪ª┘ä╪⌐ ╪º┘ä╪┤╪º╪ª╪╣╪⌐' : 'FAQ'"></a>
+-    <a href="#" @click.prevent="scrollToFooter(); mobileMenuOpen = false" class="text-2xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? '╪¬┘ê╪º╪╡┘ä ┘à╪╣┘å╪º' : 'Contact'"></a>
++    <a href="#about" @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? '┘à┘å ┘å╪¡┘å' : 'About'"></a>
++    <a href="#faq" @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? '╪º┘ä╪ú╪│╪ª┘ä╪⌐ ╪º┘ä╪┤╪º╪ª╪╣╪⌐' : 'FAQ'"></a>
++    <a href="#" @click.prevent="scrollToFooter(); mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? '╪¬┘ê╪º╪╡┘ä ┘à╪╣┘å╪º' : 'Contact'"></a>
+     <button @click="handleOrderClick(); mobileMenuOpen = false" class="text-2xl font-light text-gold hover:text-gold/80 transition-colors uppercase tracking-[0.3em]" x-text="$store.saeedAuth.user ? (lang === 'ar' ? '╪╖┘ä╪¿╪º╪¬┘è' : 'My Orders') : (lang === 'ar' ? '╪º╪╖┘ä╪¿ ╪º┘ä╪ó┘å' : 'Order')"></button>
+     <div class="w-12 h-[1px] bg-gold/30 my-4"></div>
+     <button @click="isSelectionMode = true; step = 'selection'; mobileMenuOpen = false; window.scrollTo({top: 0})" class="px-6 py-3 md:px-10 md:py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.2em] text-xs md:text-sm hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-all duration-300">
+@@ -232,7 +232,7 @@
+   </div>
+ 
+   <!-- ΓöÇΓöÇ Main Journey ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ -->
+-  <main class="transition-all duration-500 pt-16" x-show="!loading" x-cloak>
++  <main class="transition-all duration-500 pt-20" x-show="!loading" x-cloak>
+ 
+     <div x-show="!isSelectionMode && activeShowroom === 'gateway'" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 pointer-events-auto" x-transition:leave-end="opacity-0 pointer-events-none">
+     <!-- ΓòÉΓòÉ IMMERSIVE CHRONOLOGICAL HUB ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ -->
+@@ -250,7 +250,7 @@
+ 
+       <!-- LAYER 2: Text Overlays -->
+       <!-- LAYER 2: Floating CTA -->
+-      <button class="pointer-events-auto absolute bottom-10 left-1/2 transform -translate-x-1/2 z-40 px-8 py-4 bg-[#c9a96e] text-stone-950 font-bold tracking-[0.2em] uppercase rounded-sm hover:scale-105 hover:shadow-[0_0_20px_rgba(201,169,110,0.4)] transition-all">
++      <button class="pointer-events-auto absolute bottom-8 left-1/2 transform -translate-x-1/2 z-40 px-6 md:px-8 py-3 md:py-4 bg-[#c9a96e] text-stone-950 font-bold tracking-[0.15em] text-sm uppercase rounded-sm hover:scale-105 hover:shadow-[0_0_20px_rgba(201,169,110,0.4)] transition-all">
+         Start Your Journey
+       </button>
+ 
+@@ -276,7 +276,7 @@
+ 
+       </section>
+     <!-- ΓòÉΓòÉ USP GRID SECTION ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ -->
+-    <section id="usp" class="py-32 px-5 bg-white border-b border-ivory-darker arabesque-bg relative mt-24">
++    <section id="usp" class="py-12 md:py-24 px-5 bg-white border-b border-ivory-darker arabesque-bg relative mt-16 md:mt-24">
+       <!-- Section Title Fade + Gold Line Reveal -->
+       <div class="max-w-[1000px] mx-auto text-center mb-12 gsap-reveal opacity-0">
+         <div class="inline-block relative">
+@@ -319,13 +319,13 @@
+     </section>
+ 
+         <!-- ΓòÉΓòÉ ABOUT SECTION (Editorial Magazine Layout) ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ -->
+-    <section id="about" class="py-32 px-5 bg-ivory-darker border-b border-ivory arabesque-bg relative overflow-hidden">
++    <section id="about" class="py-12 md:py-24 px-5 bg-ivory-darker border-b border-ivory arabesque-bg relative overflow-hidden">
+       <div class="max-w-[1400px] mx-auto gsap-reveal opacity-0">
+         
+-        <div class="grid lg:grid-cols-[1fr_350px_1fr] xl:grid-cols-[1fr_450px_1fr] gap-12 lg:gap-16 items-start">
++        <div class="flex flex-col lg:grid lg:grid-cols-[1fr_350px_1fr] xl:grid-cols-[1fr_450px_1fr] gap-8 lg:gap-16 items-start">
+           
+           <!-- Column 1: Lead-in & P1 -->
+-          <div class="space-y-8 lg:mt-16 animate-fade-in-up" style="animation-delay: 200ms;">
++          <div class="space-y-6 md:space-y-8 lg:mt-16 animate-fade-in-up" style="animation-delay: 200ms;">
+              <!-- Sofa Line Art Vector -->
+              <svg class="w-16 h-8 text-gold/60 mx-auto lg:mx-0" viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 35h80M15 35v-5a5 5 0 015-5h60a5 5 0 015 5v5M25 25v-5a5 5 0 015-5h40a5 5 0 015 5v5"/></svg>
+              <h2 class="text-3xl md:text-5xl font-extrabold text-gold uppercase mb-4 font-cairo" x-text="lang === 'ar' ? '╪º┘â╪¬╪┤┘ü ╪«┘è╪º╪▒╪º╪¬┘å╪º' : 'Explore Our Options'"></h2>
+@@ -340,7 +340,7 @@
+           </div>
+ 
+           <!-- Column 2: Center Image Carousel -->
+-          <div class="w-full h-[600px] rounded-t-full rounded-b-full overflow-hidden shadow-[0_30px_80px_-15px_rgba(201,169,110,0.4)] bg-[#080809] border-4 border-ivory relative group animate-fade-in-up" style="animation-delay: 300ms;" x-data="{ timer: null, next() { const clientW = this.$refs.carousel.clientWidth; const scrollW = this.$refs.carousel.scrollWidth; const scrollL = this.$refs.carousel.scrollLeft; requestAnimationFrame(() => { this.$refs.carousel.scrollBy({ left: clientW, behavior: 'smooth' }); if(scrollL >= scrollW - clientW - 10) { this.$refs.carousel.scrollTo({ left: 0, behavior: 'smooth' }); } }); } }" x-init="timer = setInterval(() => next(), 4000)">
++          <div class="w-full h-[300px] md:h-[500px] lg:h-[600px] rounded-t-full rounded-b-full overflow-hidden shadow-[0_30px_80px_-15px_rgba(201,169,110,0.4)] bg-[#080809] border-4 border-ivory relative group animate-fade-in-up" style="animation-delay: 300ms;" x-data="{ timer: null, next() { const clientW = this.$refs.carousel.clientWidth; const scrollW = this.$refs.carousel.scrollWidth; const scrollL = this.$refs.carousel.scrollLeft; requestAnimationFrame(() => { this.$refs.carousel.scrollBy({ left: clientW, behavior: 'smooth' }); if(scrollL >= scrollW - clientW - 10) { this.$refs.carousel.scrollTo({ left: 0, behavior: 'smooth' }); } }); } }" x-init="timer = setInterval(() => next(), 4000)">
+             <div x-ref="carousel" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar">
+               <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                 <div class="absolute inset-0 overflow-hidden bg-black">
+@@ -364,7 +364,7 @@
+           </div>
+ 
+           <!-- Column 3: P2 & P3 -->
+-          <div class="space-y-8 lg:mt-32 animate-fade-in-up" style="animation-delay: 400ms;">
++          <div class="space-y-6 md:space-y-8 lg:mt-32 animate-fade-in-up" style="animation-delay: 400ms;">
+              <p class="text-lg text-stone-800 leading-loose font-medium" x-text="lang === 'ar' ? '╪╣┘à┘ä┘è╪⌐ ╪º┘ä╪¬╪╡┘å┘è╪╣ ╪¡╪│╪¿ ╪º┘ä╪╖┘ä╪¿ ┘ä╪»┘è┘å╪º ╪¬╪▓┘è┘ä ╪ú┘è ╪¡┘è╪▒╪⌐. ╪¿╪╣╪» ╪º╪«╪¬┘è╪º╪▒┘â ┘ä┘ä┘à┘ê╪»┘è┘ä╪î ┘å╪▓┘ê╪▒┘â ┘ü┘è ┘à┘å╪▓┘ä┘â ╪ú┘ê ┘å╪▒╪¡╪¿ ╪¿┘â ┘ü┘è ┘à╪╣╪▒╪╢┘å╪º ΓÇô ┘ê╪¿╪╡┘ü╪¬┘å╪º ┘à╪╡┘å╪╣ ┘â┘å╪¿ ┘à╪¬┘â╪º┘à┘ä╪î ┘ä╪º ┘å╪╖┘ä╪¿ ┘à┘å┘â ╪ú╪¿╪»╪º┘ï ┘é┘è╪º╪│ ╪º┘ä╪║╪▒┘ü╪⌐ ╪¿┘å┘ü╪│┘â╪¢ ┘å╪¡┘å ┘å┘é┘è╪│┘ç╪º ╪¿╪º┘ä┘å┘è╪º╪¿╪⌐ ╪╣┘å┘â.' : 'Our made-to-order process removes all uncertainty. After you select a model, we visit your home or welcome you to our showroom ΓÇô as a full-service sofa manufacturer, we never ask you to premeasure the room; we measure it for you.'"></p>
+              <p class="text-lg text-stone-800 leading-loose font-medium" x-text="lang === 'ar' ? '╪½┘à ┘è┘é┘ê┘à ╪¡╪▒┘ü┘è┘ê┘å╪º ╪¿╪¿┘å╪º╪í ╪º┘ä┘ç┘è┘â┘ä╪î ┘ê╪¬╪╖╪¿┘è┘é ╪º┘ä╪╖┘ä╪º╪í ╪º┘ä┘ê╪º┘é┘è╪î ┘ê╪¬╪▒┘â┘è╪¿ ╪º┘ä╪Ñ╪│┘ü┘å╪¼ ╪╣╪º┘ä┘è ╪º┘ä┘â╪½╪º┘ü╪⌐╪î ┘ê╪¬┘ü╪╡┘è┘ä ╪º┘ä╪¬┘å╪¼┘è╪» ┘è╪»┘ê┘è╪º┘ï╪î ┘ä┘å┘é╪»┘à ┘ä┘â ╪ú┘ü╪╢┘ä ╪¬╪¼╪▒╪¿╪⌐ ┘ä╪º┘é╪¬┘å╪º╪í ┘â┘å╪¿ ╪¬┘ü╪╡┘è┘ä ┘ê╪ú╪½╪º╪½ ┘à╪¼╪º┘ä╪│ ┘ü┘è ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐. ╪│┘ê╪º╪í ┘â┘å╪¬ ╪¬╪╖┘ä╪¿ ╪╖┘é┘à ┘â┘å╪¿ ┘à╪¼┘ä╪│ ╪╣╪▒╪¿┘è╪î ╪ú┘ê ╪¬╪¼┘ç┘è╪▓ ┘â╪º┘à┘ä ┘à┘å ╪º┘ä╪ú╪½╪º╪½ ╪º┘ä┘à╪╡┘å┘ê╪╣ ┘è╪»┘ê┘è╪º┘ï╪î ╪ú┘ê ╪ú╪½╪º╪½ ╪«╪┤╪¿┘è ╪¬┘ü╪╡┘è┘ä ┘à╪╣ ╪│╪¬╪º╪ª╪▒ ┘à╪¬┘å╪º╪│┘é╪⌐╪î ┘ü╪Ñ┘å ╪º┘ä┘å╪¬┘è╪¼╪⌐ ╪º┘ä┘å┘ç╪º╪ª┘è╪⌐ ┘ç┘è ╪ú╪½╪º╪½ ╪»╪º╪«┘ä┘è ┘ä┘ä┘à╪¼╪º┘ä╪│ ┘è╪╣┘â╪│ ╪º┘ä┘à╪╣┘å┘ë ╪º┘ä╪¡┘é┘è┘é┘è ┘ä┘ä╪ú╪½╪º╪½ ╪º┘ä┘à╪«╪╡╪╡ ╪¿╪ú╪╣┘ä┘ë ┘à╪╣╪º┘è┘è╪▒ ╪º┘ä╪¼┘ê╪»╪⌐.' : 'Our artisans then build the frame, apply protective coatings, place high-density sponge, and tailor the upholstery by hand, delivering the best place to buy custom sofa experiences for custom majlis furniture in Saudi Arabia. Whether you order an Arabic majlis sofa set, a complete handcrafted furniture Saudi Arabia installation, or bespoke wood furniture Saudi Arabia with matching curtains, the final result is majlis interior furniture that reflects true tailor-made furniture with quality and welcomes family and guests beautifully.'"></p>
+              <p class="text-[0.8rem] text-stone-500 font-bold uppercase tracking-widest mt-12" x-text="lang === 'ar' ? '* ╪¬╪╖╪¿┘é ╪º┘ä╪┤╪▒┘ê╪╖ ┘ê╪º┘ä╪ú╪¡┘â╪º┘à' : '* Terms & Conditions apply'"></p>
+@@ -374,7 +374,7 @@
+       </div>
+     </section>
+ <!-- ΓòÉΓòÉ FAQ SECTION ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ -->
+-    <section id="faq" class="py-32 px-5 bg-ivory border-b border-ivory-darker arabesque-bg relative">
++    <section id="faq" class="py-12 md:py-24 px-5 bg-ivory border-b border-ivory-darker arabesque-bg relative">
+       <div class="max-w-[700px] mx-auto gsap-reveal opacity-0">
+         <svg class="w-16 h-8 text-gold/60 mx-auto mb-4" viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 35h80M15 35v-5a5 5 0 015-5h60a5 5 0 015 5v5M25 25v-5a5 5 0 015-5h40a5 5 0 015 5v5"/></svg>
+         <h2 class="text-3xl md:text-5xl font-extrabold text-gold uppercase mb-4 text-center font-cairo" x-text="lang === 'ar' ? '╪º┘ä╪ú╪│╪ª┘ä╪⌐ ╪º┘ä╪┤╪º╪ª╪╣╪⌐' : 'FAQ'"></h2>
+@@ -457,7 +457,7 @@
+     <section id="order" class="min-h-screen bg-[#080809] text-white relative" x-show="isSelectionMode" x-cloak>
+ 
+         <!-- LOOKBOOK UI (Hard Reset ΓÇö Strict Flex Layout) -->
+-        <div x-show="step === 'selection' || step === 'hero'" x-transition:enter="transition ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="fixed inset-0 w-screen h-screen z-[100] overflow-hidden bg-[#080809]" x-init="$watch('isSelectionMode', val => { if(val) setTimeout(() => initSwiper(), 100) })" x-data="{ sidebarOpen: true }">
++        <div x-show="step === 'selection' || step === 'hero'" x-transition:enter="transition ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="fixed inset-0 w-screen h-screen z-[100] overflow-hidden bg-[#080809]" x-init="$watch('isSelectionMode', val => { if(val) setTimeout(() => initSwiper(), 100) })" x-data="{ sidebarOpen: window.innerWidth >= 768 }">
+           
+           <!-- ΓòÉΓòÉΓòÉ LAYER 0: Full-Bleed Hero Background Image ΓòÉΓòÉΓòÉ -->
+           <div class="absolute inset-0 z-0">
+@@ -474,7 +474,7 @@
+           <div class="relative z-10 flex flex-col h-full">
+ 
+             <!-- ΓöÇΓöÇ ROW 1: Top Navigation Bar ΓöÇΓöÇ -->
+-            <div class="flex-shrink-0 flex justify-between items-center px-4 md:px-12 py-5 bg-white shadow-sm border-b border-gray-100">
++            <div class="flex-shrink-0 flex justify-between items-center px-3 md:px-12 py-3 md:py-5 bg-white shadow-sm border-b border-gray-100">
+               <div class="flex items-center gap-6">
+                 <div class="text-lg font-extrabold text-[#0a0a0d] tracking-widest uppercase" x-text="lang === 'ar' ? (content.brand?.nameArabic || '╪│╪╣┘è╪» ┘ä┘ä╪ú╪½╪º╪½') : (content.brand?.name || 'Saeed Furniture')"></div>
+                 <!-- Sidebar Toggle (Hamburger) -->
+@@ -523,7 +523,7 @@
+ 
+                 <!-- "Explore the Showroom" intro text (ONLY when stage not yet visible) -->
+                 <div x-show="!lookbookStageVisible" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="flex-1 flex flex-col items-center justify-center text-center px-8">
+-                  <h1 class="text-3xl md:text-5xl font-light text-white mb-4" x-text="lang === 'ar' ? '╪º┘â╪¬╪┤┘ü ╪º┘ä┘à╪╣╪▒╪╢' : 'Explore the Showroom'"></h1>
++                  <h1 class="text-xl md:text-5xl font-light text-white mb-4" x-text="lang === 'ar' ? '╪º┘â╪¬╪┤┘ü ╪º┘ä┘à╪╣╪▒╪╢' : 'Explore the Showroom'"></h1>
+                   <p class="text-gold uppercase tracking-[0.3em] text-xs font-bold" x-text="lang === 'ar' ? '┘à╪▒╪▒ ┘ä╪¬╪¬╪╡┘ü╪¡ ╪º┘ä╪¬╪╡╪º┘à┘è┘à' : 'Swipe to explore'"></p>
+                 </div>
+ 
+@@ -533,14 +533,14 @@
+                     <!-- Model Name (contained width) -->
+                     <div class="max-w-[600px]">
+                       <div class="text-gold/80 text-[0.6rem] font-bold uppercase tracking-[0.5em] mb-3" x-text="selectedType?.public_display_name || 'Saeed Signature Collection'"></div>
+-                      <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-wide leading-tight" style="text-shadow: 0 4px 40px rgba(0,0,0,0.7);" x-text="selectedVariation?.public_display_name || 'Select a Model'"></h2>
++                      <h2 class="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-light text-white tracking-wide leading-tight" style="text-shadow: 0 4px 40px rgba(0,0,0,0.7);" x-text="selectedVariation?.public_display_name || 'Select a Model'"></h2>
+                     </div>
+                     <!-- Unified CTA Group -->
+                     <div class="flex items-center gap-3 bg-black/30 backdrop-blur-xl rounded-full p-1.5 border border-white/10 flex-shrink-0">
+                       <button @click="shareReference()" class="w-11 h-11 rounded-full bg-white/5 text-white/50 flex items-center justify-center hover:bg-white/10 hover:text-gold transition-all duration-300 min-h-[44px]" aria-label="Share Design" :title="lang === 'ar' ? '┘à╪┤╪º╪▒┘â╪⌐ ╪º┘ä╪¬╪╡┘à┘è┘à' : 'Share Design'">
+                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                       </button>
+-                      <button @click="selectVariation(selectedVariation)" class="px-8 py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.15em] text-xs hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-transform duration-300 hover:scale-105 active:scale-95 min-h-[44px]">
++                      <button @click="selectVariation(selectedVariation)" class="px-4 md:px-8 py-3 md:py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.15em] text-xs hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-transform duration-300 hover:scale-105 active:scale-95 min-h-[44px]">
+                         <span x-text="lang === 'ar' ? '╪¬╪¡╪»┘è╪» ┘ê╪¬╪«╪╡┘è╪╡' : 'Select & Customize'"></span>
+                       </button>
+                     </div>
+@@ -658,7 +658,7 @@
+           </div>
+ 
+           <!-- Form Body -->
+-          <div class="max-w-[900px] mx-auto px-6 md:px-16 py-12">
++          <div class="max-w-[900px] mx-auto px-4 md:px-16 py-6 md:py-12">
+             <div class="grid lg:grid-cols-2 gap-12">
+ 
+               <!-- Product Summary Card -->
+@@ -781,7 +781,7 @@
+   </main>
+ 
+   <!-- ΓöÇΓöÇ Footer ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ -->
+-  <footer id="footer" class="bg-ivory py-32 px-5 transition-opacity duration-500 border-t border-ivory-darker" x-show="!loading" x-cloak>
++  <footer id="footer" class="bg-ivory py-12 md:py-24 px-5 transition-opacity duration-500 border-t border-ivory-darker" x-show="!loading" x-cloak>
+     <div class="max-w-[1000px] mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left" :class="lang === 'ar' ? 'md:text-right' : 'md:text-left'">
+       <div>
+         <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain mx-auto md:mx-0 mb-6">
+@@ -883,13 +883,13 @@
+         <div>
+           <label class="block text-[0.7rem] font-bold text-white/30 mb-3 uppercase tracking-widest" x-text="lang === 'ar' ? '╪º┘ä╪¿╪▒┘è╪» ╪º┘ä╪Ñ┘ä┘â╪¬╪▒┘ê┘å┘è' : 'Email Address'"></label>
+           <input type="email" x-model="email" autocomplete="email"
+-                 class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e]"
++                 class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-base md:text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e]"
+                  :placeholder="lang === 'ar' ? 'example@email.com' : 'example@email.com'">
+         </div>
+         <div class="relative">
+           <label class="block text-[0.7rem] font-bold text-white/30 mb-3 uppercase tracking-widest" x-text="lang === 'ar' ? '┘â┘ä┘à╪⌐ ╪º┘ä┘à╪▒┘ê╪▒' : 'Password'"></label>
+           <input :type="showPass ? 'text' : 'password'" x-model="password" autocomplete="current-password"
+-                 class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e] pr-10"
++                 class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-base md:text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e] pr-10"
+                  :placeholder="lang === 'ar' ? 'ΓÇóΓÇóΓÇóΓÇóΓÇóΓÇóΓÇóΓÇó' : 'ΓÇóΓÇóΓÇóΓÇóΓÇóΓÇóΓÇóΓÇó'">
+           <button type="button" @click="showPass = !showPass" class="absolute right-0 bottom-3 text-white/30 hover:text-white transition-colors">
+             <svg x-show="!showPass" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+@@ -1779,10 +1779,10 @@
+       <div class="absolute inset-0 bg-gradient-to-t from-[#080809] via-[#080809]/40 to-transparent z-10"></div>
+       <div class="absolute inset-0 bg-gradient-to-r from-[#080809]/60 to-transparent z-10"></div>
+       <!-- Floating Headline -->
+-      <div class="absolute inset-0 z-20 flex flex-col items-start justify-center px-10 md:px-20 pt-24">
++      <div class="absolute inset-0 z-20 flex flex-col items-start justify-center px-5 sm:px-10 md:px-20 pt-24">
+         <p class="text-[#c9a96e] text-[0.65rem] font-bold uppercase tracking-[0.5em] mb-4"
+            x-text="lang === 'ar' ? '┘à╪¼╪º┘ä╪│ ╪│╪╣┘è╪» ╪º┘ä┘ü╪º╪«╪▒╪⌐' : 'Saeed Signature Majlis'"></p>
+-        <h1 class="text-4xl md:text-7xl font-light text-white leading-tight max-w-2xl"
++        <h1 class="text-2xl sm:text-4xl md:text-7xl font-light text-white leading-tight max-w-2xl"
+             style="text-shadow: 0 8px 60px rgba(0,0,0,0.8);"
+             x-text="lang === 'ar' ? '╪º╪╡┘å╪╣ ╪Ñ╪▒╪½┘â' : 'Craft Your Legacy'"></h1>
+         <div class="w-24 h-px bg-[#c9a96e]/60 mt-6 mb-8"></div>
+@@ -1796,7 +1796,7 @@
+       </button>
+     </section>
+     <!-- Under Construction Placeholder -->
+-    <section class="bg-stone-50 text-stone-900 py-24 px-8 text-center">
++    <section class="bg-stone-50 text-stone-900 py-10 md:py-20 px-6 md:px-8 text-center">
+       <div class="max-w-xl mx-auto">
+         <div class="w-12 h-px bg-[#c9a96e] mx-auto mb-8"></div>
+         <p class="text-[0.65rem] uppercase tracking-[0.4em] text-[#c9a96e] font-bold mb-4"
+@@ -1835,10 +1835,10 @@
+            alt="Bespoke Kitchen Showroom">
+       <div class="absolute inset-0 bg-gradient-to-t from-[#080809] via-[#080809]/40 to-transparent z-10"></div>
+       <div class="absolute inset-0 bg-gradient-to-r from-[#080809]/60 to-transparent z-10"></div>
+-      <div class="absolute inset-0 z-20 flex flex-col items-start justify-center px-10 md:px-20 pt-24">
++      <div class="absolute inset-0 z-20 flex flex-col items-start justify-center px-5 sm:px-10 md:px-20 pt-24">
+         <p class="text-[#c9a96e] text-[0.65rem] font-bold uppercase tracking-[0.5em] mb-4"
+            x-text="lang === 'ar' ? '┘à╪╖╪º╪¿╪« ╪│╪╣┘è╪» ╪º┘ä┘à╪«╪╡╪╡╪⌐' : 'Saeed Bespoke Kitchens'"></p>
+-        <h1 class="text-4xl md:text-7xl font-light text-white leading-tight max-w-2xl"
++        <h1 class="text-2xl sm:text-4xl md:text-7xl font-light text-white leading-tight max-w-2xl"
+             style="text-shadow: 0 8px 60px rgba(0,0,0,0.8);"
+             x-text="lang === 'ar' ? '╪¬╪¡┘â┘à ┘ü┘è ┘à╪│╪º╪¡╪¬┘â' : 'Master Your Space'"></h1>
+         <div class="w-24 h-px bg-[#c9a96e]/60 mt-6 mb-8"></div>
+@@ -1850,7 +1850,7 @@
+       </button>
+     </section>
+     <!-- Under Construction -->
+-    <section class="bg-stone-50 text-stone-900 py-24 px-8 text-center">
++    <section class="bg-stone-50 text-stone-900 py-10 md:py-20 px-6 md:px-8 text-center">
+       <div class="max-w-xl mx-auto">
+         <div class="w-12 h-px bg-[#c9a96e] mx-auto mb-8"></div>
+         <p class="text-[0.65rem] uppercase tracking-[0.4em] text-[#c9a96e] font-bold mb-4"
+@@ -1889,10 +1889,10 @@
+            alt="Arabian Bedroom Showroom">
+       <div class="absolute inset-0 bg-gradient-to-t from-[#080809] via-[#080809]/40 to-transparent z-10"></div>
+       <div class="absolute inset-0 bg-gradient-to-r from-[#080809]/60 to-transparent z-10"></div>
+-      <div class="absolute inset-0 z-20 flex flex-col items-start justify-center px-10 md:px-20 pt-24">
++      <div class="absolute inset-0 z-20 flex flex-col items-start justify-center px-5 sm:px-10 md:px-20 pt-24">
+         <p class="text-[#c9a96e] text-[0.65rem] font-bold uppercase tracking-[0.5em] mb-4"
+            x-text="lang === 'ar' ? '╪║╪▒┘ü ┘å┘ê┘à ╪│╪╣┘è╪» ╪º┘ä╪╣╪▒╪¿┘è╪⌐' : 'Saeed Arabian Bedrooms'"></p>
+-        <h1 class="text-4xl md:text-7xl font-light text-white leading-tight max-w-2xl"
++        <h1 class="text-2xl sm:text-4xl md:text-7xl font-light text-white leading-tight max-w-2xl"
+             style="text-shadow: 0 8px 60px rgba(0,0,0,0.8);"
+             x-text="lang === 'ar' ? '┘å╪│┘æ┘é ┘à┘ä╪º╪░┘â' : 'Curate Your Sanctuary'"></h1>
+         <div class="w-24 h-px bg-[#c9a96e]/60 mt-6 mb-8"></div>
+@@ -1904,7 +1904,7 @@
+       </button>
+     </section>
+     <!-- Under Construction -->
+-    <section class="bg-stone-50 text-stone-900 py-24 px-8 text-center">
++    <section class="bg-stone-50 text-stone-900 py-10 md:py-20 px-6 md:px-8 text-center">
+       <div class="max-w-xl mx-auto">
+         <div class="w-12 h-px bg-[#c9a96e] mx-auto mb-8"></div>
+         <p class="text-[0.65rem] uppercase tracking-[0.4em] text-[#c9a96e] font-bold mb-4"
+@@ -1943,10 +1943,10 @@
+            alt="Premium Cot Showroom">
+       <div class="absolute inset-0 bg-gradient-to-t from-[#080809] via-[#080809]/40 to-transparent z-10"></div>
+       <div class="absolute inset-0 bg-gradient-to-r from-[#080809]/60 to-transparent z-10"></div>
+-      <div class="absolute inset-0 z-20 flex flex-col items-start justify-center px-10 md:px-20 pt-24">
++      <div class="absolute inset-0 z-20 flex flex-col items-start justify-center px-5 sm:px-10 md:px-20 pt-24">
+         <p class="text-[#c9a96e] text-[0.65rem] font-bold uppercase tracking-[0.5em] mb-4"
+            x-text="lang === 'ar' ? '╪ú╪│╪▒┘æ╪⌐ ╪│╪╣┘è╪» ╪º┘ä┘ü╪º╪«╪▒╪⌐' : 'Saeed Premium Cots'"></p>
+-        <h1 class="text-4xl md:text-7xl font-light text-white leading-tight max-w-2xl"
++        <h1 class="text-2xl sm:text-4xl md:text-7xl font-light text-white leading-tight max-w-2xl"
+             style="text-shadow: 0 8px 60px rgba(0,0,0,0.8);"
+             x-text="lang === 'ar' ? '┘ü╪«╪º┘à╪⌐ ╪º┘ä╪▒╪╣╪º┘è╪⌐' : 'Nurture in Luxury'"></h1>
+         <div class="w-24 h-px bg-[#c9a96e]/60 mt-6 mb-8"></div>
+@@ -1958,7 +1958,7 @@
+       </button>
+     </section>
+     <!-- Under Construction -->
+-    <section class="bg-stone-50 text-stone-900 py-24 px-8 text-center">
++    <section class="bg-stone-50 text-stone-900 py-10 md:py-20 px-6 md:px-8 text-center">
+       <div class="max-w-xl mx-auto">
+         <div class="w-12 h-px bg-[#c9a96e] mx-auto mb-8"></div>
+         <p class="text-[0.65rem] uppercase tracking-[0.4em] text-[#c9a96e] font-bold mb-4"
+@@ -1997,10 +1997,10 @@
+            alt="Storage & Almirah Showroom">
+       <div class="absolute inset-0 bg-gradient-to-t from-[#080809] via-[#080809]/40 to-transparent z-10"></div>
+       <div class="absolute inset-0 bg-gradient-to-r from-[#080809]/60 to-transparent z-10"></div>
+-      <div class="absolute inset-0 z-20 flex flex-col items-start justify-center px-10 md:px-20 pt-24">
++      <div class="absolute inset-0 z-20 flex flex-col items-start justify-center px-5 sm:px-10 md:px-20 pt-24">
+         <p class="text-[#c9a96e] text-[0.65rem] font-bold uppercase tracking-[0.5em] mb-4"
+            x-text="lang === 'ar' ? '╪¬╪«╪▓┘è┘å ╪│╪╣┘è╪» ╪º┘ä┘à╪╣┘à╪º╪▒┘è' : 'Saeed Architectural Storage'"></p>
+-        <h1 class="text-4xl md:text-7xl font-light text-white leading-tight max-w-2xl"
++        <h1 class="text-2xl sm:text-4xl md:text-7xl font-light text-white leading-tight max-w-2xl"
+             style="text-shadow: 0 8px 60px rgba(0,0,0,0.8);"
+             x-text="lang === 'ar' ? '╪¬┘å╪º╪║┘à ╪º┘ä╪¬┘å╪╕┘è┘à' : 'Architectural Order'"></h1>
+         <div class="w-24 h-px bg-[#c9a96e]/60 mt-6 mb-8"></div>
+@@ -2012,7 +2012,7 @@
+       </button>
+     </section>
+     <!-- Under Construction -->
+-    <section class="bg-stone-50 text-stone-900 py-24 px-8 text-center">
++    <section class="bg-stone-50 text-stone-900 py-10 md:py-20 px-6 md:px-8 text-center">
+       <div class="max-w-xl mx-auto">
+         <div class="w-12 h-px bg-[#c9a96e] mx-auto mb-8"></div>
+         <p class="text-[0.65rem] uppercase tracking-[0.4em] text-[#c9a96e] font-bold mb-4"

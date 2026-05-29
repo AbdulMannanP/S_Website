@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
+  <title>╪│╪╣┘è╪» ┘ä┘ä╪ú╪½╪º╪½ | Saeed Furniture ΓÇö ┘à╪¼╪º┘ä╪│ ┘ü╪º╪«╪▒╪⌐</title>
+  <meta name="description" content="┘à╪¼╪º┘ä╪│ ┘ü╪º╪«╪▒╪⌐ ┘à╪╡┘å┘ê╪╣╪⌐ ┘ü┘è ╪º┘ä┘à┘à┘ä┘â╪⌐ ╪º┘ä╪╣╪▒╪¿┘è╪⌐ ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐. ╪¬╪╡╪º┘à┘è┘à ╪╣╪╡╪▒┘è╪⌐ ┘ê╪¬╪▒╪º╪½┘è╪⌐. ╪▓┘è╪º╪▒╪⌐ ┘à┘å╪▓┘ä┘è╪⌐ ┘à╪¼╪º┘å┘è╪⌐.">
+  <meta property="og:title"       content="╪│╪╣┘è╪» ┘ä┘ä╪ú╪½╪º╪½ | Luxury Majlis KSA">
+  <meta property="og:description" content="╪ú╪½╪º╪½ ┘à╪«╪╡╪╡ ╪¿╪¬╪╡╪º┘à┘è┘à ╪¬┘å╪º╪│╪¿ ┘é┘ä╪¿ ┘à┘å╪▓┘ä┘â.">
+  <meta property="og:type"        content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="https://ik.imagekit.io/de7qvcvqv/images/hero.png">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="js/auth.js"></script>
+  <link rel="stylesheet" href="/dist/output.css">
+  <style>
+    /* Carousel snap behavior */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .gold-lines-bg {
+      background-image: 
+        linear-gradient(45deg, transparent 48%, #c9a96e 49%, #c9a96e 51%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, #c9a96e 49%, #c9a96e 51%, transparent 52%);
+      background-size: 200px 200px;
+      opacity: 0.05;
+    }
+    .gold-strip {
+      position: absolute;
+      background: linear-gradient(to bottom, transparent, #c9a96e, transparent);
+      width: 1px;
+      height: 100%;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    /* Phase 2 Enhancements */
+    @keyframes sweep-shimmer {
+      0% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+      50% { opacity: 0.3; }
+      100% { transform: translateX(200%) skewX(-15deg); opacity: 0; }
+    }
+    .animate-sweep::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 50%; height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+      animation: sweep-shimmer 2s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes draw-line {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    .animate-draw-line {
+      animation: draw-line 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .arabesque-bg {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23c9a96e" d="M50 0C50 25 75 50 100 50C75 50 50 75 50 100C50 75 25 50 0 50C25 50 50 25 50 0Z" opacity="0.03"/></svg>');
+      background-size: 100px 100px;
+    }
+
+    .rtl-input-line {
+      position: relative;
+    }
+    .rtl-input-line::after {
+      content: ''; position: absolute; bottom: 0; right: 0; height: 2px; width: 0;
+      background: #c9a96e; transition: width 0.4s ease;
+    }
+    .rtl-input-line:focus-within::after { width: 100%; }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    .animate-pulse-ring::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      border: 2px solid #25D366; animation: pulse-ring 2s infinite cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @keyframes draw-check {
+      to { stroke-dashoffset: 0; }
+    }
+    .animate-draw-check {
+      stroke-dasharray: 50; stroke-dashoffset: 50;
+      animation: draw-check 1s ease-out forwards;
+      animation-delay: 0.3s;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    /* Subtle noise texture overlay */
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
+  <title>╪│╪╣┘è╪» ┘ä┘ä╪ú╪½╪º╪½ | Saeed Furniture ΓÇö ┘à╪¼╪º┘ä╪│ ┘ü╪º╪«╪▒╪⌐</title>
+  <meta name="description" content="┘à╪¼╪º┘ä╪│ ┘ü╪º╪«╪▒╪⌐ ┘à╪╡┘å┘ê╪╣╪⌐ ┘ü┘è ╪º┘ä┘à┘à┘ä┘â╪⌐ ╪º┘ä╪╣╪▒╪¿┘è╪⌐ ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐. ╪¬╪╡╪º┘à┘è┘à ╪╣╪╡╪▒┘è╪⌐ ┘ê╪¬╪▒╪º╪½┘è╪⌐. ╪▓┘è╪º╪▒╪⌐ ┘à┘å╪▓┘ä┘è╪⌐ ┘à╪¼╪º┘å┘è╪⌐.">
+  <meta property="og:title"       content="╪│╪╣┘è╪» ┘ä┘ä╪ú╪½╪º╪½ | Luxury Majlis KSA">
+  <meta property="og:description" content="╪ú╪½╪º╪½ ┘à╪«╪╡╪╡ ╪¿╪¬╪╡╪º┘à┘è┘à ╪¬┘å╪º╪│╪¿ ┘é┘ä╪¿ ┘à┘å╪▓┘ä┘â.">
+  <meta property="og:type"        content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="https://ik.imagekit.io/de7qvcvqv/images/hero.png">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="js/auth.js"></script>
+  <link rel="stylesheet" href="/dist/output.css">
+  <style>
+    /* Carousel snap behavior */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .gold-lines-bg {
+      background-image: 
+        linear-gradient(45deg, transparent 48%, #c9a96e 49%, #c9a96e 51%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, #c9a96e 49%, #c9a96e 51%, transparent 52%);
+      background-size: 200px 200px;
+      opacity: 0.05;
+    }
+    .gold-strip {
+      position: absolute;
+      background: linear-gradient(to bottom, transparent, #c9a96e, transparent);
+      width: 1px;
+      height: 100%;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    /* Phase 2 Enhancements */
+    @keyframes sweep-shimmer {
+      0% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+      50% { opacity: 0.3; }
+      100% { transform: translateX(200%) skewX(-15deg); opacity: 0; }
+    }
+    .animate-sweep::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 50%; height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+      animation: sweep-shimmer 2s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes draw-line {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    .animate-draw-line {
+      animation: draw-line 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .arabesque-bg {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23c9a96e" d="M50 0C50 25 75 50 100 50C75 50 50 75 50 100C50 75 25 50 0 50C25 50 50 25 50 0Z" opacity="0.03"/></svg>');
+      background-size: 100px 100px;
+    }
+
+    .rtl-input-line {
+      position: relative;
+    }
+    .rtl-input-line::after {
+      content: ''; position: absolute; bottom: 0; right: 0; height: 2px; width: 0;
+      background: #c9a96e; transition: width 0.4s ease;
+    }
+    .rtl-input-line:focus-within::after { width: 100%; }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    .animate-pulse-ring::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      border: 2px solid #25D366; animation: pulse-ring 2s infinite cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @keyframes draw-check {
+      to { stroke-dashoffset: 0; }
+    }
+    .animate-draw-check {
+      stroke-dasharray: 50; stroke-dashoffset: 50;
+      animation: draw-check 1s ease-out forwards;
+      animation-delay: 0.3s;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    /* Subtle noise texture overlay */
+    .noise-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.015;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+  </style>
+  <script defer src="https://unpkg.com/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- GSAP & Lenis Setup -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <style>
+    /* Custom Cursor Styles */
+    .custom-cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 10px; height: 10px;
+      background: #c9a96e;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-radius 0.3s ease, opacity 0.3s ease;
+      display: none;
+      opacity: 0;
+    }
+    @media (pointer: fine) {
+      .custom-cursor { display: block; }
+      /* Hide default cursor only when hovering bound elements */
+      .cursor-bound { cursor: none !important; }
+    }
+    .custom-cursor.active {
+      opacity: 1;
+      width: 60px; height: 60px;
+      background: rgba(201,169,110, 0.15);
+      border: 1px solid rgba(201,169,110, 0.6);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+</head>
+<body :class="isNightMode ? 'bg-[#080809] text-white/90' : 'bg-ivory text-bronze'" class="font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-gold/30 transition-colors duration-1000" x-data="saeedApp()" x-init="init()" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+  <!-- ΓöÇΓöÇ Progress Indicator ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ -->
+  <div class="fixed top-0 inset-x-0 h-[3px] bg-ivory-darker z-[200]" x-show="step !== 'success' && step !== 'hero'">
+    <div class="h-full bg-gold transition-all duration-700 ease-out shadow-[0_0_10px_rgba(201,169,110,0.5)]" :style="'width:' + progress + '%'"></div>
+  </div>
+
+  <!-- ΓöÇΓöÇ Splash Screen (Bilingual Brand) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ -->
+  <div class="fixed inset-0 flex flex-col items-center justify-center z-[9999]"
+       style="background: radial-gradient(ellipse at top, #131318 0%, #080809 55%, #04040a 100%);"
+       x-show="loading" x-cloak
+       x-transition:leave="transition ease-in-out duration-700"
+       x-transition:leave-start="opacity-100"
+       x-transition:leave-end="opacity-0">
+    <div class="flex flex-col items-center gap-6 animate-[fadeIn_0.8s_ease_forwards]" style="animation: splashIn 0.9s cubic-bezier(0.22,1,0.36,1) forwards;">
+      <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture"
+           class="h-16 object-contain"
+           style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.15);">
+      <div class="text-center space-y-2">
+        <p class="text-white text-2xl font-bold" style="font-family: 'Noto Kufi Arabic', sans-serif; letter-spacing: 0.05em;">┘à╪▒╪¡╪¿╪º┘ï ╪¿┘â┘à ┘ü┘è ╪┤╪▒┘â╪⌐ ╪│╪╣┘è╪»</p>
+        <p class="text-white/40 text-sm font-medium tracking-[0.25em] uppercase">Welcome to Saeed Furniture</p>
+      </div>
+      <div class="flex gap-2 mt-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e] animate-bounce"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e] animate-bounce" style="animation-delay: 180ms"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e] animate-bounce" style="animation-delay: 360ms"></span>
+      </div>
+    </div>
+    <style>
+      @keyframes splashIn {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </div>
+
+  <!-- ΓöÇΓöÇ Header ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ -->
+  <header class="fixed top-0 inset-x-0 z-50 h-16 flex items-center justify-between px-5 sm:px-10 transition-all duration-500 bg-white shadow-sm">
+    <div class="h-8 flex items-center gap-3">
+      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="eager" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain">
+    </div>
+    
+    <nav class="hidden md:flex gap-8 text-[0.85rem] font-bold text-[#0a0a0d]/70 uppercase tracking-widest min-h-[44px] items-center">
+      <a href="#about" x-show="!isSelectionMode" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? '┘à┘å ┘å╪¡┘å' : 'About'"></a>
+      <a href="#faq" x-show="!isSelectionMode" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? '╪º┘ä╪ú╪│╪ª┘ä╪⌐ ╪º┘ä╪┤╪º╪ª╪╣╪⌐' : 'FAQ'"></a>
+      <a href="#" @click.prevent="scrollToFooter()" class="hover:text-gold transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? '╪¬┘ê╪º╪╡┘ä ┘à╪╣┘å╪º' : 'Contact'"></a>
+      <button @click="handleOrderClick()" 
+              class="hover:text-gold transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-widest text-[0.85rem] text-[#0a0a0d]/70" 
+              x-text="$store.saeedAuth.user ? (lang === 'ar' ? '╪╖┘ä╪¿╪º╪¬┘è' : 'My Orders') : (lang === 'ar' ? '╪º╪╖┘ä╪¿ ╪º┘ä╪ó┘å' : 'Order')">
+      </button>
+    </nav>
+    
+    <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
+      <button @click="toggleLang()" class="text-[0.75rem] font-extrabold text-[#0a0a0d]/70 hover:text-gold transition-colors uppercase tracking-widest px-2 py-1 border border-[#0a0a0d]/20 rounded bg-transparent flex-shrink-0">
+        <span x-text="lang === 'ar' ? 'EN' : 'AR'"></span>
+      </button>
+      <!-- Mobile Hamburger -->
+      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-10 h-10 flex items-center justify-center text-[#0a0a0d]/70 hover:text-gold transition-colors">
+        <svg x-show="!mobileMenuOpen" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg x-show="mobileMenuOpen" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div x-show="mobileMenuOpen" x-cloak
+       x-transition:enter="transition ease-out duration-300"
+       x-transition:enter-start="opacity-0"
+       x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-200"
+       x-transition:leave-start="opacity-100"
+       x-transition:leave-end="opacity-0"
+       class="fixed inset-0 z-[90] bg-[#080809]/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 md:hidden">
+    <a href="#about" @click="mobileMenuOpen = false" class="text-2xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? '┘à┘å ┘å╪¡┘å' : 'About'"></a>
+    <a href="#faq" @click="mobileMenuOpen = false" class="text-2xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? '╪º┘ä╪ú╪│╪ª┘ä╪⌐ ╪º┘ä╪┤╪º╪ª╪╣╪⌐' : 'FAQ'"></a>
+    <a href="#" @click.prevent="scrollToFooter(); mobileMenuOpen = false" class="text-2xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? '╪¬┘ê╪º╪╡┘ä ┘à╪╣┘å╪º' : 'Contact'"></a>
+    <button @click="handleOrderClick(); mobileMenuOpen = false" class="text-2xl font-light text-gold hover:text-gold/80 transition-colors uppercase tracking-[0.3em]" x-text="$store.saeedAuth.user ? (lang === 'ar' ? '╪╖┘ä╪¿╪º╪¬┘è' : 'My Orders') : (lang === 'ar' ? '╪º╪╖┘ä╪¿ ╪º┘ä╪ó┘å' : 'Order')"></button>
+    <div class="w-12 h-[1px] bg-gold/30 my-4"></div>
+    <button @click="isSelectionMode = true; step = 'selection'; mobileMenuOpen = false; window.scrollTo({top: 0})" class="px-6 py-3 md:px-10 md:py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.2em] text-xs md:text-sm hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-all duration-300">
+      <span x-text="lang === 'ar' ? '╪º╪¿╪»╪ú ╪▒╪¡┘ä╪¬┘â' : 'Start Your Journey'"></span>
+    </button>
+  </div>
+
+  <!-- ΓöÇΓöÇ Main Journey ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ -->
+  <main class="transition-all duration-500 pt-16" x-show="!loading" x-cloak>
+
+    <div x-show="!isSelectionMode" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 pointer-events-auto" x-transition:leave-end="opacity-0 pointer-events-none">
+    <!-- ΓòÉΓòÉ IMMERSIVE CHRONOLOGICAL HUB ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ -->
+    <section id="hero"
+             class="relative overflow-hidden bg-stone-950 w-full h-screen"
+             aria-label="Saeed Furniture Immersive Showroom">
+
+      <!-- LAYER 0: Images -->
+      <img id="hero-day" src="https://ik.imagekit.io/de7qvcvqv/images/hero.png?v=2"
+           class="absolute inset-0 w-full h-full object-cover z-0"
+           alt="Day Room Hero">
+      <img id="hero-night" src="https://ik.imagekit.io/de7qvcvqv/images/modern.png?v=2"
+           class="absolute inset-0 w-full h-full object-cover z-10 opacity-0"
+           alt="Night Room Hero">
+
+      <!-- LAYER 1: Header -->
+      <header class="absolute top-0 inset-x-0 z-50 flex items-center justify-between px-8 py-6 pointer-events-none">
+        <div class="flex items-center gap-3">
+          <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" alt="Saeed Furniture" class="h-10 w-auto pointer-events-auto" style="filter: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(805%) hue-rotate(352deg) brightness(85%) contrast(85%);">
+          <span class="text-[#c9a96e] font-bold text-xl tracking-widest uppercase">Saeed Furniture</span>
+        </div>
+        <nav class="hidden md:flex items-center gap-8 text-[#c9a96e] font-bold text-sm tracking-widest uppercase pointer-events-auto">
+          <a href="#about" class="hover:text-white transition-colors">About</a>
+          <a href="#faq" class="hover:text-white transition-colors">FAQs</a>
+          <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+          <button class="px-6 py-2 border-2 border-[#c9a96e] hover:bg-[#c9a96e] hover:text-stone-950 transition-all rounded-sm">Our Designs</button>
+        </nav>
+      </header>
+
+      <!-- LAYER 2: Text Overlays -->
+      <!-- LAYER 2: Floating CTA -->
+      <button class="pointer-events-auto absolute bottom-10 left-1/2 transform -translate-x-1/2 z-40 px-8 py-4 bg-[#c9a96e] text-stone-950 font-bold tracking-[0.2em] uppercase rounded-sm hover:scale-105 hover:shadow-[0_0_20px_rgba(201,169,110,0.4)] transition-all">
+        Start Your Journey
+      </button>
+
+      <!-- LAYER 3: 5-Point SVG Mapping overlay -->
+      <svg class="absolute inset-0 w-full h-full z-10 pointer-events-none"
+           viewBox="0 0 100 100" preserveAspectRatio="none">
+        
+        <!-- The Majlis (Lower Left) -->
+        <polygon id="poly-majlis" data-target="majlis" points="0,50 50,50 50,100 0,100" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" />
+        
+        <!-- Bespoke Kitchens (Center Back) -->
+        <polygon id="poly-kitchens" data-target="kitchens" points="40,25 65,25 65,45 40,45" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" />
+        
+        <!-- Premium Cots (Right Center) -->
+        <polygon id="poly-cots" data-target="cots" points="65,55 75,55 75,70 65,70" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" />
+        
+        <!-- Arabian Bedroom (Far Right Mid) -->
+        <polygon id="poly-bedroom" data-target="bedroom" points="75,50 100,50 100,80 75,80" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" />
+        
+        <!-- Storage & Almirahs (Far Right Back) -->
+        <polygon id="poly-almirah" data-target="almirah" points="80,20 95,20 95,50 80,50" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer peer svg-hotspot" />
+      </svg>
+
+      <!-- LAYER 4: Floating Labels -->
+      <div id="label-majlis" class="floating-label absolute z-30 pointer-events-none opacity-0 transition-all duration-300" style="left:25%; top:75%;">
+        <span class="text-[#c9a96e] text-2xl font-bold uppercase drop-shadow-[0_0_10px_rgba(201,169,110,0.8)]">The Majlis</span>
+      </div>
+      <div id="label-kitchens" class="floating-label absolute z-30 pointer-events-none opacity-0 transition-all duration-300" style="left:52%; top:35%; transform:translateX(-50%);">
+        <span class="text-[#c9a96e] text-xl font-bold uppercase drop-shadow-[0_0_10px_rgba(201,169,110,0.8)]">Bespoke Kitchens</span>
+      </div>
+      <div id="label-cots" class="floating-label absolute z-30 pointer-events-none opacity-0 transition-all duration-300" style="left:70%; top:62%; transform:translateX(-50%);">
+        <span class="text-[#c9a96e] text-xl font-bold uppercase drop-shadow-[0_0_10px_rgba(201,169,110,0.8)]">Premium Cots</span>
+      </div>
+      <div id="label-bedroom" class="floating-label absolute z-30 pointer-events-none opacity-0 transition-all duration-300" style="left:87%; top:65%; transform:translateX(-50%);">
+        <span class="text-[#c9a96e] text-xl font-bold uppercase drop-shadow-[0_0_10px_rgba(201,169,110,0.8)]">Arabian Bedroom Sets</span>
+      </div>
+      <div id="label-almirah" class="floating-label absolute z-30 pointer-events-none opacity-0 transition-all duration-300" style="left:87%; top:35%; transform:translateX(-50%);">
+        <span class="text-[#c9a96e] text-xl font-bold uppercase drop-shadow-[0_0_10px_rgba(201,169,110,0.8)]">Storage & Almirahs</span>
+      </div>
+
+    </section>
+    <!-- ΓòÉΓòÉ USP GRID SECTION ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ -->
+    <section id="usp" class="py-32 px-5 bg-white border-b border-ivory-darker arabesque-bg relative mt-24">
+      <!-- Section Title Fade + Gold Line Reveal -->
+      <div class="max-w-[1000px] mx-auto text-center mb-12 gsap-reveal opacity-0">
+        <div class="inline-block relative">
+          <div class="w-full h-[1px] bg-gold absolute -top-4 right-0 gsap-line origin-right transform scale-x-0"></div>
+          <h2 class="text-3xl font-bold text-bronze uppercase tracking-[0.2em]" x-text="lang === 'ar' ? '┘à┘à┘è╪▓╪º╪¬┘å╪º' : 'Our Features'"></h2>
+        </div>
+      </div>
+      
+      <div class="max-w-[1000px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 gsap-reveal opacity-0">
+        
+        <div class="flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-ivory flex items-center justify-center text-gold border border-gold/20 shadow-sm">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <h3 class="text-[0.9rem] font-extrabold text-bronze uppercase tracking-widest" x-text="lang === 'ar' ? '╪╡┘å╪╣ ┘ü┘è ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐' : 'Made in KSA'"></h3>
+        </div>
+
+        <div class="flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-ivory flex items-center justify-center text-gold border border-gold/20 shadow-sm">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 11l6-6m0 0l-6-6m6 6H7"></path></svg>
+          </div>
+          <h3 class="text-[0.9rem] font-extrabold text-bronze uppercase tracking-widest" x-text="lang === 'ar' ? '╪▓┘è╪º╪▒╪⌐ ┘à┘å╪▓┘ä┘è╪⌐ ┘à╪¼╪º┘å┘è╪⌐' : 'Free Home Visit'"></h3>
+        </div>
+
+        <div class="flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-ivory flex items-center justify-center text-gold border border-gold/20 shadow-sm">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+          </div>
+          <h3 class="text-[0.9rem] font-extrabold text-bronze uppercase tracking-widest" x-text="lang === 'ar' ? '╪ú┘ä┘ê╪º┘å ┘ê╪«╪º┘à╪º╪¬ ┘à╪¬╪╣╪»╪»╪⌐' : 'Material & Color Selection'"></h3>
+        </div>
+
+        <div class="flex flex-col items-center text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-ivory flex items-center justify-center text-gold border border-gold/20 shadow-sm">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+          </div>
+          <h3 class="text-[0.9rem] font-extrabold text-bronze uppercase tracking-widest" x-text="lang === 'ar' ? '╪¬┘ê╪╡┘è┘ä ┘à╪¼╪º┘å┘è' : 'Free Home Delivery'"></h3>
+        </div>
+
+      </div>
+    </section>
+
+        <!-- ΓòÉΓòÉ ABOUT SECTION (Editorial Magazine Layout) ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ -->
+    <section id="about" class="py-32 px-5 bg-ivory-darker border-b border-ivory arabesque-bg relative overflow-hidden">
+      <div class="max-w-[1400px] mx-auto gsap-reveal opacity-0">
+        
+        <div class="grid lg:grid-cols-[1fr_350px_1fr] xl:grid-cols-[1fr_450px_1fr] gap-12 lg:gap-16 items-start">
+          
+          <!-- Column 1: Lead-in & P1 -->
+          <div class="space-y-8 lg:mt-16 animate-fade-in-up" style="animation-delay: 200ms;">
+             <!-- Sofa Line Art Vector -->
+             <svg class="w-16 h-8 text-gold/60 mx-auto lg:mx-0" viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 35h80M15 35v-5a5 5 0 015-5h60a5 5 0 015 5v5M25 25v-5a5 5 0 015-5h40a5 5 0 015 5v5"/></svg>
+             <h2 class="text-3xl md:text-5xl font-extrabold text-gold uppercase mb-4 font-cairo" x-text="lang === 'ar' ? '╪º┘â╪¬╪┤┘ü ╪«┘è╪º╪▒╪º╪¬┘å╪º' : 'Explore Our Options'"></h2>
+             <div x-data="{ expanded: false }">
+               <div :class="expanded ? '' : 'line-clamp-3 md:line-clamp-4'">
+                 <p class="text-lg md:text-xl font-medium text-stone-800 leading-snug tracking-wide" x-text="lang === 'ar' ? '┘ü┘è ╪┤╪▒┘â╪⌐ ╪│╪╣┘è╪» ┘ä┘ä╪ú╪½╪º╪½╪î ┘å┘Å╪╣╪▒┘ü ╪¿┘è┘å ╪ú┘ü╪╢┘ä ╪╡┘å╪º╪╣ ╪ú╪½╪º╪½ ╪º┘ä┘â┘å╪¿ ┘ê╪«╪¿╪▒╪º╪í ╪º┘ä┘â┘å╪¿ ╪º┘ä╪¬┘ü╪╡┘è┘ä ┘ü┘è ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐.' : 'At Saeed Furniture Company ΓÇö ╪┤╪▒┘â╪⌐ ╪│╪╣┘è╪» ┘ä┘ä╪ú╪½╪º╪½ ΓÇö we are known among the best sofa furniture makers and custom sofa makers in KSA for creating premium Arabic sofas and reception-room seating.'"></p>
+                 <div class="w-12 h-[1px] bg-gold my-8" x-show="expanded"></div>
+                 <p class="text-lg text-stone-800 leading-loose font-medium" x-show="expanded" x-text="lang === 'ar' ? '┘â┘ä ╪╖┘ä╪¿ ┘ç┘ê ╪╣╪¿╪º╪▒╪⌐ ╪╣┘å ╪╖┘é┘à ┘â┘å╪¿ ┘à╪«╪╡╪╡ ╪ú┘ê ╪¼┘ä╪│╪⌐ ┘à╪¼┘ä╪│ ╪¬┘ü╪╡┘è┘ä╪î ┘è┘Å╪╡┘å╪╣ ╪¿╪º┘ä┘â╪º┘à┘ä ┘â╪ú╪½╪º╪½ ╪¡╪│╪¿ ╪º┘ä╪╖┘ä╪¿ ┘ü┘è ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐╪î ┘à┘Å╪╡┘à┘à ┘ä┘è┘å╪º╪│╪¿ ╪░┘ê┘é┘â ┘ê┘à╪¿┘å┘è ╪«╪╡┘è╪╡╪º┘ï ┘ä┘à┘å╪▓┘ä┘â. ┘à┘å ╪º┘ä╪º╪│╪¬╪┤╪º╪▒╪⌐ ╪º┘ä╪ú┘ê┘ä┘ë ┘ê╪¡╪¬┘ë ╪º┘ä┘ä┘à╪│╪⌐ ╪º┘ä╪ú╪«┘è╪▒╪⌐╪î ┘å╪¬╪¿╪╣ ┘å┘ç╪¼╪º┘ï ╪º╪¡╪¬╪▒╪º┘ü┘è╪º┘ï ┘ü┘è ╪¬╪╡┘à┘è┘à ╪º┘ä┘â┘å╪¿ ╪º┘ä┘à╪«╪╡╪╡ ┘ä╪Ñ┘å╪¬╪º╪¼ ╪ú╪½╪º╪½ ┘à╪¼╪º┘ä╪│ ┘ü╪º╪«╪▒ ΓÇô ╪╖╪º╪¿╪╣ ╪┤╪«╪╡┘è╪î ╪¼┘ê╪»╪⌐ ╪¬╪»┘ê┘à╪î ┘ê╪¡╪▒┘ü┘è╪⌐ ╪¬╪▒╪¬┘é┘è ╪¿╪¬╪¼╪▒╪¿╪⌐ ╪º╪│╪¬┘é╪¿╪º┘ä ╪╢┘è┘ê┘ü┘â.' : 'Every commission is a custom-made sofa set or bespoke majlis seating, entirely made-to-order furniture in Saudi Arabia, designed to your taste and built for your home. From the first consultation to the final stitch, we follow a custom sofa design KSA approach that results in luxury majlis furniture ΓÇô personal, lasting, and crafted to elevate your guest room experience.'"></p>
+               </div>
+               <button @click="expanded = !expanded" x-text="expanded ? 'Read Less' : 'Read More'" class="mt-4 text-sm text-yellow-600 hover:text-yellow-500 uppercase tracking-widest font-bold focus:outline-none"></button>
+             </div>
+          </div>
+
+          <!-- Column 2: Center Image Carousel -->
+          <div class="w-full h-[600px] rounded-t-full rounded-b-full overflow-hidden shadow-[0_30px_80px_-15px_rgba(201,169,110,0.4)] bg-[#080809] border-4 border-ivory relative group animate-fade-in-up" style="animation-delay: 300ms;" x-data="{ timer: null, next() { const clientW = this.$refs.carousel.clientWidth; const scrollW = this.$refs.carousel.scrollWidth; const scrollL = this.$refs.carousel.scrollLeft; requestAnimationFrame(() => { this.$refs.carousel.scrollBy({ left: clientW, behavior: 'smooth' }); if(scrollL >= scrollW - clientW - 10) { this.$refs.carousel.scrollTo({ left: 0, behavior: 'smooth' }); } }); } }" x-init="timer = setInterval(() => next(), 4000)">
+            <div x-ref="carousel" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar">
+              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                <div class="absolute inset-0 overflow-hidden bg-black">
+                  <img :src="IMAGE_BASE_URL + 'images/modern.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Modern">
+                </div>
+                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
+              </div>
+              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                <div class="absolute inset-0 overflow-hidden bg-black">
+                  <img :src="IMAGE_BASE_URL + 'images/authentic.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Authentic">
+                </div>
+                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
+              </div>
+              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                <div class="absolute inset-0 overflow-hidden bg-black">
+                  <img :src="IMAGE_BASE_URL + 'images/heritage.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Heritage">
+                </div>
+                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: P2 & P3 -->
+          <div class="space-y-8 lg:mt-32 animate-fade-in-up" style="animation-delay: 400ms;">
+             <p class="text-lg text-stone-800 leading-loose font-medium" x-text="lang === 'ar' ? '╪╣┘à┘ä┘è╪⌐ ╪º┘ä╪¬╪╡┘å┘è╪╣ ╪¡╪│╪¿ ╪º┘ä╪╖┘ä╪¿ ┘ä╪»┘è┘å╪º ╪¬╪▓┘è┘ä ╪ú┘è ╪¡┘è╪▒╪⌐. ╪¿╪╣╪» ╪º╪«╪¬┘è╪º╪▒┘â ┘ä┘ä┘à┘ê╪»┘è┘ä╪î ┘å╪▓┘ê╪▒┘â ┘ü┘è ┘à┘å╪▓┘ä┘â ╪ú┘ê ┘å╪▒╪¡╪¿ ╪¿┘â ┘ü┘è ┘à╪╣╪▒╪╢┘å╪º ΓÇô ┘ê╪¿╪╡┘ü╪¬┘å╪º ┘à╪╡┘å╪╣ ┘â┘å╪¿ ┘à╪¬┘â╪º┘à┘ä╪î ┘ä╪º ┘å╪╖┘ä╪¿ ┘à┘å┘â ╪ú╪¿╪»╪º┘ï ┘é┘è╪º╪│ ╪º┘ä╪║╪▒┘ü╪⌐ ╪¿┘å┘ü╪│┘â╪¢ ┘å╪¡┘å ┘å┘é┘è╪│┘ç╪º ╪¿╪º┘ä┘å┘è╪º╪¿╪⌐ ╪╣┘å┘â.' : 'Our made-to-order process removes all uncertainty. After you select a model, we visit your home or welcome you to our showroom ΓÇô as a full-service sofa manufacturer, we never ask you to premeasure the room; we measure it for you.'"></p>
+             <p class="text-lg text-stone-800 leading-loose font-medium" x-text="lang === 'ar' ? '╪½┘à ┘è┘é┘ê┘à ╪¡╪▒┘ü┘è┘ê┘å╪º ╪¿╪¿┘å╪º╪í ╪º┘ä┘ç┘è┘â┘ä╪î ┘ê╪¬╪╖╪¿┘è┘é ╪º┘ä╪╖┘ä╪º╪í ╪º┘ä┘ê╪º┘é┘è╪î ┘ê╪¬╪▒┘â┘è╪¿ ╪º┘ä╪Ñ╪│┘ü┘å╪¼ ╪╣╪º┘ä┘è ╪º┘ä┘â╪½╪º┘ü╪⌐╪î ┘ê╪¬┘ü╪╡┘è┘ä ╪º┘ä╪¬┘å╪¼┘è╪» ┘è╪»┘ê┘è╪º┘ï╪î ┘ä┘å┘é╪»┘à ┘ä┘â ╪ú┘ü╪╢┘ä ╪¬╪¼╪▒╪¿╪⌐ ┘ä╪º┘é╪¬┘å╪º╪í ┘â┘å╪¿ ╪¬┘ü╪╡┘è┘ä ┘ê╪ú╪½╪º╪½ ┘à╪¼╪º┘ä╪│ ┘ü┘è ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐. ╪│┘ê╪º╪í ┘â┘å╪¬ ╪¬╪╖┘ä╪¿ ╪╖┘é┘à ┘â┘å╪¿ ┘à╪¼┘ä╪│ ╪╣╪▒╪¿┘è╪î ╪ú┘ê ╪¬╪¼┘ç┘è╪▓ ┘â╪º┘à┘ä ┘à┘å ╪º┘ä╪ú╪½╪º╪½ ╪º┘ä┘à╪╡┘å┘ê╪╣ ┘è╪»┘ê┘è╪º┘ï╪î ╪ú┘ê ╪ú╪½╪º╪½ ╪«╪┤╪¿┘è ╪¬┘ü╪╡┘è┘ä ┘à╪╣ ╪│╪¬╪º╪ª╪▒ ┘à╪¬┘å╪º╪│┘é╪⌐╪î ┘ü╪Ñ┘å ╪º┘ä┘å╪¬┘è╪¼╪⌐ ╪º┘ä┘å┘ç╪º╪ª┘è╪⌐ ┘ç┘è ╪ú╪½╪º╪½ ╪»╪º╪«┘ä┘è ┘ä┘ä┘à╪¼╪º┘ä╪│ ┘è╪╣┘â╪│ ╪º┘ä┘à╪╣┘å┘ë ╪º┘ä╪¡┘é┘è┘é┘è ┘ä┘ä╪ú╪½╪º╪½ ╪º┘ä┘à╪«╪╡╪╡ ╪¿╪ú╪╣┘ä┘ë ┘à╪╣╪º┘è┘è╪▒ ╪º┘ä╪¼┘ê╪»╪⌐.' : 'Our artisans then build the frame, apply protective coatings, place high-density sponge, and tailor the upholstery by hand, delivering the best place to buy custom sofa experiences for custom majlis furniture in Saudi Arabia. Whether you order an Arabic majlis sofa set, a complete handcrafted furniture Saudi Arabia installation, or bespoke wood furniture Saudi Arabia with matching curtains, the final result is majlis interior furniture that reflects true tailor-made furniture with quality and welcomes family and guests beautifully.'"></p>
+             <p class="text-[0.8rem] text-stone-500 font-bold uppercase tracking-widest mt-12" x-text="lang === 'ar' ? '* ╪¬╪╖╪¿┘é ╪º┘ä╪┤╪▒┘ê╪╖ ┘ê╪º┘ä╪ú╪¡┘â╪º┘à' : '* Terms & Conditions apply'"></p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+<!-- ΓòÉΓòÉ FAQ SECTION ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ -->
+    <section id="faq" class="py-32 px-5 bg-ivory border-b border-ivory-darker arabesque-bg relative">
+      <div class="max-w-[700px] mx-auto gsap-reveal opacity-0">
+        <svg class="w-16 h-8 text-gold/60 mx-auto mb-4" viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 35h80M15 35v-5a5 5 0 015-5h60a5 5 0 015 5v5M25 25v-5a5 5 0 015-5h40a5 5 0 015 5v5"/></svg>
+        <h2 class="text-3xl md:text-5xl font-extrabold text-gold uppercase mb-4 text-center font-cairo" x-text="lang === 'ar' ? '╪º┘ä╪ú╪│╪ª┘ä╪⌐ ╪º┘ä╪┤╪º╪ª╪╣╪⌐' : 'FAQ'"></h2>
+        <div class="text-xl font-medium text-stone-800 leading-tight mb-12 text-center" x-text="lang === 'ar' ? '┘â┘è┘ü ┘å╪╣┘à┘ä╪ƒ' : 'How it works'"></div>
+        
+        <div class="space-y-4" x-data="{ active: null }">
+
+          <!-- Q1: Made to Order -->
+          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 1 ? null : 1">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `╪ú╪▒┘ë ╪ú┘å ┘â┘å╪¿┘â┘à ┘è┘Å┘ü╪╡┘ä ╪¡╪│╪¿ ╪º┘ä╪╖┘ä╪¿. ┘à╪º╪░╪º ┘è╪¡╪»╪½ ╪¿╪º┘ä╪╢╪¿╪╖ ╪¿╪╣╪» ╪¬╪ú┘â┘è╪» ╪º┘ä╪╖┘ä╪¿╪ƒ` : `I see your sofas are made-to-order. What exactly happens after I place an order?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 1}">Γû╝</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 1 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `┘ü┘è ╪┤╪▒┘â╪⌐ ╪│╪╣┘è╪» ┘ä┘ä╪ú╪½╪º╪½╪î ┘ê╪º┘ä╪¬┘è ╪¬┘Å╪╣╪» ┘à┘å ╪ú╪¿╪▒╪▓ ┘à╪╡┘å╪╣┘è ╪º┘ä┘â┘å╪¿ ╪º┘ä╪¬┘ü╪╡┘è┘ä ┘ü┘è ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐╪î ┘â┘ä ┘é╪╖╪╣╪⌐ ┘ç┘è ╪ú╪½╪º╪½ ┘è┘Å╪╡┘å╪╣ ╪¡╪│╪¿ ╪º┘ä╪╖┘ä╪¿. ╪¿╪╣╪» ╪º╪«╪¬┘è╪º╪▒┘â ┘ä┘ä╪¬╪╡┘à┘è┘à ╪º┘ä╪ú╪│╪º╪│┘è╪î ┘å┘ä╪¬┘é┘è ╪¿┘â ┘ä╪º╪╣╪¬┘à╪º╪» ╪º┘ä╪ú┘é┘à╪┤╪⌐ ┘ê╪º┘ä╪ú┘ä┘ê╪º┘å. ╪½┘à ┘è┘é┘ê┘à ┘à╪┤╪║┘ä┘å╪º ╪¿╪¿┘å╪º╪í ╪º┘ä┘ç┘è┘â┘ä ╪º┘ä╪«╪┤╪¿┘è ╪º┘ä╪╡┘ä╪¿╪î ┘ê╪¬╪╖╪¿┘è┘é ╪º┘ä╪╖┘ä╪º╪í ╪º┘ä┘ê╪º┘é┘è╪î ┘ê╪¬╪▒┘â┘è╪¿ ╪º┘ä╪Ñ╪│┘ü┘å╪¼ ╪╣╪º┘ä┘è ╪º┘ä┘â╪½╪º┘ü╪⌐╪î ┘ê╪Ñ╪¬┘à╪º┘à ╪º┘ä╪¬┘å╪¼┘è╪». ╪│╪¬╪¡╪╡┘ä ╪╣┘ä┘ë ╪╖┘é┘à ┘â┘å╪¿ ╪¬┘ü╪╡┘è┘ä ╪╡┘Å┘å╪╣ ╪«╪╡┘è╪╡╪º┘ï ┘ä┘à┘é╪º╪│╪º╪¬ ╪║╪▒┘ü╪¬┘â╪î ┘ê┘ä┘è╪│ ┘à┘å╪¬╪¼╪º┘ï ╪¼╪º┘ç╪▓╪º┘ï.` : `At Saeed Furniture, recognised among the custom sofa makers in KSA, every piece is made-to-order furniture Saudi Arabia. Once you select a base style, we meet you to finalize fabric and colours. Our workshop then builds the solid frame, applies protective coatings, sets the high-density sponge, and completes the upholstery. You get a custom-made sofa set built for your exact room, not a pre-stocked item.`"></p>
+            </div>
+          </div>
+
+          <!-- Q2: Measurements -->
+          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 2 ? null : 2">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `┘ä╪º ╪ú╪╣╪▒┘ü ┘à┘é╪º╪│╪º╪¬ ╪║╪▒┘ü╪¬┘è ╪º┘ä╪»┘é┘è┘é╪⌐ ╪¿╪╣╪». ┘ç┘ä ╪¬╪ú╪¬┘ê┘å ┘ä╪ú╪«╪░ ╪º┘ä┘à┘é╪º╪│╪º╪¬ ╪¿┘å┘ü╪│┘â┘à╪ƒ` : `I donΓÇÖt know my exact room measurements yet. Do you come measure it for me?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 2}">Γû╝</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 2 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `┘å╪╣┘à! ╪╣┘ä┘ë ╪╣┘â╪│ ┘à╪¬╪º╪¼╪▒ ╪º┘ä╪¬╪¼╪▓╪ª╪⌐ ╪º┘ä╪╣╪º╪»┘è╪⌐╪î ┘ê╪¿╪╡┘ü╪¬┘å╪º ┘à╪╡┘å╪╣ ┘â┘å╪¿ ┘à╪¬╪«╪╡╪╡╪î ┘å╪▒╪│┘ä ┘ü╪▒┘è┘é┘å╪º ╪Ñ┘ä┘è┘â ┘ü┘è ╪▓┘è╪º╪▒╪⌐ ┘à┘å╪▓┘ä┘è╪⌐ ┘à╪¼╪º┘å┘è╪⌐. ┘è┘é┘ê┘à┘ê┘å ╪¿╪ú╪«╪░ ┘â╪º┘ü╪⌐ ╪º┘ä┘à┘é╪º╪│╪º╪¬ ╪¡╪¬┘ë ┘ä╪º ╪¬┘é┘ä┘é ╪¿╪┤╪ú┘å┘ç╪º. ┘ç╪░╪º ┘à╪º ┘è╪¼╪╣┘ä┘å╪º ╪º┘ä┘ê╪¼┘ç╪⌐ ╪º┘ä╪ú┘à╪½┘ä ┘ä╪┤╪▒╪º╪í ╪º┘ä┘â┘å╪¿ ╪º┘ä╪¬┘ü╪╡┘è┘ä╪¢ ╪º╪▒┘ü╪╣ ╪╖┘ä╪¿┘â ╪ú┘ê┘ä╪º┘ï╪î ┘ê┘å╪¬┘ê┘ä┘ë ┘å╪¡┘å ╪ú╪«╪░ ╪º┘ä┘à┘é╪º╪│╪º╪¬. ┘å╪¡┘å ┘å╪║╪╖┘è ╪╖┘ä╪¿╪º╪¬ ╪¬┘ü╪╡┘è┘ä ╪º┘ä╪ú╪½╪º╪½ ┘ü┘è ╪º┘ä╪▒┘è╪º╪╢ ┘ê╪º┘ä╪▓┘è╪º╪▒╪º╪¬ ┘ä┘â╪º┘ü╪⌐ ╪º┘ä┘à╪»┘å ╪º┘ä╪▒╪ª┘è╪│┘è╪⌐.` : `Yes! Unlike standard retailers, as a dedicated sofa manufacturer, we send our team to you for a free home visit. They take every dimension so you don't have to worry. This makes us the best place to buy custom sofas; place your order first, and we handle the measurements. We cover tailor-made furniture, Riyadh appointments, and visits to all major KSA cities.`"></p>
+            </div>
+          </div>
+
+          <!-- Q3: Fabric Online -->
+          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 3 ? null : 3">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `╪ú╪┤╪╣╪▒ ╪¿╪º┘ä┘é┘ä┘é ┘à┘å ╪º╪«╪¬┘è╪º╪▒ ╪º┘ä┘é┘à╪º╪┤ ╪╣╪¿╪▒ ╪º┘ä╪Ñ┘å╪¬╪▒┘å╪¬. ┘ç┘ä ┘è┘à┘â┘å┘å┘è ╪▒╪ñ┘è╪⌐ ╪º┘ä╪«╪º┘à╪º╪¬ ┘ê┘ä┘à╪│┘ç╪º ╪ú┘ê┘ä╪º┘ï╪ƒ` : `IΓÇÖm worried about choosing fabric online. Can I see and touch the materials first?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 3}">Γû╝</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 3 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `╪¿┘â┘ä ╪¬╪ú┘â┘è╪». ┘è╪¼╪¿ ╪ú┘å ┘è┘â┘ê┘å ╪º╪«╪¬┘è╪º╪▒ ╪º┘ä┘à┘ê╪º╪» ╪¬╪¼╪▒╪¿╪⌐ ╪┤╪«╪╡┘è╪⌐ ┘à┘ä┘à┘ê╪│╪⌐. ┘å╪¡┘å ┘å╪¡╪╢╪▒ ╪╣┘è┘å╪º╪¬ ╪º┘ä╪ú┘é┘à╪┤╪⌐ ╪Ñ┘ä┘ë ┘à┘å╪▓┘ä┘â ╪ú┘ê ╪«┘ä╪º┘ä ┘à┘ê╪╣╪»┘â ┘ü┘è ╪º┘ä┘à╪╣╪▒╪╢ ┘ä╪¬╪¬┘à┘â┘å ┘à┘å ┘ä┘à╪│ ╪¼┘ê╪»╪⌐ ╪º┘ä╪ú╪½╪º╪½ ╪º┘ä┘à╪╡┘å┘ê╪╣ ┘è╪»┘ê┘è╪º┘ï ┘ü┘è ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐ ╪¿┘å┘ü╪│┘â. ┘ç╪░╪º ┘ç┘ê ╪¼┘ê┘ç╪▒ ╪╣┘à┘ä┘è╪⌐ ╪¬╪╡┘à┘è┘à ╪º┘ä┘â┘å╪¿ ╪º┘ä┘à╪«╪╡╪╡ ┘ä╪»┘è┘å╪º╪î ┘ä╪╢┘à╪º┘å ╪ú┘å ╪º┘ä┘é┘à╪º╪┤ ┘è╪¿╪»┘ê ┘à╪½╪º┘ä┘è╪º┘ï ┘ü┘è ╪Ñ╪╢╪º╪í╪⌐ ╪║╪▒┘ü╪¬┘â ┘é╪¿┘ä ╪º┘ä╪¿╪»╪í ┘ü┘è ╪º┘ä┘é╪╡.` : `Absolutely. Material selection must be an in-person experience. We bring the swatches to your home or showroom appointment so you can feel the handcrafted furniture in Saudi Arabia quality firsthand. This is the heart of our custom sofa design KSA process, ensuring the fabric looks perfect in your room's lighting before any cutting begins.`"></p>
+            </div>
+          </div>
+
+          <!-- Q4: Choose Colors -->
+          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 4 ? null : 4">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? '┘à╪¬┘ë ┘è┘à┘â┘å┘å┘è ╪º╪«╪¬┘è╪º╪▒ ╪º┘ä╪ú┘ä┘ê╪º┘å╪ƒ' : 'When do I get to choose the colours?'"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 4}">Γû╝</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 4 ? 'max-height: 200px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? '┘ä╪»┘è┘â ╪¬╪¡┘â┘à ┘â╪º┘à┘ä ┘ü┘è ╪º┘ä┘à┘ê╪º╪» ┘ê╪º┘ä╪ú┘ä┘ê╪º┘å. ┘è┘à┘â┘å┘â ╪¬╪¡╪»┘è╪» ╪º╪«╪¬┘è╪º╪▒╪º╪¬┘â ╪Ñ┘à╪º ╪ú╪½┘å╪º╪í ╪▓┘è╪º╪▒╪⌐ ┘à┘å╪▓┘ä┘è╪⌐ ┘à╪¼╪º┘å┘è╪⌐ ┘à╪¼╪»┘ê┘ä╪⌐ ┘à┘å ┘é╪¿┘ä ┘ü╪▒┘è┘é┘å╪º╪î ╪ú┘ê ╪╣┘å ╪╖╪▒┘è┘é ╪▓┘è╪º╪▒╪⌐ ╪ú┘é╪▒╪¿ ┘à╪╣╪▒╪╢ ┘ä┘å╪º.' : 'You have complete control over materials and colors. You can make your selections either during a scheduled free home visit by our team, or by visiting our nearest shop.'"></p>
+            </div>
+          </div>
+
+          <!-- Q5: Sink or lose shape -->
+          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 5 ? null : 5">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `┘ç┘ä ╪│┘è┘ç╪¿╪╖ ╪º┘ä┘â┘å╪¿ ╪ú┘ê ┘è┘ü┘é╪» ╪┤┘â┘ä┘ç ╪¿┘à╪▒┘ê╪▒ ╪º┘ä┘ê┘é╪¬╪ƒ ┘à╪º ┘å┘ê╪╣ ╪º┘ä┘à┘ê╪º╪» ╪º┘ä╪¬┘è ╪¬╪│╪¬╪«╪»┘à┘ê┘å┘ç╪º╪ƒ` : `Will the sofa sink or lose its shape over time? What kind of materials do you use?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 5}">Γû╝</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 5 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `┘ä╪º╪î ┘ä╪ú┘å┘å╪º ┘å╪│╪¬╪«╪»┘à ╪Ñ╪│┘ü┘å╪¼ ┘à┘à╪¬╪º╪▓ ╪╣╪º┘ä┘è ╪º┘ä┘â╪½╪º┘ü╪⌐╪î ┘ê┘ç┘ê ╪ú┘à╪▒ ╪¡┘è┘ê┘è ┘ü┘è ┘à┘å╪º╪« ╪º┘ä┘à┘à┘ä┘â╪⌐ ┘ä┘à┘é╪º┘ê┘à╪⌐ ╪º┘ä┘ç╪¿┘ê╪╖ ╪¬╪¡╪¬ ╪º┘ä╪º╪│╪¬╪«╪»╪º┘à ╪º┘ä┘è┘ê┘à┘è ╪º┘ä┘â╪½┘è┘ü. ┘ü┘è ┘â┘ä ╪╖┘é┘à ┘â┘å╪¿ ┘à╪¼┘ä╪│ ╪╣╪▒╪¿┘è ┘å╪╡┘å╪╣┘ç╪î ┘å╪»┘à╪¼ ┘ç╪░╪º ╪º┘ä╪Ñ╪│┘ü┘å╪¼ ┘à╪╣ ╪ú┘é┘à╪┤╪⌐ ┘à╪¬┘è┘å╪⌐ ┘ê┘ç┘è╪º┘â┘ä ┘à┘å ╪º┘ä╪«╪┤╪¿ ╪º┘ä╪╡┘ä╪¿. ┘â┘ä ╪¬┘ü╪╡┘è┘ä╪⌐ ╪¬╪╣┘â╪│ ╪ú╪╣┘ä┘ë ┘à╪╣╪º┘è┘è╪▒ ╪º┘ä╪¡╪▒┘ü┘è╪⌐ ┘ü┘è ╪º┘ä╪ú╪½╪º╪½ ╪º┘ä┘à╪╡┘å┘ê╪╣ ╪¡╪│╪¿ ╪º┘ä╪╖┘ä╪¿ ┘ü┘è ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐.` : `No, because we use premium high-density sponge, which is vital in Saudi ArabiaΓÇÖs climate to resist sagging under heavy daily use. In every Arabic majlis sofa set we build, we pair that sponge with durable fabrics and solid wood frames. Every detail reflects the highest standard of made-to-order furniture Saudi Arabia craftsmanship.`"></p>
+            </div>
+          </div>
+
+          <!-- Q6: Who is building -->
+          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
+            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 6 ? null : 6">
+              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `┘à┘å ╪│┘è┘é┘ê┘à ╪¿╪╡┘å╪╣ ╪º┘ä┘â┘å╪¿ ╪º┘ä╪«╪º╪╡ ╪¿┘è╪ƒ ┘ç┘ä ┘ç┘ê ╪Ñ┘å╪¬╪º╪¼ ┘à╪╡╪º┘å╪╣ ╪ú┘à ╪╣┘à┘ä ┘è╪»┘ê┘è╪ƒ` : `Who is actually building my sofa? Is it mass-produced or made by hand?`"></span>
+              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 6}">Γû╝</span>
+            </button>
+            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 6 ? 'max-height: 500px' : ''">
+              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `┘è┘Å╪╡┘å╪╣ ╪º┘ä┘â┘å╪¿ ╪º┘ä╪«╪º╪╡ ╪¿┘â ┘è╪»┘ê┘è╪º┘ï ╪╣┘ä┘ë ┘è╪» ╪¡╪▒┘ü┘è┘è┘å ┘è┘à╪¬┘ä┘â┘ê┘å ╪«╪¿╪▒╪⌐ ╪¬╪▓┘è╪» ╪╣┘å ╪╣┘é╪»┘è┘å ┘ü┘è ╪¬╪╡┘à┘è┘à ┘à╪¼╪º┘ä╪│ ╪¬┘ü╪╡┘è┘ä ╪▒╪º┘é┘è╪⌐. ┘ç╪░╪º ┘è╪╣┘å┘è ╪ú┘å ╪º┘ä┘à┘ü╪º╪╡┘ä ┘à╪¬┘è┘å╪⌐╪î ┘ê┘à╪│╪º┘å╪» ╪º┘ä╪ú╪░╪▒╪╣ ┘à╪╡┘é┘ê┘ä╪⌐ ╪¿┘å╪╣┘ê┘à╪⌐ ┘ü╪º╪ª┘é╪⌐╪î ┘ê╪º┘ä╪ú┘é┘à╪┤╪⌐ ╪¬╪╡╪╖┘ü ╪¿╪┤┘â┘ä ╪¼┘à┘è┘ä. ╪╣┘å╪»┘à╪º ╪¬╪┤╪¬╪▒┘è ╪ú╪½╪º╪½ ┘à╪¼╪º┘ä╪│ ╪»╪º╪«┘ä┘è╪⌐ ┘à┘å ┘ü╪▒┘è┘é┘å╪º╪î ┘ü╪ú┘å╪¬ ╪¬╪│╪¬╪½┘à╪▒ ┘ü┘è ╪ú╪½╪º╪½ ╪¬┘ü╪╡┘è┘ä ╪¡┘é┘è┘é┘è ╪╡┘Å┘å╪╣ ╪¿╪ú┘è╪»┘è ╪ú┘à┘ç╪▒ ╪º┘ä╪¡╪▒┘ü┘è┘è┘å╪î ┘ê┘ä┘è╪│ ╪¿╪»┘è┘ä╪º┘ï ╪¬╪¼╪º╪▒┘è╪º┘ï ┘à┘å ╪Ñ┘å╪¬╪º╪¼ ╪º┘ä┘à╪╡╪º┘å╪╣.` : `Your sofa is built by hand by craftsmen who have over two decades of experience in bespoke majlis seating. This means joints are rigid, armrests are perfectly smooth, and fabrics align beautifully. When you buy majlis interior furniture from us, you are investing in genuine tailor-made furniture built by master artisans, never a mass-produced factory alternative.`"></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    </div> <!-- End Landing Page Wrapper -->
+
+    <!-- ΓòÉΓòÉ SELECTION VIEW WRAPPER ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ -->
+    <section id="order" class="min-h-screen bg-[#080809] text-white relative" x-show="isSelectionMode" x-cloak>
+
+        <!-- LOOKBOOK UI (Hard Reset ΓÇö Strict Flex Layout) -->
+        <div x-show="step === 'selection' || step === 'hero'" x-transition:enter="transition ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="fixed inset-0 w-screen h-screen z-[100] overflow-hidden bg-[#080809]" x-init="$watch('isSelectionMode', val => { if(val) setTimeout(() => initSwiper(), 100) })" x-data="{ sidebarOpen: true }">
+          
+          <!-- ΓòÉΓòÉΓòÉ LAYER 0: Full-Bleed Hero Background Image ΓòÉΓòÉΓòÉ -->
+          <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#111114] to-[#0a0a0d] animate-pulse" x-show="!heroImageLoaded"></div>
+            <div :style="`background-image: url('${selectedVariationUrl || (IMAGE_BASE_URL + 'images/hero.png')}')`"
+                 class="w-full h-full bg-cover bg-[center_60%] transition-all duration-[1.2s] ease-[cubic-bezier(0.2,0.8,0.2,1)]"
+                 :class="heroImageLoaded ? 'opacity-100' : 'opacity-0'"></div>
+            <!-- Dark Gradient Overlays for text readability -->
+            <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+            <div class="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-[#0a0a0d] to-transparent pointer-events-none"></div>
+          </div>
+
+          <!-- ΓòÉΓòÉΓòÉ LAYER 1: UI Layout ΓÇö Strict flex-col ΓòÉΓòÉΓòÉ -->
+          <div class="relative z-10 flex flex-col h-full">
+
+            <!-- ΓöÇΓöÇ ROW 1: Top Navigation Bar ΓöÇΓöÇ -->
+            <div class="flex-shrink-0 flex justify-between items-center px-4 md:px-12 py-5 bg-white shadow-sm border-b border-gray-100">
+              <div class="flex items-center gap-6">
+                <div class="text-lg font-extrabold text-[#0a0a0d] tracking-widest uppercase" x-text="lang === 'ar' ? (content.brand?.nameArabic || '╪│╪╣┘è╪» ┘ä┘ä╪ú╪½╪º╪½') : (content.brand?.name || 'Saeed Furniture')"></div>
+                <!-- Sidebar Toggle (Hamburger) -->
+                <button @click="sidebarOpen = !sidebarOpen" class="flex items-center gap-2 text-stone-500 hover:text-gold transition-all duration-300 min-h-[44px] px-3 -mx-3" style="touch-action: manipulation;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
+                  <span class="text-[0.6rem] font-bold uppercase tracking-[0.3em]" x-text="sidebarOpen ? (lang === 'ar' ? '╪Ñ╪║┘ä╪º┘é' : 'Close') : (lang === 'ar' ? '╪º┘ä┘à╪¼┘à┘ê╪╣╪º╪¬' : 'Collections')"></span>
+                </button>
+              </div>
+              <!-- Minimalist Back Arrow -->
+              <button class="flex items-center gap-3 text-stone-500 hover:text-gold transition-all duration-300 group min-h-[44px] px-3 -mx-3" @click="showExitPopup = true" aria-label="Go Back" style="touch-action: manipulation;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform duration-300 group-hover:-translate-x-1" :class="lang === 'ar' ? 'rotate-180' : ''"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span class="text-[0.6rem] font-normal uppercase tracking-[0.3em]" x-text="lang === 'ar' ? '╪º┘ä╪╣┘ê╪»╪⌐' : 'Back'"></span>
+              </button>
+            </div>
+
+            <!-- ΓöÇΓöÇ ROW 2: Main Content Area (fills remaining space) ΓöÇΓöÇ -->
+            <div class="flex-1 flex relative overflow-hidden">
+
+              <!-- ΓöÇΓöÇ LEFT: Toggleable Sidebar Panel ΓöÇΓöÇ -->
+              <div class="absolute top-0 bottom-0 w-64 z-30 flex flex-col bg-black/40 backdrop-blur-xl border-r border-white/5 p-6 pt-8 transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] pointer-events-auto"
+                   :class="[lang === 'ar' ? 'right-0 border-l border-r-0' : 'left-0', sidebarOpen ? 'translate-x-0 opacity-100' : (lang === 'ar' ? 'translate-x-full opacity-0' : '-translate-x-full opacity-0')]">
+                
+                <h3 class="text-[0.6rem] font-bold text-gold uppercase tracking-[0.4em] mb-6" x-text="lang === 'ar' ? '╪º┘ä┘à╪¼┘à┘ê╪╣╪º╪¬' : 'Collections'"></h3>
+                
+                <!-- Collection Links with Gold Active Border -->
+                <div class="flex flex-col gap-4 overflow-y-auto hide-scrollbar flex-1 mb-6">
+                  <template x-for="type in catalog?.taxonomy_tree" :key="type.internal_id">
+                    <button class="text-start text-sm font-normal uppercase tracking-widest transition-all duration-500 leading-relaxed border-l-2 pl-4 py-2 min-h-[44px] w-full" 
+                            :class="selectedType?.internal_id === type.internal_id ? 'text-gold border-gold font-bold' : 'text-white/40 border-transparent hover:text-white/70 hover:border-white/20'"
+                            @click="scrollToCategory(type.public_display_name); sidebarOpen = false" x-text="type.public_display_name"></button>
+                  </template>
+                </div>
+                
+                <!-- Custom Reference CTA (WhatsApp Fast Lane) -->
+                <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9665XXXXXXXX') + '?text=' + encodeURIComponent(lang === 'ar' ? '┘à╪▒╪¡╪¿╪º┘ï╪î ╪ú╪▒┘è╪» ╪╖┘ä╪¿ ╪¬╪╡┘à┘è┘à ┘à╪«╪╡╪╡ ╪¿╪╡┘ê╪▒╪⌐ ┘à╪▒╪¼╪╣┘è╪⌐' : 'Hello, I want to order a custom design with a reference image')"
+                   target="_blank"
+                   class="flex items-center justify-center gap-3 px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white/60 hover:text-gold hover:border-gold/30 transition-all duration-300 text-xs uppercase tracking-widest font-bold min-h-[44px]"
+                   style="touch-action: manipulation;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
+                  <span x-text="lang === 'ar' ? '╪▒┘ü╪╣ ╪╡┘ê╪▒╪⌐ ┘à╪▒╪¼╪╣┘è╪⌐' : 'Upload Reference'"></span>
+                </a>
+              </div>
+
+              <!-- ΓöÇΓöÇ CENTER: The Hero Display ΓöÇΓöÇ -->
+              <div class="flex-1 flex flex-col justify-end pb-6">
+
+                <!-- "Explore the Showroom" intro text (ONLY when stage not yet visible) -->
+                <div x-show="!lookbookStageVisible" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="flex-1 flex flex-col items-center justify-center text-center px-8">
+                  <h1 class="text-3xl md:text-5xl font-light text-white mb-4" x-text="lang === 'ar' ? '╪º┘â╪¬╪┤┘ü ╪º┘ä┘à╪╣╪▒╪╢' : 'Explore the Showroom'"></h1>
+                  <p class="text-gold uppercase tracking-[0.3em] text-xs font-bold" x-text="lang === 'ar' ? '┘à╪▒╪▒ ┘ä╪¬╪¬╪╡┘ü╪¡ ╪º┘ä╪¬╪╡╪º┘à┘è┘à' : 'Swipe to explore'"></p>
+                </div>
+
+                <!-- Model Title + CTA Block (ONLY when stage IS visible) -->
+                <div x-show="lookbookStageVisible" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" class="px-4 md:px-12 mb-12 relative z-20">
+                  <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6">
+                    <!-- Model Name (contained width) -->
+                    <div class="max-w-[600px]">
+                      <div class="text-gold/80 text-[0.6rem] font-bold uppercase tracking-[0.5em] mb-3" x-text="selectedType?.public_display_name || 'Saeed Signature Collection'"></div>
+                      <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-wide leading-tight" style="text-shadow: 0 4px 40px rgba(0,0,0,0.7);" x-text="selectedVariation?.public_display_name || 'Select a Model'"></h2>
+                    </div>
+                    <!-- Unified CTA Group -->
+                    <div class="flex items-center gap-3 bg-black/30 backdrop-blur-xl rounded-full p-1.5 border border-white/10 flex-shrink-0">
+                      <button @click="shareReference()" class="w-11 h-11 rounded-full bg-white/5 text-white/50 flex items-center justify-center hover:bg-white/10 hover:text-gold transition-all duration-300 min-h-[44px]" aria-label="Share Design" :title="lang === 'ar' ? '┘à╪┤╪º╪▒┘â╪⌐ ╪º┘ä╪¬╪╡┘à┘è┘à' : 'Share Design'">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                      </button>
+                      <button @click="selectVariation(selectedVariation)" class="px-8 py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.15em] text-xs hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-transform duration-300 hover:scale-105 active:scale-95 min-h-[44px]">
+                        <span x-text="lang === 'ar' ? '╪¬╪¡╪»┘è╪» ┘ê╪¬╪«╪╡┘è╪╡' : 'Select & Customize'"></span>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- Model Variations Sub-Gallery -->
+                  <div class="mt-6 flex gap-4 overflow-x-auto hide-scrollbar pb-2" x-show="selectedVariationItem?.gallery?.length > 1">
+                     <template x-for="(vImg, i) in selectedVariationItem?.gallery" :key="i">
+                        <button @click="selectedVariationUrl = vImg; heroImageLoaded = false; let img = new Image(); img.onload = () => heroImageLoaded = true; img.src = vImg;" class="w-16 h-16 md:w-20 md:h-20 rounded-md overflow-hidden border-2 transition-all duration-300 flex-shrink-0 bg-black/50" :class="selectedVariationUrl === vImg ? 'border-gold scale-110 shadow-[0_0_20px_rgba(201,169,110,0.4)]' : 'border-transparent opacity-60 hover:opacity-100 hover:scale-105'">
+                           <img :src="vImg" class="w-full h-full object-cover">
+                        </button>
+                     </template>
+                  </div>
+                </div>
+
+                <!-- ΓöÇΓöÇ Carousel (Strict bottom zone ΓÇö never overlaps title) ΓöÇΓöÇ -->
+                <div class="flex-shrink-0 px-2 md:px-12 relative z-20">
+                  <div class="swiper lookbook-swiper w-full touch-pan-x pb-8">
+                    <div class="swiper-wrapper flex items-center">
+                      <template x-for="(item, index) in lookbookItems" :key="item.id">
+                        <div class="swiper-slide cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] rounded-lg overflow-hidden border group shadow-2xl relative !w-24 !h-24 md:!w-28 md:!h-28 aspect-square" 
+                             :class="lookbookStageVisible ? (swiper?.activeIndex === index ? 'border-gold/60 scale-110 opacity-100 z-10' : 'border-white/10 scale-100 opacity-60 z-0') : 'border-transparent'"
+                             @click="if(lookbookStageVisible && swiper?.activeIndex !== index) swiper.slideTo(index); else lookbookStageVisible = true"
+                             x-data="{ imgLoaded: false }">
+                          <!-- Skeleton -->
+                          <div class="absolute inset-0 bg-gray-800/50 animate-pulse z-0" x-show="!imgLoaded"></div>
+                          <img :src="item.unsplashUrl" 
+                               loading="lazy"
+                               class="w-full h-full object-cover transition-transform duration-[15s] ease-linear relative z-[1]" 
+                               :class="swiper?.activeIndex === index ? 'scale-110' : 'scale-100'" 
+                               @load="imgLoaded = true" 
+                               @error="$el.src=IMAGE_BASE_URL + 'images/hero.png'; imgLoaded = true">
+                          <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0d]/95 via-[#0a0a0d]/30 to-transparent z-[2]"></div>
+                          <div class="absolute bottom-4 left-4 right-4 text-center z-[3]">
+                            <div class="text-[0.5rem] text-gold/70 uppercase tracking-[0.3em] mb-1 font-bold" x-text="item.typeName"></div>
+                            <div class="text-xs font-light text-white tracking-wider" x-text="item.name"></div>
+                          </div>
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+                </div>
+
+              </div><!-- END CENTER -->
+            </div><!-- END ROW 2 -->
+          </div><!-- END LAYER 1 -->
+
+          <!-- ΓòÉΓòÉ EXIT-INTENT FULL-SCREEN INTERCEPTOR ΓòÉΓòÉ -->
+          <div x-show="showExitPopup" 
+               x-transition:enter="transition ease-out duration-500" 
+               x-transition:enter-start="opacity-0 scale-95" 
+               x-transition:enter-end="opacity-100 scale-100"
+               x-transition:leave="transition ease-in duration-300" 
+               x-transition:leave-start="opacity-100 scale-100" 
+               x-transition:leave-end="opacity-0 scale-95"
+               class="fixed inset-0 z-[150] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 text-center">
+            
+            <!-- Close / Escape Hatch -->
+            <button @click="showExitPopup = false; isSelectionMode = false; window.scrollTo({top: 0, behavior: 'smooth'});" class="absolute top-8 right-8 text-white/50 hover:text-white transition-colors" aria-label="Close and return to Home">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-12 tracking-wide" x-text="lang === 'ar' ? '┘ä┘à ╪¬╪¼╪» ┘à╪º ╪¬╪¿╪¡╪½ ╪╣┘å┘ç╪ƒ' : 'Could not find what you were looking for?'"></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-[800px]">
+              
+              <!-- Option 1: WhatsApp -->
+              <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450') + '?text=' + encodeURIComponent(lang === 'ar' ? '┘à╪▒╪¡╪¿╪º┘ï╪î ┘ä╪»┘è ╪¿╪╣╪╢ ╪º┘ä╪╡┘ê╪▒ ╪º┘ä┘à╪▒╪¼╪╣┘è╪⌐ ┘ê╪ú┘ê╪» ╪º┘ä╪º╪│╪¬┘ü╪│╪º╪▒ ╪╣┘å ╪¬┘ü╪╡┘è┘ä┘ç╪º' : 'Hello, I have some reference images and would like to inquire about custom building them')" target="_blank"
+                 class="aspect-square flex flex-col items-center justify-center gap-6 bg-stone-900 border border-stone-700 rounded-3xl p-8 hover:scale-105 hover:border-[#25d366] hover:shadow-[0_0_40px_rgba(37,211,102,0.2)] transition-all duration-300 group">
+                <div class="w-20 h-20 rounded-full bg-[#25d366]/20 flex items-center justify-center text-[#25d366] group-hover:bg-[#25d366] group-hover:text-white transition-colors duration-300">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-white text-center" x-text="lang === 'ar' ? '╪ú╪▒╪│┘ä ┘ä┘å╪º ╪╡┘ê╪▒╪º┘ï ┘à╪▒╪¼╪╣┘è╪⌐' : 'Share Reference Images'"></h3>
+              </a>
+
+              <!-- Option 2: Portfolio -->
+              <button @click="window.location.href = '/portfolio.html'"
+                 class="aspect-square flex flex-col items-center justify-center gap-6 bg-stone-900 border border-stone-700 rounded-3xl p-8 hover:scale-105 hover:border-gold hover:shadow-[0_0_40px_rgba(201,169,110,0.2)] transition-all duration-300 group">
+                <div class="w-20 h-20 rounded-full bg-gold/10 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-stone-900 transition-colors duration-300">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21v-5a4 4 0 00-8 0v5"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-white text-center" x-text="lang === 'ar' ? '╪¬╪╡┘ü╪¡ ╪│╪º╪¿┘é╪⌐ ╪ú╪╣┘à╪º┘ä┘å╪º' : 'Browse Past Portfolio'"></h3>
+              </button>
+
+            </div>
+          </div>
+        </div>
+
+        
+
+        <!-- LEAD CAPTURE FORM (Re-injected ΓÇö CB-1 Fix) -->
+        <div x-show="step === 'form'" 
+             x-transition:enter="transition ease-out duration-700 delay-100" 
+             x-transition:enter-start="opacity-0 translate-y-8" 
+             x-transition:enter-end="opacity-100 translate-y-0"
+             id="lead-form-container"
+             class="fixed inset-0 w-screen h-screen z-[100] overflow-y-auto bg-gradient-to-b from-[#0a0a0d] to-[#111114]">
+          
+          <!-- Checkout Header -->
+          <div class="absolute top-0 inset-x-0 z-50 flex justify-between items-center px-6 md:px-12 py-5 bg-black/40 backdrop-blur-md border-b border-white/5">
+            <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain" style="filter: brightness(0) invert(1);">
+            <button class="flex items-center gap-2 text-white/70 hover:text-gold transition-all duration-300 group" aria-label="Return to Home" @click="activeView = 'home'; step = 'hero'; isSelectionMode = false; window.scrollTo({top:0, behavior:'smooth'});">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform duration-300 group-hover:-translate-x-1" :class="lang === 'ar' ? 'rotate-180' : ''"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.3em]" x-text="lang === 'ar' ? '╪º┘ä╪╣┘ê╪»╪⌐ ┘ä┘ä╪▒╪ª┘è╪│┘è╪⌐' : 'Return to Home'"></span>
+            </button>
+          </div>
+
+          <!-- Compact Header Image -->
+          <div class="relative h-[30vh] w-full overflow-hidden pt-16">
+            <img :src="selectedVariationUrl || (IMAGE_BASE_URL + 'images/hero.png')" loading="lazy" class="w-full h-full object-cover object-[center_60%] opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0d] via-[#0a0a0d]/70 to-transparent"></div>
+            <div class="absolute bottom-8 left-8 md:left-16 z-10">
+              <div class="text-gold/80 text-[0.6rem] font-bold uppercase tracking-[0.5em] mb-2" x-text="selectedType?.public_display_name"></div>
+              <h2 class="text-3xl md:text-4xl font-light text-white tracking-wide" style="text-shadow: 0 2px 30px rgba(0,0,0,0.5);" x-text="selectedVariation?.public_display_name"></h2>
+            </div>
+          </div>
+
+          <!-- Form Body -->
+          <div class="max-w-[900px] mx-auto px-6 md:px-16 py-12">
+            <div class="grid lg:grid-cols-2 gap-12">
+
+              <!-- Product Summary Card -->
+              <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-3xl relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none"></div>
+                <div class="relative z-10">
+                  <div class="text-[0.7rem] font-bold text-gold tracking-[0.3em] uppercase mb-6" x-text="lang === 'ar' ? '┘à┘ä╪«╪╡ ╪º╪«╪¬┘è╪º╪▒┘â' : 'Your Selection'"></div>
+                  
+                  <div class="relative w-full aspect-video rounded-2xl overflow-hidden mb-8 border border-white/10"
+                       x-data="{ idx: 0, images: selectedItemData?.image_generation_data?.gallery ? selectedItemData.image_generation_data.gallery.map((_, i) => (selectedVariation?.catalog_item_id || 'item') + '_gallery_' + (i + 1) + '.png') : [(selectedVariation?.catalog_item_id || 'placeholder') + '.png'], timer: null }"
+                       x-init="if (images.length > 1) timer = setInterval(() => { idx = (idx + 1) % images.length }, 4000)">
+                    <template x-for="(img, i) in images" :key="i">
+                      <div class="absolute inset-0 transition-opacity duration-1000" :class="idx === i ? 'opacity-100' : 'opacity-0'">
+                        <img :src="IMAGE_BASE_URL + 'images/catalog/' + img" loading="lazy" class="w-full h-full object-cover" alt="Selection Preview" @error="$el.onerror=null; $el.src=IMAGE_BASE_URL + 'images/hero.png'">
+                      </div>
+                    </template>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+                    <div class="absolute bottom-4 left-4 z-20">
+                      <div class="text-xs font-bold text-white/50 uppercase tracking-widest mb-1" x-text="selectedType?.public_display_name"></div>
+                      <div class="text-lg font-bold text-white" x-text="selectedVariation?.public_display_name"></div>
+                    </div>
+                  </div>
+
+                  <div class="space-y-6">
+                    <div x-show="selectedItemData?.product_information?.design_intent">
+                      <div class="text-[0.7rem] font-bold text-white/30 uppercase tracking-[0.2em] mb-2" x-text="lang === 'ar' ? '╪º┘ä┘å┘à╪╖ ╪º┘ä┘à╪«╪¬╪º╪▒' : 'Design Intent'"></div>
+                      <p class="text-white/70 text-sm leading-relaxed" x-text="selectedItemData?.product_information?.design_intent"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Lead Form Fields -->
+              <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-3xl relative">
+                <div class="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none rounded-3xl"></div>
+                <div class="relative z-10">
+                  <h3 class="text-2xl font-bold text-white mb-2 tracking-tight" x-text="lang === 'ar' ? '╪╖┘ä╪¿ ╪º╪│╪¬╪┤╪º╪▒╪⌐ ╪¬╪╡┘à┘è┘à' : 'Design Consultation'"></h3>
+                  <p class="text-white/40 text-sm mb-8 leading-relaxed" x-text="lang === 'ar' ? '╪ú╪»╪«┘ä ╪¬┘ü╪º╪╡┘è┘ä┘â ┘ê╪│┘è╪¬┘ê╪º╪╡┘ä ┘à╪╣┘â ╪«╪¿╪▒╪º╪ñ┘å╪º.' : 'Enter your details and our experts will contact you.'"></p>
+
+                  <div class="space-y-8">
+                    <!-- Name -->
+                    <div class="group rtl-input-line">
+                      <label class="block text-[0.7rem] font-bold text-white/30 mb-2 uppercase tracking-widest group-focus-within:text-gold transition-colors" x-text="lang === 'ar' ? '╪º┘ä╪º╪│┘à ╪¿╪º┘ä┘â╪º┘à┘ä' : 'Full Name'"></label>
+                      <input class="w-full bg-transparent border-b-2 border-white/10 py-3 text-white text-base outline-none transition-all duration-300 focus:border-gold font-bold" x-model="form.name" @blur="autoSave()">
+                    </div>
+                    <!-- Phone -->
+                    <div class="group rtl-input-line">
+                      <label class="block text-[0.7rem] font-bold text-white/30 mb-2 uppercase tracking-widest group-focus-within:text-gold transition-colors" x-text="lang === 'ar' ? '╪▒┘é┘à ╪º┘ä╪¼┘ê╪º┘ä' : 'Mobile Number'"></label>
+                      <input class="w-full bg-transparent border-b-2 border-white/10 py-3 text-white text-base outline-none transition-all duration-300 focus:border-gold text-left ltr font-bold" dir="ltr" type="tel" maxlength="15" x-model="form.phone" @input="form.phone = $event.target.value.replace(/[^\d+]/g,'').replace(/(?!^)\+/g,''); $event.target.value = form.phone" @blur="autoSave()">
+                      <p x-show="phoneError" x-transition class="text-red-400 text-xs mt-2 font-bold" x-text="phoneError"></p>
+                    </div>
+
+                    <!-- Visit Type Toggle -->
+                    <div>
+                      <label class="block text-[0.7rem] font-bold text-white/30 mb-4 uppercase tracking-widest" x-text="lang === 'ar' ? '┘å┘ê╪╣ ╪º┘ä╪º╪│╪¬╪┤╪º╪▒╪⌐ ╪º┘ä┘à┘ü╪╢┘ä' : 'Consultation Preference'"></label>
+                      <div class="relative flex bg-black/50 rounded-xl p-1.5 border border-white/10" dir="ltr">
+                        <div class="absolute inset-y-1.5 w-[calc(50%-6px)] bg-gold/10 border border-gold/30 rounded-lg transition-all duration-500 transform" :class="form.visit_mode === 'Home Visit' ? 'translate-x-[calc(100%+3px)]' : 'translate-x-0'"></div>
+                        <button class="flex-1 relative z-10 py-3 text-xs font-bold transition-colors duration-500" :class="form.visit_mode === 'Visit Shop' ? 'text-gold' : 'text-white/50 hover:text-white'" @click="form.visit_mode = 'Visit Shop'; autoSave()" x-text="lang === 'ar' ? '╪▓┘è╪º╪▒╪⌐ ╪º┘ä┘à╪╣╪▒╪╢' : 'Visit Shop'"></button>
+                        <button class="flex-1 relative z-10 py-3 text-xs font-bold transition-colors duration-500" :class="form.visit_mode === 'Home Visit' ? 'text-gold' : 'text-white/50 hover:text-white'" @click="form.visit_mode = 'Home Visit'; autoSave()" x-text="lang === 'ar' ? '╪▓┘è╪º╪▒╪⌐ ┘à┘å╪▓┘ä┘è╪⌐' : 'Home Visit'"></button>
+                      </div>
+                    </div>
+
+                    <!-- Preferred Contact Time (Conditional) -->
+                    <div x-show="form.visit_mode === 'Home Visit'" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
+                      <label class="block text-[0.7rem] font-bold text-white/30 mb-4 uppercase tracking-widest" x-text="lang === 'ar' ? '╪º┘ä┘ê┘é╪¬ ╪º┘ä┘à┘ü╪╢┘ä ┘ä┘ä╪¬┘ê╪º╪╡┘ä' : 'Preferred Contact Time'"></label>
+                      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" dir="ltr">
+                        <template x-for="time in ['Morning', 'Afternoon', 'Evening', 'Night']" :key="time">
+                          <button @click="form.preferred_contact_time = time; autoSave()" class="py-3 px-2 text-[0.7rem] font-bold border-2 rounded-xl transition-all duration-300" :class="form.preferred_contact_time === time ? 'bg-gold text-black border-gold' : 'bg-white/5 text-white/40 border-white/5 hover:border-gold/30'" x-text="time"></button>
+                        </template>
+                      </div>
+                    </div>
+
+                    <!-- Error display -->
+                    <div x-show="submitError" x-transition class="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-xl px-4 py-3 text-center" x-text="submitError"></div>
+
+                    <!-- Submit -->
+                    <button class="w-full py-4 px-8 bg-gold text-[#0a0a0d] font-bold uppercase tracking-[0.2em] text-sm rounded-full hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-3 mt-4" @click="submitForm()" :disabled="submitting">
+                      <template x-if="submitting">
+                        <span class="w-5 h-5 border-2 border-[#0a0a0d]/30 border-t-[#0a0a0d] rounded-full animate-spin"></span>
+                      </template>
+                      <span x-text="submitting ? (lang === 'ar' ? '╪¼╪º╪▒┘è ╪º┘ä╪Ñ╪▒╪│╪º┘ä...' : 'Sending...') : (lang === 'ar' ? '╪¬╪ú┘â┘è╪» ╪º┘ä╪¡╪¼╪▓' : 'Confirm & Book Now')"></span>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" :class="lang === 'ar' ? 'rotate-180' : ''" x-show="!submitting"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Placeholder div so scrolling works normally when out of selection mode -->
+        <div x-show="isSelectionMode" class="min-h-screen"></div>
+
+        <!-- Success State -->
+        <div x-show="step === 'success'" x-transition:enter="transition ease-out duration-600 delay-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" class="max-w-[700px] mx-auto text-center py-32">
+          <div class="w-36 h-36 rounded-full flex items-center justify-center mx-auto mb-12 relative">
+            <div class="absolute inset-0 bg-gold/10 rounded-full border border-gold/20"></div>
+            <div class="absolute inset-0 bg-gold/20 rounded-full animate-ping opacity-20" style="animation-duration: 2s"></div>
+            <svg class="w-16 h-16 text-gold relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" class="animate-draw-check" />
+            </svg>
+          </div>
+          <h2 class="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-8 tracking-tight" x-text="lang === 'ar' ? '╪┤┘â╪▒╪º┘ï ┘ä╪½┘é╪¬┘â┘à' : 'Reservation Confirmed'"></h2>
+          <p class="text-2xl text-white/60 leading-relaxed mb-16" x-text="lang === 'ar' ? '╪│┘è╪¬┘ê╪º╪╡┘ä ┘à╪╣┘â ╪ú╪¡╪» ┘à╪│╪¬╪┤╪º╪▒┘è┘å╪º ╪«┘ä╪º┘ä ┘ó┘ñ ╪│╪º╪╣╪⌐ ┘ä╪¬┘å╪│┘è┘é ╪º┘ä╪▓┘è╪º╪▒╪⌐.' : 'One of our design consultants will contact you within 24 hours.'"></p>
+
+          <div class="bg-white/5 border border-white/10 rounded-[4rem] p-12 mb-16 relative overflow-hidden group">
+            <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-transparent via-gold/50 to-transparent"></div>
+            <div class="text-base font-bold text-gold uppercase tracking-[0.4em] mb-5" x-text="lang === 'ar' ? '╪▒┘é┘à ╪º┘ä╪╖┘ä╪¿' : 'Booking Reference'"></div>
+            <div class="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-[0.2em] font-mono" x-text="form.order_id"></div>
+          </div>
+
+          <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
+             class="inline-flex items-center gap-6 bg-[#25d366] text-white px-12 py-6 rounded-2xl font-black text-2xl hover:scale-105 transition-all shadow-[0_20px_50px_rgba(37,211,102,0.4)]">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span x-text="lang === 'ar' ? '╪¬┘ê╪º╪╡┘ä ┘à╪╣┘å╪º ┘ê╪º╪¬╪│╪º╪¿' : 'Chat via WhatsApp'"></span>
+          </a>
+        </div>
+    </section>
+
+  </main>
+
+  <!-- ΓöÇΓöÇ Footer ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ -->
+  <footer id="footer" class="bg-ivory py-32 px-5 transition-opacity duration-500 border-t border-ivory-darker" x-show="!loading" x-cloak>
+    <div class="max-w-[1000px] mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left" :class="lang === 'ar' ? 'md:text-right' : 'md:text-left'">
+      <div>
+        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain mx-auto md:mx-0 mb-6">
+        <p class="text-bronze/60 text-sm leading-relaxed mb-6" x-text="lang === 'ar' ? '╪ú╪½╪º╪½ ┘ü╪º╪«╪▒ ┘ê┘à╪¼╪º┘ä╪│ ┘à┘ü╪╡┘ä╪⌐ ╪¬╪╣┘â╪│ ╪º┘ä┘ü╪«╪º┘à╪⌐ ╪º┘ä┘ç╪º╪»╪ª╪⌐.' : 'Luxury made-to-order majlis reflecting quiet luxury.'"></p>
+      </div>
+      <div>
+        <h4 class="text-bronze font-bold uppercase tracking-widest mb-6" x-text="lang === 'ar' ? '╪¬┘ê╪º╪╡┘ä ┘à╪╣┘å╪º' : 'Contact Us'"></h4>
+        <ul class="space-y-4 text-bronze/60 text-sm">
+          <li x-text="lang === 'ar' ? '╪º┘ä┘é╪▒┘è╪º╪¬╪î ╪º┘ä╪¼┘ê┘ü╪î ╪º┘ä┘à┘à┘ä┘â╪⌐ ╪º┘ä╪╣╪▒╪¿┘è╪⌐ ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐' : 'Al Qurayyat, Al Jawf, KSA'"></li>
+          <li dir="ltr">+966 5X XXX XXXX</li>
+          <li>info@saeedfurniture.com</li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center md:items-start">
+        <h4 class="text-bronze font-bold uppercase tracking-widest mb-6" x-text="lang === 'ar' ? '╪┤╪¿┘â╪º╪¬ ╪º┘ä╪¬┘ê╪º╪╡┘ä' : 'Social'"></h4>
+        <div class="flex gap-6">
+          <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
+             class="w-12 h-12 rounded-full bg-[#25d366] text-white flex items-center justify-center transition-all duration-500 min-h-[44px] min-w-[44px]"
+             :class="{'scale-125 bg-gold shadow-[0_0_30px_rgba(201,169,110,0.6)]': highlightWhatsApp}"
+             title="WhatsApp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="#"
+             class="w-12 h-12 rounded-full bg-[#1877f2] text-white flex items-center justify-center transition-transform hover:scale-110 min-h-[44px] min-w-[44px]"
+             title="Facebook">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 pt-8 border-t border-ivory-darker text-[0.7rem] text-bronze/40 font-bold uppercase tracking-[0.15em] relative pb-4">
+      <a href="/auth" class="absolute bottom-0 left-4 text-[0.5rem] opacity-30 hover:opacity-100 transition-opacity">Atelier Login</a>
+      <div class="text-center">&copy; 2026 Saeed Furniture. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  
+  <!-- ΓöÇΓöÇ Ultimate Floating CTA (Glowing + Floating) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ -->
+  <button class="fixed bottom-8 md:bottom-10 start-1/2 -translate-x-1/2 bg-gold text-[#0a0a0d] px-12 md:px-14 py-5 md:py-6 rounded-full font-black text-lg uppercase tracking-widest z-40 shadow-[0_0_50px_rgba(201,169,110,0.4)] hover:shadow-gold/60 transition-transform duration-300 hover:scale-105 active:scale-95 border border-white/20 flex items-center gap-3"
+          x-show="!isSelectionMode"
+          x-transition:enter="transition ease-out duration-500"
+          x-transition:enter-start="opacity-0 translate-y-10"
+          x-transition:enter-end="opacity-100 -translate-y-0"
+          @click="isSelectionMode = true; step = 'selection'; window.scrollTo({top: 0, behavior: 'smooth'})">
+    <span x-html="lang === 'ar' ? (content.hero?.ctaArabic || '╪º╪¿╪»╪ú <span class=\'text-sm opacity-80\'>╪▒╪¡┘ä╪¬┘â</span>') : (content.hero?.ctaEnglish || 'Start <span class=\'text-xs md:text-sm font-bold opacity-80 tracking-normal\'>Your Journey</span> &rarr;')"></span>
+  </button>
+
+  <!-- ΓöÇΓöÇ Floating WhatsApp Button ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ -->
+  <div class="fixed bottom-8 end-6 z-40 animate-pulse-ring rounded-full">
+    <a class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] relative z-10 transition-transform duration-300 hover:scale-110 active:scale-90"
+       aria-label="Contact us on WhatsApp"
+       :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
+       @click="onWhatsAppClick()"
+       :title="lang === 'ar' ? '╪¬╪¡╪»╪½ ┘à╪╣┘å╪º ╪╣┘ä┘ë ┘ê╪º╪¬╪│╪º╪¿' : 'Chat with us on WhatsApp'">
+      <svg class="w-6 h-6 md:w-[30px] md:h-[30px]" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- ΓöÇΓöÇ Auth Modal (Email/Password) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ -->
+  <div x-data="{ tab: 'signin', email: '', password: '', showPass: false, loading: false, error: '' }"
+       x-show="$store.saeedAuth && $store.saeedAuth.showAuthModal" 
+       class="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-xl"
+       x-transition:enter="transition ease-out duration-300"
+       x-transition:enter-start="opacity-0 scale-95"
+       x-transition:enter-end="opacity-100 scale-100"
+       x-transition:leave="transition ease-in duration-200"
+       x-transition:leave-start="opacity-100 scale-100"
+       x-transition:leave-end="opacity-0 scale-95"
+       style="display: none;">
+    <div class="bg-[#0e0e10] border border-white/10 rounded-3xl p-8 max-w-[420px] w-full mx-4 shadow-[0_32px_80px_rgba(0,0,0,0.8)] relative" @click.stop>
+      <button @click="$store.saeedAuth.showAuthModal = false; error = ''" class="absolute top-5 right-5 text-white/30 hover:text-white text-xl transition-colors">&times;</button>
+      
+      <!-- Logo + Brand Name -->
+      <div class="text-center mb-8 pt-2">
+        <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="lazy" alt="Saeed Furniture" class="h-10 mx-auto object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+        <p class="text-white text-lg font-bold mt-3" style="font-family: 'Noto Kufi Arabic', sans-serif;">╪┤╪▒┘â╪⌐ ╪│╪╣┘è╪»</p>
+        <p class="text-white/30 text-[0.65rem] mt-1 uppercase tracking-widest" x-text="lang === 'ar' ? '╪º╪¬┘è┘ä┘è┘ç ╪º┘ä┘à╪¼╪º┘ä╪│' : 'Bespoke Majlis Atelier'"></p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex border border-white/10 rounded-2xl p-1 mb-8">
+        <button @click="tab = 'signin'; error = ''" 
+                :class="tab === 'signin' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'"
+                class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all"
+                x-text="lang === 'ar' ? '╪¬╪│╪¼┘è┘ä ╪º┘ä╪»╪«┘ê┘ä' : 'Sign In'"></button>
+        <button @click="tab = 'signup'; error = ''" 
+                :class="tab === 'signup' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'"
+                class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all"
+                x-text="lang === 'ar' ? '╪Ñ┘å╪┤╪º╪í ╪¡╪│╪º╪¿' : 'Create Account'"></button>
+      </div>
+
+      <!-- Error -->
+      <div x-show="error" x-transition class="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-xl px-4 py-3 mb-6 text-center" x-text="error"></div>
+
+      <!-- Fields -->
+      <div class="space-y-6">
+        <div>
+          <label class="block text-[0.7rem] font-bold text-white/30 mb-3 uppercase tracking-widest" x-text="lang === 'ar' ? '╪º┘ä╪¿╪▒┘è╪» ╪º┘ä╪Ñ┘ä┘â╪¬╪▒┘ê┘å┘è' : 'Email Address'"></label>
+          <input type="email" x-model="email" autocomplete="email"
+                 class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e]"
+                 :placeholder="lang === 'ar' ? 'example@email.com' : 'example@email.com'">
+        </div>
+        <div class="relative">
+          <label class="block text-[0.7rem] font-bold text-white/30 mb-3 uppercase tracking-widest" x-text="lang === 'ar' ? '┘â┘ä┘à╪⌐ ╪º┘ä┘à╪▒┘ê╪▒' : 'Password'"></label>
+          <input :type="showPass ? 'text' : 'password'" x-model="password" autocomplete="current-password"
+                 class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e] pr-10"
+                 :placeholder="lang === 'ar' ? 'ΓÇóΓÇóΓÇóΓÇóΓÇóΓÇóΓÇóΓÇó' : 'ΓÇóΓÇóΓÇóΓÇóΓÇóΓÇóΓÇóΓÇó'">
+          <button type="button" @click="showPass = !showPass" class="absolute right-0 bottom-3 text-white/30 hover:text-white transition-colors">
+            <svg x-show="!showPass" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg x-show="showPass" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <button @click="async () => {
+        if (!email || !password) { error = lang === 'ar' ? '┘è╪▒╪¼┘ë ┘à┘ä╪í ╪¼┘à┘è╪╣ ╪º┘ä╪¡┘é┘ê┘ä' : 'Please fill in all fields'; return; }
+        loading = true; error = '';
+        try {
+          let result;
+          if (tab === 'signin') {
+            result = await $store.saeedAuth.signInWithPassword(email, password);
+            if (result.error) {
+              error = lang === 'ar' ? '╪º┘ä╪¿╪▒┘è╪» ╪ú┘ê ┘â┘ä┘à╪⌐ ╪º┘ä┘à╪▒┘ê╪▒ ╪║┘è╪▒ ╪╡╪¡┘è╪¡╪⌐' : 'Incorrect email or password. Please try again.';
+            } else {
+              $store.saeedAuth.showAuthModal = false;
+              email = ''; password = ''; error = '';
+              if ($store.saeedAuth.pendingAction) {
+                $store.saeedAuth.pendingAction();
+                $store.saeedAuth.pendingAction = null;
+              }
+            }
+          } else {
+            result = await $store.saeedAuth.signUp(email, password);
+            if (result.error) {
+              const msg = result.error.message || '';
+              if (msg.toLowerCase().includes('already registered') || msg.toLowerCase().includes('already exists') || msg.toLowerCase().includes('user already')) {
+                error = lang === 'ar' ? '┘ç╪░╪º ╪º┘ä╪¿╪▒┘è╪» ┘à╪│╪¼┘æ┘ä ┘à╪│╪¿┘é╪º┘ï. ┘è╪▒╪¼┘ë ╪º┘ä╪¬╪¿╪»┘è┘ä ╪Ñ┘ä┘ë ╪¬╪│╪¼┘è┘ä ╪º┘ä╪»╪«┘ê┘ä.' : 'This email is already registered. Please switch to Sign In.';
+              } else {
+                error = msg || (lang === 'ar' ? '╪¡╪»╪½ ╪«╪╖╪ú ╪ú╪½┘å╪º╪í ╪Ñ┘å╪┤╪º╪í ╪º┘ä╪¡╪│╪º╪¿' : 'An error occurred during sign up.');
+              }
+            } else {
+              $store.saeedAuth.showAuthModal = false;
+              email = ''; password = ''; error = '';
+              if ($store.saeedAuth.pendingAction) {
+                $store.saeedAuth.pendingAction();
+                $store.saeedAuth.pendingAction = null;
+              }
+            }
+          }
+        } catch(e) {
+          error = lang === 'ar' ? '╪¡╪»╪½ ╪«╪╖╪ú ╪║┘è╪▒ ┘à╪¬┘ê┘é╪╣' : 'An unexpected error occurred';
+        } finally { loading = false; }
+      }" 
+      class="w-full mt-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3"
+      :class="loading ? 'bg-white/10 text-white/40 cursor-not-allowed' : 'bg-[#c9a96e] text-black hover:bg-[#d4b87a]'"
+      :disabled="loading">
+        <svg x-show="loading" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+        <span x-text="loading ? (lang === 'ar' ? '╪¼╪º╪▒┘è...' : 'Please wait...') : (tab === 'signin' ? (lang === 'ar' ? '╪»╪«┘ê┘ä' : 'Sign In') : (lang === 'ar' ? '╪Ñ┘å╪┤╪º╪í ╪º┘ä╪¡╪│╪º╪¿' : 'Create Account'))"></span>
+      </button>
+
+      <p class="text-center text-white/20 text-[0.65rem] mt-6 uppercase tracking-widest" x-text="lang === 'ar' ? '╪¿┘è╪º┘å╪º╪¬┘â ╪ó┘à┘å╪⌐ ┘ê┘à╪¡┘à┘è╪⌐' : 'Your data is secure & protected'"></p>
+    </div>
+  </div>
+
+  <!-- ΓöÇΓöÇ App Logic ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ -->
+  <script>
+  const IMAGE_BASE_URL = 'https://ik.imagekit.io/de7qvcvqv/';
+  window.IMAGE_BASE_URL = IMAGE_BASE_URL;
+  // Relative URL
+  const API = window.location.origin;
+  let autoSaveController = null;
+
+  function saeedApp() {
+    return {
+      /* ΓöÇΓöÇ UI State ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+      lang:              'ar',
+      isSelectionMode:   false,
+      step:              'hero', // hero, selection, form, success
+      showExitPopup:     false,
+      selectedVariationItem: null,
+      isNightMode:       false,
+      currentHour:       new Date().getHours(), // Chronological Hub: real-time hour
+      hubHoveredZone:    null,                  // which SVG zone is hovered
+      progress:          5,
+      loading:           true,
+      submitting:        false,
+      submitError:       '',
+      phoneError:        '',
+      accessoriesClicked: false,
+      scrolled:          false,
+      mobileMenuOpen:    false,
+      highlightWhatsApp: false,
+
+      /* ΓöÇΓöÇ Content CMS ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+      content: { brand:{}, hero:{}, usps:[], styles:{options:[]}, capacity:{options:[]}, contact:{}, success:{} },
+
+      /* ΓöÇΓöÇ Debounce Timers ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+      _phoneTimer: null,
+      _nameTimer:  null,
+      _cityTimer:  null,
+      _visionTimer: null,
+
+      /* ΓöÇΓöÇ Session State Model ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+      form: {
+        order_id:          null,
+        session_id:        null,
+        name:              '',
+        phone:             '',
+        district_city:     '',
+        selected_model_id: '',
+        capacity_selected: '',
+        visit_mode:        'Home Visit',
+        vision_notes:      '',
+        last_step:         'hero',
+        status:            'draft',
+        score:             0,
+        time_spent:        0,
+        source:            'website',
+        user_agent:        '',
+        referrer:          '',
+        company_name:      '',
+        preferred_contact_time: 'Morning',
+        email:             ''
+      },
+
+      /* ΓöÇΓöÇ Catalog Hierarchy State ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+      catalog:           null,
+      selectionLevel:    'type', // 'type', 'subtype', 'variation'
+      selectedType:      null,
+      selectedSubtype:   null,
+      selectedVariation: null,
+      selectedVariationUrl: '',
+      heroImageLoaded:   false,
+      showOptional:      false,
+      lookbookStageVisible: false,
+      toastMessage:      '',
+      toastVisible:      false,
+      swiper:            null,
+      
+      get lookbookItems() {
+        if (!this.catalog || !this.catalog.taxonomy_tree) return [];
+        let items = [];
+        let imgIndex = 0;
+        this.catalog.taxonomy_tree.forEach(type => {
+          if(!type.subtypes) return;
+          type.subtypes.forEach(subtype => {
+            if(!subtype.variations) return;
+            subtype.variations.forEach(variation => {
+              const mainImg = IMAGE_BASE_URL + ['images/hero.png?v=2','images/modern.png','images/authentic.png','images/heritage.png'][imgIndex % 4];
+              const var1 = IMAGE_BASE_URL + ['images/modern.png','images/authentic.png','images/heritage.png','images/hero.png?v=2'][imgIndex % 4];
+              const var2 = IMAGE_BASE_URL + ['images/authentic.png','images/heritage.png','images/hero.png?v=2','images/modern.png'][imgIndex % 4];
+              items.push({
+                type: type,
+                subtype: subtype,
+                variation: variation,
+                id: variation.internal_id,
+                catalog_item_id: variation.catalog_item_id,
+                name: variation.public_display_name,
+                typeName: type.public_display_name,
+                unsplashUrl: mainImg,
+                gallery: [mainImg, var1, var2]
+              });
+              imgIndex++;
+            });
+          });
+        });
+        return items;
+      },
+      
+      shareReference() {
+        const text = this.lang === 'ar' 
+          ? `┘à╪▒╪¡╪¿╪º┘ï╪î ╪ú┘å╪º ┘à┘ç╪¬┘à ╪¿╪¬╪╡┘à┘è┘à ┘ç╪░╪º ╪º┘ä┘à╪¼┘ä╪│:\n╪º┘ä┘å┘à╪╖: ${this.selectedType?.public_display_name}\n╪º┘ä┘à┘ê╪»┘è┘ä: ${this.selectedVariation?.public_display_name}\n╪º┘ä╪▒┘à╪▓: ${this.selectedVariation?.internal_id}`
+          : `Hello, I'm interested in this design:\nStyle: ${this.selectedType?.public_display_name}\nModel: ${this.selectedVariation?.public_display_name}\nCode: ${this.selectedVariation?.internal_id}`;
+        
+        if (navigator.share) {
+          navigator.share({ title: 'Saeed Furniture Design', text: text }).catch(console.error);
+        } else {
+          navigator.clipboard.writeText(text);
+          this.showToast(this.lang === 'ar' ? '╪¬┘à ┘å╪│╪« ╪º┘ä┘à╪▒╪¼╪╣ ╪Ñ┘ä┘ë ╪º┘ä╪¡╪º┘ü╪╕╪⌐' : 'Reference copied to clipboard');
+        }
+      },
+      
+      showToast(msg) {
+        this.toastMessage = msg;
+        this.toastVisible = true;
+        setTimeout(() => { this.toastVisible = false; }, 3000);
+      },
+      
+      initSwiper() {
+        if(this.swiper || typeof Swiper === 'undefined') return;
+        this.swiper = new Swiper('.lookbook-swiper', {
+          grabCursor: true,
+          centeredSlides: true,
+          slidesPerView: 'auto',
+          spaceBetween: 16,
+          touchStartPreventDefault: false,
+          touchReleaseOnEdges: true,
+          passiveListeners: true,
+          autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          },
+          on: {
+            sliderMove: () => { 
+              if(!this.lookbookStageVisible) this.lookbookStageVisible = true; 
+            },
+            slideChange: (s) => {
+              const items = this.lookbookItems;
+              if (items[s.activeIndex]) {
+                const item = items[s.activeIndex];
+                this.heroImageLoaded = false;
+                this.selectedVariation = item.variation;
+                this.selectedSubtype = item.subtype;
+                this.selectedType = item.type;
+                this.selectedVariationUrl = item.unsplashUrl;
+                this.selectedVariationItem = item;
+                
+                // Preload to trigger fade-in transition
+                const img = new Image();
+                img.onload = () => { this.heroImageLoaded = true; };
+                img.onerror = () => { this.heroImageLoaded = true; };
+                img.src = item.unsplashUrl || IMAGE_BASE_URL + 'images/hero.png?v=2';
+              }
+            }
+          }
+        });
+        const items = this.lookbookItems;
+        if(items.length > 0) {
+          this.selectedVariation = items[0].variation;
+          this.selectedSubtype = items[0].subtype;
+          this.selectedType = items[0].type;
+          this.selectedVariationUrl = items[0].unsplashUrl;
+          this.selectedVariationItem = items[0];
+          
+          this.heroImageLoaded = false;
+          const img = new Image();
+          img.onload = () => { this.heroImageLoaded = true; };
+          img.onerror = () => { this.heroImageLoaded = true; };
+          img.src = items[0].unsplashUrl || IMAGE_BASE_URL + 'images/hero.png';
+        }
+      },
+      
+      scrollToCategory(typeName) {
+        const items = this.lookbookItems;
+        const idx = items.findIndex(i => i.typeName === typeName);
+        if(idx !== -1 && this.swiper) {
+          this.swiper.slideTo(idx);
+          this.lookbookStageVisible = true;
+        }
+      },
+
+      /* ΓöÇΓöÇ init ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+      /* ΓöÇΓöÇ Chronological State Helper ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+      isNight() {
+        return this.currentHour < 6 || this.currentHour >= 18;
+      },
+
+      showHubToast(msgEn, msgAr) {
+        this.toastMessage = this.lang === 'ar' ? msgAr : msgEn;
+        this.toastVisible = true;
+        setTimeout(() => { this.toastVisible = false; }, 3200);
+      },
+
+      routeHubZone(zone) {
+        if (zone === 'majlis') {
+          this.isSelectionMode = true;
+          this.step = 'selection';
+          window.scrollTo({ top: 0 });
+        } else {
+          const labels = {
+            kitchens: ['Bespoke Kitchens ΓÇö Coming Soon', '╪º┘ä┘à╪╖╪º╪¿╪« ╪º┘ä┘à╪«╪╡╪╡╪⌐ ΓÇö ┘é╪▒┘è╪¿╪º┘ï'],
+            cots:     ['Premium Cots ΓÇö Coming Soon',     '╪º┘ä╪ú╪│╪▒╪⌐ ╪º┘ä┘ü╪º╪«╪▒╪⌐ ΓÇö ┘é╪▒┘è╪¿╪º┘ï'],
+            bedroom:  ['Arabian Bedroom Sets ΓÇö Coming Soon', '╪║╪▒┘ü ╪º┘ä┘å┘ê┘à ╪º┘ä╪╣╪▒╪¿┘è╪⌐ ΓÇö ┘é╪▒┘è╪¿╪º┘ï'],
+            storage:  ['Storage & Almirahs ΓÇö Coming Soon', '╪«╪▓╪º╪ª┘å ╪º┘ä╪¬╪«╪▓┘è┘å ΓÇö ┘é╪▒┘è╪¿╪º┘ï'],
+          };
+          const [en, ar] = labels[zone] || ['Coming Soon', '┘é╪▒┘è╪¿╪º┘ï'];
+          this.showHubToast(en, ar);
+        }
+      },
+
+      async init() {
+        const currentHour = new Date().getHours();
+        this.currentHour = currentHour;
+        this.isNightMode = currentHour >= 18 || currentHour < 6;
+
+        // Twilight Crossfade ΓÇö re-check every 60s for threshold crossing
+        setInterval(() => {
+          const h = new Date().getHours();
+          this.currentHour = h;
+          this.isNightMode = h >= 18 || h < 6;
+        }, 60_000);
+        
+        this.form.user_agent = navigator.userAgent;
+        this.form.referrer   = document.referrer;
+
+        // Safety timeout: force splash screen dismissal after 2.5s
+        // even if a non-critical asset (favicon, CDN image) fails to load
+        const splashTimeout = setTimeout(() => {
+          if (this.loading) {
+            console.warn('[SPLASH] Safety timeout ΓÇö forcing transition');
+            this.loading = false;
+          }
+        }, 2500);
+        
+        // Load language preference from local storage if exists
+        const savedLang = localStorage.getItem('saeed_lang');
+        if (savedLang === 'en') {
+          this.toggleLang(false);
+        }
+
+        try {
+          const r = await fetch('./content.json');
+          this.content = await r.json();
+        } catch (e) { console.error('[CMS]', e); }
+
+        try {
+          const r = await fetch('./catalog.json');
+          this.catalog = (await r.json()).catalog_data;
+        } catch (e) { console.error('[CATALOG]', e); }
+
+        try {
+          const r = await fetch(`${API}/api/session`);
+          const d = await r.json();
+          if (d.success) {
+            this.form.order_id   = d.order_id;
+            this.form.session_id = d.session_id;
+          } else {
+            throw new Error('Session creation failed');
+          }
+        } catch (e) {
+          this.form.order_id   = 'SF-LOCAL';
+          this.form.session_id = crypto.randomUUID?.() || 'local-session';
+        }
+
+        clearTimeout(splashTimeout);
+        this.loading = false;
+
+        // Watch auth state ΓÇö smart pre-fill name/phone when user logs in
+        this.$watch('$store.saeedAuth.user', (user) => {
+          if (user) {
+            this.form.email = user.email;
+            const auth = Alpine.store('saeedAuth');
+            if (!this.form.name  && auth.fullName) this.form.name  = auth.fullName;
+            if (!this.form.phone && auth.phone)    this.form.phone = auth.phone;
+          }
+        });
+        // Also pre-fill immediately if already logged in at load time
+        Alpine.nextTick(() => {
+          const auth = Alpine.store('saeedAuth');
+          if (auth?.user) {
+            if (!this.form.name  && auth.fullName) this.form.name  = auth.fullName;
+            if (!this.form.phone && auth.phone)    this.form.phone = auth.phone;
+            this.form.email = auth.user.email || '';
+          }
+        });
+
+        setInterval(() => {
+          if (this.form.status === 'final') return;
+          this.form.time_spent += 25;
+          this.autoSave();
+        }, 25_000);
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'hidden') {
+            if (!this.form.order_id || this.form.order_id === 'SF-LOCAL') return;
+            const auth = Alpine.store('saeedAuth');
+            const headers = { 'Content-Type': 'application/json' };
+            if (auth?.user?.email) headers['x-user-email'] = auth.user.email;
+            
+            fetch(`${API}/api/lead`, {
+              method: 'POST',
+              headers: headers,
+              body: JSON.stringify(this.form),
+              keepalive: true
+            }).catch(() => {});
+          }
+        });
+      },
+
+      /* ΓöÇΓöÇ Language Toggle ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+      toggleLang(toggle = true) {
+        if (toggle) {
+          this.lang = this.lang === 'ar' ? 'en' : 'ar';
+        } else {
+          this.lang = 'en';
+        }
+        document.documentElement.lang = this.lang;
+        document.documentElement.dir = this.lang === 'ar' ? 'rtl' : 'ltr';
+        localStorage.setItem('saeed_lang', this.lang);
+      },
+
+      /* ΓöÇΓöÇ autoSave ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+      async autoSave() {
+        if (!this.isSelectionMode || !this.form.order_id || this.form.order_id === 'SF-LOCAL' || this.submitting) return;
+
+        // Prevent multiple concurrent saves
+        if (autoSaveController) autoSaveController.abort();
+        autoSaveController = new AbortController();
+
+        try {
+          const auth = Alpine.store('saeedAuth');
+          const headers = { 'Content-Type': 'application/json' };
+          if (auth?.user?.email) headers['x-user-email'] = auth.user.email;
+
+          await fetch(`${API}/api/lead`, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(this.form),
+            signal: autoSaveController.signal
+          });
+        } catch (e) {
+          if (e.name !== 'AbortError') console.warn('[AUTOSAVE] failed');
+        }
+      },
+
+      calculateScore() {
+        let s = 0;
+        if (this.form.style_selected || this.form.selected_model_id) s += 10;
+        if (this.form.capacity_selected) s += 20;
+        if (this.form.phone.trim())      s += 80;
+        if (this.form.status === 'final') s += 100;
+        return s;
+      },
+
+      goToStep(next) {
+        this.step            = next;
+        this.form.last_step  = next;
+        this.form.score      = this.calculateScore();
+        this.updateProgress();
+        // Scroll handled by fixed overlay positioning ΓÇö no DOM scroll needed
+        this.autoSave();
+      },
+
+      updateProgress() {
+        const map = { hero: 5, selection: 45, form: 82, success: 100 };
+        this.progress = map[this.step] ?? 5;
+      },
+
+      onWhatsAppClick() {
+        this.form.last_step = 'whatsapp-clicked';
+        this.autoSave();
+      },
+
+      selectStyle(style) {
+        if (style.id === 'accessories') {
+          this.accessoriesClicked = !this.accessoriesClicked;
+          this.form.style_selected = 'Accessories & Steel';
+          this.form.last_step = 'accessories-interest';
+          this.autoSave();
+          return;
+        }
+        this.accessoriesClicked   = false;
+        this.form.style_selected  = style.name;
+        this.form.score           = this.calculateScore();
+        this.goToStep(style.id === 'modern' ? 'capacity' : 'soft-phone');
+      },
+
+      selectCapacity(cap) {
+        this.form.capacity_selected = cap.name;
+        this.form.score             = this.calculateScore();
+        this.goToStep('soft-phone');
+      },
+
+      onPhoneInput() {
+        clearTimeout(this._phoneTimer);
+        this.form.score   = this.calculateScore();
+        this._phoneTimer  = setTimeout(() => this.autoSave(), 700);
+      },
+      onPhoneBlur() {
+        clearTimeout(this._phoneTimer);
+        this.form.score = this.calculateScore();
+        this.autoSave();
+      },
+      onNameInput() {
+        clearTimeout(this._nameTimer);
+        this._nameTimer = setTimeout(() => this.autoSave(), 700);
+      },
+      onCityInput() {
+        clearTimeout(this._cityTimer);
+        this._cityTimer = setTimeout(() => this.autoSave(), 700);
+      },
+      onVisionInput() {
+        clearTimeout(this._visionTimer);
+        this._visionTimer = setTimeout(() => this.autoSave(), 1000);
+      },
+      proceedToForm() {
+        this.form.score = this.calculateScore();
+        this.goToStep('form');
+      },
+
+      /* ΓöÇΓöÇ Order Button Handler (Auth Gate) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+      handleOrderClick() {
+        const auth = Alpine.store('saeedAuth');
+        if (!auth.user) {
+          auth.showAuthModal = true;
+          auth.pendingAction = () => { window.location.href = '/dashboard/client'; };
+        } else {
+          window.location.href = '/dashboard/client';
+        }
+      },
+      async submitForm() {
+        if (this.submitting) return;
+        const auth = Alpine.store('saeedAuth');
+        
+        // Require Authentication
+        if (!auth.user) {
+          auth.pendingAction = () => { this.submitForm(); };
+          auth.showAuthModal = true;
+          return;
+        }
+
+        if (!this.form.name.trim()) {
+          this.submitError = this.lang === 'ar' ? '╪º┘ä╪▒╪¼╪º╪í ╪Ñ╪»╪«╪º┘ä ╪º╪│┘à┘â ╪º┘ä┘â╪▒┘è┘à' : 'Please enter your name';
+          return;
+        }
+        const digits = this.form.phone.replace(/\D/g, '');
+        if (!this.form.phone.trim() || digits.length < 9) {
+          this.phoneError = this.lang === 'ar' ? '┘è╪▒╪¼┘ë ╪Ñ╪»╪«╪º┘ä ╪▒┘é┘à ╪¼┘ê╪º┘ä ╪╡╪¡┘è╪¡ (9 ╪ú╪▒┘é╪º┘à ╪╣┘ä┘ë ╪º┘ä╪ú┘é┘ä)' : 'Please enter a valid phone number (min 9 digits)';
+          this.submitError = this.phoneError;
+          return;
+        }
+        this.phoneError = '';
+
+        const prevStatus = this.form.status;
+        const prevStep = this.form.last_step;
+
+        this.submitError  = '';
+        this.submitting   = true;
+        this.form.status  = 'final';
+        this.form.last_step = 'success';
+        this.form.score   = this.calculateScore();
+
+        try {
+          const { data, error } = await auth.supabase
+            .from('orders')
+            .insert({
+              client_id: auth.user.id,
+              configuration_details: this.form,
+              status: 'new'
+            });
+
+          if (error) throw error;
+
+          // Background: upsert name+phone into profiles for next visit
+          auth.supabase.from('profiles').update({
+            full_name: this.form.name,
+            phone:     this.form.phone
+          }).eq('id', auth.user.id).then(() => {
+            Alpine.store('saeedAuth').fullName = this.form.name;
+            Alpine.store('saeedAuth').phone    = this.form.phone;
+          });
+
+          // Sync with local backend for dashboard parity
+          await this.autoSave();
+          
+          window.location.href = '/dashboard/client';
+        } catch (e) {
+          console.error('Submission error:', e);
+          this.submitError = this.lang === 'ar' ? '╪¬╪╣╪░┘æ╪▒ ╪¡┘ü╪╕ ╪º┘ä╪╖┘ä╪¿. ┘è╪▒╪¼┘ë ╪º┘ä┘à╪¡╪º┘ê┘ä╪⌐ ┘ä╪º╪¡┘é╪º┘ï.' : 'Failed to save order. Please try again.';
+          this.form.status = prevStatus;
+          this.form.last_step = prevStep;
+          this.submitting = false;
+        } finally {
+          this.submitting = false;
+        }
+      },
+
+      /* ΓöÇΓöÇ Selection Logic (OPEN ΓÇö no auth gate) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
+      selectType(type) {
+        this.selectedType = type;
+        this.selectionLevel = 'subtype';
+        this.autoSave();
+      },
+      selectSubtype(subtype) {
+        this.selectedSubtype = subtype;
+        if (subtype.variations && subtype.variations.length === 1) {
+          this.selectVariation(subtype.variations[0]);
+        } else {
+          this.selectionLevel = 'variation';
+        }
+        this.autoSave();
+      },
+      selectVariation(variation) {
+        this.selectedVariation = variation;
+        this.form.selected_model_id = `${this.selectedType.public_display_name} - ${variation.public_display_name}`;
+        
+        // Map to legacy fields for scoring/backend compatibility
+        this.form.style_selected = this.selectedType.public_display_name;
+        this.form.capacity_selected = this.selectedSubtype.public_display_name;
+        
+        this.goToStep('form');
+        this.autoSave();
+      },
+      closeSelectionMode() {
+        this.isSelectionMode = false;
+        this.step = 'hero';
+        this.selectionLevel = 'type';
+        this.selectedType = null;
+        this.selectedSubtype = null;
+        this.selectedVariation = null;
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      },
+      goBack() {
+        if (this.step === 'form') {
+          this.step = 'selection';
+          this.lookbookStageVisible = true;
+          return;
+        }
+        if (this.step === 'selection') {
+          if (this.lookbookStageVisible) {
+            this.lookbookStageVisible = false;
+          } else {
+            this.closeSelectionMode();
+          }
+        }
+      },
+      scrollToFooter() {
+        const footer = document.getElementById('footer');
+        if (footer) {
+          footer.scrollIntoView({ behavior: 'smooth' });
+          this.highlightWhatsApp = true;
+          setTimeout(() => this.highlightWhatsApp = false, 3000);
+        }
+      },
+      
+      get selectedItemData() {
+        if (!this.selectedVariation || !this.catalog) return null;
+        return this.catalog.catalog.find(i => i.id === this.selectedVariation.catalog_item_id);
+      }
+    };
+  }
+  </script>
+
+  <!-- Toast Notification (Luxury) -->
+  <div x-show="toastVisible" x-cloak
+       x-transition:enter="transition ease-out duration-500"
+       x-transition:enter-start="opacity-0 translate-y-8"
+       x-transition:enter-end="opacity-100 translate-y-0"
+       x-transition:leave="transition ease-in duration-300"
+       x-transition:leave-start="opacity-100 translate-y-0"
+       x-transition:leave-end="opacity-0 translate-y-8"
+       class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[9000] px-8 py-3.5 bg-[#111114]/90 backdrop-blur-xl border border-gold/30 rounded-full shadow-[0_8px_30px_rgba(201,169,110,0.2)] flex items-center gap-3">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+    <span class="text-white/80 text-sm font-bold" x-text="toastMessage"></span>
+  </div>
+
+  <!-- Custom Cursor DOM -->
+  <div id="customCursor" class="custom-cursor"></div>
+
+  <!-- GSAP, Lenis & Cursor Initialization -->
+  <script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+      // 1. Lenis Smooth Scroll
+      if (typeof Lenis !== 'undefined') {
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          direction: 'vertical',
+          gestureDirection: 'vertical',
+          smooth: true,
+          mouseMultiplier: 1,
+          smoothTouch: false,
+          touchMultiplier: 2,
+          infinite: false,
+        })
+
+        function raf(time) {
+          lenis.raf(time)
+          requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
+
+        // Sync GSAP ScrollTrigger with Lenis
+        if (typeof ScrollTrigger !== 'undefined') {
+          lenis.on('scroll', ScrollTrigger.update)
+          gsap.ticker.add((time)=>{
+            lenis.raf(time * 1000)
+          })
+          gsap.ticker.lagSmoothing(0)
+        }
+      }
+
+      
+      // 3. GSAP Scroll Reveals
+      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Standard reveals
+        gsap.utils.toArray('.gsap-reveal').forEach(elem => {
+          gsap.fromTo(elem, 
+            { y: 60, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1.2,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: elem,
+                start: "top 85%",
+                toggleActions: "play none none none"
+              }
+            }
+          );
+        });
+
+        // Gold line reveal
+        gsap.utils.toArray('.gsap-line').forEach(line => {
+          gsap.to(line, {
+            scaleX: 1,
+            duration: 1.5,
+            ease: "power3.inOut",
+            scrollTrigger: {
+              trigger: line,
+              start: "top 85%"
+            }
+          });
+        });
+
+        // Parallax effect on hero backgrounds or section backgrounds if applicable
+        // The arabesque-bg can have a subtle parallax
+        gsap.utils.toArray('section.arabesque-bg').forEach(sec => {
+          gsap.to(sec, {
+            backgroundPosition: "50% 100px",
+            ease: "none",
+            scrollTrigger: {
+              trigger: sec,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true
+            }
+          });
+        });
+      }
+
+      
+      // Anime.js Day/Night Crossfade
+      if (typeof anime !== 'undefined') {
+        let isNight = false;
+        setInterval(() => {
+          isNight = !isNight;
+          anime({
+            targets: '#hero-night',
+            opacity: isNight ? 1 : 0,
+            duration: 2000,
+            easing: 'easeInOutQuad'
+          });
+        }, 10000); // 10s interval
+
+        // SVG Hotspot Interactions
+        const zones = ['majlis', 'kitchens', 'cots', 'bedroom', 'almirah'];
+        zones.forEach(zone => {
+          const poly = document.getElementById(`poly-${zone}`);
+          const label = document.getElementById(`label-${zone}`);
+          
+          if (poly && label) {
+            poly.addEventListener('mouseenter', () => {
+              anime({
+                targets: label,
+                opacity: 1,
+                scale: 1.1,
+                duration: 300,
+                easing: 'easeOutQuad'
+              });
+              // Poly glow
+              anime({
+                targets: poly,
+                fill: 'rgba(201,169,110,0.15)',
+                duration: 300
+              });
+            });
+            
+            poly.addEventListener('mouseleave', () => {
+              anime({
+                targets: label,
+                opacity: 0,
+                scale: 1,
+                duration: 300,
+                easing: 'easeInQuad'
+              });
+              anime({
+                targets: poly,
+                fill: 'rgba(0,0,0,0)', // transparent
+                duration: 300
+              });
+            });
+
+            poly.addEventListener('click', () => {
+              // Intense glow feedback
+              anime({
+                targets: poly,
+                fill: 'rgba(201,169,110,0.6)',
+                duration: 200,
+                direction: 'alternate',
+                easing: 'easeInOutQuad'
+              });
+              
+              // Fade entire hub
+              anime({
+                targets: '#hero',
+                opacity: 0,
+                duration: 800,
+                easing: 'easeInOutQuad',
+                complete: () => {
+                  // Navigate to category page logic
+                  console.log(`Navigating to ${zone}...`);
+                  // For now, simulate routing by triggering the alpine state
+                  // Assuming window.saeedApp exists
+                  window.location.hash = zone;
+                  setTimeout(() => {
+                    anime({
+                      targets: '#hero',
+                      opacity: 1,
+                      duration: 800
+                    });
+                  }, 1000);
+                }
+              });
+            });
+          }
+        });
+      }
+
+      // 2. Custom Magnetic Cursor Logic
+      const cursor = document.getElementById('customCursor');
+      if (window.matchMedia("(pointer: fine)").matches && cursor) {
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let cursorX = mouseX;
+        let cursorY = mouseY;
+        let speed = 0.2;
+
+        window.addEventListener('mousemove', e => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+          let distX = mouseX - cursorX;
+          let distY = mouseY - cursorY;
+          cursorX = cursorX + (distX * speed);
+          cursorY = cursorY + (distY * speed);
+          cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+          requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        function bindCursorHover() {
+          const hoverElements = document.querySelectorAll('a:not(.cursor-bound), button:not(.cursor-bound), [role="button"]:not(.cursor-bound), input:not(.cursor-bound), textarea:not(.cursor-bound)');
+          hoverElements.forEach(el => {
+            el.classList.add('cursor-bound');
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+          });
+        }
+        bindCursorHover();
+
+        const observer = new MutationObserver(() => bindCursorHover());
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
+    });
+  </script>
+
+</body>
+</html>
