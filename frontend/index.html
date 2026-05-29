@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -41,7 +41,7 @@
   </style>
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
 </head>
-<body class="m-0 p-0 overflow-x-hidden bg-stone-950 font-sans scroll-smooth" x-data="{ lang: 'en', expanded: false, active: null }">
+<body class="m-0 p-0 overflow-hidden bg-stone-950 font-sans" x-data="{ lang: 'en', expanded: false, active: null }">
 
   <!-- â”€â”€ Global Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <header class="absolute top-0 inset-x-0 z-50 flex justify-between items-center px-6 md:px-10 py-5 text-white pointer-events-none">
@@ -169,194 +169,7 @@
 
   </main>
 
-  <section id="usp" class="py-12 md:py-24 px-5 bg-white border-b border-ivory-darker arabesque-bg relative mt-16 md:mt-24">
-      <!-- Section Title Fade + Gold Line Reveal -->
-      <div class="max-w-[1000px] mx-auto text-center mb-12 gsap-reveal opacity-0">
-        <div class="inline-block relative">
-          <div class="w-full h-[1px] bg-gold absolute -top-4 right-0 gsap-line origin-right transform scale-x-0"></div>
-          <h2 class="text-3xl font-bold text-bronze uppercase tracking-[0.2em]" x-text="lang === 'ar' ? 'Ù…Ù…ÙŠØ²Ø§ØªÙ†Ø§' : 'Our Features'"></h2>
-        </div>
-      </div>
-      
-      <div class="max-w-[1000px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 gsap-reveal opacity-0">
-        
-        <div class="flex flex-col items-center text-center gap-4">
-          <div class="w-16 h-16 rounded-full bg-ivory flex items-center justify-center text-gold border border-gold/20 shadow-sm">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          </div>
-          <h3 class="text-[0.9rem] font-extrabold text-bronze uppercase tracking-widest" x-text="lang === 'ar' ? 'ØµÙ†Ø¹ ÙÙŠ Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠØ©' : 'Made in KSA'"></h3>
-        </div>
 
-        <div class="flex flex-col items-center text-center gap-4">
-          <div class="w-16 h-16 rounded-full bg-ivory flex items-center justify-center text-gold border border-gold/20 shadow-sm">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 11l6-6m0 0l-6-6m6 6H7"></path></svg>
-          </div>
-          <h3 class="text-[0.9rem] font-extrabold text-bronze uppercase tracking-widest" x-text="lang === 'ar' ? 'Ø²ÙŠØ§Ø±Ø© Ù…Ù†Ø²Ù„ÙŠØ© Ù…Ø¬Ø§Ù†ÙŠØ©' : 'Free Home Visit'"></h3>
-        </div>
-
-        <div class="flex flex-col items-center text-center gap-4">
-          <div class="w-16 h-16 rounded-full bg-ivory flex items-center justify-center text-gold border border-gold/20 shadow-sm">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
-          </div>
-          <h3 class="text-[0.9rem] font-extrabold text-bronze uppercase tracking-widest" x-text="lang === 'ar' ? 'Ø£Ù„ÙˆØ§Ù† ÙˆØ®Ø§Ù…Ø§Øª Ù…ØªØ¹Ø¯Ø¯Ø©' : 'Material & Color Selection'"></h3>
-        </div>
-
-        <div class="flex flex-col items-center text-center gap-4">
-          <div class="w-16 h-16 rounded-full bg-ivory flex items-center justify-center text-gold border border-gold/20 shadow-sm">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
-          </div>
-          <h3 class="text-[0.9rem] font-extrabold text-bronze uppercase tracking-widest" x-text="lang === 'ar' ? 'ØªÙˆØµÙŠÙ„ Ù…Ø¬Ø§Ù†ÙŠ' : 'Free Home Delivery'"></h3>
-        </div>
-
-      </div>
-    </section>
-<section id="about" class="py-12 md:py-24 px-5 bg-ivory-darker border-b border-ivory arabesque-bg relative overflow-hidden">
-      <div class="max-w-[1400px] mx-auto gsap-reveal opacity-0">
-        
-        <div class="flex flex-col lg:grid lg:grid-cols-[1fr_350px_1fr] xl:grid-cols-[1fr_450px_1fr] gap-8 lg:gap-16 items-start">
-          
-          <!-- Column 1: Lead-in & P1 -->
-          <div class="space-y-6 md:space-y-8 lg:mt-16 animate-fade-in-up" style="animation-delay: 200ms;">
-             <!-- Sofa Line Art Vector -->
-             <svg class="w-16 h-8 text-gold/60 mx-auto lg:mx-0" viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 35h80M15 35v-5a5 5 0 015-5h60a5 5 0 015 5v5M25 25v-5a5 5 0 015-5h40a5 5 0 015 5v5"/></svg>
-             <h2 class="text-3xl md:text-5xl font-extrabold text-gold uppercase mb-4 font-cairo" x-text="lang === 'ar' ? 'Ø§ÙƒØªØ´Ù Ø®ÙŠØ§Ø±Ø§ØªÙ†Ø§' : 'Explore Our Options'"></h2>
-             <div x-data="{ expanded: false }">
-               <div :class="expanded ? '' : 'line-clamp-3 md:line-clamp-4'">
-                 <p class="text-lg md:text-xl font-medium text-stone-800 leading-snug tracking-wide" x-text="lang === 'ar' ? 'ÙÙŠ Ø´Ø±ÙƒØ© Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø«ØŒ Ù†ÙØ¹Ø±Ù Ø¨ÙŠÙ† Ø£ÙØ¶Ù„ ØµÙ†Ø§Ø¹ Ø£Ø«Ø§Ø« Ø§Ù„ÙƒÙ†Ø¨ ÙˆØ®Ø¨Ø±Ø§Ø¡ Ø§Ù„ÙƒÙ†Ø¨ Ø§Ù„ØªÙØµÙŠÙ„ ÙÙŠ Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠØ©.' : 'At Saeed Furniture Company â€” Ø´Ø±ÙƒØ© Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø« â€” we are known among the best sofa furniture makers and custom sofa makers in KSA for creating premium Arabic sofas and reception-room seating.'"></p>
-                 <div class="w-12 h-[1px] bg-gold my-8" x-show="expanded"></div>
-                 <p class="text-lg text-stone-800 leading-loose font-medium" x-show="expanded" x-text="lang === 'ar' ? 'ÙƒÙ„ Ø·Ù„Ø¨ Ù‡Ùˆ Ø¹Ø¨Ø§Ø±Ø© Ø¹Ù† Ø·Ù‚Ù… ÙƒÙ†Ø¨ Ù…Ø®ØµØµ Ø£Ùˆ Ø¬Ù„Ø³Ø© Ù…Ø¬Ù„Ø³ ØªÙØµÙŠÙ„ØŒ ÙŠÙØµÙ†Ø¹ Ø¨Ø§Ù„ÙƒØ§Ù…Ù„ ÙƒØ£Ø«Ø§Ø« Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨ ÙÙŠ Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠØ©ØŒ Ù…ÙØµÙ…Ù… Ù„ÙŠÙ†Ø§Ø³Ø¨ Ø°ÙˆÙ‚Ùƒ ÙˆÙ…Ø¨Ù†ÙŠ Ø®ØµÙŠØµØ§Ù‹ Ù„Ù…Ù†Ø²Ù„Ùƒ. Ù…Ù† Ø§Ù„Ø§Ø³ØªØ´Ø§Ø±Ø© Ø§Ù„Ø£ÙˆÙ„Ù‰ ÙˆØ­ØªÙ‰ Ø§Ù„Ù„Ù…Ø³Ø© Ø§Ù„Ø£Ø®ÙŠØ±Ø©ØŒ Ù†ØªØ¨Ø¹ Ù†Ù‡Ø¬Ø§Ù‹ Ø§Ø­ØªØ±Ø§ÙÙŠØ§Ù‹ ÙÙŠ ØªØµÙ…ÙŠÙ… Ø§Ù„ÙƒÙ†Ø¨ Ø§Ù„Ù…Ø®ØµØµ Ù„Ø¥Ù†ØªØ§Ø¬ Ø£Ø«Ø§Ø« Ù…Ø¬Ø§Ù„Ø³ ÙØ§Ø®Ø± â€“ Ø·Ø§Ø¨Ø¹ Ø´Ø®ØµÙŠØŒ Ø¬ÙˆØ¯Ø© ØªØ¯ÙˆÙ…ØŒ ÙˆØ­Ø±ÙÙŠØ© ØªØ±ØªÙ‚ÙŠ Ø¨ØªØ¬Ø±Ø¨Ø© Ø§Ø³ØªÙ‚Ø¨Ø§Ù„ Ø¶ÙŠÙˆÙÙƒ.' : 'Every commission is a custom-made sofa set or bespoke majlis seating, entirely made-to-order furniture in Saudi Arabia, designed to your taste and built for your home. From the first consultation to the final stitch, we follow a custom sofa design KSA approach that results in luxury majlis furniture â€“ personal, lasting, and crafted to elevate your guest room experience.'"></p>
-               </div>
-               <button @click="expanded = !expanded" x-text="expanded ? 'Read Less' : 'Read More'" class="mt-4 text-sm text-yellow-600 hover:text-yellow-500 uppercase tracking-widest font-bold focus:outline-none"></button>
-             </div>
-          </div>
-
-          <!-- Column 2: Center Image Carousel -->
-          <div class="w-full h-[300px] md:h-[500px] lg:h-[600px] rounded-t-full rounded-b-full overflow-hidden shadow-[0_30px_80px_-15px_rgba(201,169,110,0.4)] bg-[#080809] border-4 border-ivory relative group animate-fade-in-up" style="animation-delay: 300ms;" x-data="{ timer: null, next() { const clientW = this.$refs.carousel.clientWidth; const scrollW = this.$refs.carousel.scrollWidth; const scrollL = this.$refs.carousel.scrollLeft; requestAnimationFrame(() => { this.$refs.carousel.scrollBy({ left: clientW, behavior: 'smooth' }); if(scrollL >= scrollW - clientW - 10) { this.$refs.carousel.scrollTo({ left: 0, behavior: 'smooth' }); } }); } }" x-init="timer = setInterval(() => next(), 4000)">
-            <div x-ref="carousel" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar">
-              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
-                <div class="absolute inset-0 overflow-hidden bg-black">
-                  <img :src="IMAGE_BASE_URL + 'images/modern.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Modern">
-                </div>
-                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
-              </div>
-              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
-                <div class="absolute inset-0 overflow-hidden bg-black">
-                  <img :src="IMAGE_BASE_URL + 'images/authentic.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Authentic">
-                </div>
-                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
-              </div>
-              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
-                <div class="absolute inset-0 overflow-hidden bg-black">
-                  <img :src="IMAGE_BASE_URL + 'images/heritage.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Heritage">
-                </div>
-                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Column 3: P2 & P3 -->
-          <div class="space-y-6 md:space-y-8 lg:mt-32 animate-fade-in-up" style="animation-delay: 400ms;">
-             <p class="text-lg text-stone-800 leading-loose font-medium" x-text="lang === 'ar' ? 'Ø¹Ù…Ù„ÙŠØ© Ø§Ù„ØªØµÙ†ÙŠØ¹ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨ Ù„Ø¯ÙŠÙ†Ø§ ØªØ²ÙŠÙ„ Ø£ÙŠ Ø­ÙŠØ±Ø©. Ø¨Ø¹Ø¯ Ø§Ø®ØªÙŠØ§Ø±Ùƒ Ù„Ù„Ù…ÙˆØ¯ÙŠÙ„ØŒ Ù†Ø²ÙˆØ±Ùƒ ÙÙŠ Ù…Ù†Ø²Ù„Ùƒ Ø£Ùˆ Ù†Ø±Ø­Ø¨ Ø¨Ùƒ ÙÙŠ Ù…Ø¹Ø±Ø¶Ù†Ø§ â€“ ÙˆØ¨ØµÙØªÙ†Ø§ Ù…ØµÙ†Ø¹ ÙƒÙ†Ø¨ Ù…ØªÙƒØ§Ù…Ù„ØŒ Ù„Ø§ Ù†Ø·Ù„Ø¨ Ù…Ù†Ùƒ Ø£Ø¨Ø¯Ø§Ù‹ Ù‚ÙŠØ§Ø³ Ø§Ù„ØºØ±ÙØ© Ø¨Ù†ÙØ³ÙƒØ› Ù†Ø­Ù† Ù†Ù‚ÙŠØ³Ù‡Ø§ Ø¨Ø§Ù„Ù†ÙŠØ§Ø¨Ø© Ø¹Ù†Ùƒ.' : 'Our made-to-order process removes all uncertainty. After you select a model, we visit your home or welcome you to our showroom â€“ as a full-service sofa manufacturer, we never ask you to premeasure the room; we measure it for you.'"></p>
-             <p class="text-lg text-stone-800 leading-loose font-medium" x-text="lang === 'ar' ? 'Ø«Ù… ÙŠÙ‚ÙˆÙ… Ø­Ø±ÙÙŠÙˆÙ†Ø§ Ø¨Ø¨Ù†Ø§Ø¡ Ø§Ù„Ù‡ÙŠÙƒÙ„ØŒ ÙˆØªØ·Ø¨ÙŠÙ‚ Ø§Ù„Ø·Ù„Ø§Ø¡ Ø§Ù„ÙˆØ§Ù‚ÙŠØŒ ÙˆØªØ±ÙƒÙŠØ¨ Ø§Ù„Ø¥Ø³ÙÙ†Ø¬ Ø¹Ø§Ù„ÙŠ Ø§Ù„ÙƒØ«Ø§ÙØ©ØŒ ÙˆØªÙØµÙŠÙ„ Ø§Ù„ØªÙ†Ø¬ÙŠØ¯ ÙŠØ¯ÙˆÙŠØ§Ù‹ØŒ Ù„Ù†Ù‚Ø¯Ù… Ù„Ùƒ Ø£ÙØ¶Ù„ ØªØ¬Ø±Ø¨Ø© Ù„Ø§Ù‚ØªÙ†Ø§Ø¡ ÙƒÙ†Ø¨ ØªÙØµÙŠÙ„ ÙˆØ£Ø«Ø§Ø« Ù…Ø¬Ø§Ù„Ø³ ÙÙŠ Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠØ©. Ø³ÙˆØ§Ø¡ ÙƒÙ†Øª ØªØ·Ù„Ø¨ Ø·Ù‚Ù… ÙƒÙ†Ø¨ Ù…Ø¬Ù„Ø³ Ø¹Ø±Ø¨ÙŠØŒ Ø£Ùˆ ØªØ¬Ù‡ÙŠØ² ÙƒØ§Ù…Ù„ Ù…Ù† Ø§Ù„Ø£Ø«Ø§Ø« Ø§Ù„Ù…ØµÙ†ÙˆØ¹ ÙŠØ¯ÙˆÙŠØ§Ù‹ØŒ Ø£Ùˆ Ø£Ø«Ø§Ø« Ø®Ø´Ø¨ÙŠ ØªÙØµÙŠÙ„ Ù…Ø¹ Ø³ØªØ§Ø¦Ø± Ù…ØªÙ†Ø§Ø³Ù‚Ø©ØŒ ÙØ¥Ù† Ø§Ù„Ù†ØªÙŠØ¬Ø© Ø§Ù„Ù†Ù‡Ø§Ø¦ÙŠØ© Ù‡ÙŠ Ø£Ø«Ø§Ø« Ø¯Ø§Ø®Ù„ÙŠ Ù„Ù„Ù…Ø¬Ø§Ù„Ø³ ÙŠØ¹ÙƒØ³ Ø§Ù„Ù…Ø¹Ù†Ù‰ Ø§Ù„Ø­Ù‚ÙŠÙ‚ÙŠ Ù„Ù„Ø£Ø«Ø§Ø« Ø§Ù„Ù…Ø®ØµØµ Ø¨Ø£Ø¹Ù„Ù‰ Ù…Ø¹Ø§ÙŠÙŠØ± Ø§Ù„Ø¬ÙˆØ¯Ø©.' : 'Our artisans then build the frame, apply protective coatings, place high-density sponge, and tailor the upholstery by hand, delivering the best place to buy custom sofa experiences for custom majlis furniture in Saudi Arabia. Whether you order an Arabic majlis sofa set, a complete handcrafted furniture Saudi Arabia installation, or bespoke wood furniture Saudi Arabia with matching curtains, the final result is majlis interior furniture that reflects true tailor-made furniture with quality and welcomes family and guests beautifully.'"></p>
-             <p class="text-[0.8rem] text-stone-500 font-bold uppercase tracking-widest mt-12" x-text="lang === 'ar' ? '* ØªØ·Ø¨Ù‚ Ø§Ù„Ø´Ø±ÙˆØ· ÙˆØ§Ù„Ø£Ø­ÙƒØ§Ù…' : '* Terms & Conditions apply'"></p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-<section id="faq" class="py-12 md:py-24 px-5 bg-ivory border-b border-ivory-darker arabesque-bg relative">
-      <div class="max-w-[700px] mx-auto gsap-reveal opacity-0">
-        <svg class="w-16 h-8 text-gold/60 mx-auto mb-4" viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 35h80M15 35v-5a5 5 0 015-5h60a5 5 0 015 5v5M25 25v-5a5 5 0 015-5h40a5 5 0 015 5v5"/></svg>
-        <h2 class="text-3xl md:text-5xl font-extrabold text-gold uppercase mb-4 text-center font-cairo" x-text="lang === 'ar' ? 'Ø§Ù„Ø£Ø³Ø¦Ù„Ø© Ø§Ù„Ø´Ø§Ø¦Ø¹Ø©' : 'FAQ'"></h2>
-        <div class="text-xl font-medium text-stone-800 leading-tight mb-12 text-center" x-text="lang === 'ar' ? 'ÙƒÙŠÙ Ù†Ø¹Ù…Ù„ØŸ' : 'How it works'"></div>
-        
-        <div class="space-y-4" x-data="{ active: null }">
-
-          <!-- Q1: Made to Order -->
-          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
-            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 1 ? null : 1">
-              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `Ø£Ø±Ù‰ Ø£Ù† ÙƒÙ†Ø¨ÙƒÙ… ÙŠÙÙØµÙ„ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨. Ù…Ø§Ø°Ø§ ÙŠØ­Ø¯Ø« Ø¨Ø§Ù„Ø¶Ø¨Ø· Ø¨Ø¹Ø¯ ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø·Ù„Ø¨ØŸ` : `I see your sofas are made-to-order. What exactly happens after I place an order?`"></span>
-              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 1}">â–¼</span>
-            </button>
-            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 1 ? 'max-height: 500px' : ''">
-              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `ÙÙŠ Ø´Ø±ÙƒØ© Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø«ØŒ ÙˆØ§Ù„ØªÙŠ ØªÙØ¹Ø¯ Ù…Ù† Ø£Ø¨Ø±Ø² Ù…ØµÙ†Ø¹ÙŠ Ø§Ù„ÙƒÙ†Ø¨ Ø§Ù„ØªÙØµÙŠÙ„ ÙÙŠ Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠØ©ØŒ ÙƒÙ„ Ù‚Ø·Ø¹Ø© Ù‡ÙŠ Ø£Ø«Ø§Ø« ÙŠÙØµÙ†Ø¹ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨. Ø¨Ø¹Ø¯ Ø§Ø®ØªÙŠØ§Ø±Ùƒ Ù„Ù„ØªØµÙ…ÙŠÙ… Ø§Ù„Ø£Ø³Ø§Ø³ÙŠØŒ Ù†Ù„ØªÙ‚ÙŠ Ø¨Ùƒ Ù„Ø§Ø¹ØªÙ…Ø§Ø¯ Ø§Ù„Ø£Ù‚Ù…Ø´Ø© ÙˆØ§Ù„Ø£Ù„ÙˆØ§Ù†. Ø«Ù… ÙŠÙ‚ÙˆÙ… Ù…Ø´ØºÙ„Ù†Ø§ Ø¨Ø¨Ù†Ø§Ø¡ Ø§Ù„Ù‡ÙŠÙƒÙ„ Ø§Ù„Ø®Ø´Ø¨ÙŠ Ø§Ù„ØµÙ„Ø¨ØŒ ÙˆØªØ·Ø¨ÙŠÙ‚ Ø§Ù„Ø·Ù„Ø§Ø¡ Ø§Ù„ÙˆØ§Ù‚ÙŠØŒ ÙˆØªØ±ÙƒÙŠØ¨ Ø§Ù„Ø¥Ø³ÙÙ†Ø¬ Ø¹Ø§Ù„ÙŠ Ø§Ù„ÙƒØ«Ø§ÙØ©ØŒ ÙˆØ¥ØªÙ…Ø§Ù… Ø§Ù„ØªÙ†Ø¬ÙŠØ¯. Ø³ØªØ­ØµÙ„ Ø¹Ù„Ù‰ Ø·Ù‚Ù… ÙƒÙ†Ø¨ ØªÙØµÙŠÙ„ ØµÙÙ†Ø¹ Ø®ØµÙŠØµØ§Ù‹ Ù„Ù…Ù‚Ø§Ø³Ø§Øª ØºØ±ÙØªÙƒØŒ ÙˆÙ„ÙŠØ³ Ù…Ù†ØªØ¬Ø§Ù‹ Ø¬Ø§Ù‡Ø²Ø§Ù‹.` : `At Saeed Furniture, recognised among the custom sofa makers in KSA, every piece is made-to-order furniture Saudi Arabia. Once you select a base style, we meet you to finalize fabric and colours. Our workshop then builds the solid frame, applies protective coatings, sets the high-density sponge, and completes the upholstery. You get a custom-made sofa set built for your exact room, not a pre-stocked item.`"></p>
-            </div>
-          </div>
-
-          <!-- Q2: Measurements -->
-          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
-            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 2 ? null : 2">
-              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `Ù„Ø§ Ø£Ø¹Ø±Ù Ù…Ù‚Ø§Ø³Ø§Øª ØºØ±ÙØªÙŠ Ø§Ù„Ø¯Ù‚ÙŠÙ‚Ø© Ø¨Ø¹Ø¯. Ù‡Ù„ ØªØ£ØªÙˆÙ† Ù„Ø£Ø®Ø° Ø§Ù„Ù…Ù‚Ø§Ø³Ø§Øª Ø¨Ù†ÙØ³ÙƒÙ…ØŸ` : `I donâ€™t know my exact room measurements yet. Do you come measure it for me?`"></span>
-              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 2}">â–¼</span>
-            </button>
-            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 2 ? 'max-height: 500px' : ''">
-              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `Ù†Ø¹Ù…! Ø¹Ù„Ù‰ Ø¹ÙƒØ³ Ù…ØªØ§Ø¬Ø± Ø§Ù„ØªØ¬Ø²Ø¦Ø© Ø§Ù„Ø¹Ø§Ø¯ÙŠØ©ØŒ ÙˆØ¨ØµÙØªÙ†Ø§ Ù…ØµÙ†Ø¹ ÙƒÙ†Ø¨ Ù…ØªØ®ØµØµØŒ Ù†Ø±Ø³Ù„ ÙØ±ÙŠÙ‚Ù†Ø§ Ø¥Ù„ÙŠÙƒ ÙÙŠ Ø²ÙŠØ§Ø±Ø© Ù…Ù†Ø²Ù„ÙŠØ© Ù…Ø¬Ø§Ù†ÙŠØ©. ÙŠÙ‚ÙˆÙ…ÙˆÙ† Ø¨Ø£Ø®Ø° ÙƒØ§ÙØ© Ø§Ù„Ù…Ù‚Ø§Ø³Ø§Øª Ø­ØªÙ‰ Ù„Ø§ ØªÙ‚Ù„Ù‚ Ø¨Ø´Ø£Ù†Ù‡Ø§. Ù‡Ø°Ø§ Ù…Ø§ ÙŠØ¬Ø¹Ù„Ù†Ø§ Ø§Ù„ÙˆØ¬Ù‡Ø© Ø§Ù„Ø£Ù…Ø«Ù„ Ù„Ø´Ø±Ø§Ø¡ Ø§Ù„ÙƒÙ†Ø¨ Ø§Ù„ØªÙØµÙŠÙ„Ø› Ø§Ø±ÙØ¹ Ø·Ù„Ø¨Ùƒ Ø£ÙˆÙ„Ø§Ù‹ØŒ ÙˆÙ†ØªÙˆÙ„Ù‰ Ù†Ø­Ù† Ø£Ø®Ø° Ø§Ù„Ù…Ù‚Ø§Ø³Ø§Øª. Ù†Ø­Ù† Ù†ØºØ·ÙŠ Ø·Ù„Ø¨Ø§Øª ØªÙØµÙŠÙ„ Ø§Ù„Ø£Ø«Ø§Ø« ÙÙŠ Ø§Ù„Ø±ÙŠØ§Ø¶ ÙˆØ§Ù„Ø²ÙŠØ§Ø±Ø§Øª Ù„ÙƒØ§ÙØ© Ø§Ù„Ù…Ø¯Ù† Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©.` : `Yes! Unlike standard retailers, as a dedicated sofa manufacturer, we send our team to you for a free home visit. They take every dimension so you don't have to worry. This makes us the best place to buy custom sofas; place your order first, and we handle the measurements. We cover tailor-made furniture, Riyadh appointments, and visits to all major KSA cities.`"></p>
-            </div>
-          </div>
-
-          <!-- Q3: Fabric Online -->
-          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
-            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 3 ? null : 3">
-              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `Ø£Ø´Ø¹Ø± Ø¨Ø§Ù„Ù‚Ù„Ù‚ Ù…Ù† Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ù‚Ù…Ø§Ø´ Ø¹Ø¨Ø± Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª. Ù‡Ù„ ÙŠÙ…ÙƒÙ†Ù†ÙŠ Ø±Ø¤ÙŠØ© Ø§Ù„Ø®Ø§Ù…Ø§Øª ÙˆÙ„Ù…Ø³Ù‡Ø§ Ø£ÙˆÙ„Ø§Ù‹ØŸ` : `Iâ€™m worried about choosing fabric online. Can I see and touch the materials first?`"></span>
-              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 3}">â–¼</span>
-            </button>
-            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 3 ? 'max-height: 500px' : ''">
-              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `Ø¨ÙƒÙ„ ØªØ£ÙƒÙŠØ¯. ÙŠØ¬Ø¨ Ø£Ù† ÙŠÙƒÙˆÙ† Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ù…ÙˆØ§Ø¯ ØªØ¬Ø±Ø¨Ø© Ø´Ø®ØµÙŠØ© Ù…Ù„Ù…ÙˆØ³Ø©. Ù†Ø­Ù† Ù†Ø­Ø¶Ø± Ø¹ÙŠÙ†Ø§Øª Ø§Ù„Ø£Ù‚Ù…Ø´Ø© Ø¥Ù„Ù‰ Ù…Ù†Ø²Ù„Ùƒ Ø£Ùˆ Ø®Ù„Ø§Ù„ Ù…ÙˆØ¹Ø¯Ùƒ ÙÙŠ Ø§Ù„Ù…Ø¹Ø±Ø¶ Ù„ØªØªÙ…ÙƒÙ† Ù…Ù† Ù„Ù…Ø³ Ø¬ÙˆØ¯Ø© Ø§Ù„Ø£Ø«Ø§Ø« Ø§Ù„Ù…ØµÙ†ÙˆØ¹ ÙŠØ¯ÙˆÙŠØ§Ù‹ ÙÙŠ Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠØ© Ø¨Ù†ÙØ³Ùƒ. Ù‡Ø°Ø§ Ù‡Ùˆ Ø¬ÙˆÙ‡Ø± Ø¹Ù…Ù„ÙŠØ© ØªØµÙ…ÙŠÙ… Ø§Ù„ÙƒÙ†Ø¨ Ø§Ù„Ù…Ø®ØµØµ Ù„Ø¯ÙŠÙ†Ø§ØŒ Ù„Ø¶Ù…Ø§Ù† Ø£Ù† Ø§Ù„Ù‚Ù…Ø§Ø´ ÙŠØ¨Ø¯Ùˆ Ù…Ø«Ø§Ù„ÙŠØ§Ù‹ ÙÙŠ Ø¥Ø¶Ø§Ø¡Ø© ØºØ±ÙØªÙƒ Ù‚Ø¨Ù„ Ø§Ù„Ø¨Ø¯Ø¡ ÙÙŠ Ø§Ù„Ù‚Øµ.` : `Absolutely. Material selection must be an in-person experience. We bring the swatches to your home or showroom appointment so you can feel the handcrafted furniture in Saudi Arabia quality firsthand. This is the heart of our custom sofa design KSA process, ensuring the fabric looks perfect in your room's lighting before any cutting begins.`"></p>
-            </div>
-          </div>
-
-          <!-- Q4: Choose Colors -->
-          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
-            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 4 ? null : 4">
-              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? 'Ù…ØªÙ‰ ÙŠÙ…ÙƒÙ†Ù†ÙŠ Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ø£Ù„ÙˆØ§Ù†ØŸ' : 'When do I get to choose the colours?'"></span>
-              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 4}">â–¼</span>
-            </button>
-            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 4 ? 'max-height: 200px' : ''">
-              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? 'Ù„Ø¯ÙŠÙƒ ØªØ­ÙƒÙ… ÙƒØ§Ù…Ù„ ÙÙŠ Ø§Ù„Ù…ÙˆØ§Ø¯ ÙˆØ§Ù„Ø£Ù„ÙˆØ§Ù†. ÙŠÙ…ÙƒÙ†Ùƒ ØªØ­Ø¯ÙŠØ¯ Ø§Ø®ØªÙŠØ§Ø±Ø§ØªÙƒ Ø¥Ù…Ø§ Ø£Ø«Ù†Ø§Ø¡ Ø²ÙŠØ§Ø±Ø© Ù…Ù†Ø²Ù„ÙŠØ© Ù…Ø¬Ø§Ù†ÙŠØ© Ù…Ø¬Ø¯ÙˆÙ„Ø© Ù…Ù† Ù‚Ø¨Ù„ ÙØ±ÙŠÙ‚Ù†Ø§ØŒ Ø£Ùˆ Ø¹Ù† Ø·Ø±ÙŠÙ‚ Ø²ÙŠØ§Ø±Ø© Ø£Ù‚Ø±Ø¨ Ù…Ø¹Ø±Ø¶ Ù„Ù†Ø§.' : 'You have complete control over materials and colors. You can make your selections either during a scheduled free home visit by our team, or by visiting our nearest shop.'"></p>
-            </div>
-          </div>
-
-          <!-- Q5: Sink or lose shape -->
-          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
-            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 5 ? null : 5">
-              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `Ù‡Ù„ Ø³ÙŠÙ‡Ø¨Ø· Ø§Ù„ÙƒÙ†Ø¨ Ø£Ùˆ ÙŠÙÙ‚Ø¯ Ø´ÙƒÙ„Ù‡ Ø¨Ù…Ø±ÙˆØ± Ø§Ù„ÙˆÙ‚ØªØŸ Ù…Ø§ Ù†ÙˆØ¹ Ø§Ù„Ù…ÙˆØ§Ø¯ Ø§Ù„ØªÙŠ ØªØ³ØªØ®Ø¯Ù…ÙˆÙ†Ù‡Ø§ØŸ` : `Will the sofa sink or lose its shape over time? What kind of materials do you use?`"></span>
-              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 5}">â–¼</span>
-            </button>
-            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 5 ? 'max-height: 500px' : ''">
-              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `Ù„Ø§ØŒ Ù„Ø£Ù†Ù†Ø§ Ù†Ø³ØªØ®Ø¯Ù… Ø¥Ø³ÙÙ†Ø¬ Ù…Ù…ØªØ§Ø² Ø¹Ø§Ù„ÙŠ Ø§Ù„ÙƒØ«Ø§ÙØ©ØŒ ÙˆÙ‡Ùˆ Ø£Ù…Ø± Ø­ÙŠÙˆÙŠ ÙÙŠ Ù…Ù†Ø§Ø® Ø§Ù„Ù…Ù…Ù„ÙƒØ© Ù„Ù…Ù‚Ø§ÙˆÙ…Ø© Ø§Ù„Ù‡Ø¨ÙˆØ· ØªØ­Øª Ø§Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„ÙŠÙˆÙ…ÙŠ Ø§Ù„ÙƒØ«ÙŠÙ. ÙÙŠ ÙƒÙ„ Ø·Ù‚Ù… ÙƒÙ†Ø¨ Ù…Ø¬Ù„Ø³ Ø¹Ø±Ø¨ÙŠ Ù†ØµÙ†Ø¹Ù‡ØŒ Ù†Ø¯Ù…Ø¬ Ù‡Ø°Ø§ Ø§Ù„Ø¥Ø³ÙÙ†Ø¬ Ù…Ø¹ Ø£Ù‚Ù…Ø´Ø© Ù…ØªÙŠÙ†Ø© ÙˆÙ‡ÙŠØ§ÙƒÙ„ Ù…Ù† Ø§Ù„Ø®Ø´Ø¨ Ø§Ù„ØµÙ„Ø¨. ÙƒÙ„ ØªÙØµÙŠÙ„Ø© ØªØ¹ÙƒØ³ Ø£Ø¹Ù„Ù‰ Ù…Ø¹Ø§ÙŠÙŠØ± Ø§Ù„Ø­Ø±ÙÙŠØ© ÙÙŠ Ø§Ù„Ø£Ø«Ø§Ø« Ø§Ù„Ù…ØµÙ†ÙˆØ¹ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨ ÙÙŠ Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠØ©.` : `No, because we use premium high-density sponge, which is vital in Saudi Arabiaâ€™s climate to resist sagging under heavy daily use. In every Arabic majlis sofa set we build, we pair that sponge with durable fabrics and solid wood frames. Every detail reflects the highest standard of made-to-order furniture Saudi Arabia craftsmanship.`"></p>
-            </div>
-          </div>
-
-          <!-- Q6: Who is building -->
-          <div class="border border-ivory-darker rounded-2xl bg-white overflow-hidden transition-all duration-300">
-            <button class="w-full px-6 py-5 text-start flex justify-between items-center focus:outline-none" @click="active = active === 6 ? null : 6">
-              <span class="font-bold text-bronze text-lg" x-text="lang === 'ar' ? `Ù…Ù† Ø³ÙŠÙ‚ÙˆÙ… Ø¨ØµÙ†Ø¹ Ø§Ù„ÙƒÙ†Ø¨ Ø§Ù„Ø®Ø§Øµ Ø¨ÙŠØŸ Ù‡Ù„ Ù‡Ùˆ Ø¥Ù†ØªØ§Ø¬ Ù…ØµØ§Ù†Ø¹ Ø£Ù… Ø¹Ù…Ù„ ÙŠØ¯ÙˆÙŠØŸ` : `Who is actually building my sofa? Is it mass-produced or made by hand?`"></span>
-              <span class="text-gold transform transition-transform duration-300" :class="{'rotate-180': active === 6}">â–¼</span>
-            </button>
-            <div class="px-6 overflow-hidden transition-all duration-500 max-h-0" :style="active === 6 ? 'max-height: 500px' : ''">
-              <p class="pb-5 text-bronze/70 leading-relaxed font-medium" x-text="lang === 'ar' ? `ÙŠÙØµÙ†Ø¹ Ø§Ù„ÙƒÙ†Ø¨ Ø§Ù„Ø®Ø§Øµ Ø¨Ùƒ ÙŠØ¯ÙˆÙŠØ§Ù‹ Ø¹Ù„Ù‰ ÙŠØ¯ Ø­Ø±ÙÙŠÙŠÙ† ÙŠÙ…ØªÙ„ÙƒÙˆÙ† Ø®Ø¨Ø±Ø© ØªØ²ÙŠØ¯ Ø¹Ù† Ø¹Ù‚Ø¯ÙŠÙ† ÙÙŠ ØªØµÙ…ÙŠÙ… Ù…Ø¬Ø§Ù„Ø³ ØªÙØµÙŠÙ„ Ø±Ø§Ù‚ÙŠØ©. Ù‡Ø°Ø§ ÙŠØ¹Ù†ÙŠ Ø£Ù† Ø§Ù„Ù…ÙØ§ØµÙ„ Ù…ØªÙŠÙ†Ø©ØŒ ÙˆÙ…Ø³Ø§Ù†Ø¯ Ø§Ù„Ø£Ø°Ø±Ø¹ Ù…ØµÙ‚ÙˆÙ„Ø© Ø¨Ù†Ø¹ÙˆÙ…Ø© ÙØ§Ø¦Ù‚Ø©ØŒ ÙˆØ§Ù„Ø£Ù‚Ù…Ø´Ø© ØªØµØ·Ù Ø¨Ø´ÙƒÙ„ Ø¬Ù…ÙŠÙ„. Ø¹Ù†Ø¯Ù…Ø§ ØªØ´ØªØ±ÙŠ Ø£Ø«Ø§Ø« Ù…Ø¬Ø§Ù„Ø³ Ø¯Ø§Ø®Ù„ÙŠØ© Ù…Ù† ÙØ±ÙŠÙ‚Ù†Ø§ØŒ ÙØ£Ù†Øª ØªØ³ØªØ«Ù…Ø± ÙÙŠ Ø£Ø«Ø§Ø« ØªÙØµÙŠÙ„ Ø­Ù‚ÙŠÙ‚ÙŠ ØµÙÙ†Ø¹ Ø¨Ø£ÙŠØ¯ÙŠ Ø£Ù…Ù‡Ø± Ø§Ù„Ø­Ø±ÙÙŠÙŠÙ†ØŒ ÙˆÙ„ÙŠØ³ Ø¨Ø¯ÙŠÙ„Ø§Ù‹ ØªØ¬Ø§Ø±ÙŠØ§Ù‹ Ù…Ù† Ø¥Ù†ØªØ§Ø¬ Ø§Ù„Ù…ØµØ§Ù†Ø¹.` : `Your sofa is built by hand by craftsmen who have over two decades of experience in bespoke majlis seating. This means joints are rigid, armrests are perfectly smooth, and fabrics align beautifully. When you buy majlis interior furniture from us, you are investing in genuine tailor-made furniture built by master artisans, never a mass-produced factory alternative.`"></p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  <!-- â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
-  <footer class="bg-stone-950 py-12 px-8 text-center text-stone-500 text-xs tracking-widest uppercase border-t border-stone-800">
-    <div class="flex justify-center mb-6">
-      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-10 w-auto object-contain" style="filter: brightness(0) invert(0.6)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-      <svg style="display:none" class="w-6 h-6 fill-amber-500/50" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 4.5l7 14h-14l7-14z"/></svg>
-    </div>
-    <p class="text-stone-400 font-medium mb-1">Saeed Furniture â€” Al Qurayyat, Al Jawf, KSA</p>
-    <div class="flex justify-center gap-6 mt-4 mb-4">
-      <a href="/about.html" class="hover:text-amber-500 transition-colors">About</a>
-      <a href="/faq.html" class="hover:text-amber-500 transition-colors">FAQ</a>
-      <a href="/contact.html" class="hover:text-amber-500 transition-colors">Contact</a>
-      <a href="/portfolio.html" class="hover:text-amber-500 transition-colors">Portfolio</a>
-    </div>
-    <p class="text-stone-600 mt-2">&copy; 2026 Saeed Furniture. All Rights Reserved.</p>
-  </footer>
 
 </body>
 </html>
