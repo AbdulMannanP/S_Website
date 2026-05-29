@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -29,10 +29,10 @@
 <body class="m-0 p-0 overflow-x-hidden bg-[#080809] text-white font-sans" x-data="saeedApp()" x-init="isSelectionMode = true; step = 'selection'; initSwiper(); activeShowroom = 'majlis';">
 <section id="order" class="min-h-screen bg-[#080809] text-white relative"  x-cloak>
 
-        <!-- LOOKBOOK UI (Hard Reset — Strict Flex Layout) -->
+        <!-- LOOKBOOK UI (Hard Reset â€” Strict Flex Layout) -->
         <div  x-transition:enter="transition ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="fixed inset-0 w-screen h-screen z-[100] overflow-hidden bg-[#080809]" x-init="$watch('isSelectionMode', val => { if(val) setTimeout(() => initSwiper(), 100) })" x-data="{ sidebarOpen: window.innerWidth >= 768 }">
           
-          <!-- ═══ LAYER 0: Full-Bleed Hero Background Image ═══ -->
+          <!-- â•â•â• LAYER 0: Full-Bleed Hero Background Image â•â•â• -->
           <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-br from-[#111114] to-[#0a0a0d] animate-pulse" x-show="!heroImageLoaded"></div>
             <div :style="`background-image: url('${selectedVariationUrl || (IMAGE_BASE_URL + 'images/hero.png')}')`"
@@ -43,34 +43,34 @@
             <div class="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-[#0a0a0d] to-transparent pointer-events-none"></div>
           </div>
 
-          <!-- ═══ LAYER 1: UI Layout — Strict flex-col ═══ -->
+          <!-- â•â•â• LAYER 1: UI Layout â€” Strict flex-col â•â•â• -->
           <div class="relative z-10 flex flex-col h-full">
 
-            <!-- ── ROW 1: Top Navigation Bar ── -->
+            <!-- â”€â”€ ROW 1: Top Navigation Bar â”€â”€ -->
             <div class="flex-shrink-0 flex justify-between items-center px-3 md:px-12 py-3 md:py-5 bg-white shadow-sm border-b border-gray-100">
               <div class="flex items-center gap-6">
-                <div class="text-lg font-extrabold text-[#0a0a0d] tracking-widest uppercase" x-text="lang === 'ar' ? (content.brand?.nameArabic || 'سعيد للأثاث') : (content.brand?.name || 'Saeed Furniture')"></div>
+                <div class="text-lg font-extrabold text-[#0a0a0d] tracking-widest uppercase" x-text="lang === 'ar' ? (content.brand?.nameArabic || 'Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø«') : (content.brand?.name || 'Saeed Furniture')"></div>
                 <!-- Sidebar Toggle (Hamburger) -->
                 <button @click="sidebarOpen = !sidebarOpen" aria-label="Toggle Sidebar" class="flex items-center gap-2 text-stone-500 hover:text-gold transition-all duration-300 min-h-[44px] px-3 -mx-3" style="touch-action: manipulation;">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
-                  <span class="text-[0.6rem] font-bold uppercase tracking-[0.3em]" x-text="sidebarOpen ? (lang === 'ar' ? 'إغلاق' : 'Close') : (lang === 'ar' ? 'المجموعات' : 'Collections')"></span>
+                  <span class="text-[0.6rem] font-bold uppercase tracking-[0.3em]" x-text="sidebarOpen ? (lang === 'ar' ? 'Ø¥ØºÙ„Ø§Ù‚' : 'Close') : (lang === 'ar' ? 'Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹Ø§Øª' : 'Collections')"></span>
                 </button>
               </div>
               <!-- Minimalist Back Arrow -->
               <button class="flex items-center gap-3 text-stone-500 hover:text-gold transition-all duration-300 group min-h-[44px] px-3 -mx-3" onclick="window.location.href='/index.html'" aria-label="Go Back" style="touch-action: manipulation;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform duration-300 group-hover:-translate-x-1" :class="lang === 'ar' ? 'rotate-180' : ''"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                <span class="text-[0.6rem] font-normal uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'العودة' : 'Back'"></span>
+                <span class="text-[0.6rem] font-normal uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'Ø§Ù„Ø¹ÙˆØ¯Ø©' : 'Back'"></span>
               </button>
             </div>
 
-            <!-- ── ROW 2: Main Content Area (fills remaining space) ── -->
+            <!-- â”€â”€ ROW 2: Main Content Area (fills remaining space) â”€â”€ -->
             <div class="flex-1 flex relative overflow-hidden">
 
-              <!-- ── LEFT: Toggleable Sidebar Panel ── -->
+              <!-- â”€â”€ LEFT: Toggleable Sidebar Panel â”€â”€ -->
               <div class="absolute top-0 bottom-0 w-64 z-30 flex flex-col bg-black/40 backdrop-blur-xl border-r border-white/5 p-6 pt-8 transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] pointer-events-auto"
                    :class="[lang === 'ar' ? 'right-0 border-l border-r-0' : 'left-0', sidebarOpen ? 'translate-x-0 opacity-100' : (lang === 'ar' ? 'translate-x-full opacity-0' : '-translate-x-full opacity-0')]">
                 
-                <h3 class="text-[0.6rem] font-bold text-gold uppercase tracking-[0.4em] mb-6" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></h3>
+                <h3 class="text-[0.6rem] font-bold text-gold uppercase tracking-[0.4em] mb-6" x-text="lang === 'ar' ? 'Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹Ø§Øª' : 'Collections'"></h3>
                 
                 <!-- Collection Links with Gold Active Border -->
                 <div class="flex flex-col gap-4 overflow-y-auto hide-scrollbar flex-1 mb-6">
@@ -82,22 +82,22 @@
                 </div>
                 
                 <!-- Custom Reference CTA (WhatsApp Fast Lane) -->
-                <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9665XXXXXXXX') + '?text=' + encodeURIComponent(lang === 'ar' ? 'مرحباً، أريد طلب تصميم مخصص بصورة مرجعية' : 'Hello, I want to order a custom design with a reference image')"
+                <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9665XXXXXXXX') + '?text=' + encodeURIComponent(lang === 'ar' ? 'Ù…Ø±Ø­Ø¨Ø§Ù‹ØŒ Ø£Ø±ÙŠØ¯ Ø·Ù„Ø¨ ØªØµÙ…ÙŠÙ… Ù…Ø®ØµØµ Ø¨ØµÙˆØ±Ø© Ù…Ø±Ø¬Ø¹ÙŠØ©' : 'Hello, I want to order a custom design with a reference image')"
                    target="_blank"
                    class="flex items-center justify-center gap-3 px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white/60 hover:text-gold hover:border-gold/30 transition-all duration-300 text-xs uppercase tracking-widest font-bold min-h-[44px]"
                    style="touch-action: manipulation;">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
-                  <span x-text="lang === 'ar' ? 'رفع صورة مرجعية' : 'Upload Reference'"></span>
+                  <span x-text="lang === 'ar' ? 'Ø±ÙØ¹ ØµÙˆØ±Ø© Ù…Ø±Ø¬Ø¹ÙŠØ©' : 'Upload Reference'"></span>
                 </a>
               </div>
 
-              <!-- ── CENTER: The Hero Display ── -->
+              <!-- â”€â”€ CENTER: The Hero Display â”€â”€ -->
               <div class="flex-1 flex flex-col justify-end pb-6">
 
                 <!-- "Explore the Showroom" intro text (ONLY when stage not yet visible) -->
                 <div x-show="!lookbookStageVisible" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="flex-1 flex flex-col items-center justify-center text-center px-8">
-                  <h1 class="text-xl md:text-5xl font-light text-white mb-4" x-text="lang === 'ar' ? 'اكتشف المعرض' : 'Explore the Showroom'"></h1>
-                  <p class="text-gold uppercase tracking-[0.3em] text-xs font-bold" x-text="lang === 'ar' ? 'مرر لتتصفح التصاميم' : 'Swipe to explore'"></p>
+                  <h1 class="text-xl md:text-5xl font-light text-white mb-4" x-text="lang === 'ar' ? 'Ø§ÙƒØªØ´Ù Ø§Ù„Ù…Ø¹Ø±Ø¶' : 'Explore the Showroom'"></h1>
+                  <p class="text-gold uppercase tracking-[0.3em] text-xs font-bold" x-text="lang === 'ar' ? 'Ù…Ø±Ø± Ù„ØªØªØµÙØ­ Ø§Ù„ØªØµØ§Ù…ÙŠÙ…' : 'Swipe to explore'"></p>
                 </div>
 
                 <!-- Model Title + CTA Block (ONLY when stage IS visible) -->
@@ -110,11 +110,11 @@
                     </div>
                     <!-- Unified CTA Group -->
                     <div class="flex items-center gap-3 bg-black/30 backdrop-blur-xl rounded-full p-1.5 border border-white/10 flex-shrink-0">
-                      <button @click="shareReference()" class="w-11 h-11 rounded-full bg-white/5 text-white/50 flex items-center justify-center hover:bg-white/10 hover:text-gold transition-all duration-300 min-h-[44px]" aria-label="Share Design" :title="lang === 'ar' ? 'مشاركة التصميم' : 'Share Design'">
+                      <button @click="shareReference()" class="w-11 h-11 rounded-full bg-white/5 text-white/50 flex items-center justify-center hover:bg-white/10 hover:text-gold transition-all duration-300 min-h-[44px]" aria-label="Share Design" :title="lang === 'ar' ? 'Ù…Ø´Ø§Ø±ÙƒØ© Ø§Ù„ØªØµÙ…ÙŠÙ…' : 'Share Design'">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
                       </button>
                       <button @click="selectVariation(selectedVariation)" class="px-4 md:px-8 py-3 md:py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.15em] text-xs hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-transform duration-300 hover:scale-105 active:scale-95 min-h-[44px]">
-                        <span x-text="lang === 'ar' ? 'تحديد وتخصيص' : 'Select & Customize'"></span>
+                        <span x-text="lang === 'ar' ? 'ØªØ­Ø¯ÙŠØ¯ ÙˆØªØ®ØµÙŠØµ' : 'Select & Customize'"></span>
                       </button>
                     </div>
                   </div>
@@ -128,7 +128,7 @@
                   </div>
                 </div>
 
-                <!-- ── Carousel (Strict bottom zone — never overlaps title) ── -->
+                <!-- â”€â”€ Carousel (Strict bottom zone â€” never overlaps title) â”€â”€ -->
                 <div class="flex-shrink-0 px-2 md:px-12 relative z-20">
                   <div class="swiper lookbook-swiper w-full touch-pan-x pb-8">
                     <div class="swiper-wrapper flex items-center">
@@ -160,7 +160,7 @@
             </div><!-- END ROW 2 -->
           </div><!-- END LAYER 1 -->
 
-          <!-- ══ EXIT-INTENT FULL-SCREEN INTERCEPTOR ══ -->
+          <!-- â•â• EXIT-INTENT FULL-SCREEN INTERCEPTOR â•â• -->
           <div x-show="showExitPopup" 
                x-transition:enter="transition ease-out duration-500" 
                x-transition:enter-start="opacity-0 scale-95" 
@@ -175,17 +175,17 @@
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
             </button>
             
-            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-12 tracking-wide" x-text="lang === 'ar' ? 'لم تجد ما تبحث عنه؟' : 'Could not find what you were looking for?'"></h2>
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-12 tracking-wide" x-text="lang === 'ar' ? 'Ù„Ù… ØªØ¬Ø¯ Ù…Ø§ ØªØ¨Ø­Ø« Ø¹Ù†Ù‡ØŸ' : 'Could not find what you were looking for?'"></h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-[800px]">
               
               <!-- Option 1: WhatsApp -->
-              <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450') + '?text=' + encodeURIComponent(lang === 'ar' ? 'مرحباً، لدي بعض الصور المرجعية وأود الاستفسار عن تفصيلها' : 'Hello, I have some reference images and would like to inquire about custom building them')" target="_blank"
+              <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450') + '?text=' + encodeURIComponent(lang === 'ar' ? 'Ù…Ø±Ø­Ø¨Ø§Ù‹ØŒ Ù„Ø¯ÙŠ Ø¨Ø¹Ø¶ Ø§Ù„ØµÙˆØ± Ø§Ù„Ù…Ø±Ø¬Ø¹ÙŠØ© ÙˆØ£ÙˆØ¯ Ø§Ù„Ø§Ø³ØªÙØ³Ø§Ø± Ø¹Ù† ØªÙØµÙŠÙ„Ù‡Ø§' : 'Hello, I have some reference images and would like to inquire about custom building them')" target="_blank"
                  class="aspect-square flex flex-col items-center justify-center gap-6 bg-stone-900 border border-stone-700 rounded-3xl p-8 hover:scale-105 hover:border-[#25d366] hover:shadow-[0_0_40px_rgba(37,211,102,0.2)] transition-all duration-300 group">
                 <div class="w-20 h-20 rounded-full bg-[#25d366]/20 flex items-center justify-center text-[#25d366] group-hover:bg-[#25d366] group-hover:text-white transition-colors duration-300">
                   <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 </div>
-                <h3 class="text-xl md:text-2xl font-bold text-white text-center" x-text="lang === 'ar' ? 'أرسل لنا صوراً مرجعية' : 'Share Reference Images'"></h3>
+                <h3 class="text-xl md:text-2xl font-bold text-white text-center" x-text="lang === 'ar' ? 'Ø£Ø±Ø³Ù„ Ù„Ù†Ø§ ØµÙˆØ±Ø§Ù‹ Ù…Ø±Ø¬Ø¹ÙŠØ©' : 'Share Reference Images'"></h3>
               </a>
 
               <!-- Option 2: Portfolio -->
@@ -194,7 +194,7 @@
                 <div class="w-20 h-20 rounded-full bg-gold/10 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-stone-900 transition-colors duration-300">
                   <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21v-5a4 4 0 00-8 0v5"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
                 </div>
-                <h3 class="text-xl md:text-2xl font-bold text-white text-center" x-text="lang === 'ar' ? 'تصفح سابقة أعمالنا' : 'Browse Past Portfolio'"></h3>
+                <h3 class="text-xl md:text-2xl font-bold text-white text-center" x-text="lang === 'ar' ? 'ØªØµÙØ­ Ø³Ø§Ø¨Ù‚Ø© Ø£Ø¹Ù…Ø§Ù„Ù†Ø§' : 'Browse Past Portfolio'"></h3>
               </button>
 
             </div>
@@ -203,7 +203,7 @@
 
         
 
-        <!-- LEAD CAPTURE FORM (Re-injected — CB-1 Fix) -->
+        <!-- LEAD CAPTURE FORM (Re-injected â€” CB-1 Fix) -->
         <div x-show="step === 'form'" 
              x-transition:enter="transition ease-out duration-700 delay-100" 
              x-transition:enter-start="opacity-0 translate-y-8" 
@@ -213,10 +213,10 @@
           
           <!-- Checkout Header -->
           <div class="absolute top-0 inset-x-0 z-50 flex justify-between items-center px-6 md:px-12 py-5 bg-black/40 backdrop-blur-md border-b border-white/5">
-            <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain" style="filter: brightness(0) invert(1);">
+            <img src="https://ik.imagekit.io/de7qvcvqvhttps://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain" style="filter: brightness(0) invert(1);">
             <button class="flex items-center gap-2 text-white/70 hover:text-gold transition-all duration-300 group" aria-label="Return to Home" onclick="window.location.href='/index.html'">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform duration-300 group-hover:-translate-x-1" :class="lang === 'ar' ? 'rotate-180' : ''"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-              <span class="text-[0.65rem] font-bold uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'العودة للرئيسية' : 'Return to Home'"></span>
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø±Ø¦ÙŠØ³ÙŠØ©' : 'Return to Home'"></span>
             </button>
           </div>
 
@@ -238,7 +238,7 @@
               <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-3xl relative overflow-hidden">
                 <div class="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none"></div>
                 <div class="relative z-10">
-                  <div class="text-[0.7rem] font-bold text-gold tracking-[0.3em] uppercase mb-6" x-text="lang === 'ar' ? 'ملخص اختيارك' : 'Your Selection'"></div>
+                  <div class="text-[0.7rem] font-bold text-gold tracking-[0.3em] uppercase mb-6" x-text="lang === 'ar' ? 'Ù…Ù„Ø®Øµ Ø§Ø®ØªÙŠØ§Ø±Ùƒ' : 'Your Selection'"></div>
                   
                   <div class="relative w-full aspect-video rounded-2xl overflow-hidden mb-8 border border-white/10"
                        x-data="{ idx: 0, images: selectedItemData?.image_generation_data?.gallery ? selectedItemData.image_generation_data.gallery.map((_, i) => (selectedVariation?.catalog_item_id || 'item') + '_gallery_' + (i + 1) + '.png') : [(selectedVariation?.catalog_item_id || 'placeholder') + '.png'], timer: null }"
@@ -257,7 +257,7 @@
 
                   <div class="space-y-6">
                     <div x-show="selectedItemData?.product_information?.design_intent">
-                      <div class="text-[0.7rem] font-bold text-white/30 uppercase tracking-[0.2em] mb-2" x-text="lang === 'ar' ? 'النمط المختار' : 'Design Intent'"></div>
+                      <div class="text-[0.7rem] font-bold text-white/30 uppercase tracking-[0.2em] mb-2" x-text="lang === 'ar' ? 'Ø§Ù„Ù†Ù…Ø· Ø§Ù„Ù…Ø®ØªØ§Ø±' : 'Design Intent'"></div>
                       <p class="text-white/70 text-sm leading-relaxed" x-text="selectedItemData?.product_information?.design_intent"></p>
                     </div>
                   </div>
@@ -268,35 +268,35 @@
               <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-3xl relative">
                 <div class="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none rounded-3xl"></div>
                 <div class="relative z-10">
-                  <h3 class="text-2xl font-bold text-white mb-2 tracking-tight" x-text="lang === 'ar' ? 'طلب استشارة تصميم' : 'Design Consultation'"></h3>
-                  <p class="text-white/40 text-sm mb-8 leading-relaxed" x-text="lang === 'ar' ? 'أدخل تفاصيلك وسيتواصل معك خبراؤنا.' : 'Enter your details and our experts will contact you.'"></p>
+                  <h3 class="text-2xl font-bold text-white mb-2 tracking-tight" x-text="lang === 'ar' ? 'Ø·Ù„Ø¨ Ø§Ø³ØªØ´Ø§Ø±Ø© ØªØµÙ…ÙŠÙ…' : 'Design Consultation'"></h3>
+                  <p class="text-white/40 text-sm mb-8 leading-relaxed" x-text="lang === 'ar' ? 'Ø£Ø¯Ø®Ù„ ØªÙØ§ØµÙŠÙ„Ùƒ ÙˆØ³ÙŠØªÙˆØ§ØµÙ„ Ù…Ø¹Ùƒ Ø®Ø¨Ø±Ø§Ø¤Ù†Ø§.' : 'Enter your details and our experts will contact you.'"></p>
 
                   <div class="space-y-8">
                     <!-- Name -->
                     <div class="group rtl-input-line">
-                      <label class="block text-[0.7rem] font-bold text-white/30 mb-2 uppercase tracking-widest group-focus-within:text-gold transition-colors" x-text="lang === 'ar' ? 'الاسم بالكامل' : 'Full Name'"></label>
+                      <label class="block text-[0.7rem] font-bold text-white/30 mb-2 uppercase tracking-widest group-focus-within:text-gold transition-colors" x-text="lang === 'ar' ? 'Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„ÙƒØ§Ù…Ù„' : 'Full Name'"></label>
                       <input class="w-full bg-transparent border-b-2 border-white/10 py-3 text-white text-base outline-none transition-all duration-300 focus:border-gold font-bold" x-model="form.name" @blur="autoSave()">
                     </div>
                     <!-- Phone -->
                     <div class="group rtl-input-line">
-                      <label class="block text-[0.7rem] font-bold text-white/30 mb-2 uppercase tracking-widest group-focus-within:text-gold transition-colors" x-text="lang === 'ar' ? 'رقم الجوال' : 'Mobile Number'"></label>
+                      <label class="block text-[0.7rem] font-bold text-white/30 mb-2 uppercase tracking-widest group-focus-within:text-gold transition-colors" x-text="lang === 'ar' ? 'Ø±Ù‚Ù… Ø§Ù„Ø¬ÙˆØ§Ù„' : 'Mobile Number'"></label>
                       <input class="w-full bg-transparent border-b-2 border-white/10 py-3 text-white text-base outline-none transition-all duration-300 focus:border-gold text-left ltr font-bold" dir="ltr" type="tel" maxlength="15" x-model="form.phone" @input="form.phone = $event.target.value.replace(/[^\d+]/g,'').replace(/(?!^)\+/g,''); $event.target.value = form.phone" @blur="autoSave()">
                       <p x-show="phoneError" x-transition class="text-red-400 text-xs mt-2 font-bold" x-text="phoneError"></p>
                     </div>
 
                     <!-- Visit Type Toggle -->
                     <div>
-                      <label class="block text-[0.7rem] font-bold text-white/30 mb-4 uppercase tracking-widest" x-text="lang === 'ar' ? 'نوع الاستشارة المفضل' : 'Consultation Preference'"></label>
+                      <label class="block text-[0.7rem] font-bold text-white/30 mb-4 uppercase tracking-widest" x-text="lang === 'ar' ? 'Ù†ÙˆØ¹ Ø§Ù„Ø§Ø³ØªØ´Ø§Ø±Ø© Ø§Ù„Ù…ÙØ¶Ù„' : 'Consultation Preference'"></label>
                       <div class="relative flex bg-black/50 rounded-xl p-1.5 border border-white/10" dir="ltr">
                         <div class="absolute inset-y-1.5 w-[calc(50%-6px)] bg-gold/10 border border-gold/30 rounded-lg transition-all duration-500 transform" :class="form.visit_mode === 'Home Visit' ? 'translate-x-[calc(100%+3px)]' : 'translate-x-0'"></div>
-                        <button class="flex-1 relative z-10 py-3 text-xs font-bold transition-colors duration-500" :class="form.visit_mode === 'Visit Shop' ? 'text-gold' : 'text-white/50 hover:text-white'" @click="form.visit_mode = 'Visit Shop'; autoSave()" x-text="lang === 'ar' ? 'زيارة المعرض' : 'Visit Shop'"></button>
-                        <button class="flex-1 relative z-10 py-3 text-xs font-bold transition-colors duration-500" :class="form.visit_mode === 'Home Visit' ? 'text-gold' : 'text-white/50 hover:text-white'" @click="form.visit_mode = 'Home Visit'; autoSave()" x-text="lang === 'ar' ? 'زيارة منزلية' : 'Home Visit'"></button>
+                        <button class="flex-1 relative z-10 py-3 text-xs font-bold transition-colors duration-500" :class="form.visit_mode === 'Visit Shop' ? 'text-gold' : 'text-white/50 hover:text-white'" @click="form.visit_mode = 'Visit Shop'; autoSave()" x-text="lang === 'ar' ? 'Ø²ÙŠØ§Ø±Ø© Ø§Ù„Ù…Ø¹Ø±Ø¶' : 'Visit Shop'"></button>
+                        <button class="flex-1 relative z-10 py-3 text-xs font-bold transition-colors duration-500" :class="form.visit_mode === 'Home Visit' ? 'text-gold' : 'text-white/50 hover:text-white'" @click="form.visit_mode = 'Home Visit'; autoSave()" x-text="lang === 'ar' ? 'Ø²ÙŠØ§Ø±Ø© Ù…Ù†Ø²Ù„ÙŠØ©' : 'Home Visit'"></button>
                       </div>
                     </div>
 
                     <!-- Preferred Contact Time (Conditional) -->
                     <div x-show="form.visit_mode === 'Home Visit'" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
-                      <label class="block text-[0.7rem] font-bold text-white/30 mb-4 uppercase tracking-widest" x-text="lang === 'ar' ? 'الوقت المفضل للتواصل' : 'Preferred Contact Time'"></label>
+                      <label class="block text-[0.7rem] font-bold text-white/30 mb-4 uppercase tracking-widest" x-text="lang === 'ar' ? 'Ø§Ù„ÙˆÙ‚Øª Ø§Ù„Ù…ÙØ¶Ù„ Ù„Ù„ØªÙˆØ§ØµÙ„' : 'Preferred Contact Time'"></label>
                       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" dir="ltr">
                         <template x-for="time in ['Morning', 'Afternoon', 'Evening', 'Night']" :key="time">
                           <button @click="form.preferred_contact_time = time; autoSave()" class="py-3 px-2 text-[0.7rem] font-bold border-2 rounded-xl transition-all duration-300" :class="form.preferred_contact_time === time ? 'bg-gold text-black border-gold' : 'bg-white/5 text-white/40 border-white/5 hover:border-gold/30'" x-text="time"></button>
@@ -312,7 +312,7 @@
                       <template x-if="submitting">
                         <span class="w-5 h-5 border-2 border-[#0a0a0d]/30 border-t-[#0a0a0d] rounded-full animate-spin"></span>
                       </template>
-                      <span x-text="submitting ? (lang === 'ar' ? 'جاري الإرسال...' : 'Sending...') : (lang === 'ar' ? 'تأكيد الحجز' : 'Confirm & Book Now')"></span>
+                      <span x-text="submitting ? (lang === 'ar' ? 'Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø¥Ø±Ø³Ø§Ù„...' : 'Sending...') : (lang === 'ar' ? 'ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø­Ø¬Ø²' : 'Confirm & Book Now')"></span>
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" :class="lang === 'ar' ? 'rotate-180' : ''" x-show="!submitting"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
                   </div>
@@ -334,21 +334,22 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" class="animate-draw-check" />
             </svg>
           </div>
-          <h2 class="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-8 tracking-tight" x-text="lang === 'ar' ? 'شكراً لثقتكم' : 'Reservation Confirmed'"></h2>
-          <p class="text-2xl text-white/60 leading-relaxed mb-16" x-text="lang === 'ar' ? 'سيتواصل معك أحد مستشارينا خلال ٢٤ ساعة لتنسيق الزيارة.' : 'One of our design consultants will contact you within 24 hours.'"></p>
+          <h2 class="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-8 tracking-tight" x-text="lang === 'ar' ? 'Ø´ÙƒØ±Ø§Ù‹ Ù„Ø«Ù‚ØªÙƒÙ…' : 'Reservation Confirmed'"></h2>
+          <p class="text-2xl text-white/60 leading-relaxed mb-16" x-text="lang === 'ar' ? 'Ø³ÙŠØªÙˆØ§ØµÙ„ Ù…Ø¹Ùƒ Ø£Ø­Ø¯ Ù…Ø³ØªØ´Ø§Ø±ÙŠÙ†Ø§ Ø®Ù„Ø§Ù„ Ù¢Ù¤ Ø³Ø§Ø¹Ø© Ù„ØªÙ†Ø³ÙŠÙ‚ Ø§Ù„Ø²ÙŠØ§Ø±Ø©.' : 'One of our design consultants will contact you within 24 hours.'"></p>
 
           <div class="bg-white/5 border border-white/10 rounded-[4rem] p-12 mb-16 relative overflow-hidden group">
             <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-transparent via-gold/50 to-transparent"></div>
-            <div class="text-base font-bold text-gold uppercase tracking-[0.4em] mb-5" x-text="lang === 'ar' ? 'رقم الطلب' : 'Booking Reference'"></div>
+            <div class="text-base font-bold text-gold uppercase tracking-[0.4em] mb-5" x-text="lang === 'ar' ? 'Ø±Ù‚Ù… Ø§Ù„Ø·Ù„Ø¨' : 'Booking Reference'"></div>
             <div class="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-[0.2em] font-mono" x-text="form.order_id"></div>
           </div>
 
           <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
              class="inline-flex items-center gap-6 bg-[#25d366] text-white px-12 py-6 rounded-2xl font-black text-2xl hover:scale-105 transition-all shadow-[0_20px_50px_rgba(37,211,102,0.4)]">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            <span x-text="lang === 'ar' ? 'تواصل معنا واتساب' : 'Chat via WhatsApp'"></span>
+            <span x-text="lang === 'ar' ? 'ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§ ÙˆØ§ØªØ³Ø§Ø¨' : 'Chat via WhatsApp'"></span>
           </a>
         </div>
     </section>
 </body>
 </html>
+
