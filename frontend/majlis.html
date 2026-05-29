@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:,">
   <title>Saeed Furniture | Majlis Collection</title>
@@ -398,16 +399,73 @@
     [x-cloak] { display: none !important; }
   
   </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
 </head>
 <body class="m-0 p-0 overflow-x-hidden bg-[#080809] text-white font-sans" x-data="saeedApp()" x-init="showPortfolio = false; isSelectionMode = true; step = 'selection'; initSwiper(); activeShowroom = 'majlis';">
   <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
   <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
     <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
   </div>
+  <!-- ===================== UNIFIED GLOBAL HEADER ===================== -->
+  <header class="fixed top-0 inset-x-0 z-[150] bg-stone-950/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+      
+      <!-- Left: Logo & Brand -->
+      <a href="/index.html" class="flex items-center gap-4 group">
+        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.2));">
+        <div class="hidden sm:block">
+          <h1 class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</h1>
+          <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
+        </div>
+      </a>
+
+      <!-- Right: Navigation & Lang Toggle -->
+      <div class="flex items-center gap-6 md:gap-10">
+        <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300">
+          <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300">Home</a>
+          <a href="#" @click.prevent="if(typeof showCollections !== 'undefined') { showCollections = true; } else { window.location.href='/index.html'; }" class="hover:text-amber-400 transition-colors duration-300">Collections</a>
+          <a href="/about.html" class="hover:text-amber-400 transition-colors duration-300">About</a>
+          <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-300">FAQ</a>
+          <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300">Contact</a>
+        </nav>
+        
+        <!-- Divider -->
+        <div class="hidden lg:block w-px h-6 bg-white/10"></div>
+
+        <!-- Language Toggle -->
+        <div class="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
+          <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-400 hover:text-white'" class="px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.2em] rounded-full transition-all duration-300">EN</button>
+          <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-400 hover:text-white'" class="px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.1em] rounded-full transition-all duration-300" style="font-family: 'Cairo', sans-serif;">عربي</button>
+        </div>
+
+        
+        <!-- Sidebar Toggle (Majlis Only) -->
+        <button @click="sidebarOpen = !sidebarOpen" class="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-600 transition-all text-white border border-white/20" aria-label="Toggle Sidebar">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"/></svg>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="lg:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Dropdown -->
+    <div id="mobile-nav" class="hidden lg:hidden bg-stone-950 border-t border-white/10 px-6 py-6 space-y-4">
+      <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Home</a>
+      <a href="/about.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">About</a>
+      <a href="/faq.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">FAQ</a>
+      <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Contact</a>
+    </div>
+  </header>
+  <!-- Padding for fixed header -->
+  <div class="h-20"></div>
 
 <section id="order" class="min-h-screen bg-[#080809] text-white relative"  x-cloak>
 
-        <!-- LOOKBOOK UI (Hard Reset â€” Strict Flex Layout) -->
+        <!-- LOOKBOOK UI (Hard Reset — Strict Flex Layout) -->
         <div  x-transition:enter="transition ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="fixed inset-0 w-screen h-screen z-[100] overflow-hidden bg-[#080809]" x-init="$watch('isSelectionMode', val => { if(val) setTimeout(() => initSwiper(), 100) })" x-data="{ sidebarOpen: window.innerWidth >= 768 }">
           
           <!-- â•â•â• LAYER 0: Full-Bleed Hero Background Image â•â•â• -->
@@ -421,41 +479,9 @@
             <div class="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-[#0a0a0d] to-transparent pointer-events-none"></div>
           </div>
 
-          <!-- â•â•â• LAYER 1: UI Layout â€” Strict flex-col â•â•â• -->
+          <!-- â•â•â• LAYER 1: UI Layout — Strict flex-col â•â•â• -->
           <div class="relative z-10 flex flex-col h-full">
 
-            <!-- â”€â”€ ROW 1: Top Navigation Bar â”€â”€ -->
-                        <div class="flex-shrink-0 flex justify-between items-center px-3 md:px-12 py-3 md:py-5 bg-white shadow-sm border-b border-gray-100">
-              <div class="flex items-center gap-6">
-                <!-- Global Brand Injection -->
-                <a href="/index.html" class="pointer-events-auto flex items-center gap-3 mr-4">
-                  <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-10 w-auto object-contain" style="filter: brightness(0)">
-                  <div class="font-extrabold text-lg tracking-widest text-[#0a0a0d] hidden sm:block">
-                    SAEED FURNITURE
-                  </div>
-                </a>
-                
-                <!-- Sidebar Toggle (Hamburger) -->
-                <button @click="sidebarOpen = !sidebarOpen" aria-label="Toggle Sidebar" class="flex items-center gap-2 text-stone-500 hover:text-gold transition-all duration-300 min-h-[44px] px-3 -mx-3" style="touch-action: manipulation;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h10M4 18h16"/></svg>
-                  <span class="text-[0.6rem] font-bold uppercase tracking-[0.3em]" x-text="sidebarOpen ? (lang === 'ar' ? 'Ø¥ØºÙ„Ø§Ù‚' : 'Close') : (lang === 'ar' ? 'Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹Ø§Øª' : 'Collections')"></span>
-                </button>
-              </div>
-              
-              <!-- Global Nav Links (Hidden on mobile) -->
-              <nav class="hidden lg:flex gap-8 text-xs tracking-widest pointer-events-auto font-bold text-stone-600 mr-8">
-                <a href="/select.html" class="hover:text-amber-500 transition-colors duration-500">COLLECTIONS</a>
-                <a href="/about.html" class="hover:text-amber-500 transition-colors duration-500">ABOUT</a>
-                <a href="/faq.html" class="hover:text-amber-500 transition-colors duration-500">FAQ</a>
-                <a href="/contact.html" class="hover:text-amber-500 transition-colors duration-500">CONTACT</a>
-              </nav>
-
-              <!-- Minimalist Back Arrow -->
-              <button class="flex items-center gap-3 text-stone-500 hover:text-gold transition-all duration-300 group min-h-[44px] px-3 -mx-3" onclick="window.location.href='/index.html'" aria-label="Go Back" style="touch-action: manipulation;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform duration-300 group-hover:-translate-x-1" :class="lang === 'ar' ? 'rotate-180' : ''"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                <span class="text-[0.6rem] font-normal uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'Ø§Ù„Ø¹ÙˆØ¯Ø©' : 'Back'"></span>
-              </button>
-            </div>
             <!-- â”€â”€ ROW 2: Main Content Area (fills remaining space) â”€â”€ -->
             <div class="flex-1 flex relative overflow-hidden">
 
@@ -463,7 +489,7 @@
               <div class="absolute top-0 bottom-0 w-64 z-30 flex flex-col bg-black/40 backdrop-blur-xl border-r border-white/5 p-6 pt-8 transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] pointer-events-auto"
                    :class="[lang === 'ar' ? 'right-0 border-l border-r-0' : 'left-0', sidebarOpen ? 'translate-x-0 opacity-100' : (lang === 'ar' ? 'translate-x-full opacity-0' : '-translate-x-full opacity-0')]">
                 
-                <h3 class="text-[0.6rem] font-bold text-gold uppercase tracking-[0.4em] mb-6" x-text="lang === 'ar' ? 'Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹Ø§Øª' : 'Collections'"></h3>
+                <h3 class="text-[0.6rem] font-bold text-gold uppercase tracking-[0.4em] mb-6" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></h3>
                 
                 <!-- Collection Links with Gold Active Border -->
                 <div class="flex flex-col gap-4 overflow-y-auto hide-scrollbar flex-1 mb-6">
@@ -521,7 +547,7 @@
                   </div>
                 </div>
 
-                <!-- â”€â”€ Carousel (Strict bottom zone â€” never overlaps title) â”€â”€ -->
+                <!-- â”€â”€ Carousel (Strict bottom zone — never overlaps title) â”€â”€ -->
                 <div class="flex-shrink-0 px-2 md:px-12 relative z-20">
                   <div class="swiper lookbook-swiper w-full touch-pan-x pb-8">
                     <div class="swiper-wrapper flex items-center">
@@ -596,7 +622,7 @@
 
         
 
-        <!-- LEAD CAPTURE FORM (Re-injected â€” CB-1 Fix) -->
+        <!-- LEAD CAPTURE FORM (Re-injected — CB-1 Fix) -->
         <div x-show="step === 'form'" 
              x-transition:enter="transition ease-out duration-700 delay-100" 
              x-transition:enter-start="opacity-0 translate-y-8" 
@@ -609,7 +635,7 @@
             <img src="https://ik.imagekit.io/de7qvcvqvhttps://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain" style="filter: brightness(0) invert(1);">
             <button class="flex items-center gap-2 text-white/70 hover:text-gold transition-all duration-300 group" aria-label="Return to Home" onclick="window.location.href='/index.html'">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform duration-300 group-hover:-translate-x-1" :class="lang === 'ar' ? 'rotate-180' : ''"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-              <span class="text-[0.65rem] font-bold uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø±Ø¦ÙŠØ³ÙŠØ©' : 'Return to Home'"></span>
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'العودة Ù„Ù„Ø±Ø¦ÙŠØ³ÙŠØ©' : 'Return to Home'"></span>
             </button>
           </div>
 
@@ -739,7 +765,7 @@
           <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
              class="inline-flex items-center gap-6 bg-[#25d366] text-white px-12 py-6 rounded-2xl font-black text-2xl hover:scale-105 transition-all shadow-[0_20px_50px_rgba(37,211,102,0.4)]">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            <span x-text="lang === 'ar' ? 'ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§ ÙˆØ§ØªØ³Ø§Ø¨' : 'Chat via WhatsApp'"></span>
+            <span x-text="lang === 'ar' ? 'تواصل معنا ÙˆØ§ØªØ³Ø§Ø¨' : 'Chat via WhatsApp'"></span>
           </a>
         </div>
     </section>
@@ -764,10 +790,11 @@
       CTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio â€” Saeed Furniture | Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø«</title>
-  <meta name="description" content="Browse our past portfolio of bespoke majlis sets and luxury sofas crafted in Saudi Arabia. Saeed Furniture â€” made to order furniture KSA." />
+  <title>Portfolio — Saeed Furniture | Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø«</title>
+  <meta name="description" content="Browse our past portfolio of bespoke majlis sets and luxury sofas crafted in Saudi Arabia. Saeed Furniture — made to order furniture KSA." />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1154,12 +1181,69 @@
 
     [x-cloak] { display: none !important; }
   </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
 </head>
 <div class="w-full" x-data="portfolioApp()" x-init="init()">
   <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
   <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
     <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
   </div>
+  <!-- ===================== UNIFIED GLOBAL HEADER ===================== -->
+  <header class="fixed top-0 inset-x-0 z-[150] bg-stone-950/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+      
+      <!-- Left: Logo & Brand -->
+      <a href="/index.html" class="flex items-center gap-4 group">
+        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.2));">
+        <div class="hidden sm:block">
+          <h1 class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</h1>
+          <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
+        </div>
+      </a>
+
+      <!-- Right: Navigation & Lang Toggle -->
+      <div class="flex items-center gap-6 md:gap-10">
+        <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300">
+          <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300">Home</a>
+          <a href="#" @click.prevent="if(typeof showCollections !== 'undefined') { showCollections = true; } else { window.location.href='/index.html'; }" class="hover:text-amber-400 transition-colors duration-300">Collections</a>
+          <a href="/about.html" class="hover:text-amber-400 transition-colors duration-300">About</a>
+          <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-300">FAQ</a>
+          <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300">Contact</a>
+        </nav>
+        
+        <!-- Divider -->
+        <div class="hidden lg:block w-px h-6 bg-white/10"></div>
+
+        <!-- Language Toggle -->
+        <div class="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
+          <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-400 hover:text-white'" class="px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.2em] rounded-full transition-all duration-300">EN</button>
+          <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-400 hover:text-white'" class="px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.1em] rounded-full transition-all duration-300" style="font-family: 'Cairo', sans-serif;">عربي</button>
+        </div>
+
+        
+        <!-- Sidebar Toggle (Majlis Only) -->
+        <button @click="sidebarOpen = !sidebarOpen" class="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-600 transition-all text-white border border-white/20" aria-label="Toggle Sidebar">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"/></svg>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="lg:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Dropdown -->
+    <div id="mobile-nav" class="hidden lg:hidden bg-stone-950 border-t border-white/10 px-6 py-6 space-y-4">
+      <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Home</a>
+      <a href="/about.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">About</a>
+      <a href="/faq.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">FAQ</a>
+      <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Contact</a>
+    </div>
+  </header>
+  <!-- Padding for fixed header -->
+  <div class="h-20"></div>
 
 
   <!-- â•â•â• HEADER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
@@ -1174,7 +1258,7 @@
       <a href="/contact.html" class="pf-back" style="border:none; font-size:0.65rem; letter-spacing:0.2em; font-weight:700; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
       <a href="/" class="pf-back">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        <span x-text="lang === 'ar' ? 'Ø§Ù„Ø¹ÙˆØ¯Ø©' : 'Back to Home'"></span>
+        <span x-text="lang === 'ar' ? 'العودة' : 'Back to Home'"></span>
       </a>
     </nav>
   </header>
@@ -1187,7 +1271,7 @@
       <span x-show="lang === 'ar'" style="font-family:'Cairo',sans-serif; font-weight:300;">Ø³Ø§Ø¨Ù‚Ø© Ø£Ø¹Ù…Ø§Ù„Ù†Ø§</span>
     </h1>
     <p class="pf-hero-subtitle fade-up delay-2"
-       x-text="lang === 'ar' ? 'ÙƒÙ„ Ù‚Ø·Ø¹Ø© Ù‚ØµØ©. ÙƒÙ„ Ù…Ø¬Ù„Ø³ ØªØ¹Ø¨ÙŠØ± Ø¹Ù† Ù‡ÙˆÙŠØ©. ØªØµÙØ­ Ù…Ø¬Ù…ÙˆØ¹Ø© Ù…Ø®ØªØ§Ø±Ø© Ù…Ù† Ø£Ø¹Ù…Ø§Ù„Ù†Ø§ Ø§Ù„Ù…Ù†Ø¬Ø²Ø© ÙÙŠ Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠØ©.' : 'Every piece is a story. Every majlis an expression of identity. Browse a curated selection of our completed works across Saudi Arabia.'">
+       x-text="lang === 'ar' ? 'ÙƒÙ„ Ù‚Ø·Ø¹Ø© Ù‚ØµØ©. ÙƒÙ„ Ù…Ø¬Ù„Ø³ ØªØ¹Ø¨ÙŠØ± Ø¹Ù† Ù‡ÙˆÙŠØ©. ØªØµÙØ­ Ù…Ø¬Ù…ÙˆØ¹Ø© Ù…Ø®ØªØ§Ø±Ø© Ù…Ù† Ø£Ø¹Ù…Ø§Ù„Ù†Ø§ Ø§Ù„Ù…Ù†Ø¬Ø²Ø© ÙÙŠ Ø§Ù„صناعة تدوم (Craftsmanship That Endures).' : 'Every piece is a story. Every majlis an expression of identity. Browse a curated selection of our completed works across Saudi Arabia.'">
     </p>
     <div class="pf-divider fade-up delay-3"></div>
   </div>
@@ -1271,12 +1355,12 @@
 
   <!-- â•â•â• CTA FOOTER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <div class="pf-cta-footer">
-    <div class="pf-cta-footer-eyebrow" x-text="lang === 'ar' ? 'ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§' : 'Get Started'"></div>
+    <div class="pf-cta-footer-eyebrow" x-text="lang === 'ar' ? 'تواصل معنا' : 'Get Started'"></div>
     <h2 class="pf-cta-footer-title">
       <span x-show="lang !== 'ar'" style="font-family:'Cormorant Garamond',serif;">Your Vision, Crafted.</span>
       <span x-show="lang === 'ar'" style="font-family:'Cairo',sans-serif; font-weight:300;">ØªØµÙ…ÙŠÙ…ÙƒØŒ Ø¨Ø£ÙŠØ¯Ù Ù…Ø§Ù‡Ø±Ø©.</span>
     </h2>
-    <p class="pf-cta-footer-sub" x-text="lang === 'ar' ? 'ÙƒÙ„ Ø·Ù‚Ù… ÙŠÙØµÙ†Ø¹ Ø®ØµÙŠØµØ§Ù‹ Ù„Ùƒ â€” Ø´Ø§Ù‡Ø¯ ÙƒÙŠÙ Ù†Ø­ÙˆÙ‘Ù„ Ø°ÙˆÙ‚Ùƒ Ø¥Ù„Ù‰ Ø£Ø«Ø§Ø« ÙŠØ¯ÙˆÙ….' : 'Every set is made-to-order, just for you â€” see how we turn your taste into lasting craftsmanship.'"></p>
+    <p class="pf-cta-footer-sub" x-text="lang === 'ar' ? 'ÙƒÙ„ Ø·Ù‚Ù… ÙŠÙØµÙ†Ø¹ Ø®ØµÙŠØµØ§Ù‹ Ù„Ùƒ — Ø´Ø§Ù‡Ø¯ ÙƒÙŠÙ Ù†Ø­ÙˆÙ‘Ù„ Ø°ÙˆÙ‚Ùƒ Ø¥Ù„Ù‰ Ø£Ø«Ø§Ø« ÙŠØ¯ÙˆÙ….' : 'Every set is made-to-order, just for you — see how we turn your taste into lasting craftsmanship.'"></p>
     <a href="/" class="pf-cta-footer-btn">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       <span x-text="lang === 'ar' ? 'Ø§Ø®ØªØ± Ù…ÙˆØ¯ÙŠÙ„Ùƒ Ø§Ù„Ø¢Ù†' : 'Select Your Model'"></span>

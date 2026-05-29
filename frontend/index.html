@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:,">
   <title>Saeed Furniture | Master Showroom Gateway</title>
@@ -482,6 +483,8 @@
   
   </style>
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
 </head>
 <body class="m-0 p-0 overflow-hidden bg-stone-950 font-sans" x-data="{ lang: 'en', expanded: false, active: null, showCollections: false }">
   <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
@@ -491,20 +494,54 @@
 
 
   <!-- â”€â”€ Global Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
-  <header class="absolute top-0 inset-x-0 z-50 flex justify-between items-center px-6 md:px-10 py-5 text-white pointer-events-none">
-        <a href="/index.html" class="pointer-events-auto flex items-center gap-3">
-      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-10 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
-      <div class="font-bold text-lg md:text-xl tracking-widest text-white">
-        SAEED FURNITURE
+    <!-- ===================== UNIFIED GLOBAL HEADER ===================== -->
+  <header class="fixed top-0 inset-x-0 z-[150] bg-stone-950/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+      
+      <!-- Left: Logo & Brand -->
+      <a href="/index.html" class="flex items-center gap-4 group">
+        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.2));">
+        <div class="hidden sm:block">
+          <h1 class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</h1>
+          <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
+        </div>
+      </a>
+
+      <!-- Right: Navigation & Lang Toggle -->
+      <div class="flex items-center gap-6 md:gap-10">
+        <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300">
+          <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300">Home</a>
+          <a href="#" @click.prevent="if(typeof showCollections !== 'undefined') { showCollections = true; } else { window.location.href='/index.html'; }" class="hover:text-amber-400 transition-colors duration-300">Collections</a>
+          <a href="/about.html" class="hover:text-amber-400 transition-colors duration-300">About</a>
+          <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-300">FAQ</a>
+          <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300">Contact</a>
+        </nav>
+        
+        <!-- Divider -->
+        <div class="hidden lg:block w-px h-6 bg-white/10"></div>
+
+        <!-- Language Toggle -->
+        <div class="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
+          <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-400 hover:text-white'" class="px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.2em] rounded-full transition-all duration-300">EN</button>
+          <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-400 hover:text-white'" class="px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.1em] rounded-full transition-all duration-300" style="font-family: 'Cairo', sans-serif;">عربي</button>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="lg:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+        </button>
       </div>
-    </a>
-    <nav class="hidden md:flex gap-8 text-sm tracking-widest pointer-events-auto drop-shadow-md font-medium">
-      <a href="#" @click.prevent="showCollections = true" class="hover:text-amber-400 transition-colors duration-500">COLLECTIONS</a>
-      <a href="/about.html" class="hover:text-amber-400 transition-colors duration-500">ABOUT</a>
-      <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-500">FAQ</a>
-      <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-500">CONTACT</a>
-    </nav>
+    </div>
+
+    <!-- Mobile Nav Dropdown -->
+    <div id="mobile-nav" class="hidden lg:hidden bg-stone-950 border-t border-white/10 px-6 py-6 space-y-4">
+      <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Home</a>
+      <a href="/about.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">About</a>
+      <a href="/faq.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">FAQ</a>
+      <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Contact</a>
+    </div>
   </header>
+  
 
   <!-- â”€â”€ Master Gateway: Full Viewport Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <main class="relative w-full h-screen overflow-hidden">
@@ -696,7 +733,7 @@
           <div class="category-card__content">
             <span class="category-card__eyebrow">Majlis Collection</span>
             <h2 class="category-card__name">Majlis</h2>
-            <p class="category-card__arabic">Ø§Ù„Ù…Ø¬Ù„Ø³</p>
+            <p class="category-card__arabic">المجلس</p>
             <div class="category-card__cta">
               <div class="category-card__cta-line"></div>
               <span>Explore</span>
@@ -736,7 +773,7 @@
           <div class="category-card__content">
             <span class="category-card__eyebrow">Kitchen Collection</span>
             <h2 class="category-card__name">Kitchen</h2>
-            <p class="category-card__arabic">Ø§Ù„Ù…Ø·Ø¨Ø®</p>
+            <p class="category-card__arabic">المطبخ</p>
             <div class="category-card__cta">
               <div class="category-card__cta-line"></div>
               <span>Explore</span>
@@ -756,7 +793,7 @@
           <div class="category-card__content">
             <span class="category-card__eyebrow">Cot Collection</span>
             <h2 class="category-card__name">Cot</h2>
-            <p class="category-card__arabic">Ø§Ù„Ø³Ø±ÙŠØ±</p>
+            <p class="category-card__arabic">السرير</p>
             <div class="category-card__cta">
               <div class="category-card__cta-line"></div>
               <span>Explore</span>
@@ -776,7 +813,7 @@
           <div class="category-card__content">
             <span class="category-card__eyebrow">Almirah Collection</span>
             <h2 class="category-card__name">Almirah</h2>
-            <p class="category-card__arabic">Ø§Ù„Ø®Ø²Ø§Ù†Ø©</p>
+            <p class="category-card__arabic">الخزانة</p>
             <div class="category-card__cta">
               <div class="category-card__cta-line"></div>
               <span>Explore</span>
@@ -813,7 +850,7 @@
       </h2>
 
       <p style="font-family:'Inter',sans-serif; font-size:0.85rem; color:rgba(229,231,235,0.55); letter-spacing:0.05em; max-width:440px; margin:0 auto 2rem; line-height:1.7;">
-        Our design consultants are ready to guide you â€” whether you're furnishing a single room or an entire villa.
+        Our design consultants are ready to guide you — whether you're furnishing a single room or an entire villa.
       </p>
 
       <!-- Decorative gold line -->

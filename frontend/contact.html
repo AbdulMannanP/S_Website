@@ -1,12 +1,13 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" >
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact â€” Saeed Furniture | Get In Touch</title>
-  <meta name="description" content="Reach out to Saeed Furniture â€” Saudi Arabia's premier bespoke furniture atelier. Chat on WhatsApp, visit our Al Qurayyat showroom, or enquire about custom pieces today." />
+  <title>Contact — Saeed Furniture | Get In Touch</title>
+  <meta name="description" content="Reach out to Saeed Furniture — Saudi Arabia's premier bespoke furniture atelier. Chat on WhatsApp, visit our Al Qurayyat showroom, or enquire about custom pieces today." />
   <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="Contact â€” Saeed Furniture | Get In Touch" />
+  <meta property="og:title" content="Contact — Saeed Furniture | Get In Touch" />
   <meta property="og:description" content="Connect with our team for bespoke furniture consultations, custom orders, and showroom visits in Al Qurayyat, Al Jawf, KSA." />
   <meta property="og:type" content="website" />
 
@@ -364,9 +365,11 @@
     .hours-day { color: rgba(232,224,213,0.55); }
     .hours-time { color: rgba(232,224,213,0.9); font-weight: 500; }
   </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
 </head>
 
-<body x-data="{ lang: 'en', mobileOpen: false }">
+<body x-data="{ lang: 'en', mobileOpen: false }" class="font-sans">
   <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
   <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
     <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
@@ -376,47 +379,54 @@
   <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        STICKY HEADER
   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <header class="sticky-header">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
+    <!-- ===================== UNIFIED GLOBAL HEADER ===================== -->
+  <header class="fixed top-0 inset-x-0 z-[150] bg-stone-950/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+      
+      <!-- Left: Logo & Brand -->
+      <a href="/index.html" class="flex items-center gap-4 group">
+        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.2));">
+        <div class="hidden sm:block">
+          <h1 class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</h1>
+          <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
+        </div>
+      </a>
 
-      <!-- Back + Logo -->
-      <div class="flex items-center gap-5">
-        <a href="/index.html" class="back-btn" aria-label="Back to home">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-          <span class="hidden sm:inline">Home</span>
-        </a>
-        <div class="w-px h-5 bg-white/10"></div>
-        <a href="/index.html">
-          <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-10 w-auto object-contain" />
-        </a>
+      <!-- Right: Navigation & Lang Toggle -->
+      <div class="flex items-center gap-6 md:gap-10">
+        <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300">
+          <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300">Home</a>
+          <a href="#" @click.prevent="if(typeof showCollections !== 'undefined') { showCollections = true; } else { window.location.href='/index.html'; }" class="hover:text-amber-400 transition-colors duration-300">Collections</a>
+          <a href="/about.html" class="hover:text-amber-400 transition-colors duration-300">About</a>
+          <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-300">FAQ</a>
+          <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300">Contact</a>
+        </nav>
+        
+        <!-- Divider -->
+        <div class="hidden lg:block w-px h-6 bg-white/10"></div>
+
+        <!-- Language Toggle -->
+        <div class="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
+          <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-400 hover:text-white'" class="px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.2em] rounded-full transition-all duration-300">EN</button>
+          <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-400 hover:text-white'" class="px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.1em] rounded-full transition-all duration-300" style="font-family: 'Cairo', sans-serif;">عربي</button>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="lg:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+        </button>
       </div>
-
-      <!-- Desktop Nav -->
-      <nav class="desktop-nav items-center gap-8">
-        <a href="/about.html" class="nav-link">About</a>
-        <a href="/faq.html" class="nav-link">FAQ</a>
-        <a href="/contact.html" class="nav-link active">Contact</a>
-        <a href="/select.html" class="nav-link" style="color: var(--gold);">Collections</a>
-      </nav>
-
-      <!-- Hamburger -->
-      <button class="hamburger flex flex-col gap-1.5 p-1" @click="mobileOpen = !mobileOpen" aria-label="Toggle menu">
-        <span class="block w-5 h-0.5 bg-amber-400 transition-all duration-300" :class="mobileOpen ? 'rotate-45 translate-y-2' : ''"></span>
-        <span class="block w-5 h-0.5 bg-amber-400 transition-all duration-300" :class="mobileOpen ? 'opacity-0' : ''"></span>
-        <span class="block w-5 h-0.5 bg-amber-400 transition-all duration-300" :class="mobileOpen ? '-rotate-45 -translate-y-2' : ''"></span>
-      </button>
     </div>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu flex-col gap-0 border-t border-white/5 bg-stone-950/95" :class="mobileOpen ? 'open' : ''" x-show="mobileOpen" x-transition>
-      <a href="/about.html" class="px-6 py-4 text-sm tracking-widest uppercase text-white/60 hover:text-amber-400 border-b border-white/5">About</a>
-      <a href="/faq.html" class="px-6 py-4 text-sm tracking-widest uppercase text-white/60 hover:text-amber-400 border-b border-white/5">FAQ</a>
-      <a href="/contact.html" class="px-6 py-4 text-sm tracking-widest uppercase border-b border-white/5" style="color: var(--gold);">Contact</a>
-      <a href="/select.html" class="px-6 py-4 text-sm tracking-widest uppercase text-amber-400 hover:text-amber-300">Collections</a>
+    <!-- Mobile Nav Dropdown -->
+    <div id="mobile-nav" class="hidden lg:hidden bg-stone-950 border-t border-white/10 px-6 py-6 space-y-4">
+      <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Home</a>
+      <a href="/about.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">About</a>
+      <a href="/faq.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">FAQ</a>
+      <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Contact</a>
     </div>
   </header>
+  
 
 
   <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -434,7 +444,7 @@
 
       <p class="font-cairo anim-fade-up delay-300"
          style="font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 300; color: rgba(201,169,110,0.7); margin-top: 0.3rem; letter-spacing: 0.05em;">
-        ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§
+        تواصل معنا
       </p>
 
       <div class="gold-divider anim-fade-up delay-400"></div>
@@ -491,7 +501,7 @@
               </svg>
               Start Chatting
             </a>
-            <p class="font-cairo text-center mt-2 arabic-badge">ØªÙˆØ§ØµÙ„ Ø§Ù„Ø¢Ù† Ø¹Ø¨Ø± ÙˆØ§ØªØ³Ø§Ø¨</p>
+            <p class="font-cairo text-center mt-2 arabic-badge">تواصل الآن Ø¹Ø¨Ø± ÙˆØ§ØªØ³Ø§Ø¨</p>
           </div>
 
         </div>
@@ -518,21 +528,21 @@
               <p class="text-xs uppercase tracking-widest mb-1" style="color: rgba(201,169,110,0.6);">Address</p>
               <p class="text-white/90 font-medium text-sm leading-relaxed">Al Qurayyat, Al Jawf</p>
               <p class="text-white/60 text-sm">Kingdom of Saudi Arabia</p>
-              <p class="font-cairo text-xs mt-1" style="color: rgba(201,169,110,0.55);">Ø§Ù„Ù‚Ø±ÙŠØ§ØªØŒ Ø§Ù„Ø¬ÙˆÙØŒ Ø§Ù„Ù…Ù…Ù„ÙƒØ© Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠØ©</p>
+              <p class="font-cairo text-xs mt-1" style="color: rgba(201,169,110,0.55);">Ø§Ù„Ù‚Ø±ÙŠØ§ØªØŒ Ø§Ù„Ø¬ÙˆÙØŒ Ø§Ù„Ù…Ù…Ù„ÙƒØ© Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© Ø§Ù„صناعة تدوم (Craftsmanship That Endures)</p>
             </div>
 
             <div class="mb-6">
               <p class="text-xs uppercase tracking-widest mb-3" style="color: rgba(201,169,110,0.6);">Opening Hours</p>
               <div class="hours-row">
-                <span class="hours-day">Sat â€“ Thu</span>
-                <span class="hours-time">9:00 AM â€“ 10:00 PM</span>
+                <span class="hours-day">Sat — Thu</span>
+                <span class="hours-time">9:00 AM — 10:00 PM</span>
               </div>
               <div class="hours-row">
                 <span class="hours-day">Friday</span>
-                <span class="hours-time">4:00 PM â€“ 10:00 PM</span>
+                <span class="hours-time">4:00 PM — 10:00 PM</span>
               </div>
               <p class="font-cairo text-xs mt-2" style="color: rgba(232,224,213,0.3);">
-                Ø§Ù„Ø³Ø¨Øªâ€“Ø§Ù„Ø®Ù…ÙŠØ³: Ù©Øµâ€“Ù¡Ù Ù… &bull; Ø§Ù„Ø¬Ù…Ø¹Ø©: Ù¤Ù…â€“Ù¡Ù Ù…
+                Ø§Ù„Ø³Ø¨Øª—Ø§Ù„Ø®Ù…ÙŠØ³: Ù©Øµ—Ù¡Ù Ù… &bull; Ø§Ù„Ø¬Ù…Ø¹Ø©: Ù¤Ù…—Ù¡Ù Ù…
               </p>
             </div>
           </div>
@@ -595,9 +605,9 @@
             <div class="p-3 rounded-xl mb-4" style="background: rgba(201,169,110,0.06); border: 1px solid rgba(201,169,110,0.15);">
               <p class="text-xs" style="color: rgba(201,169,110,0.8);">
                 <span class="font-semibold" style="color: var(--gold);">Typical Lead Time:</span>
-                &nbsp;3 â€“ 4 weeks from confirmation
+                &nbsp;3 — 4 weeks from confirmation
               </p>
-              <p class="font-cairo text-xs mt-0.5" style="color: rgba(201,169,110,0.45);">Ù…Ø¯Ø© Ø§Ù„ØªÙ†ÙÙŠØ° Ø§Ù„Ù…Ø¹ØªØ§Ø¯Ø©: Ù£â€“Ù¤ Ø£Ø³Ø§Ø¨ÙŠØ¹</p>
+              <p class="font-cairo text-xs mt-0.5" style="color: rgba(201,169,110,0.45);">Ù…Ø¯Ø© Ø§Ù„ØªÙ†ÙÙŠØ° Ø§Ù„Ù…Ø¹ØªØ§Ø¯Ø©: Ù£—Ù¤ Ø£Ø³Ø§Ø¨ÙŠØ¹</p>
             </div>
           </div>
 
@@ -663,59 +673,49 @@
   <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        FOOTER
   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <footer class="py-16 px-6">
-    <div class="max-w-7xl mx-auto">
-
-      <!-- Top Row -->
-      <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-10 mb-12">
-
+    <!-- ===================== UNIFIED GLOBAL FOOTER ===================== -->
+  <footer class="bg-[#040405] border-t border-white/10 pt-16 pb-8 relative z-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-start mb-12">
+        
         <!-- Brand -->
-        <div class="text-center md:text-left">
-          <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-10 w-auto object-contain mb-4 mx-auto md:mx-0"
-               style="filter: brightness(0) invert(1); opacity: 0.75;" />
-          <p class="text-xs tracking-widest uppercase mb-1" style="color: rgba(201,169,110,0.5);">Bespoke Furniture Atelier</p>
-          <p class="font-cairo text-xs" style="color: rgba(232,224,213,0.3);">Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø« &bull; Ø§Ù„Ù‚Ø±ÙŠØ§ØªØŒ Ø§Ù„Ø¬ÙˆÙ</p>
+        <div class="flex flex-col items-center md:items-start gap-4">
+          <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain opacity-90" style="filter: brightness(0) invert(1);">
+          <div class="text-center md:text-left">
+            <h2 class="text-white text-sm font-bold tracking-[0.2em] uppercase mb-1">Saeed Furniture</h2>
+            <p class="text-stone-400 text-xs italic font-serif">Craftsmanship That Endures</p>
+            <p class="text-amber-500/80 text-sm mt-2" style="font-family: 'Cairo', sans-serif;" dir="rtl">صناعة تدوم (Craftsmanship That Endures)</p>
+          </div>
         </div>
 
         <!-- Links -->
-        <div class="flex flex-wrap justify-center gap-8">
-          <div>
-            <p class="text-xs uppercase tracking-widest mb-3" style="color: rgba(201,169,110,0.5);">Navigate</p>
-            <ul class="space-y-2">
-              <li><a href="/about.html" class="text-xs text-white/40 hover:text-amber-400 transition-colors tracking-wide uppercase">About</a></li>
-              <li><a href="/select.html" class="text-xs text-white/40 hover:text-amber-400 transition-colors tracking-wide uppercase">Collections</a></li>
-              <li><a href="/faq.html" class="text-xs text-white/40 hover:text-amber-400 transition-colors tracking-wide uppercase">FAQ</a></li>
-              <li><a href="/contact.html" class="text-xs tracking-wide uppercase" style="color: var(--gold);">Contact</a></li>
-            </ul>
-          </div>
-          <div>
-            <p class="text-xs uppercase tracking-widest mb-3" style="color: rgba(201,169,110,0.5);">Contact</p>
-            <ul class="space-y-2">
-              <li>
-                <a href="https://wa.me/9288004450" target="_blank" class="text-xs text-white/40 hover:text-green-400 transition-colors">
-                  +966 928 800 4450
-                </a>
-              </li>
-              <li class="text-xs text-white/30">Al Qurayyat, Al Jawf, KSA</li>
-            </ul>
-          </div>
+        <div class="flex flex-col items-center gap-3 text-xs tracking-widest uppercase text-stone-400">
+          <p class="text-white font-bold mb-2 tracking-[0.2em]">Explore</p>
+          <a href="/index.html" class="hover:text-amber-500 transition-colors">Home</a>
+          <a href="/about.html" class="hover:text-amber-500 transition-colors">About</a>
+          <a href="/faq.html" class="hover:text-amber-500 transition-colors">FAQ</a>
+          <a href="/contact.html" class="hover:text-amber-500 transition-colors">Contact</a>
+        </div>
+
+        <!-- Contact -->
+        <div class="flex flex-col items-center md:items-end gap-3 text-center md:text-right">
+          <p class="text-white text-xs font-bold tracking-[0.2em] uppercase mb-2">Visit Us</p>
+          <address class="not-italic text-stone-400 text-xs leading-loose tracking-wide">
+            Saeed Furniture Showroom<br />
+            Al Qurayyat, Al Jawf<br />
+            Kingdom of Saudi Arabia
+          </address>
+          <p class="text-stone-500 text-sm mt-1" style="font-family: 'Cairo', sans-serif;" dir="rtl">المملكة العربية السعودية</p>
+          <a href="https://wa.me/9288004450" class="text-green-500 hover:text-green-400 transition-colors text-sm font-bold mt-2 tracking-wider">+966 9288004450</a>
         </div>
 
       </div>
 
-      <!-- Divider -->
-      <div class="h-px mb-8" style="background: linear-gradient(90deg, transparent, rgba(201,169,110,0.15), transparent);"></div>
-
-      <!-- Bottom Row -->
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center">
-        <p class="text-xs" style="color: rgba(232,224,213,0.25); letter-spacing: 0.04em;">
-          &copy; 2026 Saeed Furniture. All rights reserved.
-        </p>
-        <p class="font-cairo text-xs" style="color: rgba(232,224,213,0.18);">
-          Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø« &mdash; Ø§Ù„Ù‚Ø±ÙŠØ§ØªØŒ Ø§Ù„Ø¬ÙˆÙØŒ Ø§Ù„Ù…Ù…Ù„ÙƒØ© Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠØ©
-        </p>
+      <!-- Copyright -->
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-stone-600 text-[0.65rem] tracking-wider uppercase">&copy; 2026 Saeed Furniture. All rights reserved.</p>
+        <p class="text-stone-600 text-xs" style="font-family: 'Cairo', sans-serif;" dir="rtl">جميع الحقوق محفوظة (All rights reserved)</p>
       </div>
-
     </div>
   </footer>
 
