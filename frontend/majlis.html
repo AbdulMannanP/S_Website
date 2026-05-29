@@ -50,12 +50,7 @@
     </div>
 
     <!-- Mobile Nav Dropdown -->
-    <div id="mobile-nav" class="hidden lg:hidden bg-stone-950 border-t border-white/10 px-6 py-6 space-y-4">
-      <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Home</a>
-      <a href="/about.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">About</a>
-      <a href="/faq.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">FAQ</a>
-      <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Contact</a>
-    </div>
+    
   </header>
   <!-- Padding for fixed header -->
   <div class="h-20"></div>
@@ -802,58 +797,7 @@
     <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
   </div>
   <!-- ===================== UNIFIED GLOBAL HEADER ===================== -->
-  <header class="fixed top-0 inset-x-0 z-[150] bg-stone-950/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
-      
-      <!-- Left: Logo & Brand -->
-      <a href="/index.html" class="flex items-center gap-4 group">
-        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.2));">
-        <div class="hidden sm:block">
-          <h1 class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</h1>
-          <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
-        </div>
-      </a>
-
-      <!-- Right: Navigation & Lang Toggle -->
-      <div class="flex items-center gap-6 md:gap-10">
-        <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300">
-          <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300">Home</a>
-          <a href="#" @click.prevent="if(typeof showCollections !== 'undefined') { showCollections = true; } else { window.location.href='/index.html'; }" class="hover:text-amber-400 transition-colors duration-300">Collections</a>
-          <a href="/about.html" class="hover:text-amber-400 transition-colors duration-300">About</a>
-          <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-300">FAQ</a>
-          <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300">Contact</a>
-        </nav>
-        
-        <!-- Divider -->
-        <div class="hidden lg:block w-px h-6 bg-white/10"></div>
-
-        <!-- Language Toggle -->
-        <div class="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
-          <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-400 hover:text-white'" class="px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.2em] rounded-full transition-all duration-300">EN</button>
-          <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-400 hover:text-white'" class="px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.1em] rounded-full transition-all duration-300" style="font-family: 'Cairo', sans-serif;">عربي</button>
-        </div>
-
-        
-        <!-- Sidebar Toggle (Majlis Only) -->
-        <button @click="sidebarOpen = !sidebarOpen" class="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-amber-600 transition-all text-white border border-white/20" aria-label="Toggle Sidebar">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"/></svg>
-        </button>
-
-        <!-- Mobile Menu Toggle -->
-        <button class="lg:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Nav Dropdown -->
-    <div id="mobile-nav" class="hidden lg:hidden bg-stone-950 border-t border-white/10 px-6 py-6 space-y-4">
-      <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Home</a>
-      <a href="/about.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">About</a>
-      <a href="/faq.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">FAQ</a>
-      <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Contact</a>
-    </div>
-  </header>
+  
   <!-- Padding for fixed header -->
   <div class="h-20"></div>
 <a href="/index.html" class="absolute top-28 left-8 z-50 flex items-center gap-2 text-stone-300 hover:text-amber-500 transition-colors duration-500 bg-black/20 hover:bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm text-sm tracking-widest border border-white/10">← RETURN TO HUB</a>
