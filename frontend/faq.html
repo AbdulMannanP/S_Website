@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Saeed Furniture | How It Works</title>
+  <meta name="description" content="Everything you need to know about Saeed Furniture's bespoke sofa-making process — from fabric selection and home visits to handcrafted production and delivery across Saudi Arabia." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="FAQ — Saeed Furniture | How It Works" />
+  <meta property="og:description" content="Discover how our made-to-order sofas are crafted — free home consultations, premium materials, and artisan craftsmanship in Al Qurayyat, KSA." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- TailwindCSS -->
+  <link rel="stylesheet" href="/dist/output.css" />
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    :root {
+      --gold: #c9a96e;
+      --gold-light: #e0c99a;
+      --dark: #080809;
+      --dark-card: #0f0f10;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--dark);
+      color: #e5e0d8;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .font-serif { font-family: 'Cormorant Garamond', serif; }
+    .font-arabic { font-family: 'Cairo', sans-serif; }
+
+    /* Sticky header shadow on scroll */
+    .header-scrolled { box-shadow: 0 2px 30px rgba(0,0,0,0.5); }
+
+    /* Gold text */
+    .text-gold { color: var(--gold); }
+    .border-gold { border-color: var(--gold); }
+    .bg-gold { background-color: var(--gold); }
+
+    /* Nav active */
+    .nav-active {
+      color: var(--gold);
+      position: relative;
+    }
+    .nav-active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* Hero */
+    .hero-bg {
+      background-image: url('/images/modern_majlis.png');
+      background-size: cover;
+      background-position: center;
+    }
+    .hero-overlay {
+      background: linear-gradient(to bottom, rgba(8,8,9,0.72) 0%, rgba(8,8,9,0.82) 60%, rgba(8,8,9,1) 100%);
+    }
+
+    /* Gold divider */
+    .gold-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 0 auto;
+    }
+
+    /* Accordion */
+    .faq-item {
+      border-left: 3px solid transparent;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .faq-item.faq-active {
+      border-left-color: var(--gold);
+      box-shadow: 0 4px 24px rgba(201,169,110,0.07);
+    }
+
+    .faq-answer {
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+      max-height: 0;
+      opacity: 0;
+    }
+    .faq-answer.open {
+      max-height: 600px;
+      opacity: 1;
+    }
+
+    /* Arrow rotation */
+    .faq-arrow {
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .faq-arrow.rotated {
+      transform: rotate(180deg);
+    }
+
+    /* WhatsApp strip */
+    .wa-btn {
+      background: #25D366;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .wa-btn:hover {
+      background: #1ebe5d;
+      transform: translateY(-2px);
+    }
+
+    /* Back arrow */
+    .back-arrow {
+      transition: transform 0.2s ease;
+    }
+    .back-arrow:hover { transform: translateX(-3px); }
+
+    /* Nav link hover */
+    .nav-link {
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.25s ease;
+    }
+    .nav-link:hover { color: var(--gold); }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    /* Eyebrow */
+    .eyebrow {
+      letter-spacing: 0.35em;
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    /* Section bg */
+    .section-ivory { background-color: #f9f6f1; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- ===================== STICKY HEADER ===================== -->
+  <header
+    x-data="{ scrolled: false }"
+    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 10 })"
+    :class="scrolled ? 'header-scrolled' : ''"
+    class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md transition-shadow duration-300"
+  >
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16">
+
+      <!-- Back arrow + Logo -->
+      <div class="flex items-center gap-4">
+        <a href="/index.html" class="back-arrow text-stone-400 hover:text-stone-700 flex items-center gap-1" aria-label="Back to home">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </a>
+        <a href="/index.html">
+          <img src="/images/logo.png" alt="Saeed Furniture" class="h-10 w-auto object-contain" />
+        </a>
+      </div>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase font-medium text-stone-600">
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/faq.html" class="nav-active text-amber-600 font-semibold">FAQ</a>
+        <a href="/contact.html" class="nav-link">Contact</a>
+        <a href="/select.html" class="nav-link">Collections</a>
+      </nav>
+
+      <!-- Mobile menu -->
+      <div class="md:hidden" x-data="{ open: false }">
+        <button @click="open = !open" class="text-stone-600 focus:outline-none" aria-label="Toggle menu">
+          <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg x-show="open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <div
+          x-show="open"
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 -translate-y-2"
+          x-transition:enter-end="opacity-100 translate-y-0"
+          x-transition:leave="transition ease-in duration-150"
+          x-transition:leave-start="opacity-100 translate-y-0"
+          x-transition:leave-end="opacity-0 -translate-y-2"
+          class="absolute top-16 left-0 right-0 bg-white/98 backdrop-blur-md border-t border-stone-100 shadow-xl py-6 px-8 flex flex-col gap-5 text-xs tracking-widest uppercase font-medium text-stone-600"
+        >
+          <a href="/about.html" class="hover:text-amber-600 transition-colors">About</a>
+          <a href="/faq.html" class="text-amber-600 font-semibold">FAQ</a>
+          <a href="/contact.html" class="hover:text-amber-600 transition-colors">Contact</a>
+          <a href="/select.html" class="hover:text-amber-600 transition-colors">Collections</a>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero-bg relative" style="min-height: 40vh;">
+    <div class="hero-overlay absolute inset-0"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center text-center px-6" style="min-height: 40vh; padding-top: 80px;">
+      <p class="eyebrow mb-5 tracking-widest">How It Works</p>
+      <h1 class="font-serif text-4xl md:text-6xl font-light text-white mb-2 leading-tight">
+        Frequently Asked Questions
+      </h1>
+      <p class="font-arabic text-2xl md:text-3xl font-light text-stone-300 mb-6" dir="rtl">
+        الأسئلة الشائعة
+      </p>
+      <div class="gold-divider mb-6"></div>
+      <p class="text-stone-400 text-sm md:text-base font-light tracking-wide max-w-md">
+        Everything you need to know about our bespoke process
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ACCORDION ===================== -->
+  <section class="section-ivory py-20 px-4">
+    <div
+      class="max-w-3xl mx-auto"
+      x-data="{
+        active: null,
+        lang: 'en',
+        faqs: [
+          {
+            id: 1,
+            en: {
+              q: 'I see your sofas are made-to-order. What exactly happens after I place an order?',
+              a: 'Once your order is confirmed, our workshop team begins sourcing your selected fabric and frame materials. A dedicated craftsman is assigned to your piece. We cut and shape the solid-wood frame by hand, then wrap it in high-density foam before upholstering with your chosen fabric. Throughout the process you receive updates, and the finished piece is delivered and installed in your home — usually within 3–4 weeks.'
+            },
+            ar: {
+              q: 'أرى أن أرائككم تُصنع حسب الطلب. ما الذي يحدث بالضبط بعد تقديم الطلب؟',
+              a: 'بمجرد تأكيد طلبك، يبدأ فريق ورشتنا في تجهيز القماش والإطار المختار. يتم تعيين حرفي متخصص لقطعتك، حيث يتم قطع إطار الخشب الصلب وتشكيله يدويًا، ثم تغليفه بالإسفنج عالي الكثافة قبل التنجيد بالقماش الذي اخترته. ستتلقى تحديثات طوال العملية، وسيتم توصيل القطعة وتركيبها في منزلك — عادةً في غضون 3 إلى 4 أسابيع.'
+            }
+          },
+          {
+            id: 2,
+            en: {
+              q: 'I don\'t know my exact room measurements yet. Do you come measure it for me?',
+              a: 'Absolutely — and it\'s completely free. We offer a complimentary home visit service where one of our consultants comes to your space, takes precise measurements, and helps you visualise how different sofa sizes and configurations would look in your room. There\'s no pressure and no obligation. We want you to feel fully confident before any decisions are made.'
+            },
+            ar: {
+              q: 'لا أعرف مقاسات غرفتي بدقة بعد. هل تأتون لقياسها لي؟',
+              a: 'بالتأكيد — وهذه الخدمة مجانية تمامًا. نقدم خدمة زيارة منزلية مجانية حيث يأتي أحد مستشارينا إلى مكانك، ويأخذ القياسات الدقيقة، ويساعدك في تصور كيفية تناسب أحجام وتشكيلات الأريكة المختلفة في غرفتك. لا ضغط ولا التزام. نريدك أن تشعر بالثقة الكاملة قبل اتخاذ أي قرار.'
+            }
+          },
+          {
+            id: 3,
+            en: {
+              q: 'I\'m worried about choosing fabric online. Can I see and touch the materials first?',
+              a: 'We completely understand — fabric is something you need to experience in person. During your free home visit, our consultant brings a curated selection of fabric swatches right to your home. You can feel the texture, observe the colour in your room\'s lighting, and compare them against your existing décor. You\'ll never have to guess what your sofa will feel like.'
+            },
+            ar: {
+              q: 'أنا قلق من اختيار القماش عبر الإنترنت. هل يمكنني رؤية المواد ولمسها أولًا؟',
+              a: 'نتفهم ذلك تمامًا — القماش شيء تحتاج إلى تجربته شخصيًا. خلال زيارتنا المنزلية المجانية، يُحضر مستشارنا تشكيلة مختارة من عينات الأقمشة إلى منزلك مباشرة. يمكنك الإحساس بالملمس، ومشاهدة اللون في إضاءة غرفتك، ومقارنتها مع ديكورك الحالي. لن تضطر أبدًا إلى التخمين.'
+            }
+          },
+          {
+            id: 4,
+            en: {
+              q: 'When do I get to choose the colours?',
+              a: 'Colour selection happens in two ways — whichever suits you best. During your free home visit, you can browse our full swatch collection under your own lighting with our consultant guiding you. Alternatively, you\'re welcome to visit our showroom in Al Qurayyat at any time where the full range is on display. We never rush this step — the right colour makes all the difference.'
+            },
+            ar: {
+              q: 'متى يمكنني اختيار الألوان؟',
+              a: 'يتم اختيار الألوان بطريقتين — أيهما يناسبك. خلال الزيارة المنزلية المجانية، يمكنك تصفح مجموعتنا الكاملة من العينات تحت إضاءة غرفتك مع إرشاد مستشارنا. بدلًا من ذلك، يسعدنا استقبالك في صالة عرضنا في القريات في أي وقت حيث تعرض النطاق الكامل. لا نتسرع أبدًا في هذه الخطوة — اللون الصحيح يصنع الفارق كله.'
+            }
+          },
+          {
+            id: 5,
+            en: {
+              q: 'Will the sofa sink or lose its shape over time? What kind of materials do you use?',
+              a: 'Longevity is built into every piece. Our frames are constructed from kiln-dried solid hardwood — resistant to warping and built to last decades. The cushions use high-resilience, high-density foam that springs back fully and maintains its shape for years. The fabrics are chosen for durability as much as beauty. Every element is selected with the Saudi climate and lifestyle in mind.'
+            },
+            ar: {
+              q: 'هل ستنهار الأريكة أو تفقد شكلها مع مرور الوقت؟ ما أنواع المواد التي تستخدمونها؟',
+              a: 'المتانة مدمجة في كل قطعة. إطاراتنا مصنوعة من خشب صلب مجفف في الأفران — مقاوم للانحناء ومصمم ليدوم عقودًا. وسائد الجلوس تستخدم إسفنجًا عالي المرونة وعالي الكثافة يرتد بشكل كامل ويحافظ على شكله لسنوات. تُختار الأقمشة للمتانة بقدر ما تُختار للجمال. كل عنصر يُختار مع مراعاة المناخ وأسلوب الحياة السعودي.'
+            }
+          },
+          {
+            id: 6,
+            en: {
+              q: 'Who is actually building my sofa? Is it mass-produced or made by hand?',
+              a: 'Your sofa is handcrafted by artisans who have dedicated 20 or more years to their craft. Each piece passes through the hands of our frame-maker, foam specialist, and upholsterer — all working in our own workshop. Nothing is outsourced, nothing is factory-pressed. We believe the care embedded in handcraft is something you feel every time you sit down.'
+            },
+            ar: {
+              q: 'من يبني أريكتي فعليًا؟ هل تُصنَّع بشكل ضخم أم يدويًا؟',
+              a: 'أريكتك تُصنع يدويًا من قِبَل حرفيين أفنوا 20 عامًا أو أكثر في إتقان صنعتهم. كل قطعة تمر عبر أيدي صانع الإطار ومتخصص الإسفنج والمنجِّد — جميعهم يعملون في ورشتنا الخاصة. لا يوجد أي تعهيد خارجي، ولا شيء يُضغط في مصنع. نؤمن أن العناية المضمّنة في الحرفة اليدوية هي شيء تشعر به في كل مرة تجلس فيها.'
+            }
+          },
+          {
+            id: 7,
+            en: {
+              q: 'How long does delivery take?',
+              a: 'Typically 3–4 weeks from the moment your order is confirmed. Because each sofa is handcrafted specifically for you, the timeline reflects the genuine care and skill that goes into it. We\'ll keep you updated at every stage — from workshop start to quality inspection and delivery scheduling — so you\'re never left wondering.'
+            },
+            ar: {
+              q: 'كم يستغرق التوصيل؟',
+              a: 'عادةً من 3 إلى 4 أسابيع من لحظة تأكيد طلبك. نظرًا لأن كل أريكة تُصنع يدويًا خصيصًا لك، فإن الجدول الزمني يعكس الرعاية والمهارة الحقيقية التي تُبذل فيها. سنبقيك على اطلاع في كل مرحلة — من بدء العمل في الورشة إلى فحص الجودة وجدولة التوصيل — حتى لا تظل في حيرة.'
+            }
+          },
+          {
+            id: 8,
+            en: {
+              q: 'Do you deliver outside Al Qurayyat?',
+              a: 'Yes — we deliver across major cities throughout Saudi Arabia. Whether you\'re in Riyadh, Jeddah, Tabuk, or anywhere in Al Jawf region, we can arrange delivery to your door. Reach out to us via WhatsApp or phone to confirm your area and discuss logistics. Delivery fees for outside Al Qurayyat may apply depending on distance.'
+            },
+            ar: {
+              q: 'هل تُوصِّلون خارج القريات؟',
+              a: 'نعم — نُوصِّل إلى المدن الرئيسية في جميع أنحاء المملكة العربية السعودية. سواء كنت في الرياض أو جدة أو تبوك أو في أي مكان في منطقة الجوف، يمكننا ترتيب التوصيل إلى بابك. تواصل معنا عبر الواتساب أو الهاتف لتأكيد منطقتك ومناقشة الخدمات اللوجستية. قد تُطبَّق رسوم توصيل لخارج القريات حسب المسافة.'
+            }
+          },
+          {
+            id: 9,
+            en: {
+              q: 'Can I see the furniture before it\'s delivered?',
+              a: 'Absolutely. You\'re always welcome to visit our showroom in Al Qurayyat for a final preview once your piece is complete and before it leaves for delivery. Many of our clients find this a satisfying moment — seeing their custom sofa finished and in person for the first time. We can also send photos and video of the completed piece if an in-person visit isn\'t convenient.'
+            },
+            ar: {
+              q: 'هل يمكنني رؤية الأثاث قبل توصيله؟',
+              a: 'بالتأكيد. يسعدنا دائمًا استقبالك في صالة عرضنا في القريات للمعاينة النهائية بمجرد اكتمال قطعتك وقبل مغادرتها للتوصيل. يجد كثير من عملائنا هذه اللحظة مُرضية — رؤية أريكتهم المخصصة جاهزة لأول مرة شخصيًا. يمكننا أيضًا إرسال صور وفيديو للقطعة المكتملة إذا لم تكن الزيارة الشخصية مناسبة.'
+            }
+          },
+          {
+            id: 10,
+            en: {
+              q: 'What if I want a completely custom design not in your catalogue?',
+              a: 'That is exactly the kind of work we love most. WhatsApp us any reference images, sketches, or inspiration you have — whether from social media, magazines, or your own ideas. Our designers will study your references and work closely with you to bring your vision to life. Every Saeed piece can be adapted: proportions, leg style, arm shape, fabric, colour — nothing is off the table.'
+            },
+            ar: {
+              q: 'ماذا لو أردت تصميمًا مخصصًا تمامًا غير موجود في كتالوجكم؟',
+              a: 'هذا بالضبط نوع العمل الذي نحبه أكثر. أرسل لنا عبر واتساب أي صور مرجعية أو رسومات أو أفكار إلهام لديك — سواء من وسائل التواصل الاجتماعي أو المجلات أو أفكارك الخاصة. سيدرس مصمموناتخصصون مراجعك ويعملون معك عن كثب لتجسيد رؤيتك. كل قطعة من سعيد قابلة للتعديل: النسب، وأسلوب الأرجل، وشكل المساند، والقماش، واللون — لا شيء مستحيل.'
+            }
+          }
+        ]
+      }"
+    >
+
+      <!-- Language Toggle -->
+      <div class="flex justify-end mb-8 gap-2">
+        <button
+          @click="lang = 'en'"
+          :class="lang === 'en' ? 'bg-amber-600 text-white' : 'bg-stone-200 text-stone-600 hover:bg-stone-300'"
+          class="px-4 py-1.5 text-xs font-semibold tracking-widest uppercase rounded transition-colors duration-200"
+        >EN</button>
+        <button
+          @click="lang = 'ar'"
+          :class="lang === 'ar' ? 'bg-amber-600 text-white' : 'bg-stone-200 text-stone-600 hover:bg-stone-300'"
+          class="px-4 py-1.5 text-xs font-semibold tracking-widest uppercase rounded transition-colors duration-200 font-arabic"
+        >عربي</button>
+      </div>
+
+      <!-- Accordion items -->
+      <div class="space-y-3">
+        <template x-for="faq in faqs" :key="faq.id">
+          <div
+            class="faq-item bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
+            :class="active === faq.id ? 'faq-active' : ''"
+            @click="active = (active === faq.id) ? null : faq.id"
+          >
+            <!-- Question row -->
+            <div class="flex items-start justify-between gap-4 px-6 py-5">
+              <div class="flex items-start gap-4 flex-1 min-w-0">
+                <!-- Number badge -->
+                <span
+                  class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold mt-0.5 transition-colors duration-300"
+                  :class="active === faq.id ? 'bg-amber-600 text-white' : 'bg-stone-100 text-stone-500'"
+                  x-text="faq.id < 10 ? '0' + faq.id : faq.id"
+                ></span>
+                <!-- Question text -->
+                <p
+                  class="font-medium text-stone-800 leading-snug flex-1"
+                  :class="lang === 'ar' ? 'font-arabic text-base text-right' : 'text-sm md:text-base'"
+                  :dir="lang === 'ar' ? 'rtl' : 'ltr'"
+                  x-text="lang === 'en' ? faq.en.q : faq.ar.q"
+                ></p>
+              </div>
+              <!-- Arrow icon -->
+              <svg
+                class="faq-arrow flex-shrink-0 w-5 h-5 text-stone-400 mt-0.5"
+                :class="active === faq.id ? 'rotated' : ''"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+
+            <!-- Answer -->
+            <div
+              class="faq-answer"
+              :class="active === faq.id ? 'open' : ''"
+            >
+              <div class="px-6 pb-6 pt-0">
+                <div class="border-t border-stone-100 pt-4 ml-11">
+                  <p
+                    class="text-stone-600 leading-relaxed"
+                    :class="lang === 'ar' ? 'font-arabic text-base text-right' : 'text-sm md:text-[15px]'"
+                    :dir="lang === 'ar' ? 'rtl' : 'ltr'"
+                    x-text="lang === 'en' ? faq.en.a : faq.ar.a"
+                  ></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== STILL HAVE QUESTIONS ===================== -->
+  <section style="background: #0c0c0d;" class="py-20 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="eyebrow mb-4">We're Here for You</p>
+      <h2 class="font-serif text-3xl md:text-4xl font-light text-white mb-3">
+        Still Have Questions?
+      </h2>
+      <p class="font-arabic text-xl text-stone-400 mb-6" dir="rtl">لديك المزيد من الأسئلة؟</p>
+      <div class="gold-divider mb-8"></div>
+      <p class="text-stone-400 text-sm leading-relaxed mb-10 max-w-lg mx-auto">
+        Our team is available every day to walk you through anything — from measuring your space to finalising your fabric choice. Reach us instantly on WhatsApp.
+      </p>
+      <a
+        href="https://wa.me/9288004450"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="wa-btn inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold text-sm tracking-wide shadow-lg shadow-green-900/30"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Chat on WhatsApp
+      </a>
+      <p class="mt-4 text-stone-600 text-xs tracking-wide">+966 9288004450 · Available 7 days a week</p>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer style="background: #040405; border-top: 1px solid #1a1a1b;" class="py-14 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
+
+        <!-- Logo & tagline -->
+        <div class="flex flex-col items-center md:items-start gap-4">
+          <img
+            src="/images/logo.png"
+            alt="Saeed Furniture"
+            class="h-12 w-auto object-contain"
+            style="filter: brightness(0) invert(1); opacity: 0.85;"
+          />
+          <p class="font-arabic text-stone-500 text-sm text-center md:text-left" dir="rtl">
+            سعيد للأثاث — حرفة تدوم
+          </p>
+          <p class="text-stone-600 text-xs italic font-serif">Craftsmanship That Endures</p>
+        </div>
+
+        <!-- Nav links -->
+        <div class="flex flex-col items-center md:items-start gap-3 text-xs tracking-widest uppercase text-stone-500">
+          <p class="text-stone-700 font-semibold mb-1 tracking-widest">Navigation</p>
+          <a href="/index.html" class="hover:text-gold transition-colors hover:text-amber-500">Home</a>
+          <a href="/about.html" class="hover:text-amber-500 transition-colors">About</a>
+          <a href="/select.html" class="hover:text-amber-500 transition-colors">Collections</a>
+          <a href="/faq.html" class="text-amber-600">FAQ</a>
+          <a href="/contact.html" class="hover:text-amber-500 transition-colors">Contact</a>
+        </div>
+
+        <!-- Address & contact -->
+        <div class="flex flex-col items-center md:items-end gap-3 text-center md:text-right">
+          <p class="text-stone-500 text-xs tracking-wider uppercase mb-1">Visit Us</p>
+          <address class="not-italic text-stone-400 text-sm leading-relaxed">
+            Saeed Furniture Showroom<br />
+            Al Qurayyat, Al Jawf<br />
+            Kingdom of Saudi Arabia
+          </address>
+          <p class="font-arabic text-stone-500 text-sm" dir="rtl">القريات، الجوف، المملكة العربية السعودية</p>
+          <a
+            href="https://wa.me/9288004450"
+            class="text-green-500 hover:text-green-400 transition-colors text-sm font-medium"
+          >
+            +966 9288004450
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="mt-12 pt-6 border-t border-stone-900 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p class="text-stone-700 text-xs tracking-wider">
+          &copy; <span x-data x-text="new Date().getFullYear()"></span> Saeed Furniture. All rights reserved.
+        </p>
+        <p class="font-arabic text-stone-700 text-xs" dir="rtl">
+          جميع الحقوق محفوظة &copy; سعيد للأثاث
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
