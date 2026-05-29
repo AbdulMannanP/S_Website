@@ -1,243 +1,108 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:,">
-  <title>سعيد للأثاث | Saeed Furniture — مجالس فاخرة</title>
-  <meta name="description" content="مجالس فاخرة مصنوعة في المملكة العربية السعودية. تصاميم عصرية وتراثية. زيارة منزلية مجانية.">
-  <meta property="og:title"       content="سعيد للأثاث | Luxury Majlis KSA">
-  <meta property="og:description" content="أثاث مخصص بتصاميم تناسب قلب منزلك.">
-  <meta property="og:type"        content="website">
+  <title>Saeed Furniture | Kitchen — Master Your Space</title>
+  <meta name="description" content="Bespoke luxury kitchen cabinetry and fittings. Master your kitchen space with Saeed Furniture — crafted in Saudi Arabia.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
-  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="js/auth.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/dist/output.css">
   <style>
-    /* Carousel snap behavior */
-    .hide-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .hide-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    .gold-lines-bg {
-      background-image: 
-        linear-gradient(45deg, transparent 48%, #c9a96e 49%, #c9a96e 51%, transparent 52%),
-        linear-gradient(-45deg, transparent 48%, #c9a96e 49%, #c9a96e 51%, transparent 52%);
-      background-size: 200px 200px;
-      opacity: 0.05;
-    }
-    .gold-strip {
-      position: absolute;
-      background: linear-gradient(to bottom, transparent, #c9a96e, transparent);
-      width: 1px;
-      height: 100%;
-      opacity: 0.1;
-      pointer-events: none;
-    }
-
-    /* Phase 2 Enhancements */
-    @keyframes sweep-shimmer {
-      0% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
-      50% { opacity: 0.3; }
-      100% { transform: translateX(200%) skewX(-15deg); opacity: 0; }
-    }
-    .animate-sweep::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; width: 50%; height: 100%;
-      background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
-      animation: sweep-shimmer 2s ease-out forwards;
-      pointer-events: none;
-    }
-
-    @keyframes draw-line {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    .animate-draw-line {
-      animation: draw-line 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-
-    .arabesque-bg {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23c9a96e" d="M50 0C50 25 75 50 100 50C75 50 50 75 50 100C50 75 25 50 0 50C25 50 50 25 50 0Z" opacity="0.03"/></svg>');
-      background-size: 100px 100px;
-    }
-
-    .rtl-input-line {
-      position: relative;
-    }
-    .rtl-input-line::after {
-      content: ''; position: absolute; bottom: 0; right: 0; height: 2px; width: 0;
-      background: #c9a96e; transition: width 0.4s ease;
-    }
-    .rtl-input-line:focus-within::after { width: 100%; }
-
-    @keyframes pulse-ring {
-      0% { transform: scale(1); opacity: 0.5; }
-      100% { transform: scale(1.5); opacity: 0; }
-    }
-    .animate-pulse-ring::before {
-      content: ''; position: absolute; inset: 0; border-radius: 50%;
-      border: 2px solid #25D366; animation: pulse-ring 2s infinite cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    @keyframes draw-check {
-      to { stroke-dashoffset: 0; }
-    }
-    .animate-draw-check {
-      stroke-dasharray: 50; stroke-dashoffset: 50;
-      animation: draw-check 1s ease-out forwards;
-      animation-delay: 0.3s;
-    }
+    body { font-family: 'Inter', sans-serif; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    .animate-fade-in-up {
-      animation: fadeInUp 0.8s ease-out forwards;
-      opacity: 0;
-    }
-    /* Subtle noise texture overlay */
+    .fade-in-up { animation: fadeInUp 0.9s cubic-bezier(0.22,1,0.36,1) both; }
+    .delay-100  { animation-delay: 0.1s; }
+    .delay-200  { animation-delay: 0.2s; }
+    .delay-300  { animation-delay: 0.3s; }
   </style>
-  <script defer src="/js/app.js"></script>
-  <script defer src="https://unpkg.com/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-  <!-- GSAP & Lenis Setup -->
-  
-  
-  
-  
-  <style>
-    /* Custom Cursor Styles */
-    .custom-cursor {
-      position: fixed;
-      top: 0; left: 0;
-      width: 10px; height: 10px;
-      background: #c9a96e;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-radius 0.3s ease, opacity 0.3s ease;
-      display: none;
-      opacity: 0;
-    }
-    @media (pointer: fine) {
-      .custom-cursor { display: block; }
-      /* Hide default cursor only when hovering bound elements */
-      .cursor-bound { cursor: none !important; }
-    }
-    .custom-cursor.active {
-      opacity: 1;
-      width: 60px; height: 60px;
-      background: rgba(201,169,110, 0.15);
-      border: 1px solid rgba(201,169,110, 0.6);
-      backdrop-filter: blur(2px);
-    }
-  </style>
 </head>
-<body :class="isNightMode ? 'bg-[#080809] text-white/90' : 'bg-ivory text-bronze'" class="font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-gold/30 transition-colors duration-1000"  x-init="init()" @scroll.window="scrolled = (window.pageYOffset  x-data="saeedApp()">
-    <header class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out border-b border-transparent"
-          :class="scrolled ? 'bg-[#080809]/80 backdrop-blur-xl shadow-2xl border-white/5' : 'bg-transparent border-transparent pt-4'">
-    <div class="h-10 flex items-center gap-4 transition-transform duration-500 hover:scale-105">
-      <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture" class="h-full object-contain drop-shadow-[0_0_15px_rgba(201,169,110,0.3)]" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
-      <span class="text-[0.95rem] font-bold text-white/90 tracking-wide drop-shadow-md"
-            style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة سعيد</span>
+<body class="m-0 p-0 overflow-x-hidden bg-stone-950 font-sans" x-data="{ lang: 'en' }">
+
+  <!-- ── Global Header ─────────────────────────────── -->
+  <header class="absolute top-0 inset-x-0 z-50 flex justify-between items-center p-8 text-white pointer-events-none">
+    <div class="font-bold text-2xl tracking-widest text-amber-500 pointer-events-auto drop-shadow-md flex items-center gap-3">
+      <svg class="w-8 h-8 fill-amber-500" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 4.5l7 14h-14l7-14z"/></svg>
+      SAEED FURNITURE
     </div>
-    
-    <nav class="hidden md:flex items-center space-x-8 text-[0.8rem] font-bold text-white/60 uppercase tracking-[0.15em] min-h-[44px]">
-      <a href="#about" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] hover:shadow-[0_0_10px_rgba(201,169,110,0.5)]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
-      <a href="#faq" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></a>
-      <a href="#" @click.prevent="scrollToFooter()" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'تواصل معنا' : 'Contact'"></a>
-      <button @click="handleOrderClick()" 
-              class="relative hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.15em] text-[0.8rem] text-[#c9a96e] overflow-hidden group" 
-              x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
-      </button>
+    <nav class="hidden md:flex gap-8 text-sm tracking-widest pointer-events-auto drop-shadow-md font-medium">
+      <a href="#" class="hover:text-amber-400 transition-colors duration-500">ABOUT</a>
+      <a href="#" class="hover:text-amber-400 transition-colors duration-500">FAQ</a>
+      <a href="#" class="hover:text-amber-400 transition-colors duration-500">CONTACT</a>
     </nav>
-    
-    <div class="flex items-center gap-5 flex-shrink-0" dir="ltr">
-      <button @click="toggleLang()" class="text-[0.7rem] font-extrabold text-white/60 hover:text-[#c9a96e] transition-colors uppercase tracking-widest px-3 py-1.5 border border-white/10 rounded-md backdrop-blur-sm bg-white/5 flex-shrink-0 hover:bg-white/10">
-        <span x-text="lang === 'ar' ? 'EN' : 'AR'"></span>
-      </button>
-      <!-- Mobile Hamburger -->
-      <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-[#c9a96e] transition-colors">
-        <svg x-show="!mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        <svg x-show="mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
   </header>
-    
-    <!-- Section A: Back Button -->
-    <a href="/" class="fixed top-24 left-6 z-50 px-4 py-2 bg-white/10 text-white backdrop-blur-md rounded-lg border border-white/20 hover:bg-white/30 transition-all font-cairo flex items-center gap-2">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Back to Master Room
-    </a>
 
-    <!-- Section B: 100vh Hero -->
-    <section class="relative w-full h-screen">
-        <img src="https://ik.imagekit.io/de7qvcvqv/images/Day%20room%20Hero?updatedAt=1779819466896" class="absolute inset-0 w-full h-full object-cover z-0" alt="Kitchen / مطبخ">
-        <div class="absolute inset-0 bg-black/40 z-10"></div>
-        
-        <div class="absolute bottom-12 inset-x-0 flex justify-center z-20">
-            <button class="px-8 py-4 bg-yellow-600 text-white font-bold rounded-lg shadow-lg hover:scale-105 transition-transform uppercase tracking-widest">
-                Explore Kitchen / مطبخ
-            </button>
-        </div>
-    </section>
+  <!-- ── Back Navigation (z-40) ───────────────────── -->
+  <a href="/index.html"
+     class="fixed top-24 left-8 z-40 inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold tracking-widest uppercase rounded-full hover:bg-white/25 hover:border-white/40 transition-all duration-500 ease-in-out shadow-lg">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Master Room
+  </a>
 
-    <!-- Section C: Under Construction -->
-    <section class="min-h-[50vh] flex flex-col items-center justify-center bg-neutral-100 text-slate-800 p-8 text-center">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="mb-6 opacity-70">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
-        <h2 class="text-3xl md:text-5xl font-extrabold mb-4 font-cairo">Digital Showroom Under Construction</h2>
-        <p class="text-xl md:text-2xl max-w-2xl opacity-80 font-cairo">Check back soon for the full Kitchen / مطبخ collection.</p>
-    </section>
+  <!-- ── 100vh Hero — No Image, Solid Color ────────── -->
+  <section class="relative h-screen w-full bg-slate-900 flex items-center justify-center flex-col text-center px-6 overflow-hidden">
 
-    <footer id="footer" class="bg-ivory py-12 md:py-24 px-5 transition-opacity duration-500 border-t border-ivory-darker" x-show="!loading && activeShowroom === 'gateway'" x-cloak>
-    <div class="max-w-[1000px] mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left" :class="lang === 'ar' ? 'md:text-right' : 'md:text-left'">
-      <div>
-        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain mx-auto md:mx-0 mb-6">
-        <p class="text-bronze/60 text-sm leading-relaxed mb-6" x-text="lang === 'ar' ? 'أثاث فاخر ومجالس مفصلة تعكس الفخامة الهادئة.' : 'Luxury made-to-order majlis reflecting quiet luxury.'"></p>
-      </div>
-      <div>
-        <h4 class="text-bronze font-bold uppercase tracking-widest mb-6" x-text="lang === 'ar' ? 'تواصل معنا' : 'Contact Us'"></h4>
-        <ul class="space-y-4 text-bronze/60 text-sm">
-          <li x-text="lang === 'ar' ? 'القريات، الجوف، المملكة العربية السعودية' : 'Al Qurayyat, Al Jawf, KSA'"></li>
-          <li dir="ltr">+966 5X XXX XXXX</li>
-          <li>info@saeedfurniture.com</li>
-        </ul>
-      </div>
-      <div class="flex flex-col items-center md:items-start">
-        <h4 class="text-bronze font-bold uppercase tracking-widest mb-6" x-text="lang === 'ar' ? 'شبكات التواصل' : 'Social'"></h4>
-        <div class="flex gap-6">
-          <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
-             class="w-12 h-12 rounded-full bg-[#25d366] text-white flex items-center justify-center transition-all duration-500 min-h-[44px] min-w-[44px]"
-             :class="{'scale-125 bg-gold shadow-[0_0_30px_rgba(201,169,110,0.6)]': highlightWhatsApp}"
-             title="WhatsApp">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          </a>
-          <a href="#"
-             class="w-12 h-12 rounded-full bg-[#1877f2] text-white flex items-center justify-center transition-transform hover:scale-110 min-h-[44px] min-w-[44px]"
-             title="Facebook">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          </a>
-        </div>
-      </div>
+    <!-- Decorative geometric lines -->
+    <div class="absolute inset-0 pointer-events-none opacity-10">
+      <div class="absolute top-1/4 left-0 right-0 h-px bg-amber-400"></div>
+      <div class="absolute bottom-1/4 left-0 right-0 h-px bg-amber-400"></div>
+      <div class="absolute top-0 bottom-0 left-1/4 w-px bg-amber-400"></div>
+      <div class="absolute top-0 bottom-0 right-1/4 w-px bg-amber-400"></div>
     </div>
-    <div class="mt-16 pt-8 border-t border-ivory-darker text-[0.7rem] text-bronze/40 font-bold uppercase tracking-[0.15em] relative pb-4">
-      <a href="/auth" class="absolute bottom-0 left-4 text-[0.5rem] opacity-30 hover:opacity-100 transition-opacity">Atelier Login</a>
-      <div class="text-center">&copy; 2026 Saeed Furniture. All Rights Reserved.</div>
+
+    <!-- Corner accents -->
+    <div class="absolute top-8 left-8 w-12 h-12 border-t-2 border-l-2 border-amber-500/40 pointer-events-none"></div>
+    <div class="absolute top-8 right-8 w-12 h-12 border-t-2 border-r-2 border-amber-500/40 pointer-events-none"></div>
+    <div class="absolute bottom-8 left-8 w-12 h-12 border-b-2 border-l-2 border-amber-500/40 pointer-events-none"></div>
+    <div class="absolute bottom-8 right-8 w-12 h-12 border-b-2 border-r-2 border-amber-500/40 pointer-events-none"></div>
+
+    <!-- Category tag -->
+    <p class="fade-in-up text-amber-500/70 text-xs tracking-[0.4em] uppercase font-medium mb-6">Saeed Furniture — Kitchen Collection</p>
+
+    <h1 class="fade-in-up delay-100 text-5xl md:text-7xl text-amber-500 mb-4 leading-tight">Master Your Space</h1>
+
+    <p class="fade-in-up delay-200 text-slate-300/60 text-sm tracking-widest uppercase mb-10 font-light">
+      تحكم في مساحتك
+    </p>
+
+    <!-- Divider -->
+    <div class="fade-in-up delay-200 w-16 h-px bg-amber-500/50 mb-10"></div>
+
+    <p class="fade-in-up delay-200 text-white/50 text-sm max-w-md leading-relaxed mb-10">
+      Precision-engineered kitchen cabinetry and bespoke fittings. Every detail considered, every surface crafted with purpose.
+    </p>
+
+    <button class="fade-in-up delay-300 group px-10 py-4 bg-amber-500 text-stone-950 font-bold text-sm tracking-[0.2em] uppercase rounded-none hover:bg-amber-400 transition-all duration-500 ease-in-out shadow-[0_0_40px_rgba(245,158,11,0.3)] hover:shadow-[0_0_60px_rgba(245,158,11,0.5)]">
+      Master Your Space | تحكم في مساحتك
+    </button>
+  </section>
+
+  <!-- ── Under Construction Canvas ─────────────────── -->
+  <section class="min-h-[50vh] bg-stone-50 flex flex-col items-center justify-center text-stone-600 tracking-wide px-8 text-center">
+    <div class="w-12 h-px bg-amber-400 mb-8"></div>
+    <svg class="w-10 h-10 text-stone-300 mb-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z"/>
+    </svg>
+    <h2 class="text-2xl md:text-3xl font-light text-stone-400 mb-4" style="font-family:'Cormorant Garamond',serif;">Digital Showroom Under Construction</h2>
+    <p class="text-stone-400 text-sm tracking-widest max-w-md">The full Kitchen digital catalogue is being curated. Check back soon.</p>
+    <div class="w-12 h-px bg-amber-400 mt-8"></div>
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────── -->
+  <footer class="bg-stone-950 py-12 px-8 text-center text-stone-500 text-xs tracking-widest uppercase border-t border-stone-800">
+    <div class="flex justify-center mb-6">
+      <svg class="w-6 h-6 fill-amber-500/50" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 4.5l7 14h-14l7-14z"/></svg>
     </div>
+    <p class="text-stone-400 font-medium mb-1">Saeed Furniture — Al Qurayyat, Al Jawf, KSA</p>
+    <p class="text-stone-600 mt-4">&copy; 2026 Saeed Furniture. All Rights Reserved.</p>
   </footer>
+
 </body>
 </html>
