@@ -26,6 +26,11 @@
       activeShowroom:    'gateway', // SPA route: gateway|majlis|kitchen|bedroom|cot|almirah
       mobileMenuOpen:    false,
       highlightWhatsApp: false,
+      sidebarOpen:       window.innerWidth >= 768,
+      bookingModalOpen:  false,
+      bottomSheetOpen:   false,
+      bookingName:       '',
+      bookingPhone:      '',
 
       /* ── Content CMS ──────────────────────────────────── */
       content: { brand:{}, hero:{}, usps:[], styles:{options:[]}, capacity:{options:[]}, contact:{}, success:{} },

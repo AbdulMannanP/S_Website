@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
+<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth" x-data="saeedApp()" x-init="showPortfolio = false; isSelectionMode = true; step = 'selection'; initSwiper(); activeShowroom = 'majlis';">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +29,7 @@
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
 </head>
-<body class="m-0 p-0 overflow-x-hidden bg-[#080809] text-white font-sans" x-data="saeedApp()" x-init="showPortfolio = false; isSelectionMode = true; step = 'selection'; initSwiper(); activeShowroom = 'majlis';">
+<body class="m-0 p-0 overflow-x-hidden bg-[#080809] text-white font-sans">
   <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
   <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
     <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
@@ -90,9 +90,9 @@
 <section id="order" class="min-h-screen bg-[#080809] text-white relative"  x-cloak>
 
         <!-- LOOKBOOK UI (Hard Reset — Strict Flex Layout) -->
-        <div  x-transition:enter="transition ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="fixed inset-0 w-screen h-screen z-[100] overflow-hidden bg-[#080809]" x-init="$watch('isSelectionMode', val => { if(val) setTimeout(() => initSwiper(), 100) })" x-data="{ sidebarOpen: window.innerWidth >= 768 }">
+        <div  x-transition:enter="transition ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="fixed inset-0 w-screen h-screen z-[100] overflow-hidden bg-[#080809]" x-init="$watch('isSelectionMode', val => { if(val) setTimeout(() => initSwiper(), 100) })">
           
-          <!-- â•â•â• LAYER 0: Full-Bleed Hero Background Image â•â•â• -->
+          <!-- â• â• â•  LAYER 0: Full-Bleed Hero Background Image â• â• â•  -->
           <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-br from-[#111114] to-[#0a0a0d] animate-pulse" x-show="!heroImageLoaded"></div>
             <div :style="`background-image: url('${selectedVariationUrl || (IMAGE_BASE_URL + 'images/hero.png')}')`"
