@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,22 +11,34 @@
   <meta property="og:type"        content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
+  <link rel="preconnect" href="https://ik.imagekit.io">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Noto+Kufi+Arabic:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script defer src="js/auth.js"></script>
   <link rel="stylesheet" href="/dist/output.css">
+
   <style>
-    /* Carousel snap behavior */
-    .hide-scrollbar::-webkit-scrollbar {
-      display: none;
+    /* ── Global Smooth Scroll ─────────────────────────── */
+    html { scroll-behavior: smooth; }
+
+    /* Language Toggle Fixed Position */
+    .fixed-lang-toggle {
+      position: fixed !important;
+      top: 1rem !important;
+      right: 1rem !important;
+      left: auto !important;
+      direction: ltr !important;
+      z-index: 200 !important;
     }
-    .hide-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+
+    /* ── Scrollbar Hide ───────────────────────────────── */
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* ── Gold Decorative Lines ────────────────────────── */
     .gold-lines-bg {
-      background-image: 
+      background-image:
         linear-gradient(45deg, transparent 48%, #c9a96e 49%, #c9a96e 51%, transparent 52%),
         linear-gradient(-45deg, transparent 48%, #c9a96e 49%, #c9a96e 51%, transparent 52%);
       background-size: 200px 200px;
@@ -35,49 +47,37 @@
     .gold-strip {
       position: absolute;
       background: linear-gradient(to bottom, transparent, #c9a96e, transparent);
-      width: 1px;
-      height: 100%;
-      opacity: 0.1;
-      pointer-events: none;
+      width: 1px; height: 100%; opacity: 0.1; pointer-events: none;
     }
 
-    /* Phase 2 Enhancements */
+    /* ── Phase 2 Animations ───────────────────────────── */
     @keyframes sweep-shimmer {
       0% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
       50% { opacity: 0.3; }
       100% { transform: translateX(200%) skewX(-15deg); opacity: 0; }
     }
     .animate-sweep::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; width: 50%; height: 100%;
+      content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%;
       background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
-      animation: sweep-shimmer 2s ease-out forwards;
-      pointer-events: none;
+      animation: sweep-shimmer 2s ease-out forwards; pointer-events: none;
     }
-
-    @keyframes draw-line {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    .animate-draw-line {
-      animation: draw-line 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
+    @keyframes draw-line { from { width: 0; } to { width: 100%; } }
+    .animate-draw-line { animation: draw-line 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
     .arabesque-bg {
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23c9a96e" d="M50 0C50 25 75 50 100 50C75 50 50 75 50 100C50 75 25 50 0 50C25 50 50 25 50 0Z" opacity="0.03"/></svg>');
       background-size: 100px 100px;
     }
 
-    .rtl-input-line {
-      position: relative;
-    }
+    /* ── Form Inputs ──────────────────────────────────── */
+    .rtl-input-line { position: relative; }
     .rtl-input-line::after {
       content: ''; position: absolute; bottom: 0; right: 0; height: 2px; width: 0;
       background: #c9a96e; transition: width 0.4s ease;
     }
     .rtl-input-line:focus-within::after { width: 100%; }
 
+    /* ── WhatsApp Pulse ───────────────────────────────── */
     @keyframes pulse-ring {
       0% { transform: scale(1); opacity: 0.5; }
       100% { transform: scale(1.5); opacity: 0; }
@@ -87,79 +87,91 @@
       border: 2px solid #25D366; animation: pulse-ring 2s infinite cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    @keyframes draw-check {
-      to { stroke-dashoffset: 0; }
-    }
+    /* ── Micro-animations ─────────────────────────────── */
+    @keyframes draw-check { to { stroke-dashoffset: 0; } }
     .animate-draw-check {
       stroke-dasharray: 50; stroke-dashoffset: 50;
-      animation: draw-check 1s ease-out forwards;
-      animation-delay: 0.3s;
+      animation: draw-check 1s ease-out forwards; animation-delay: 0.3s;
     }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    .animate-fade-in-up {
-      animation: fadeInUp 0.8s ease-out forwards;
-      opacity: 0;
-    }
-    /* Subtle noise texture overlay */
-  </style>
-  <script defer src="/js/app.js"></script>
-  <script defer src="https://unpkg.com/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
-  <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
 
-  <!-- GSAP & Lenis Setup -->
-  
-  
-  
-  
-  <style>
-    /* Custom Cursor Styles */
+    /* ── Splash Screen ────────────────────────────────── */
+    @keyframes splashIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── USP Section: Editorial Typography ───────────── */
+    .usp-pillar { transition: opacity 0.4s ease; }
+    .usp-pillar:hover { opacity: 1 !important; }
+    .pillar-eyebrow {
+      font-size: 0.65rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: #b45309;
+      margin-bottom: 1rem; display: block;
+    }
+
+    /* ── About Section ────────────────────────────────── */
+    .about-card {
+      background: white;
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 40px rgba(0,0,0,0.04);
+    }
+
+    /* ── Custom Cursor ────────────────────────────────── */
     .custom-cursor {
-      position: fixed;
-      top: 0; left: 0;
+      position: fixed; top: 0; left: 0;
       width: 10px; height: 10px;
-      background: #c9a96e;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
+      background: #c9a96e; border-radius: 50%;
+      pointer-events: none; z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-radius 0.3s ease, opacity 0.3s ease;
-      display: none;
-      opacity: 0;
+      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease,
+                  border-radius 0.3s ease, opacity 0.3s ease;
+      display: none; opacity: 0;
     }
     @media (pointer: fine) {
       .custom-cursor { display: block; }
-      /* Hide default cursor only when hovering bound elements */
       .cursor-bound { cursor: none !important; }
     }
     .custom-cursor.active {
-      opacity: 1;
-      width: 60px; height: 60px;
+      opacity: 1; width: 60px; height: 60px;
       background: rgba(201,169,110, 0.15);
       border: 1px solid rgba(201,169,110, 0.6);
       backdrop-filter: blur(2px);
     }
   </style>
-</head>
-<body :class="isNightMode ? 'bg-[#080809] text-white/90' : 'bg-ivory text-bronze'" class="font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-gold/30 transition-colors duration-1000" x-data="saeedApp()" x-init="init()" @scroll.window="scrolled = (window.pageYOffset > 50)">
 
-  <!-- ── Progress Indicator ──────────────────────────────── -->
+  <script defer src="/js/app.js"></script>
+  <script defer src="https://unpkg.com/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <link rel="alternate" hreflang="en" href="/index.html" />
+  <link rel="alternate" hreflang="ar" href="/index.html" />
+  <link rel="alternate" hreflang="x-default" href="/index.html" /></head>
+<body
+  :class="isNightMode ? 'bg-[#080809] text-white/90' : 'bg-ivory text-bronze'"
+  class="font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-gold/30 transition-colors duration-1000"
+  x-data="saeedApp()"
+  x-init="init()"
+  @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+  <!-- ── Progress Indicator ──────────────────────────── -->
   <div class="fixed top-0 inset-x-0 h-[3px] bg-ivory-darker z-[200]" x-show="step !== 'success' && step !== 'hero'">
     <div class="h-full bg-gold transition-all duration-700 ease-out shadow-[0_0_10px_rgba(201,169,110,0.5)]" :style="'width:' + progress + '%'"></div>
   </div>
 
-  <!-- ── Splash Screen (Bilingual Brand) ─────────────────── -->
+  <!-- ── Splash Screen ───────────────────────────────── -->
   <div class="fixed inset-0 flex flex-col items-center justify-center z-[9999]"
        style="background: radial-gradient(ellipse at top, #131318 0%, #080809 55%, #04040a 100%);"
        x-show="loading" x-cloak
        x-transition:leave="transition ease-in-out duration-700"
        x-transition:leave-start="opacity-100"
        x-transition:leave-end="opacity-0">
-    <div class="flex flex-col items-center gap-6 animate-[fadeIn_0.8s_ease_forwards]" style="animation: splashIn 0.9s cubic-bezier(0.22,1,0.36,1) forwards;">
+    <div class="flex flex-col items-center gap-6" style="animation: splashIn 0.9s cubic-bezier(0.22,1,0.36,1) forwards;">
       <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture"
            class="h-16 object-contain"
            style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.15);">
@@ -173,37 +185,38 @@
         <span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e] animate-bounce" style="animation-delay: 360ms"></span>
       </div>
     </div>
-    <style>
-      @keyframes splashIn {
-        from { opacity: 0; transform: translateY(16px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-    </style>
   </div>
 
-  <!-- ── Header ──────────────────────────────────────────── -->
-  <header class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out border-b border-transparent"
-          :class="scrolled ? 'bg-[#080809]/80 backdrop-blur-xl shadow-2xl border-white/5' : 'bg-transparent border-transparent pt-4'">
-    <div class="h-10 flex items-center gap-4 transition-transform duration-500 hover:scale-105">
+  
+
+  <!-- ── Header ──────────────────────────────────────── -->
+  <header  class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out border-b border-transparent"
+          :class="scrolled ? 'bg-stone-950/80 backdrop-blur-md shadow-2xl border-white/5' : 'bg-transparent border-transparent'" >
+    <a href="/index.html" class="h-10 flex items-center gap-3 transition-transform duration-500 hover:scale-105">
       <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture" class="h-full object-contain drop-shadow-[0_0_15px_rgba(201,169,110,0.3)]" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
-      <span class="text-[0.95rem] font-bold text-white/90 tracking-wide drop-shadow-md"
-            style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة سعيد</span>
-    </div>
-    
-    <nav class="hidden md:flex items-center space-x-8 text-[0.8rem] font-bold text-white/60 uppercase tracking-[0.15em] min-h-[44px]">
-      <a href="#about" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] hover:shadow-[0_0_10px_rgba(201,169,110,0.5)]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
-      <a href="#faq" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></a>
-      <a href="#" @click.prevent="scrollToFooter()" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'تواصل معنا' : 'Contact'"></a>
-      <button @click="handleOrderClick()" 
-              class="relative hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.15em] text-[0.8rem] text-[#c9a96e] overflow-hidden group" 
+      <div class="flex flex-col">
+        <span class="text-white font-bold text-sm tracking-[0.15em] uppercase whitespace-nowrap" x-text="lang === 'ar' ? 'مفروشات سعيد' : 'Saeed Furniture'">Saeed Furniture</span>
+        <span class="text-amber-500/80 text-[0.55rem] tracking-[0.2em] uppercase whitespace-nowrap mt-0.5" x-text="lang === 'ar' ? 'فخامة تدوم' : 'Bespoke Mastery'">Bespoke Mastery</span>
+      </div>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px]">
+      <a href="#about" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
+      <a href="/select.html" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
+      <a href="#faq"   x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
+      <a href="/contact.html" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
+      <button @click="handleOrderClick()"
+              class="relative hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem] text-[#c9a96e] overflow-hidden group whitespace-nowrap"
               x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
       </button>
     </nav>
-    
-    <div class="flex items-center gap-5 flex-shrink-0" dir="ltr">
-      <button @click="toggleLang()" class="text-[0.7rem] font-extrabold text-white/60 hover:text-[#c9a96e] transition-colors uppercase tracking-widest px-3 py-1.5 border border-white/10 rounded-md backdrop-blur-sm bg-white/5 flex-shrink-0 hover:bg-white/10">
-        <span x-text="lang === 'ar' ? 'EN' : 'AR'"></span>
-      </button>
+
+    <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
+
+      <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 ml-2" dir="ltr">
+        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1 text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300">EN</button>
+        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1 text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo">عربي</button>
+      </div>
       <!-- Mobile Hamburger -->
       <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-[#c9a96e] transition-colors">
         <svg x-show="!mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -212,7 +225,6 @@
     </div>
   </header>
 
-  <!-- Mobile Navigation Drawer -->
   <div x-show="mobileMenuOpen" x-cloak
        x-transition:enter="transition ease-out duration-300"
        x-transition:enter-start="opacity-0"
@@ -222,131 +234,504 @@
        x-transition:leave-end="opacity-0"
        class="fixed inset-0 z-[90] bg-[#080809]/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 md:hidden">
     <a href="#about" @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
-    <a href="#faq" @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'"></a>
-    <a href="#" @click.prevent="scrollToFooter(); mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'تواصل معنا' : 'Contact'"></a>
+    <a href="/select.html" @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
+    <a href="#faq"   @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
+    <a href="/contact.html" @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
     <button @click="handleOrderClick(); mobileMenuOpen = false" class="text-2xl font-light text-gold hover:text-gold/80 transition-colors uppercase tracking-[0.3em]" x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')"></button>
     <div class="w-12 h-[1px] bg-gold/30 my-4"></div>
-    <button @click="isSelectionMode = true; step = 'selection'; mobileMenuOpen = false; window.scrollTo({top: 0})" class="px-6 py-3 md:px-10 md:py-4 bg-gold text-[#0a0a0d] rounded-full font-bold uppercase tracking-[0.2em] text-xs md:text-sm hover:shadow-[0_0_40px_rgba(201,169,110,0.5)] transition-all duration-300">
-      <span x-text="lang === 'ar' ? '' : ''"></span>
-    </button>
   </div>
 
-  <!-- ── Main Journey ────────────────────────────────────── -->
-  <main class="transition-all duration-500 pt-20" x-show="!loading" x-cloak x-data="{ hoverTarget: null }">
-    <!-- ══ IMMERSIVE CHRONOLOGICAL HUB ═══════════════════════════════════ -->
-    <section id="hero" class="relative overflow-hidden bg-stone-950 w-full h-[calc(100vh-5rem)]" aria-label="Saeed Furniture Immersive Showroom">
+  <!-- ══ HERO: Immersive Showroom Map ════════════════ -->
+  <section id="hero" x-data="{ hoverTarget: null }" style="height: 100vh; min-height: 65vh;" class="relative overflow-hidden bg-stone-950 w-full h-[65vh] md:h-screen" aria-label="Saeed Furniture Immersive Showroom">
 
-      <!-- LAYER 0: Images -->
-      <img src="https://ik.imagekit.io/de7qvcvqv/images/Day%20room%20Hero?updatedAt=1779819466896" class="absolute inset-0 w-full h-full object-cover z-0" alt="Day Room Hero">
+    <!-- Background Image -->
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/Day%20room%20Hero?updatedAt=1779819466896"
+         class="absolute inset-0 w-full h-full object-cover object-[35%_center] md:object-center z-0" 
+         alt="Saeed Furniture — bespoke Saudi handcrafted furniture showroom Al Qurayyat" loading="eager" fetchpriority="high">
 
-      <!-- LAYER 3: 5-Point SVG Mapping overlay -->
-      <svg class="absolute inset-0 w-full h-full z-20 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <!-- The Majlis (Lower Left) -->
+      <!-- Overlay gradient for text readability -->
+      <div class="absolute inset-0 z-5 bg-gradient-to-b from-black/30 via-transparent to-black/50"></div>
+
+      <!-- Subtle hero label -->
+      <div class="absolute top-28 inset-x-0 z-20 flex flex-col items-center gap-2 pointer-events-none">
+        <p class="text-[0.6rem] uppercase tracking-[0.4em] text-white/50 font-bold" x-text="lang === 'ar' ? 'استكشف معرضنا' : 'Explore Our Showroom'"></p>
+        <div class="w-8 h-px bg-white/30"></div>
+      </div>
+
+      <svg class="absolute inset-0 w-full h-full z-20 pointer-events-none hidden md:block" viewBox="0 0 100 100" preserveAspectRatio="none">
         <a href="/majlis.html"><polygon points="0,50 50,50 50,100 0,100" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'majlis'" @mouseleave="hoverTarget = null" /></a>
-        
-        <!-- Bespoke Kitchens (Center Back) -->
         <a href="/kitchen.html"><polygon points="40,25 65,25 65,45 40,45" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'kitchen'" @mouseleave="hoverTarget = null" /></a>
-        
-        <!-- Premium Cots (Right Center) -->
         <a href="/cot.html"><polygon points="65,55 75,55 75,70 65,70" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'cot'" @mouseleave="hoverTarget = null" /></a>
-        
-        <!-- Arabian Bedroom (Far Right Mid) -->
         <a href="/bedroom.html"><polygon points="75,50 100,50 100,80 75,80" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'bedroom'" @mouseleave="hoverTarget = null" /></a>
-        
-        <!-- Storage & Almirahs (Far Right Back) -->
-        <a href="/almirah.html"><polygon points="80,20 95,20 95,50 80,50" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'almirah'" @mouseleave="hoverTarget = null" /></a>
+        <a href="/almirah.html"><polygon points="62,18 74,18 74,50 62,50" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'almirah'" @mouseleave="hoverTarget = null" /></a>
       </svg>
 
-      <!-- LAYER 4: Visual Pulse Markers & Hover Labels -->
-      <div class="absolute inset-0 z-[25] pointer-events-none">
-        
+      <!-- Pulse Markers & Hover Labels -->
+      <div class="absolute inset-0 z-[25] pointer-events-none hidden md:block">
         <!-- Majlis -->
         <div class="absolute" style="left: 25%; top: 75%; transform: translate(-50%, -50%);">
-            <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
-            <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-opacity duration-300 pointer-events-none"
-                 :class="hoverTarget === 'majlis' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
-                Majlis / مجلس
-            </div>
+          <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
+          <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-all duration-300 pointer-events-none text-sm"
+               :class="hoverTarget === 'majlis' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
+            <span x-text="lang === 'ar' ? 'مجلس' : 'Majlis'"></span>
+          </div>
         </div>
-
         <!-- Kitchen -->
         <div class="absolute" style="left: 52.5%; top: 35%; transform: translate(-50%, -50%);">
-            <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
-            <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-opacity duration-300 pointer-events-none"
-                 :class="hoverTarget === 'kitchen' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
-                Kitchen / مطبخ
-            </div>
+          <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
+          <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-all duration-300 pointer-events-none text-sm"
+               :class="hoverTarget === 'kitchen' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
+            <span x-text="lang === 'ar' ? 'مطبخ' : 'Kitchen'"></span>
+          </div>
         </div>
-
         <!-- Cot -->
         <div class="absolute" style="left: 70%; top: 62.5%; transform: translate(-50%, -50%);">
-            <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
-            <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-opacity duration-300 pointer-events-none"
-                 :class="hoverTarget === 'cot' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
-                Cot / سرير أطفال
-            </div>
+          <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
+          <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-all duration-300 pointer-events-none text-sm"
+               :class="hoverTarget === 'cot' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
+            <span x-text="lang === 'ar' ? 'سرير أطفال' : 'Cot'"></span>
+          </div>
         </div>
-
         <!-- Bedroom -->
         <div class="absolute" style="left: 87.5%; top: 65%; transform: translate(-50%, -50%);">
-            <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
-            <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-opacity duration-300 pointer-events-none"
-                 :class="hoverTarget === 'bedroom' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
-                Bedroom / غرفة نوم
-            </div>
+          <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
+          <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-all duration-300 pointer-events-none text-sm"
+               :class="hoverTarget === 'bedroom' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
+            <span x-text="lang === 'ar' ? 'غرفة نوم' : 'Bedroom'"></span>
+          </div>
         </div>
-
         <!-- Almirah -->
-        <div class="absolute" style="left: 87.5%; top: 35%; transform: translate(-50%, -50%);">
-            <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
-            <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-opacity duration-300 pointer-events-none"
-                 :class="hoverTarget === 'almirah' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
-                Almirah / خزانة
-            </div>
+        <div class="absolute" style="left: 68%; top: 32%; transform: translate(-50%, -50%);">
+          <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
+          <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-all duration-300 pointer-events-none text-sm"
+               :class="hoverTarget === 'almirah' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
+            <span x-text="lang === 'ar' ? 'خزانة' : 'Almirah'"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Quick Links Grid (visible only on mobile) -->
+      <div class="absolute inset-x-6 bottom-24 z-30 md:hidden grid grid-cols-2 gap-3" style="pointer-events: auto;">
+        <a href="/majlis.html" class="flex items-center justify-between px-4 py-3 bg-stone-950/80 backdrop-blur-md border border-white/10 rounded-xl text-xs font-bold uppercase tracking-wider text-white">
+          <span x-text="lang === 'ar' ? 'المجلس' : 'Majlis'"></span>
+          <svg class="w-4 h-4 text-amber-500 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="/kitchen.html" class="flex items-center justify-between px-4 py-3 bg-stone-950/80 backdrop-blur-md border border-white/10 rounded-xl text-xs font-bold uppercase tracking-wider text-white">
+          <span x-text="lang === 'ar' ? 'المطبخ' : 'Kitchen'"></span>
+          <svg class="w-4 h-4 text-amber-500 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="/bedroom.html" class="flex items-center justify-between px-4 py-3 bg-stone-950/80 backdrop-blur-md border border-white/10 rounded-xl text-xs font-bold uppercase tracking-wider text-white">
+          <span x-text="lang === 'ar' ? 'غرفة النوم' : 'Bedroom'"></span>
+          <svg class="w-4 h-4 text-amber-500 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="/almirah.html" class="flex items-center justify-between px-4 py-3 bg-stone-950/80 backdrop-blur-md border border-white/10 rounded-xl text-xs font-bold uppercase tracking-wider text-white">
+          <span x-text="lang === 'ar' ? 'الخزائن' : 'Almirah'"></span>
+          <svg class="w-4 h-4 text-amber-500 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="/cot.html" class="col-span-2 flex items-center justify-between px-4 py-3 bg-stone-950/80 backdrop-blur-md border border-white/10 rounded-xl text-xs font-bold uppercase tracking-wider text-white">
+          <span x-text="lang === 'ar' ? 'سرير أطفال' : 'Cot'"></span>
+          <svg class="w-4 h-4 text-amber-500 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="absolute bottom-8 inset-x-0 flex justify-center z-30 pointer-events-none">
+        <div class="flex flex-col items-center gap-2 animate-bounce">
+          <p class="text-[0.55rem] uppercase tracking-[0.35em] text-white/40 font-bold" x-text="lang === 'ar' ? 'مرر للأسفل' : 'Scroll'"></p>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
+      </div>
+  </section>
+  <!-- END HERO -->
+
+  <!-- ── Main ─────────────────────────────────── -->
+  <main class="transition-all duration-500" x-show="!loading" x-cloak>
+
+    <!-- ══ USP SECTION: Editorial Typography ═══════════ -->
+    <section id="usp" class="py-32 bg-stone-50 text-stone-900 relative overflow-hidden">
+
+      <!-- Subtle arabesque background pattern -->
+      <div class="absolute inset-0 pointer-events-none" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22><path fill=%22%23b45309%22 d=%22M60 0C60 30 90 60 120 60C90 60 60 90 60 120C60 90 30 60 0 60C30 60 60 30 60 0Z%22 opacity=%220.018%22/></svg>'); background-size: 120px 120px; opacity: 0.6;"></div>
+
+      <div class="max-w-7xl mx-auto px-8 flex flex-col lg:flex-row gap-20 relative">
+
+        <!-- LEFT: Sticky Editorial Anchor Column -->
+        <div class="lg:w-1/3 lg:sticky lg:top-32 h-fit">
+          <!-- EN headline -->
+          <h2 x-show="lang !== 'ar'"
+              class="text-5xl lg:text-7xl font-light tracking-tight leading-none mb-6"
+              style="font-family: 'Playfair Display', serif;">
+            Quiet<br>Luxury,<br>
+            <em class="text-amber-700 not-italic" style="font-style: italic;">Redefined.</em>
+          </h2>
+          <!-- AR headline -->
+          <h2 x-show="lang === 'ar'"
+              class="text-5xl lg:text-7xl font-light tracking-tight leading-none mb-6"
+              style="font-family: 'Noto Kufi Arabic', sans-serif;">
+            فخامة هادئة،<br>
+            <span class="text-amber-700 italic">بمفهوم جديد.</span>
+          </h2>
+
+          <div class="w-12 h-px bg-amber-700/40 mb-6"></div>
+          <p class="text-stone-400 text-xs tracking-[0.25em] uppercase font-medium" x-text="lang === 'ar' ? 'شركة سعيد للأثاث — القريات' : 'Saeed Furniture — Al Qurayyat'"></p>
+
+          <!-- Decorative brand monogram -->
+          <div class="mt-12 select-none hidden lg:block">
+            <div class="text-[2.5rem] font-medium text-amber-700/20 leading-tight"
+                 style="font-family: 'Noto Kufi Arabic', sans-serif;"
+                 x-show="lang === 'ar'">شركة سعيد</div>
+            <div class="text-[2rem] font-light text-stone-200/20 leading-tight tracking-[0.2em] uppercase"
+                 style="font-family: 'Playfair Display', serif;"
+                 x-show="lang !== 'ar'">Saeed<br>Furniture</div>
+          </div>
         </div>
 
+        <!-- RIGHT: Scrolling Pillar Blocks -->
+        <div class="lg:w-2/3 flex flex-col gap-16">
+
+          <!-- Pillar 01 -->
+          <div class="usp-pillar group">
+            <span class="pillar-eyebrow" x-text="lang === 'ar' ? '٠١ / الإرث' : '01 / The Heritage'"></span>
+            <h3 class="text-3xl font-medium mb-4 leading-tight group-hover:text-amber-700 transition-colors duration-300"
+                x-text="lang === 'ar' ? 'دقة معمارية' : 'Architectural Precision'"></h3>
+            <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
+               x-show="lang !== 'ar'">
+              Every piece emerges from Al Qurayyat's master workshops — where Saudi craftsmen fuse centuries-old joinery traditions with contemporary form. Each grain is chosen, each joint hand-fitted. Furniture that speaks the language of the land.
+            </p>
+            <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
+               x-show="lang === 'ar'"
+               style="font-family: 'Noto Kufi Arabic', sans-serif;">
+              كل قطعة تولد من ورش القريات المتخصصة — حيث يمزج الحرفيون السعوديون تقاليد النجارة العريقة مع الشكل المعاصر. كل حبة خشب مختارة بعناية، وكل مفصل يُنجز باليد.
+            </p>
+          </div>
+
+          <hr class="border-stone-200">
+
+          <!-- Pillar 02 -->
+          <div class="usp-pillar group">
+            <span class="pillar-eyebrow" x-text="lang === 'ar' ? '٠٢ / العملية' : '02 / The Process'"></span>
+            <h3 class="text-3xl font-medium mb-4 leading-tight group-hover:text-amber-700 transition-colors duration-300"
+                x-text="lang === 'ar' ? 'مخصص حتى العظم' : 'Bespoke to the Bone'"></h3>
+            <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
+               x-show="lang !== 'ar'">
+              We don't sell from inventory. Every commission begins with a home visit — understanding your space, your light, your family. The result is furniture that could only ever belong to you. Nothing generic, nothing off-the-shelf.
+            </p>
+            <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
+               x-show="lang === 'ar'"
+               style="font-family: 'Noto Kufi Arabic', sans-serif;">
+              لا نبيع من المخزون. كل طلب يبدأ بزيارة منزلية — لفهم مساحتك، وإضاءتك، وعائلتك. النتيجة أثاث لا يمكن أن يكون لأحد سواك.
+            </p>
+          </div>
+
+          <hr class="border-stone-200">
+
+          <!-- Pillar 03 -->
+          <div class="usp-pillar group">
+            <span class="pillar-eyebrow" x-text="lang === 'ar' ? '٠٣ / الوعد' : '03 / The Promise'"></span>
+            <h3 class="text-3xl font-medium mb-4 leading-tight group-hover:text-amber-700 transition-colors duration-300"
+                x-text="lang === 'ar' ? 'روح سعودية، معيار عالمي' : 'Saudi Soul, Global Standard'"></h3>
+            <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
+               x-show="lang !== 'ar'">
+              Rooted in the Jawf region's cultural pride, finished to international material standards. We build what lasts — for the next generation of Saudi homes. Quiet luxury, handed down.
+            </p>
+            <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
+               x-show="lang === 'ar'"
+               style="font-family: 'Noto Kufi Arabic', sans-serif;">
+              متجذر في فخر منطقة الجوف الثقافي، ومُنجز وفق أعلى معايير المواد العالمية. نبني ما يدوم — للجيل القادم من البيوت السعودية.
+            </p>
+          </div>
+
+        </div>
       </div>
     </section>
-</main>
-<footer id="footer" class="bg-ivory py-12 md:py-24 px-5 transition-opacity duration-500 border-t border-ivory-darker" x-show="!loading" x-cloak>
-    <div class="max-w-[1000px] mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left" :class="lang === 'ar' ? 'md:text-right' : 'md:text-left'">
-      <div>
-        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture" class="h-8 md:h-10 w-auto object-contain mx-auto md:mx-0 mb-6">
-        <p class="text-bronze/60 text-sm leading-relaxed mb-6" x-text="lang === 'ar' ? 'أثاث فاخر ومجالس مفصلة تعكس الفخامة الهادئة.' : 'Luxury made-to-order majlis reflecting quiet luxury.'"></p>
+
+    <!-- ══ ABOUT SECTION ═══════════════════════════════ -->
+    <section id="about" class="py-24 bg-stone-100 relative overflow-hidden">
+
+      <!-- Faint decorative company name -->
+      <div class="absolute -right-8 top-1/2 -translate-y-1/2 select-none leading-none pointer-events-none hidden lg:block"
+           :class="lang === 'ar' ? '-right-auto -left-8' : ''"
+           x-show="lang !== 'ar'">
+        <div class="text-[9rem] font-light text-stone-200/30" style="font-family: 'Playfair Display', serif; writing-mode: vertical-lr; text-orientation: mixed;">Saeed</div>
       </div>
-      <div>
-        <h4 class="text-bronze font-bold uppercase tracking-widest mb-6" x-text="lang === 'ar' ? 'تواصل معنا' : 'Contact Us'"></h4>
-        <ul class="space-y-4 text-bronze/60 text-sm">
-          <li x-text="lang === 'ar' ? 'القريات، الجوف، المملكة العربية السعودية' : 'Al Qurayyat, Al Jawf, KSA'"></li>
-          <li dir="ltr">+966 5X XXX XXXX</li>
-          <li>info@saeedfurniture.com</li>
-        </ul>
+      <div class="absolute -right-4 top-1/2 -translate-y-1/2 select-none leading-none pointer-events-none hidden lg:block"
+           :class="lang === 'ar' ? '-right-auto -left-4' : ''"
+           x-show="lang === 'ar'">
+        <div class="text-[3.5rem] font-medium text-amber-700/10 leading-snug text-center" style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة<br>سعيد</div>
       </div>
-      <div class="flex flex-col items-center md:items-start">
-        <h4 class="text-bronze font-bold uppercase tracking-widest mb-6" x-text="lang === 'ar' ? 'شبكات التواصل' : 'Social'"></h4>
-        <div class="flex gap-6">
-          <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
-             class="w-12 h-12 rounded-full bg-[#25d366] text-white flex items-center justify-center transition-all duration-500 min-h-[44px] min-w-[44px]"
-             :class="{'scale-125 bg-gold shadow-[0_0_30px_rgba(201,169,110,0.6)]': highlightWhatsApp}"
-             title="WhatsApp">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          </a>
-          <a href="#"
-             class="w-12 h-12 rounded-full bg-[#1877f2] text-white flex items-center justify-center transition-transform hover:scale-110 min-h-[44px] min-w-[44px]"
-             title="Facebook">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          </a>
+
+      <div class="max-w-7xl mx-auto px-8 relative">
+
+        <!-- Section Label -->
+        <div class="flex items-center gap-4 mb-16">
+          <div class="w-8 h-px bg-amber-700"></div>
+          <span class="text-xs uppercase tracking-[0.35em] text-amber-700 font-bold" x-text="lang === 'ar' ? 'من نحن' : 'About Us'"></span>
+        </div>
+
+        <!-- Two-column layout -->
+        <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+          <!-- Left: Statement -->
+          <div>
+            <h2 class="text-4xl lg:text-5xl font-light leading-tight mb-8 text-stone-800"
+                x-show="lang !== 'ar'"
+                style="font-family: 'Playfair Display', serif;">
+              Crafting the<br><em class="text-amber-700">Heart</em> of<br>Saudi Homes.
+            </h2>
+            <h2 class="text-4xl lg:text-5xl font-light leading-tight mb-8 text-stone-800"
+                x-show="lang === 'ar'"
+                style="font-family: 'Noto Kufi Arabic', sans-serif;">
+              نصنع <span class="text-amber-700">قلب</span><br>البيوت السعودية.
+            </h2>
+
+            <!-- Stats row -->
+            <div class="grid grid-cols-3 gap-6 mb-10">
+              <div class="text-center">
+                <p class="text-3xl font-light text-amber-700 mb-1">15+</p>
+                <p class="text-xs uppercase tracking-widest text-stone-400" x-text="lang === 'ar' ? 'سنة خبرة' : 'Years Est.'"></p>
+              </div>
+              <div class="text-center border-x border-stone-300">
+                <p class="text-3xl font-light text-amber-700 mb-1">500+</p>
+                <p class="text-xs uppercase tracking-widest text-stone-400" x-text="lang === 'ar' ? 'مشروع منجز' : 'Projects'"></p>
+              </div>
+              <div class="text-center">
+                <p class="text-3xl font-light text-amber-700 mb-1">100%</p>
+                <p class="text-xs uppercase tracking-widest text-stone-400" x-text="lang === 'ar' ? 'صنع في السعودية' : 'Made in KSA'"></p>
+              </div>
+            </div>
+
+            <!-- CTA with Home Visit Modal -->
+            <div x-data="{ showVisitModal: false, visitName: '', visitEmail: '', visitTime: 'Morning', visitLocation: '' }">
+              <div class="flex flex-wrap gap-4">
+                <button @click="showVisitModal = true"
+                   class="inline-flex items-center gap-3 px-8 py-4 bg-stone-900 text-white text-sm font-bold uppercase tracking-[0.2em] hover:bg-amber-700 transition-all duration-500 group">
+                  <span x-text="lang === 'ar' ? 'احجز زيارة منزلية' : 'Book a Home Visit'"></span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+                <a href="/contact.html"
+                   class="inline-flex items-center gap-3 px-8 py-4 border border-stone-300 text-stone-800 text-sm font-bold uppercase tracking-[0.2em] hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-all duration-500 group">
+                  <span x-text="lang === 'ar' ? 'تعرف أكثر' : 'Know More'"></span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+
+              <!-- Luxury Home Visit Modal -->
+              <div x-show="showVisitModal" 
+                   x-transition:enter="transition ease-out duration-300"
+                   x-transition:enter-start="opacity-0"
+                   x-transition:enter-end="opacity-100"
+                   x-transition:leave="transition ease-in duration-200"
+                   x-transition:leave-start="opacity-100"
+                   x-transition:leave-end="opacity-0"
+                   class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+                   x-cloak
+                   @click.self="showVisitModal = false">
+                   
+                <div class="bg-stone-950 border border-[#c9a96e]/30 rounded-2xl w-full max-w-lg p-6 md:p-8 relative shadow-[0_24px_50px_rgba(0,0,0,0.8)] text-left" :dir="lang === 'ar' ? 'rtl' : 'ltr'">
+                  <!-- Close button -->
+                  <button @click="showVisitModal = false" class="absolute top-5 right-5 text-white/40 hover:text-white text-2xl transition-colors">&times;</button>
+                  
+                  <!-- Modal Header -->
+                  <div class="mb-6">
+                    <h3 class="text-xl font-light text-white font-serif tracking-wide" x-text="lang === 'ar' ? 'طلب زيارة منزلية مجانية' : 'Book a Free Home Visit'"></h3>
+                    <p class="text-stone-400 text-xs mt-2" x-text="lang === 'ar' ? 'يرجى ملء البيانات التالية وسنوجهك مباشرة لتأكيد الموعد عبر واتساب' : 'Please enter your details. We will direct you to confirm on WhatsApp.'"></p>
+                  </div>
+                  
+                  <!-- Inputs -->
+                  <div class="space-y-5 text-stone-200">
+                    <div>
+                      <label class="block text-[0.65rem] font-bold text-white/40 uppercase tracking-widest mb-1.5" x-text="lang === 'ar' ? 'الاسم الكريم' : 'Your Name'"></label>
+                      <input type="text" x-model="visitName" class="w-full bg-transparent border-b border-white/10 pb-2 text-white text-sm outline-none focus:border-[#c9a96e] transition-colors" placeholder="Salmaan">
+                    </div>
+                    
+                    <div>
+                      <label class="block text-[0.65rem] font-bold text-white/40 uppercase tracking-widest mb-1.5" x-text="lang === 'ar' ? 'البريد الإلكتروني' : 'Email Address'"></label>
+                      <input type="email" x-model="visitEmail" class="w-full bg-transparent border-b border-white/10 pb-2 text-white text-sm outline-none focus:border-[#c9a96e] transition-colors" placeholder="name@domain.com">
+                    </div>
+
+                    <div>
+                      <label class="block text-[0.65rem] font-bold text-white/40 uppercase tracking-widest mb-2" x-text="lang === 'ar' ? 'الوقت المفضل للزيارة' : 'Preferred Time Slot'"></label>
+                      <div class="grid grid-cols-3 gap-2">
+                        <button @click="visitTime = 'Morning'" :class="visitTime === 'Morning' ? 'border-[#c9a96e] bg-[#c9a96e]/10 text-white' : 'border-white/10 text-stone-400'" class="border py-2 px-1 text-center text-[0.65rem] font-bold rounded-lg transition-all">
+                          <span x-text="lang === 'ar' ? 'صباحاً (9-12)' : 'Morning (9-12)'"></span>
+                        </button>
+                        <button @click="visitTime = 'Afternoon'" :class="visitTime === 'Afternoon' ? 'border-[#c9a96e] bg-[#c9a96e]/10 text-white' : 'border-white/10 text-stone-400'" class="border py-2 px-1 text-center text-[0.65rem] font-bold rounded-lg transition-all">
+                          <span x-text="lang === 'ar' ? 'ظهراً (12-4)' : 'Afternoon (12-4)'"></span>
+                        </button>
+                        <button @click="visitTime = 'Evening'" :class="visitTime === 'Evening' ? 'border-[#c9a96e] bg-[#c9a96e]/10 text-white' : 'border-white/10 text-stone-400'" class="border py-2 px-1 text-center text-[0.65rem] font-bold rounded-lg transition-all">
+                          <span x-text="lang === 'ar' ? 'مساءً (4-9)' : 'Evening (4-9)'"></span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="block text-[0.65rem] font-bold text-white/40 uppercase tracking-widest mb-1.5" x-text="lang === 'ar' ? 'المدينة / الحي' : 'City / Neighborhood'"></label>
+                      <input type="text" x-model="visitLocation" class="w-full bg-transparent border-b border-white/10 pb-2 text-white text-sm outline-none focus:border-[#c9a96e] transition-colors" :placeholder="lang === 'ar' ? 'مثال: القريات، حي الخالدية' : 'e.g. Al Qurayyat, Al Khaldiyah'">
+                    </div>
+                  </div>
+                  
+                  <!-- Submit -->
+                  <div class="mt-8">
+                    <a :href="'https://wa.me/9669288004450?text=' + encodeURIComponent(
+                      (lang === 'ar' 
+                        ? 'مرحباً مفروشات سعيد، أود حجز زيارة منزلية مجانية:\n' +
+                          '• الاسم: ' + (visitName || '[لم يتم إدخاله]') + '\n' +
+                          '• البريد: ' + (visitEmail || '[لم يتم إدخاله]') + '\n' +
+                          '• الوقت المفضل: ' + (visitTime === 'Morning' ? 'صباحاً (9:00 ص - 12:00 م)' : visitTime === 'Afternoon' ? 'ظهراً (12:00 م - 4:00 م)' : 'مساءً (4:00 م - 9:00 م)') + '\n' +
+                          '• الموقع: ' + (visitLocation || '[سأرسله بالخريطة]') + '\n' +
+                          '(ملاحظة: سأقوم بمشاركة موقعي المباشر في هذه الدردشة)'
+                        : 'Hello Saeed Furniture, I would like to book a free Home Visit:\n' +
+                          '• Name: ' + (visitName || '[Not provided]') + '\n' +
+                          '• Email: ' + (visitEmail || '[Not provided]') + '\n' +
+                          '• Preferred Time: ' + visitTime + '\n' +
+                          '• Location: ' + (visitLocation || '[Will share live location]') + '\n' +
+                          '(Note: I will also share my live location in this chat)')
+                    )"
+                    target="_blank"
+                    @click="showVisitModal = false"
+                    class="w-full text-center py-4 bg-[#25d366] text-white font-bold text-sm uppercase tracking-widest hover:bg-[#20bd5a] transition-all rounded-xl shadow-[0_4px_20px_rgba(37,211,102,0.3)] block">
+                      <span x-text="lang === 'ar' ? 'تأكيد وإرسال الموعد عبر واتساب' : 'Confirm & Open WhatsApp'"></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Brand Story Cards -->
+          <div class="space-y-6">
+            <div class="about-card p-8 border-l-2 border-amber-700" :class="lang === 'ar' ? 'border-l-0 border-r-2' : ''">
+              <h4 class="text-sm font-bold uppercase tracking-widest text-stone-800 mb-3" x-text="lang === 'ar' ? 'قصة البداية' : 'Our Story'"></h4>
+              <p class="text-stone-500 leading-relaxed" x-show="lang !== 'ar'">
+                Founded in Al Qurayyat, Saeed Furniture began as a single workshop with a commitment to quality that the region had never seen. Today, we are the benchmark for bespoke interiors across Tabuk and Al Jawf.
+              </p>
+              <p class="text-stone-500 leading-relaxed" x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;">
+                تأسست شركة سعيد للأثاث في القريات من ورشة صغيرة واحدة، بالتزام بالجودة لم تشهده المنطقة من قبل. اليوم، نحن المعيار في الأثاث المخصص عبر تبوك والجوف.
+              </p>
+            </div>
+
+            <div class="about-card p-8 border-l-2 border-stone-300" :class="lang === 'ar' ? 'border-l-0 border-r-2' : ''">
+              <h4 class="text-sm font-bold uppercase tracking-widest text-stone-800 mb-3" x-text="lang === 'ar' ? 'فلسفتنا' : 'Our Philosophy'"></h4>
+              <p class="text-stone-500 leading-relaxed" x-show="lang !== 'ar'">
+                Quiet luxury is not about excess — it's about intention. Every curve, every joinery, every fabric choice is deliberate. We believe a home's furniture should whisper its owner's story.
+              </p>
+              <p class="text-stone-500 leading-relaxed" x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;">
+                الفخامة الهادئة ليست في الإسراف — بل في الهدف. كل منحنى، كل وصل، كل اختيار قماش، هو قرار مدروس. نؤمن أن أثاث المنزل يجب أن يهمس بقصة صاحبه.
+              </p>
+            </div>
+
+            <div class="about-card p-8 border-l-2 border-stone-300" :class="lang === 'ar' ? 'border-l-0 border-r-2' : ''">
+              <h4 class="text-sm font-bold uppercase tracking-widest text-stone-800 mb-3" x-text="lang === 'ar' ? 'الموقع' : 'Location'"></h4>
+              <p class="text-stone-500 leading-relaxed flex items-start gap-3">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" class="flex-shrink-0 mt-0.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span x-text="lang === 'ar' ? 'القريات، منطقة الجوف، المملكة العربية السعودية' : 'Al Qurayyat, Al Jawf Region, Kingdom of Saudi Arabia'"></span>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
+
+  </main>
+
+  <!-- ── FAQ Section ─────────────────────────────────── -->
+  <section id="faq" class="pt-24 pb-12 bg-stone-900 relative overflow-hidden" x-show="!loading" x-cloak>
+    <!-- Subtle diagonal line background -->
+    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: repeating-linear-gradient(135deg, #c9a96e 0, #c9a96e 1px, transparent 0, transparent 50%); background-size: 40px 40px;"></div>
+
+    <div class="max-w-3xl mx-auto px-8 relative">
+
+      <!-- Section Label -->
+      <div class="flex items-center gap-4 mb-16">
+        <div class="w-8 h-px bg-amber-700/60"></div>
+        <span class="text-xs uppercase tracking-[0.35em] text-amber-700 font-bold" x-text="lang === 'ar' ? 'أسئلة شائعة' : 'Frequently Asked'"></span>
+      </div>
+
+      <h2 class="text-4xl lg:text-5xl font-light text-white mb-16 leading-tight"
+          x-show="lang !== 'ar'" style="font-family: 'Playfair Display', serif;">
+        Questions &amp; <em class="text-amber-700">Answers</em>
+      </h2>
+      <h2 class="text-4xl lg:text-5xl font-light text-white mb-16 leading-tight"
+          x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;">
+        أسئلة <span class="text-amber-700">شائعة</span>
+      </h2>
+
+      <!-- FAQ Accordion -->
+      <div class="space-y-0" x-data="{ openFaq: null }">
+
+        <template x-for="(item, i) in [
+          { q: 'How does the ordering process work?', qa: 'كيف تسير عملية الطلب؟', a: 'We begin with a free home visit to understand your space, needs, and design preferences. From there, our team proposes designs, you select materials, and we begin crafting — with delivery and installation handled end-to-end.', aa: 'نبدأ بزيارة منزلية مجانية لفهم مساحتك واحتياجاتك وتفضيلاتك التصميمية. ثم نقترح تصاميم وتختار الخامات، ونبدأ التصنيع مع توصيل وتركيب كاملين.' },
+          { q: 'What is the typical lead time?', qa: 'ما هو وقت التسليم المعتاد؟', a: 'Lead times vary by collection and complexity. On average, bespoke pieces take 6–12 weeks from design approval to delivery. We keep you updated throughout the process.', aa: 'تتفاوت مدد التسليم حسب المجموعة وتعقيدها. في المتوسط تستغرق القطع المخصصة 6–12 أسبوعاً من اعتماد التصميم حتى التسليم.' },
+          { q: 'Do you offer free consultations?', qa: 'هل تقدمون استشارات مجانية؟', a: 'Yes. Every project starts with a complimentary home consultation — no obligation, no pressure. One of our design specialists visits your home, takes measurements, and presents initial ideas.', aa: 'نعم. كل مشروع يبدأ باستشارة منزلية مجانية دون أي التزامات. يزور أحد متخصصي التصميم لدينا منزلك ويقيس المساحة ويقدم أفكاراً أولية.' },
+          { q: 'Can I customise dimensions and fabrics?', qa: 'هل يمكني تخصيص الأبعاد والأقمشة؟', a: 'Absolutely. Every piece we make is fully bespoke — dimensions, timber species, fabric, cushion fill, finish, and hardware are all chosen by you. Nothing is off-the-shelf.', aa: 'بالتأكيد. كل قطعة نصنعها مخصصة بالكامل — الأبعاد ونوع الخشب والقماش وحشو الوساد والتشطيب والتفاصيل — كلها تختارها أنت.' },
+          { q: 'Do you deliver and install?', qa: 'هل توفرون خدمة التوصيل والتركيب؟', a: 'Yes, we handle white-glove delivery and professional installation. Our team ensures every piece is placed and fixed to perfection before we leave your home.', aa: 'نعم، نتولى التوصيل والتركيب الاحترافي. يحرص فريقنا على أن تكون كل قطعة في مكانها الصحيح وثابتة بإتقان قبل مغادرتنا منزلك.' }
+        ]" :key="i">
+          <div class="border-b border-white/8">
+            <button class="w-full py-6 flex items-center justify-between text-left rtl:text-right group"
+                    @click="openFaq === i ? openFaq = null : openFaq = i">
+              <span class="text-base font-medium text-white/80 group-hover:text-white transition-colors pr-8 rtl:pl-8 rtl:pr-0"
+                    x-text="lang === 'ar' ? item.qa : item.q"></span>
+              <svg class="flex-shrink-0 w-5 h-5 text-amber-700 transition-transform duration-300"
+                   :class="openFaq === i ? 'rotate-45' : ''"
+                   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+            <div x-show="openFaq === i"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 -translate-y-2"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 -translate-y-2"
+                 class="pb-6">
+              <p class="text-stone-400 leading-relaxed" x-text="lang === 'ar' ? item.aa : item.a"></p>
+            </div>
+          </div>
+        </template>
+
+      </div>
+
+      <!-- Bottom CTA -->
+      <div class="mt-8 flex flex-col sm:flex-row items-center gap-4">
+        <p class="text-stone-500 text-sm" x-text="lang === 'ar' ? 'لديك سؤال آخر؟' : 'Have another question?'"></p>
+        <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
+           class="inline-flex items-center gap-3 px-6 py-3 bg-amber-700/10 border border-amber-700/30 text-amber-600 text-sm font-bold uppercase tracking-widest hover:bg-amber-700 hover:text-white hover:border-amber-700 transition-all duration-300 rounded-sm">
+          <span x-text="lang === 'ar' ? 'اسأل عبر واتساب' : 'Ask on WhatsApp'"></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
     </div>
-    <div class="mt-16 pt-8 border-t border-ivory-darker text-[0.7rem] text-bronze/40 font-bold uppercase tracking-[0.15em] relative pb-4">
-      <a href="/auth" class="absolute bottom-0 left-4 text-[0.5rem] opacity-30 hover:opacity-100 transition-opacity">Atelier Login</a>
-      <div class="text-center">&copy; 2026 Saeed Furniture. All Rights Reserved.</div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────────────── -->
+  <!-- ── Footer ───────────────────────────────────────── -->
+  <footer id="footer" class="bg-[#07070a] border-t border-[#c9a96e]/10 py-8 px-6 text-center" x-show="!loading" x-cloak>
+
+    <!-- Phone + Address -->
+    <p class="text-white/50 text-sm mb-1" dir="ltr">+966 92 880 04450 — Al Qurayyat, Al Jawf, KSA</p>
+    <p class="text-[#c9a96e]/60 text-xs mb-4" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، الجوف، المملكة العربية السعودية — شركة سعيد للأثاث</p>
+    <!-- Logo -->
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture"
+         class="h-8 w-auto mx-auto mb-4 object-contain opacity-60"
+         style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+    <!-- Nav Links -->
+    <nav class="flex flex-wrap justify-center gap-6 mb-4">
+      <a href="/" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'الرئيسية' : 'Home'"></a>
+      <a href="/select.html" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
+      <a href="/index.html#about" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
+      <a href="/index.html#faq" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
+      <a href="/contact.html" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
+    </nav>
+    <div class="w-16 h-px bg-[#c9a96e]/20 mx-auto mb-4"></div>
+    <div class="text-white/20 text-[0.65rem] uppercase tracking-[0.15em] font-bold relative">
+      <a href="/auth" class="absolute bottom-0 left-4 text-[0.5rem] opacity-20 hover:opacity-100 transition-opacity">Atelier Login</a>
+      &copy; 2026 Saeed Furniture. All Rights Reserved.
     </div>
   </footer>
 
-  
-  <!-- ── Floating WhatsApp Button ────────────────────────── -->
+  <!-- ── Floating WhatsApp ────────────────────────────── -->
   <div class="fixed bottom-8 end-6 z-40 animate-pulse-ring rounded-full">
     <a class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] relative z-10 transition-transform duration-300 hover:scale-110 active:scale-90"
        aria-label="Contact us on WhatsApp"
@@ -359,9 +744,9 @@
     </a>
   </div>
 
-  <!-- ── Auth Modal (Email/Password) ────────────────────── -->
+  <!-- ── Auth Modal ────────────────────────────────────── -->
   <div x-data="{ tab: 'signin', email: '', password: '', showPass: false, loading: false, error: '' }"
-       x-show="$store.saeedAuth && $store.saeedAuth.showAuthModal" 
+       x-show="$store.saeedAuth && $store.saeedAuth.showAuthModal"
        class="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-xl"
        x-transition:enter="transition ease-out duration-300"
        x-transition:enter-start="opacity-0 scale-95"
@@ -372,50 +757,30 @@
        style="display: none;">
     <div class="bg-[#0e0e10] border border-white/10 rounded-3xl p-8 max-w-[420px] w-full mx-4 shadow-[0_32px_80px_rgba(0,0,0,0.8)] relative" @click.stop>
       <button @click="$store.saeedAuth.showAuthModal = false; error = ''" class="absolute top-5 right-5 text-white/30 hover:text-white text-xl transition-colors">&times;</button>
-      
-      <!-- Logo + Brand Name -->
       <div class="text-center mb-8 pt-2">
         <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="lazy" alt="Saeed Furniture" class="h-10 mx-auto object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
         <p class="text-white text-lg font-bold mt-3" style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة سعيد</p>
         <p class="text-white/30 text-[0.65rem] mt-1 uppercase tracking-widest" x-text="lang === 'ar' ? 'اتيليه المجالس' : 'Bespoke Majlis Atelier'"></p>
       </div>
-
-      <!-- Tabs -->
       <div class="flex border border-white/10 rounded-2xl p-1 mb-8">
-        <button @click="tab = 'signin'; error = ''" 
-                :class="tab === 'signin' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'"
-                class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all"
-                x-text="lang === 'ar' ? 'تسجيل الدخول' : 'Sign In'"></button>
-        <button @click="tab = 'signup'; error = ''" 
-                :class="tab === 'signup' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'"
-                class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all"
-                x-text="lang === 'ar' ? 'إنشاء حساب' : 'Create Account'"></button>
+        <button @click="tab = 'signin'; error = ''" :class="tab === 'signin' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'" class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all" x-text="lang === 'ar' ? 'تسجيل الدخول' : 'Sign In'"></button>
+        <button @click="tab = 'signup'; error = ''" :class="tab === 'signup' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'" class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all" x-text="lang === 'ar' ? 'إنشاء حساب' : 'Create Account'"></button>
       </div>
-
-      <!-- Error -->
       <div x-show="error" x-transition class="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-xl px-4 py-3 mb-6 text-center" x-text="error"></div>
-
-      <!-- Fields -->
       <div class="space-y-6">
         <div>
           <label class="block text-[0.7rem] font-bold text-white/30 mb-3 uppercase tracking-widest" x-text="lang === 'ar' ? 'البريد الإلكتروني' : 'Email Address'"></label>
-          <input type="email" x-model="email" autocomplete="email"
-                 class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-base md:text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e]"
-                 :placeholder="lang === 'ar' ? 'example@email.com' : 'example@email.com'">
+          <input type="email" x-model="email" autocomplete="email" class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-base md:text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e]" placeholder="example@email.com">
         </div>
         <div class="relative">
           <label class="block text-[0.7rem] font-bold text-white/30 mb-3 uppercase tracking-widest" x-text="lang === 'ar' ? 'كلمة المرور' : 'Password'"></label>
-          <input :type="showPass ? 'text' : 'password'" x-model="password" autocomplete="current-password"
-                 class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-base md:text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e] pr-10"
-                 :placeholder="lang === 'ar' ? '••••••••' : '••••••••'">
+          <input :type="showPass ? 'text' : 'password'" x-model="password" autocomplete="current-password" class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-base md:text-sm outline-none transition-colors duration-300 focus:border-[#c9a96e] pr-10" placeholder="••••••••">
           <button type="button" @click="showPass = !showPass" aria-label="Toggle Password Visibility" class="absolute right-0 bottom-3 text-white/30 hover:text-white transition-colors">
             <svg x-show="!showPass" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             <svg x-show="showPass" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
           </button>
         </div>
       </div>
-
-      <!-- Action Button -->
       <button @click="async () => {
         if (!email || !password) { error = lang === 'ar' ? 'يرجى ملء جميع الحقول' : 'Please fill in all fields'; return; }
         loading = true; error = '';
@@ -423,53 +788,27 @@
           let result;
           if (tab === 'signin') {
             result = await $store.saeedAuth.signInWithPassword(email, password);
-            if (result.error) {
-              error = lang === 'ar' ? 'البريد أو كلمة المرور غير صحيحة' : 'Incorrect email or password. Please try again.';
-            } else {
-              $store.saeedAuth.showAuthModal = false;
-              email = ''; password = ''; error = '';
-              if ($store.saeedAuth.pendingAction) {
-                $store.saeedAuth.pendingAction();
-                $store.saeedAuth.pendingAction = null;
-              }
-            }
+            if (result.error) { error = lang === 'ar' ? 'البريد أو كلمة المرور غير صحيحة' : 'Incorrect email or password.'; }
+            else { $store.saeedAuth.showAuthModal = false; email = ''; password = ''; error = ''; if ($store.saeedAuth.pendingAction) { $store.saeedAuth.pendingAction(); $store.saeedAuth.pendingAction = null; } }
           } else {
             result = await $store.saeedAuth.signUp(email, password);
-            if (result.error) {
-              const msg = result.error.message || '';
-              if (msg.toLowerCase().includes('already registered') || msg.toLowerCase().includes('already exists') || msg.toLowerCase().includes('user already')) {
-                error = lang === 'ar' ? 'هذا البريد مسجّل مسبقاً. يرجى التبديل إلى تسجيل الدخول.' : 'This email is already registered. Please switch to Sign In.';
-              } else {
-                error = msg || (lang === 'ar' ? 'حدث خطأ أثناء إنشاء الحساب' : 'An error occurred during sign up.');
-              }
-            } else {
-              $store.saeedAuth.showAuthModal = false;
-              email = ''; password = ''; error = '';
-              if ($store.saeedAuth.pendingAction) {
-                $store.saeedAuth.pendingAction();
-                $store.saeedAuth.pendingAction = null;
-              }
-            }
+            if (result.error) { const msg = result.error.message || ''; if (msg.toLowerCase().includes('already')) { error = lang === 'ar' ? 'هذا البريد مسجّل مسبقاً.' : 'This email is already registered.'; } else { error = msg || (lang === 'ar' ? 'حدث خطأ' : 'An error occurred.'); } }
+            else { $store.saeedAuth.showAuthModal = false; email = ''; password = ''; error = ''; if ($store.saeedAuth.pendingAction) { $store.saeedAuth.pendingAction(); $store.saeedAuth.pendingAction = null; } }
           }
-        } catch(e) {
-          error = lang === 'ar' ? 'حدث خطأ غير متوقع' : 'An unexpected error occurred';
-        } finally { loading = false; }
-      }" 
+        } catch(e) { error = lang === 'ar' ? 'حدث خطأ غير متوقع' : 'An unexpected error occurred'; }
+        finally { loading = false; }
+      }"
       class="w-full mt-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3"
       :class="loading ? 'bg-white/10 text-white/40 cursor-not-allowed' : 'bg-[#c9a96e] text-black hover:bg-[#d4b87a]'"
       :disabled="loading">
         <svg x-show="loading" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
         <span x-text="loading ? (lang === 'ar' ? 'جاري...' : 'Please wait...') : (tab === 'signin' ? (lang === 'ar' ? 'دخول' : 'Sign In') : (lang === 'ar' ? 'إنشاء الحساب' : 'Create Account'))"></span>
       </button>
-
       <p class="text-center text-white/20 text-[0.65rem] mt-6 uppercase tracking-widest" x-text="lang === 'ar' ? 'بياناتك آمنة ومحمية' : 'Your data is secure & protected'"></p>
     </div>
   </div>
 
-  <!-- ── App Logic ─────────────────────────────────────────── -->
-  
-
-  <!-- Toast Notification (Luxury) -->
+  <!-- ── Toast Notification ───────────────────────────── -->
   <div x-show="toastVisible" x-cloak
        x-transition:enter="transition ease-out duration-500"
        x-transition:enter-start="opacity-0 translate-y-8"
@@ -482,34 +821,8 @@
     <span class="text-white/80 text-sm font-bold" x-text="toastMessage"></span>
   </div>
 
-  <!-- Custom Cursor DOM -->
+  <!-- ── Custom Cursor ─────────────────────────────────── -->
   <div id="customCursor" class="custom-cursor"></div>
 
-  <!-- GSAP, Lenis & Cursor Initialization -->
-  
-
-
-  <!-- ══════════════════════════════════════════════════════════════════ -->
-  <!-- GATEWAY NODE ARCHITECTURE — 5 Showroom Nodes                     -->
-  <!-- Phase 3: Injected by Gateway Node Architecture patch              -->
-  <!-- ══════════════════════════════════════════════════════════════════ -->
-
-  <!-- Under Construction Placeholder -->
-    <section class="bg-stone-50 text-stone-900 py-10 md:py-20 px-6 md:px-8 text-center">
-      <div class="max-w-xl mx-auto">
-        <div class="w-12 h-px bg-[#c9a96e] mx-auto mb-8"></div>
-        <p class="text-[0.65rem] uppercase tracking-[0.4em] text-[#c9a96e] font-bold mb-4"
-           x-text="lang === 'ar' ? 'معرض سعيد الرقمي' : 'Saeed Digital Showroom'"></p>
-        <h2 class="text-2xl md:text-3xl font-light text-stone-700 mb-4"
-            x-text="lang === 'ar' ? 'المعرض الرقمي قيد الإنشاء' : 'Digital Showroom Under Construction'"></h2>
-        <p class="text-stone-400 text-sm leading-relaxed"
-           x-text="lang === 'ar' ? 'نعمل على بناء تجربة رقمية استثنائية لعرض مجموعتنا الكاملة.' : 'We are crafting an exceptional digital experience to showcase our full collection.'"></p>
-        <div class="w-12 h-px bg-[#c9a96e] mx-auto mt-8"></div>
-      </div>
-    </section>
-  
-
-  
-  
 </body>
 </html>

@@ -24,7 +24,7 @@ document.addEventListener('alpine:init', () => {
             await this.handleSession(session);
           });
         } else {
-          console.error("Supabase config is missing from backend.");
+          // console.warn("Supabase config is missing");
         }
       } catch (err) {
         console.error("Failed to initialize auth:", err);

@@ -5,7 +5,7 @@
   const API = window.location.origin;
   let autoSaveController = null;
 
-  function saeedApp() {
+  window.saeedApp = function saeedApp() {
     return {
       /* ── UI State ─────────────────────────────────────── */
       lang:              'ar',
