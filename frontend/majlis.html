@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
+<html lang="ar" :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,7 +86,7 @@
     .gold-input {
       width:100%; background:transparent; border:none;
       border-bottom:1px solid rgba(201,169,110,0.2); padding-bottom:10px;
-      color:#f5f0e8; font-size:.9rem; outline:none;
+      color:#f5f0e8; font-size:1rem; outline:none;
       transition: border-color .3s; font-family:'Cairo',sans-serif;
     }
     .gold-input:focus { border-color:#c9a96e; }
@@ -206,9 +206,9 @@
     <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
       <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20" dir="ltr">
         <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
-                class="px-3 py-1 text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300">EN</button>
+                class="px-4 py-3 min-h-[44px] text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300">EN</button>
         <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
-                class="px-3 py-1 text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo">عربي</button>
+                class="px-4 py-3 min-h-[44px] text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo">عربي</button>
       </div>
       <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu"
               class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-amber-500 transition-colors">
@@ -245,6 +245,7 @@
     <!-- Hero image — first catalog item -->
     <img :src="IMAGE_BASE_URL + (selectedModel ? selectedModel.thumb : 'images/catalog/item_001.png')"
          fetchpriority="high"
+         width="1920" height="1080"
          class="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-700"
          alt="Majlis Collection">
     <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/20 to-slate-900/90 z-10"></div>
@@ -337,7 +338,7 @@
 
     <div class="modal-box" x-show="selectedModel">
       <!-- Carousel -->
-      <div class="carousel-track">
+      <div class="carousel-track" style="touch-action: pan-y;">
         <template x-if="selectedModel">
           <template x-for="(img,i) in selectedModel.gallery" :key="i">
             <img :src="IMAGE_BASE_URL + img" :alt="selectedModel.name" loading="lazy" class="carousel-img"
@@ -353,7 +354,7 @@
         <div class="absolute bottom-4 inset-x-0 flex justify-center gap-1.5 z-10">
           <template x-if="selectedModel">
             <template x-for="(img,i) in selectedModel.gallery" :key="i">
-              <button @click="carouselIndex=i" :class="carouselIndex===i?'bg-amber-500 w-5':'bg-white/40 w-2'" class="h-2 rounded-full transition-all duration-300"></button>
+              <button @click="carouselIndex=i" :class="carouselIndex===i?'bg-amber-500 w-5':'bg-white/40 w-2'" class="h-2 rounded-full transition-all duration-300 p-4 -m-4"></button>
             </template>
           </template>
         </div>
@@ -361,7 +362,7 @@
       <!-- Info Panel -->
       <div class="flex flex-col justify-between p-7" style="min-height:320px;">
         <div>
-          <button @click="closeModal()" class="absolute top-4 end-4 w-8 h-8 flex items-center justify-center text-white/40 hover:text-white transition-colors rounded-full hover:bg-white/10">
+          <button @click="closeModal()" class="absolute top-4 end-4 w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/40 hover:text-white transition-colors rounded-full hover:bg-white/10">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
           <p class="text-amber-600 text-[0.6rem] font-bold uppercase tracking-[0.35em] mb-1" x-text="selectedModel?.typeName"></p>
@@ -459,7 +460,7 @@
             </div>
             <div>
               <label class="gold-label" x-text="lang==='ar'?'الاسم الكريم':'Your Name'"></label>
-              <input type="text" x-model="form.name" class="gold-input" :placeholder="lang==='ar'?'مثال: سعيد محمد':'E.g. Salmaan'">
+              <input type="text" x-model="form.name" class="gold-input" name="full_name" autocomplete="name" :placeholder="lang==='ar'?'مثال: سعيد محمد':'E.g. Salmaan'">
             </div>
             <div>
               <label class="gold-label" x-text="lang==='ar'?'البريد الإلكتروني':'Email Address'"></label>
@@ -469,7 +470,7 @@
               <label class="gold-label" x-text="lang==='ar'?'رقم الجوال':'Phone Number'"></label>
               <div class="flex gap-3 items-end">
                 <span class="text-white/30 text-sm font-bold pb-2.5 border-b border-white/12 shrink-0" dir="ltr">+966</span>
-                <input type="tel" x-model="form.phone" class="gold-input" dir="ltr" placeholder="5X XXX XXXX" maxlength="10">
+                <input type="tel" x-model="form.phone" class="gold-input" dir="ltr" name="phone" autocomplete="tel" placeholder="5X XXX XXXX" maxlength="10">
               </div>
               <p x-show="phoneError" x-transition class="text-red-400 text-xs mt-2 font-bold" x-text="phoneError"></p>
             </div>

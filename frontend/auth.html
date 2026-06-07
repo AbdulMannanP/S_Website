@@ -55,6 +55,7 @@
       position: relative;
       z-index: 10;
       flex-shrink: 0;
+      overflow-y: auto;
     }
 
     /* Subtle gold vertical rule on the right edge */
@@ -195,7 +196,7 @@
       border-bottom: 1px solid rgba(229, 231, 235, 0.12);
       padding: 0.75rem 0;
       font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: #ffffff;
       outline: none;
       transition: border-color 0.35s ease;
@@ -276,6 +277,7 @@
       text-decoration: none;
       transition: color 0.3s ease;
       margin-bottom: 3rem;
+      min-height: 44px;
     }
 
     .auth-back:hover { color: rgba(229, 231, 235, 0.7); }
@@ -373,6 +375,7 @@
         <input
           id="auth-email"
           type="email"
+          name="email"
           x-model="email"
           required
           autocomplete="email"
@@ -388,6 +391,7 @@
         <input
           id="auth-password"
           type="password"
+          name="password"
           x-model="password"
           required
           autocomplete="current-password"
