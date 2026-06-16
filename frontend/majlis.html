@@ -243,7 +243,7 @@
   ══════════════════════════════════════════════════ -->
   <section class="relative w-full h-screen overflow-hidden">
     <!-- Hero image — first catalog item -->
-    <img :src="IMAGE_BASE_URL + (selectedModel ? selectedModel.thumb : 'images/catalog/item_001.png')"
+    <img :src="getImageUrl(selectedModel ? selectedModel.thumb : 'images/catalog/item_001.png')"
          fetchpriority="high"
          width="1920" height="1080"
          class="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-700"
@@ -292,19 +292,67 @@
       <p class="text-slate-500 text-base mb-16 max-w-xl"
          x-text="lang==='ar' ? 'سبعة تصاميم حصرية، كل واحد يحكي قصة مختلفة.' : 'Seven exclusive designs, each telling a different story. Click to explore and order.'"></p>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        <template x-for="model in models" :key="model.id">
-          <div class="model-card group" @click="openModal(model)">
-            <div class="overflow-hidden">
-              <img :src="IMAGE_BASE_URL + model.thumb" :alt="model.name" loading="lazy">
+      <div class="flex flex-col gap-16">
+        <template x-for="groupData in catalogGroups" :key="groupData.group">
+          <div class="group-section" x-data="{ activeIndex: 0, 
+            nextSlide() { this.activeIndex = (this.activeIndex + 1) % groupData.models.length; },
+            prevSlide() { this.activeIndex = (this.activeIndex - 1 + groupData.models.length) % groupData.models.length; }
+          }">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="h-px bg-amber-600/30 flex-1"></div>
+              <h3 class="text-2xl font-light text-slate-200" style="font-family:'Playfair Display',serif;" x-text="groupData.group"></h3>
+              <div class="h-px bg-amber-600/30 flex-1"></div>
             </div>
-            <div class="p-5">
-              <p class="text-amber-600 text-[0.6rem] font-bold uppercase tracking-[0.3em] mb-1" x-text="model.typeName"></p>
-              <h3 class="text-slate-200 font-medium text-base mb-2" x-text="model.name"></h3>
-              <p class="text-slate-500 text-xs leading-relaxed line-clamp-2" x-text="model.description"></p>
-              <div class="mt-4 flex items-center gap-1 text-amber-600 text-[0.7rem] font-bold uppercase tracking-widest">
-                <span x-text="lang==='ar' ? 'تفاصيل' : 'View Details'"></span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            
+            <div class="relative rounded-2xl overflow-hidden bg-slate-800/50 aspect-video md:aspect-[21/9] border border-white/5">
+              <!-- Carousel Images -->
+              <template x-for="(model, idx) in groupData.models" :key="model.id">
+                <div x-show="activeIndex === idx"
+                     x-transition:enter="transition-opacity duration-500 ease-out"
+                     x-transition:enter-start="opacity-0"
+                     x-transition:enter-end="opacity-100"
+                     x-transition:leave="transition-opacity duration-300 ease-in absolute inset-0"
+                     x-transition:leave-start="opacity-100"
+                     x-transition:leave-end="opacity-0"
+                     class="w-full h-full cursor-pointer"
+                     @click="openModal(model)">
+                  <img :src="getImageUrl(model.thumb)" :alt="model.name" loading="lazy" class="w-full h-full object-cover">
+                </div>
+              </template>
+
+              <!-- Controls (only show if multiple items) -->
+              <div x-show="groupData.models.length > 1">
+                <button @click="prevSlide()" class="absolute start-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-black/80 hover:scale-105 transition-all border border-white/10 shadow-lg">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rtl:rotate-180"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <button @click="nextSlide()" class="absolute end-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-black/80 hover:scale-105 transition-all border border-white/10 shadow-lg">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rtl:rotate-180"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+              </div>
+
+              <!-- Indicators -->
+              <div class="absolute bottom-4 inset-x-0 flex justify-center gap-2 z-10" x-show="groupData.models.length > 1">
+                <template x-for="(model, idx) in groupData.models" :key="model.id">
+                  <button @click="activeIndex = idx" :class="activeIndex === idx ? 'bg-amber-500 w-8' : 'bg-white/40 w-2 hover:bg-white/70'" class="h-2 rounded-full transition-all duration-300"></button>
+                </template>
+              </div>
+            </div>
+
+            <!-- Description & Info Below Carousel -->
+            <div class="mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 p-5 bg-white/5 rounded-2xl border border-white/5 hover:bg-white/10 transition-colors">
+              <div class="flex-1">
+                <template x-for="(model, idx) in groupData.models" :key="model.id">
+                  <div x-show="activeIndex === idx" x-transition.opacity.duration.300ms>
+                    <p class="text-amber-500 text-[0.65rem] font-bold uppercase tracking-[0.2em] mb-1.5" x-text="model.name"></p>
+                    <p class="text-slate-300 text-sm leading-relaxed" x-text="model.description"></p>
+                  </div>
+                </template>
+              </div>
+              <div class="shrink-0 flex items-center">
+                <button @click="openModal(groupData.models[activeIndex])" class="group flex items-center gap-3 px-6 py-3 bg-amber-600 hover:bg-amber-500 rounded-xl text-slate-900 text-sm font-bold uppercase tracking-widest transition-all shadow-[0_4px_20px_rgba(201,169,110,0.2)] hover:shadow-[0_4px_25px_rgba(201,169,110,0.4)]">
+                  <span x-text="lang==='ar' ? 'عرض التصميم' : 'View Design'"></span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="rtl:rotate-180 group-hover:translate-x-1 transition-transform"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
               </div>
             </div>
           </div>
@@ -341,7 +389,7 @@
       <div class="carousel-track" style="touch-action: pan-y;">
         <template x-if="selectedModel">
           <template x-for="(img,i) in selectedModel.gallery" :key="i">
-            <img :src="IMAGE_BASE_URL + img" :alt="selectedModel.name" loading="lazy" class="carousel-img"
+            <img :src="getImageUrl(img)" :alt="selectedModel.name" loading="lazy" class="carousel-img"
                  :style="carouselIndex===i?'opacity:1;z-index:1;':'opacity:0;z-index:0;'">
           </template>
         </template>
@@ -409,7 +457,7 @@
       <!-- ── Luxury cinematic header for the order form ── -->
       <div class="relative overflow-hidden" style="height: 22vh; min-height: 160px; max-height: 240px;">
         <!-- Background image, rich & warm -->
-        <img :src="IMAGE_BASE_URL + (selectedModel?.thumb || 'images/catalog/item_001.png')" loading="lazy"
+        <img :src="getImageUrl(selectedModel?.thumb || 'images/catalog/item_001.png')" loading="lazy"
              class="absolute inset-0 w-full h-full object-cover" style="object-position: center 40%;">
         <!-- Layered veil: left-to-dark gradient so text is always legible -->
         <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(6,6,10,0.96) 0%, rgba(6,6,10,0.75) 50%, rgba(6,6,10,0.30) 100%);"></div>
@@ -433,7 +481,7 @@
         <!-- Thumbnail floating to the right (desktop only) -->
         <div class="absolute end-8 top-1/2 -translate-y-1/2 hidden md:block pop-4">
           <div class="w-24 h-24 rounded-2xl overflow-hidden border-2 border-[#c9a96e]/30 shadow-[0_0_30px_rgba(201,169,110,0.2)] gold-pulse">
-            <img :src="IMAGE_BASE_URL + (selectedModel?.thumb || 'images/catalog/item_001.png')" loading="lazy" class="w-full h-full object-cover">
+            <img :src="getImageUrl(selectedModel?.thumb || 'images/catalog/item_001.png')" loading="lazy" class="w-full h-full object-cover">
           </div>
           <p class="text-center text-[#c9a96e]/50 text-[0.5rem] uppercase tracking-widest mt-2 font-bold" x-text="lang==='ar'?'طلب حسب المقاس':'Made to Order'"></p>
         </div>
@@ -442,7 +490,7 @@
         <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
           <!-- Product summary -->
           <div class="bg-white/4 border border-white/10 rounded-2xl p-6">
-            <img :src="IMAGE_BASE_URL + (selectedModel?.thumb || 'images/catalog/item_001.png')" loading="lazy" class="w-full aspect-video object-cover rounded-xl mb-5" :alt="selectedModel?.name">
+            <img :src="getImageUrl(selectedModel?.thumb || 'images/catalog/item_001.png')" loading="lazy" class="w-full aspect-video object-cover rounded-xl mb-5" :alt="selectedModel?.name">
             <p class="text-amber-600 text-[0.6rem] uppercase tracking-[0.3em] font-bold mb-1" x-text="selectedModel?.typeName"></p>
             <h3 class="text-xl text-white mb-3" style="font-family:'Playfair Display',serif;" x-text="selectedModel?.name"></h3>
             <p class="text-white/50 text-xs leading-relaxed" x-text="selectedModel?.description"></p>
@@ -544,7 +592,7 @@
 
     <!-- Full-bleed hero image — dark & moody, NOT blurred -->
     <div class="absolute inset-0 z-0">
-      <img :src="IMAGE_BASE_URL + (selectedModel ? selectedModel.thumb : 'images/catalog/item_001.png')"
+      <img :src="getImageUrl(selectedModel ? selectedModel.thumb : 'images/catalog/item_001.png')"
            class="w-full h-full object-cover" style="opacity:0.18; object-position: center 30%;">
       <!-- Radial dark vignette -->
       <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(6,6,10,0.4) 0%, rgba(6,6,10,0.97) 80%);"></div>
@@ -720,11 +768,6 @@
        FOOTER — identical to kitchen.html
   ══════════════════════════════════════════════════ -->
   <footer id="footer" class="bg-[#07070a] border-t border-[#c9a96e]/10 py-16 px-6 text-center">
-    <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
-       class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#25d366] text-white font-bold text-sm uppercase tracking-[0.15em] hover:bg-[#20bd5a] transition-all duration-300 shadow-[0_8px_30px_rgba(37,211,102,0.3)] mb-8">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      <span x-text="lang==='ar'?'تواصل عبر واتساب':'Chat on WhatsApp'"></span>
-    </a>
     <p class="text-white/50 text-sm mb-1" dir="ltr">+966 92 880 04450 — Al Qurayyat, Al Jawf, KSA</p>
     <p class="text-[#c9a96e]/60 text-xs mb-8" style="font-family:'Noto Kufi Arabic',sans-serif;">شركة سعيد للأثاث — القريات، الجوف، المملكة العربية السعودية</p>
     <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="lazy" alt="Saeed Furniture"
@@ -742,15 +785,6 @@
       &copy; 2026 Saeed Furniture. All Rights Reserved.
     </div>
   </footer>
-
-  <!-- Floating WhatsApp — positioned above footer, never clips into it -->
-  <div class="fixed bottom-10 end-6 z-40 animate-pulse-ring rounded-full" style="margin-bottom: env(safe-area-inset-bottom, 0px);">
-    <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
-       class="w-14 h-14 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] relative z-10 hover:scale-110 active:scale-95 transition-transform duration-200"
-       aria-label="WhatsApp">
-      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </a>
-  </div>
 
 </body>
 </html>

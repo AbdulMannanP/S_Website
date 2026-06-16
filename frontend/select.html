@@ -689,10 +689,10 @@
       <div class="flex items-center gap-4 mb-10">
         <span class="section-label">Browse All</span>
         <div style="flex:1; height:1px; background:linear-gradient(to right, rgba(201,169,110,0.3), transparent);"></div>
-        <span style="font-family:'Inter',sans-serif; font-size:0.7rem; color:rgba(201,169,110,0.4); letter-spacing:0.1em;">6 Collections</span>
+        <span style="font-family:'Inter',sans-serif; font-size:0.7rem; color:rgba(201,169,110,0.4); letter-spacing:0.1em;" x-text="lang === 'ar' ? '٤ مجموعات' : '4 Collections'">4 Collections</span>
       </div>
 
-      <div class="categories-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="categories-grid grid grid-cols-2 gap-4 md:gap-6">
 
         <!-- 1. Majlis — custom majlis seating Saudi Arabia -->
         <a href="/majlis.html" class="category-card card-animate" aria-label="Explore Majlis Collection — bespoke Saudi majlis seating">
@@ -760,29 +760,7 @@
           </div>
         </a>
 
-        <!-- 4. Cot -->
-        <a href="/cot.html" class="category-card card-animate" aria-label="Explore Cot Collection — handcrafted cots KSA">
-          <div class="category-card__topbar"></div>
-          <img
-            src="https://ik.imagekit.io/de7qvcvqv/images/heritage.png?tr=w-800,q-80"
-            alt="Cot Collection — hand-turned solid wood cots for Saudi nurseries"
-            class="category-card__img" loading="lazy"
-          />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Cot Collection</span>
-            <h2 class="category-card__name">Cot</h2>
-            <p class="category-card__arabic">السرير</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/></svg>
-            </div>
-          </div>
-        </a>
-
-        <!-- 5. Almirah — bespoke wardrobes KSA -->
+        <!-- 4. Almirah — bespoke wardrobes KSA -->
         <a href="/almirah.html" class="category-card card-animate" aria-label="Explore Almirah Collection — bespoke fitted wardrobes KSA">
           <div class="category-card__topbar"></div>
           <img
@@ -796,32 +774,6 @@
             <span class="category-card__eyebrow">Almirah Collection</span>
             <h2 class="category-card__name">Almirah</h2>
             <p class="category-card__arabic">الخزانة</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/></svg>
-            </div>
-          </div>
-        </a>
-
-        <!-- 6. Portfolio -->
-        <a href="/portfolio.html" class="category-card card-animate" aria-label="Explore Our Portfolio — completed projects">
-          <div class="category-card__topbar"></div>
-          <img
-            src="https://ik.imagekit.io/de7qvcvqv/images/authentic_majlis.png?tr=w-800,q-80"
-            alt="Saeed Furniture Portfolio — finished bespoke projects across Al Qurayyat and Al Jawf"
-            class="category-card__img" loading="lazy"
-          />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <!-- Portfolio badge -->
-          <div style="position:absolute; top:1.25rem; right:1.25rem; background:rgba(201,169,110,0.15); border:1px solid rgba(201,169,110,0.35); backdrop-filter:blur(8px); padding:0.2rem 0.65rem; border-radius:2px;">
-            <span style="font-family:'Inter',sans-serif; font-size:0.6rem; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold);">Our Work</span>
-          </div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Past Projects</span>
-            <h2 class="category-card__name">Portfolio</h2>
-            <p class="category-card__arabic">سابقة الأعمال</p>
             <div class="category-card__cta">
               <div class="category-card__cta-line"></div>
               <span>Explore</span>

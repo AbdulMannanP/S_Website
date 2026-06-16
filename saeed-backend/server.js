@@ -88,7 +88,7 @@ app.use(
 // ─── Serve Frontend Static Files ────────────────────────────────────────────
 // Serves index.html and all assets from ../frontend at http://localhost:3001
 const frontendPath = path.join(__dirname, "..", "frontend");
-app.use(express.static(frontendPath, { maxAge: '30d' }));
+app.use(express.static(frontendPath));
 
 // ─── Favicon (prevent 404 on browser auto-request) ─────────────────────────
 app.get("/favicon.ico", (req, res) => res.status(204).end());

@@ -301,12 +301,23 @@
             const headers = { 'Content-Type': 'application/json' };
             if (auth?.user?.email) headers['x-user-email'] = auth.user.email;
             
-            fetch(`${API}/api/lead`, {
-              method: 'POST',
-              headers: headers,
-              body: JSON.stringify(this.form),
-              keepalive: true
-            }).catch(() => {});
+            const sendFetch = (h) => {
+              fetch(`${API}/api/lead`, {
+                method: 'POST',
+                headers: h,
+                body: JSON.stringify(this.form),
+                keepalive: true
+              }).catch(() => {});
+            };
+
+            if (auth?.supabase) {
+              auth.supabase.auth.getSession().then(({ data }) => {
+                if (data?.session?.access_token) headers['Authorization'] = `Bearer ${data.session.access_token}`;
+                sendFetch(headers);
+              }).catch(() => sendFetch(headers));
+            } else {
+              sendFetch(headers);
+            }
           }
         });
       },
@@ -335,6 +346,10 @@
           const auth = Alpine.store('saeedAuth');
           const headers = { 'Content-Type': 'application/json' };
           if (auth?.user?.email) headers['x-user-email'] = auth.user.email;
+          if (auth?.supabase) {
+             const { data } = await auth.supabase.auth.getSession();
+             if (data?.session?.access_token) headers['Authorization'] = `Bearer ${data.session.access_token}`;
+          }
 
           await fetch(`${API}/api/lead`, {
             method: 'POST',

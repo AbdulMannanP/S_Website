@@ -65,6 +65,8 @@
     @keyframes draw-line { from { width: 0; } to { width: 100%; } }
     .animate-draw-line { animation: draw-line 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
+    @keyframes scrollRibbon { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
     .arabesque-bg {
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23c9a96e" d="M50 0C50 25 75 50 100 50C75 50 50 75 50 100C50 75 25 50 0 50C25 50 50 25 50 0Z" opacity="0.03"/></svg>');
       background-size: 100px 100px;
@@ -210,6 +212,10 @@
               class="relative hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem] text-[#c9a96e] overflow-hidden group whitespace-nowrap"
               x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
       </button>
+      <div class="hidden md:flex items-center gap-2 bg-white/5 border border-white/10 rounded-full p-1 backdrop-blur-sm relative z-50" dir="ltr">
+        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all">EN</button>
+        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all font-cairo" style="font-family:'Noto Kufi Arabic',sans-serif;">عربي</button>
+      </div>    
     </nav>
 
     <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
@@ -243,18 +249,18 @@
   </div>
 
   <!-- ══ HERO: Immersive Showroom Map ════════════════ -->
-  <section id="hero" x-data="{ hoverTarget: null }" style="height: 100vh; min-height: 65vh;" class="relative overflow-hidden bg-stone-950 w-full h-[65vh] md:h-screen" aria-label="Saeed Furniture Immersive Showroom">
+  <section id="hero" x-data="{ hoverTarget: null }" class="relative overflow-hidden bg-stone-950 w-full h-screen" aria-label="Saeed Furniture Immersive Showroom">
 
-    <!-- Background Image -->
+    <!-- Background Image (Desktop Only) -->
     <img src="https://ik.imagekit.io/de7qvcvqv/images/Day%20room%20Hero?updatedAt=1779819466896"
-         class="absolute inset-0 w-full h-full object-cover object-[35%_center] md:object-center z-0"
+         class="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block"
          alt="Saeed Furniture — bespoke Saudi handcrafted furniture showroom Al Qurayyat" loading="eager" fetchpriority="high" width="1920" height="1080">
 
-      <!-- Overlay gradient for text readability -->
-      <div class="absolute inset-0 z-5 bg-gradient-to-b from-black/30 via-transparent to-black/50"></div>
+      <!-- Overlay gradient for text readability (Desktop Only) -->
+      <div class="absolute inset-0 z-5 bg-gradient-to-b from-black/30 via-transparent to-black/50 hidden md:block"></div>
 
-      <!-- Subtle hero label -->
-      <div class="absolute top-28 inset-x-0 z-20 flex flex-col items-center gap-2 pointer-events-none">
+      <!-- Subtle hero label (Desktop Only) -->
+      <div class="absolute top-28 inset-x-0 z-20 flex flex-col items-center gap-2 pointer-events-none hidden md:flex">
         <p class="text-[0.6rem] uppercase tracking-[0.4em] text-white/50 font-bold" x-text="lang === 'ar' ? 'استكشف معرضنا' : 'Explore Our Showroom'"></p>
         <div class="w-8 h-px bg-white/30"></div>
       </div>
@@ -311,32 +317,42 @@
         </div>
       </div>
 
-      <!-- Mobile Quick Links Grid (visible only on mobile) -->
-      <div class="absolute inset-x-6 bottom-24 z-30 md:hidden grid grid-cols-2 gap-3" style="pointer-events: auto;">
-        <a href="/majlis.html" class="flex items-center justify-between px-4 py-3 min-h-[44px] bg-stone-950/80 backdrop-blur-md border border-white/10 rounded-xl text-xs font-bold uppercase tracking-wider text-white">
-          <span x-text="lang === 'ar' ? 'المجلس' : 'Majlis'"></span>
-          <svg class="w-4 h-4 text-amber-500 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-        </a>
-        <a href="/kitchen.html" class="flex items-center justify-between px-4 py-3 min-h-[44px] bg-stone-950/80 backdrop-blur-md border border-white/10 rounded-xl text-xs font-bold uppercase tracking-wider text-white">
-          <span x-text="lang === 'ar' ? 'المطبخ' : 'Kitchen'"></span>
-          <svg class="w-4 h-4 text-amber-500 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-        </a>
-        <a href="/bedroom.html" class="flex items-center justify-between px-4 py-3 min-h-[44px] bg-stone-950/80 backdrop-blur-md border border-white/10 rounded-xl text-xs font-bold uppercase tracking-wider text-white">
-          <span x-text="lang === 'ar' ? 'غرفة النوم' : 'Bedroom'"></span>
-          <svg class="w-4 h-4 text-amber-500 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-        </a>
-        <a href="/almirah.html" class="flex items-center justify-between px-4 py-3 min-h-[44px] bg-stone-950/80 backdrop-blur-md border border-white/10 rounded-xl text-xs font-bold uppercase tracking-wider text-white">
-          <span x-text="lang === 'ar' ? 'الخزائن' : 'Almirah'"></span>
-          <svg class="w-4 h-4 text-amber-500 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-        </a>
-        <a href="/cot.html" class="col-span-2 flex items-center justify-between px-4 py-3 min-h-[44px] bg-stone-950/80 backdrop-blur-md border border-white/10 rounded-xl text-xs font-bold uppercase tracking-wider text-white">
-          <span x-text="lang === 'ar' ? 'سرير أطفال' : 'Cot'"></span>
-          <svg class="w-4 h-4 text-amber-500 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-        </a>
+      <!-- Mobile Hero 2x2 Grid (visible only on mobile) -->
+      <div class="absolute inset-0 z-30 block md:hidden p-4 pt-24 pb-8 bg-[#080809]" style="pointer-events: auto;">
+        <div class="grid grid-cols-2 gap-4 h-full">
+          <a href="/majlis.html" class="relative rounded-2xl overflow-hidden block h-full group">
+            <img src="https://ik.imagekit.io/de7qvcvqv/majlis_hero.png" class="absolute inset-0 w-full h-full object-cover" alt="Majlis">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المجلس' : 'Majlis'"></span>
+            </div>
+          </a>
+          <a href="/kitchen.html" class="relative rounded-2xl overflow-hidden block h-full group">
+            <img src="https://ik.imagekit.io/de7qvcvqv/kitchen_hero.png" class="absolute inset-0 w-full h-full object-cover" alt="Kitchen">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المطبخ' : 'Kitchen'"></span>
+            </div>
+          </a>
+          <a href="/bedroom.html" class="relative rounded-2xl overflow-hidden block h-full group">
+            <img src="https://ik.imagekit.io/de7qvcvqv/bedroom_hero.png" class="absolute inset-0 w-full h-full object-cover" alt="Bedroom">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'غرفة النوم' : 'Bedroom'"></span>
+            </div>
+          </a>
+          <a href="/almirah.html" class="relative rounded-2xl overflow-hidden block h-full group">
+            <img src="https://ik.imagekit.io/de7qvcvqv/almirah_hero.png" class="absolute inset-0 w-full h-full object-cover" alt="Almirah">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'الخزائن' : 'Almirah'"></span>
+            </div>
+          </a>
+        </div>
       </div>
 
-      <!-- Scroll hint -->
-      <div class="absolute bottom-8 inset-x-0 flex justify-center z-30 pointer-events-none">
+      <!-- Scroll hint (Desktop Only) -->
+      <div class="absolute bottom-8 inset-x-0 flex justify-center z-30 pointer-events-none hidden md:flex">
         <div class="flex flex-col items-center gap-2 animate-bounce">
           <p class="text-[0.55rem] uppercase tracking-[0.35em] text-white/40 font-bold" x-text="lang === 'ar' ? 'مرر للأسفل' : 'Scroll'"></p>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
@@ -629,6 +645,63 @@
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ DESKTOP HORIZONTAL RIBBON ════════════════════ -->
+    <section class="py-16 bg-stone-950 overflow-hidden hidden md:block">
+      <div class="max-w-[100vw] overflow-x-auto hide-scrollbar">
+        <div class="flex gap-6 px-8 w-max" style="animation: scrollRibbon 40s linear infinite;">
+          <a href="/majlis.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+            <img src="https://ik.imagekit.io/de7qvcvqv/majlis_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Majlis">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 text-white pointer-events-none">
+              <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المجلس' : 'Majlis'"></span>
+              <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
+            </div>
+          </a>
+          <a href="/kitchen.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+            <img src="https://ik.imagekit.io/de7qvcvqv/kitchen_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Kitchen">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 text-white pointer-events-none">
+              <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المطبخ' : 'Kitchen'"></span>
+              <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
+            </div>
+          </a>
+          <a href="/bedroom.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+            <img src="https://ik.imagekit.io/de7qvcvqv/bedroom_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Bedroom">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 text-white pointer-events-none">
+              <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'غرفة النوم' : 'Bedroom'"></span>
+              <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
+            </div>
+          </a>
+          <a href="/almirah.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+            <img src="https://ik.imagekit.io/de7qvcvqv/almirah_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Almirah">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 text-white pointer-events-none">
+              <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'الخزائن' : 'Almirah'"></span>
+              <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
+            </div>
+          </a>
+          <!-- Duplicate for infinite scroll effect -->
+          <a href="/majlis.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+            <img src="https://ik.imagekit.io/de7qvcvqv/majlis_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Majlis">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 text-white pointer-events-none">
+              <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المجلس' : 'Majlis'"></span>
+              <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
+            </div>
+          </a>
+          <a href="/kitchen.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+            <img src="https://ik.imagekit.io/de7qvcvqv/kitchen_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Kitchen">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 text-white pointer-events-none">
+              <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المطبخ' : 'Kitchen'"></span>
+              <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
+            </div>
+          </a>
         </div>
       </div>
     </section>
