@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 @source "./src/react";
+@source "./*.html";
+
+/* Global base font size — ensures consistent rendering on all platforms */
+html {
+  font-size: 16px;
+}
 
 /* Minimal overrides */
 [x-cloak] { display: none !important; }
