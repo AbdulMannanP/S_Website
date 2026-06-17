@@ -6,7 +6,8 @@
  * Import this module anywhere config values are needed.
  */
 
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "..", ".env") });
 
 function required(key, defaultValue = "") {
   const val = process.env[key];

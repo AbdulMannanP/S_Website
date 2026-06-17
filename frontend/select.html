@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" >
+<!DOCTYPE html>
+<html lang="ar" :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'">
 <head>
   <meta charset="UTF-8">
   
@@ -14,15 +14,23 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://ik.imagekit.io">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <!-- TailwindCSS -->
   <link rel="stylesheet" href="/dist/output.css" />
 
+  <!-- Supabase + App JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="js/auth.js"></script>
+  <script defer src="js/app.js"></script>
+
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <style>
+    [x-cloak] { display: none !important; }
+
     :root {
       --gold: #c9a96e;
       --gold-light: #e0c48a;
@@ -49,6 +57,16 @@
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(201,169,110,0.2);
       box-shadow: 0 2px 24px rgba(0,0,0,0.08);
+    }
+
+    /* Language Toggle Fixed Position */
+    .fixed-lang-toggle {
+      position: fixed !important;
+      top: 1rem !important;
+      right: 1rem !important;
+      left: auto !important;
+      direction: ltr !important;
+      z-index: 200 !important;
     }
 
     /* â”€â”€ Hero â”€â”€ */
@@ -289,6 +307,10 @@
       opacity: 1;
     }
 
+    @media (hover: none) {
+      .category-card__cta { opacity: 1 !important; transform: translateY(0) !important; }
+    }
+
     .category-card__cta-line {
       width: 30px;
       height: 1px;
@@ -492,198 +514,97 @@
 </style>
 
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
-</head>
-<body x-data="{ lang: 'en' }" class="font-sans">
+  <link rel="alternate" hreflang="en" href="/select.html" />
+  <link rel="alternate" hreflang="ar" href="/select.html" />
+  <link rel="alternate" hreflang="x-default" href="/select.html" /></head>
+<body x-data="saeedApp()" x-init="init()" class="font-sans">
 <!-- Restored Transparent Header -->
-<header class="absolute top-0 inset-x-0 z-[150] flex justify-between items-center px-6 md:px-10 py-5 text-white pointer-events-none">
+<header class="fixed top-0 inset-x-0 z-[150] flex justify-between items-center px-6 md:px-10 py-5 text-white">
   <!-- Left Logo -->
-  <a href="/index.html" class="pointer-events-auto flex items-center gap-4 group">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1);">
-    <div class="hidden sm:block">
-      <span class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</span>
-      <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
+  <a href="/index.html" class="pointer-events-auto flex items-center gap-3 group">
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
+    <div class="flex flex-col">
+      <span class="text-white font-bold text-sm tracking-[0.15em] uppercase whitespace-nowrap" x-text="lang === 'ar' ? 'مفروشات سعيد' : 'Saeed Furniture'">Saeed Furniture</span>
+      <span class="text-amber-500/80 text-[0.55rem] tracking-[0.2em] uppercase whitespace-nowrap mt-0.5" x-text="lang === 'ar' ? 'فخامة تدوم' : 'Bespoke Mastery'">Bespoke Mastery</span>
     </div>
   </a>
-
   <!-- Right: Navigation & Lang Toggle -->
   <div class="flex items-center gap-6 md:gap-8 pointer-events-auto">
     <!-- Restored Navigation Routes -->
     <nav class="hidden md:flex items-center gap-6 md:gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300 drop-shadow-md">
-      <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300">Home</a>
-      <a href="/about.html" class="hover:text-amber-400 transition-colors duration-300">About</a>
-      <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-300">FAQ</a>
-      <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300">Contact</a>
+      <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300" x-text="lang === 'ar' ? 'الرئيسية' : 'Home'">Home</a>
+      <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300" x-text="lang === 'ar' ? 'تواصل' : 'Contact'">Contact</a>
     </nav>
     
-    <!-- Divider -->
-    <div class="hidden md:block w-px h-6 bg-white/20"></div>
-
-    <!-- Language Toggle -->
-    <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20">
-      <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-300 hover:text-white'" class="px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.2em] rounded-full transition-all duration-300">EN</button>
-      <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-300 hover:text-white'" class="px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.1em] rounded-full transition-all duration-300" style="font-family: 'Cairo', sans-serif;">عربي</button>
-    </div>
-
     <!-- Mobile Menu Toggle -->
-    <button class="md:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">
-      <svg class="w-6 h-6 drop-shadow-md" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-    </button>
+    <div x-data="{ mobileNavOpen: false }" @keydown.escape.window="mobileNavOpen = false">
+      <button @click="mobileNavOpen = !mobileNavOpen" class="md:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu">
+        <svg class="w-6 h-6 drop-shadow-md" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+      </button>
+      <!-- Mobile Nav Dropdown -->
+      <div x-show="mobileNavOpen" x-cloak @click.outside="mobileNavOpen = false" class="md:hidden fixed top-24 inset-x-6 z-[140] bg-stone-950/95 backdrop-blur-md border border-white/10 rounded-2xl px-6 py-6 space-y-4 shadow-2xl pointer-events-auto text-center">
+        <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400" x-text="lang === 'ar' ? 'الرئيسية' : 'Home'">Home</a>
+        <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400" x-text="lang === 'ar' ? 'تواصل' : 'Contact'">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
+
+      <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 ml-2" dir="ltr">
+        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-4 py-3 min-h-[44px] text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300">EN</button>
+        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-4 py-3 min-h-[44px] text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo">عربي</button>
+      </div>
   </div>
 </header>
 
-<!-- Mobile Nav Dropdown -->
-<div id="mobile-nav" class="hidden md:hidden fixed top-24 inset-x-6 z-[140] bg-stone-950/95 backdrop-blur-md border border-white/10 rounded-2xl px-6 py-6 space-y-4 shadow-2xl pointer-events-auto text-center">
-  <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Home</a>
-  <a href="/about.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">About</a>
-  <a href="/faq.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">FAQ</a>
-  <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Contact</a>
-</div>
-
-  <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
+  <!-- ── Page Loader ── -->
   <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
     <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
   </div>
 
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       STICKY HEADER
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-    <!-- ===================== UNIFIED GLOBAL HEADER ===================== -->
-  
-  
-
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       HERO SECTION
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="hero-section">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-
-    <div class="relative z-10 text-center px-6 py-20">
-
-      <!-- Eyebrow -->
-      <p class="section-label hero-animate-1">
-        Saeed Furniture &mdash; The Collections
-      </p>
-
-      <!-- Headline -->
-      <h1 class="hero-animate-2 mt-4 font-light text-white"
-          style="font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,7vw,5.5rem); font-weight:300; letter-spacing:0.02em; line-height:1.05;">
-        Select Your Category
-      </h1>
-
-      <!-- Gold divider -->
-      <div class="gold-divider hero-animate-3">
+  <!-- ╔════════════════════════════════════════════════════╗
+       HERO — SAEED SIGNATURE PANEL BANNER
+  ╚════════════════════════════════════════════════════╝ -->
+  <section class="relative w-full overflow-hidden" style="background:#080809;" aria-label="Saeed Furniture Collections Hero">
+    <!-- Responsive hero: portrait on mobile, landscape on desktop -->
+    <picture>
+      <!-- Mobile: portrait 5-panel (tall) -->
+      <source
+        media="(max-width: 767px)"
+        srcset="https://ik.imagekit.io/de7qvcvqv/images/May%2031,%202026,%2011_02_42%20PM.png?tr=w-800,q-85"
+      />
+      <!-- Desktop: landscape 5-panel (wide) -->
+      <img
+        src="https://ik.imagekit.io/de7qvcvqv/images/May%2031,%202026,%2011_02_42%20PM.png?tr=w-1600,q-85"
+        alt="Saeed Furniture — Majlis, Kitchen, Lounge, Bedroom, Dressing — bespoke Saudi handcrafted furniture Al Qurayyat KSA"
+        loading="eager"
+        width="1920" height="1080"
+        class="w-full object-cover object-center block"
+        style="max-height:92vh; min-height:280px;"
+      />
+    </picture>
+    <!-- Bottom vignette for scroll readability -->
+    <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to bottom, rgba(8,8,9,0.25) 0%, transparent 35%, rgba(8,8,9,0.6) 100%);"></div>
+    <!-- Bottom text badge -->
+    <div class="absolute bottom-0 inset-x-0 flex flex-col items-center pb-6 md:pb-10 z-10">
+      <p class="section-label hero-animate-1 mb-1">EST. — AL QURAYYAT, KSA</p>
+      <div class="gold-divider" style="margin:0.5rem auto;">
         <div class="gold-divider-diamond"></div>
       </div>
-
-      <!-- Subtitle -->
-      <div class="hero-animate-4 space-y-2">
-        <p style="font-family:'Inter',sans-serif; font-size:0.9rem; color:rgba(201,169,110,0.9); letter-spacing:0.08em; direction:rtl;">
-          Ø£Ø«Ø§Ø« ÙØ§Ø®Ø± Ù…ØµÙ†ÙˆØ¹ ÙŠØ¯ÙˆÙŠÙ‹Ø§ Ù„ÙƒÙ„ Ø²Ø§ÙˆÙŠØ© Ù…Ù† Ù…Ù†Ø²Ù„Ùƒ
-        </p>
-        <p style="font-family:'Inter',sans-serif; font-size:0.85rem; color:rgba(229,231,235,0.5); letter-spacing:0.06em;">
-          Handcrafted luxury for every corner of your home
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-<!-- Restored Transparent Header -->
-<header class="absolute top-0 inset-x-0 z-[150] flex justify-between items-center px-6 md:px-10 py-5 text-white pointer-events-none">
-  <!-- Left Logo -->
-  <a href="/index.html" class="pointer-events-auto flex items-center gap-4 group">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1);">
-    <div class="hidden sm:block">
-      <span class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</span>
-      <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
-    </div>
-  </a>
-
-  <!-- Right: Navigation & Lang Toggle -->
-  <div class="flex items-center gap-6 md:gap-8 pointer-events-auto">
-    <!-- Restored Navigation Routes -->
-    <nav class="hidden md:flex items-center gap-6 md:gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300 drop-shadow-md">
-      <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300">Home</a>
-      <a href="/about.html" class="hover:text-amber-400 transition-colors duration-300">About</a>
-      <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-300">FAQ</a>
-      <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300">Contact</a>
-    </nav>
-    
-    <!-- Divider -->
-    <div class="hidden md:block w-px h-6 bg-white/20"></div>
-
-    <!-- Language Toggle -->
-    <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20">
-      <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-300 hover:text-white'" class="px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.2em] rounded-full transition-all duration-300">EN</button>
-      <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-300 hover:text-white'" class="px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.1em] rounded-full transition-all duration-300" style="font-family: 'Cairo', sans-serif;">عربي</button>
-    </div>
-
-    <!-- Mobile Menu Toggle -->
-    <button class="md:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">
-      <svg class="w-6 h-6 drop-shadow-md" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-    </button>
-  </div>
-</header>
-
-<!-- Mobile Nav Dropdown -->
-<div id="mobile-nav" class="hidden md:hidden fixed top-24 inset-x-6 z-[140] bg-stone-950/95 backdrop-blur-md border border-white/10 rounded-2xl px-6 py-6 space-y-4 shadow-2xl pointer-events-auto text-center">
-  <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Home</a>
-  <a href="/about.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">About</a>
-  <a href="/faq.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">FAQ</a>
-  <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Contact</a>
-</div>
-
-  <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
-  <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
-  </div>
-
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       STICKY HEADER
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-    <!-- ===================== UNIFIED GLOBAL HEADER ===================== -->
-  
-  
-
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       1. HERO SECTION
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="hero-section">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content px-6" style="max-width: 800px;">
-      <p class="section-eyebrow mb-6 tracking-widest" style="animation-delay:0.2s;">
-        EST. — AL QURAYYAT, KSA
-      </p>
-      <h1 class="font-serif text-white leading-none mb-2" style="font-size: clamp(3rem, 8vw, 6rem); font-weight: 300;">
-        <span x-show="lang==='en'">Our Story</span>
-        <span x-show="lang==='ar'" class="font-arabic" style="font-size: clamp(2.5rem, 7vw, 5rem);">قصتنا</span>
-      </h1>
-      <span class="gold-line"></span>
-      <p class="text-stone-300 font-light tracking-wide" style="font-size: clamp(0.9rem, 2vw, 1.1rem);">
-        <span x-show="lang==='en'">Two decades of handcrafted excellence</span>
-        <span x-show="lang==='ar'" class="font-arabic">Ø¹Ù‚Ø¯Ø§Ù† Ù…Ù† Ø§Ù„ØªÙ…ÙŠØ² Ø§Ù„ÙŠØ¯ÙˆÙŠ ÙÙŠ ØµÙ†Ø§Ø¹Ø© Ø§Ù„Ø£Ø«Ø§Ø«</span>
+      <p class="hero-animate-4" style="font-family:'Cairo',sans-serif; font-size:0.82rem; color:rgba(201,169,110,0.85); letter-spacing:0.1em; direction:rtl;">
+        أثاث فاخر مصنوع يدوياً لكل زاوية من منزلك
       </p>
     </div>
   </section>
 
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       2. BRAND STORY — 3-column grid
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- 2. BRAND STORY — 3-column grid -->
   <section class="py-24 px-6" style="background: var(--dark);">
     <div class="max-w-7xl mx-auto">
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 items-center">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
 
         <!-- LEFT COL: Text + icon -->
         <div class="reveal">
-          <!-- Sofa SVG Line Art Icon -->
           <div class="sofa-icon mb-8">
             <svg width="72" height="48" viewBox="0 0 72 48" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <rect x="4" y="20" width="64" height="20" rx="4"/>
@@ -699,72 +620,48 @@
 
           <h2 class="font-serif text-gold mb-6 leading-tight" style="font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 400;">
             <span x-show="lang==='en'">Explore Our Options</span>
-            <span x-show="lang==='ar'" class="font-arabic">Ø§Ø³ØªÙƒØ´Ù Ø®ÙŠØ§Ø±Ø§ØªÙ†Ø§</span>
+            <span x-show="lang==='ar'" class="font-arabic">استكشف خياراتنا</span>
           </h2>
 
           <p class="text-stone-400 leading-relaxed mb-5 font-light" style="font-size: 0.95rem;">
             <span x-show="lang==='en'">At Saeed Furniture, every piece begins as a conversation. Founded in Al Qurayyat, Al Jawf, our workshop has been the region's foremost destination for custom-crafted majlis seating and bespoke sofas for over two decades. We believe that furniture is not merely functional — it is the language through which a home speaks.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">ÙÙŠ Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø«ØŒ ÙƒÙ„ Ù‚Ø·Ø¹Ø© ØªØ¨Ø¯Ø£ Ø¨Ø­ÙˆØ§Ø±. ØªØ£Ø³Ø³Øª ÙÙŠ Ø§Ù„Ù‚Ø±ÙŠØ§ØªØŒ Ø§Ù„Ø¬ÙˆÙØŒ ÙˆÙƒØ§Ù†Øª ÙˆØ±Ø´ØªÙ†Ø§ Ø§Ù„ÙˆØ¬Ù‡Ø© Ø§Ù„Ø±Ø§Ø¦Ø¯Ø© ÙÙŠ Ø§Ù„Ù…Ù†Ø·Ù‚Ø© Ù„Ø£Ø«Ø§Ø« المجلس Ø§Ù„Ù…ØµÙ†ÙˆØ¹ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨ ÙˆØ§Ù„ÙƒÙ†Ø¨ Ø§Ù„Ù…Ø®ØµØµ Ù„Ø£ÙƒØ«Ø± Ù…Ù† Ø¹Ù‚Ø¯ÙŠÙ† Ù…Ù† Ø§Ù„Ø²Ù…Ù†. Ù†Ø¤Ù…Ù† Ø¨Ø£Ù† Ø§Ù„Ø£Ø«Ø§Ø« Ù„ÙŠØ³ Ù…Ø¬Ø±Ø¯ ÙˆØ¸ÙŠÙØ© — Ø¨Ù„ Ù‡Ùˆ Ø§Ù„Ù„ØºØ© Ø§Ù„ØªÙŠ ÙŠØªØ­Ø¯Ø« Ø¨Ù‡Ø§ Ø§Ù„Ù…Ù†Ø²Ù„.</span>
+        <p style="font-family:'Cairo',sans-serif; font-size:0.9rem; color:rgba(201,169,110,0.9); letter-spacing:0.08em; direction:rtl;">
+          أثاث فاخر مصنوع يدوياً لكل زاوية من منزلك
+        </p>
           </p>
 
           <p class="text-stone-400 leading-relaxed font-light" style="font-size: 0.95rem;">
             <span x-show="lang==='en'">Our craftsmen combine time-honoured Arabian design traditions with premium imported fabrics, hardwood frames, and precision upholstery techniques learned over generations. From the initial sketch to the final stitch, every detail is shaped by skilled hands inside our Al Qurayyat atelier.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">ÙŠØ¬Ù…Ø¹ Ø­Ø±ÙÙŠÙˆÙ†Ø§ Ø¨ÙŠÙ† ØªÙ‚Ø§Ù„ÙŠØ¯ Ø§Ù„ØªØµÙ…ÙŠÙ… Ø§Ù„Ø¹Ø±Ø¨ÙŠ Ø§Ù„Ø¹Ø±ÙŠÙ‚Ø© ÙˆØ§Ù„Ø£Ù‚Ù…Ø´Ø© Ø§Ù„Ù…Ø³ØªÙˆØ±Ø¯Ø© Ø§Ù„ÙØ§Ø®Ø±Ø© ÙˆØ¥Ø·Ø§Ø±Ø§Øª Ø§Ù„Ø®Ø´Ø¨ Ø§Ù„ØµÙ„Ø¨ ÙˆØªÙ‚Ù†ÙŠØ§Øª Ø§Ù„ØªÙ†Ø¬ÙŠØ¯ Ø§Ù„Ø¯Ù‚ÙŠÙ‚Ø© Ø§Ù„Ù…ØªÙˆØ§Ø±Ø«Ø© Ø¹Ø¨Ø± Ø§Ù„Ø£Ø¬ÙŠØ§Ù„. Ù…Ù† Ø§Ù„Ø±Ø³Ù… Ø§Ù„Ø£ÙˆÙ„ÙŠ Ø¥Ù„Ù‰ Ø§Ù„ØºØ±Ø²Ø© Ø§Ù„Ø£Ø®ÙŠØ±Ø©ØŒ ÙƒÙ„ ØªÙØµÙŠÙ„ ÙŠÙØ´ÙƒÙ‘Ù„ Ø¨Ø£ÙŠØ¯Ù Ù…Ø§Ù‡Ø±Ø© Ø¯Ø§Ø®Ù„ ÙˆØ±Ø´ØªÙ†Ø§ ÙÙŠ Ø§Ù„Ù‚Ø±ÙŠØ§Øª.</span>
+            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">يجمع حرفيونا بين تقاليد التصميم العربي العريقة والأقمشة المستوردة الفاخرة وإطارات الخشب الصلب وتقنيات التنجيد الدقيقة المتوارثة عبر الأجيال. من الرسم الأولي إلى الغرزة الأخيرة، كل تفصيل يشكّل بأيدٍ ماهرة داخل ورشتنا في القريات.</span>
           </p>
         </div>
 
-        <!-- CENTER COL: Image Carousel Pill -->
-        <div class="flex flex-col items-center reveal reveal-delay-2"
-             x-data="{
-               current: 0,
-               slides: ['/images/modern.png', '/images/authentic.png', '/images/heritage.png'],
-               init() {
-                 setInterval(() => { this.current = (this.current + 1) % this.slides.length; }, 4000);
-               }
-             }">
-          <div class="carousel-container">
-            <div class="carousel-pill">
-              <template x-for="(src, idx) in slides" :key="idx">
-                <div class="carousel-slide" :class="{ active: current === idx }">
-                  <img :src="src" :alt="'Saeed Furniture collection ' + (idx+1)" loading="lazy" />
-                </div>
-              </template>
-            </div>
-            <!-- Dots -->
-            <div class="carousel-dots mt-4">
-              <template x-for="(src, idx) in slides" :key="idx">
-                <button class="carousel-dot" :class="{ active: current === idx }" @click="current = idx" :aria-label="'Go to slide ' + (idx+1)"></button>
-              </template>
-            </div>
-          </div>
-        </div>
-
         <!-- RIGHT COL: More paragraphs -->
-        <div class="reveal reveal-delay-3">
+        <div class="reveal reveal-delay-2">
           <p class="text-stone-400 leading-relaxed mb-5 font-light" style="font-size: 0.95rem;">
             <span x-show="lang==='en'">Craftsmanship, for us, is not a marketing word — it is a daily discipline. We source our raw materials with the same care we bring to every seam and join. Premium Italian and Turkish upholstery fabrics sit alongside locally sourced hand-carved wood accents, creating pieces that are unmistakably Saudi yet universally refined.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">Ø§Ù„Ø­Ø±ÙÙŠØ© Ø¨Ø§Ù„Ù†Ø³Ø¨Ø© Ù„Ù†Ø§ Ù„ÙŠØ³Øª Ù…Ø¬Ø±Ø¯ ÙƒÙ„Ù…Ø© ØªØ³ÙˆÙŠÙ‚ÙŠØ© — Ø¨Ù„ Ù‡ÙŠ Ø§Ù†Ø¶Ø¨Ø§Ø· ÙŠÙˆÙ…ÙŠ. Ù†Ø­Ù† Ù†Ø®ØªØ§Ø± Ù…ÙˆØ§Ø¯Ù†Ø§ Ø§Ù„Ø®Ø§Ù… Ø¨Ù†ÙØ³ Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø§Ù„ØªÙŠ Ù†Ø¶Ø¹Ù‡Ø§ ÙÙŠ ÙƒÙ„ Ø¯Ø±Ø²Ø© ÙˆØ¥Ø·Ø§Ø±. ØªØªØ¬Ø§ÙˆØ± Ø£Ù‚Ù…Ø´Ø© Ø§Ù„ØªÙ†Ø¬ÙŠØ¯ Ø§Ù„Ø¥ÙŠØ·Ø§Ù„ÙŠØ© ÙˆØ§Ù„ØªØ±ÙƒÙŠØ© Ø§Ù„ÙØ§Ø®Ø±Ø© Ù…Ø¹ Ù„Ù…Ø³Ø§Øª Ø§Ù„Ø®Ø´Ø¨ Ø§Ù„Ù…Ù†Ø­ÙˆØªØ© ÙŠØ¯ÙˆÙŠØ§Ù‹ Ù…Ø­Ù„ÙŠØ§Ù‹ØŒ Ù„Ø®Ù„Ù‚ Ù‚Ø·Ø¹ صناعة تدوم (Craftsmanship That Endures) Ø§Ù„Ù‡ÙˆÙŠØ© Ø¨Ø§Ù…ØªÙŠØ§Ø² ÙˆÙ…Ø±Ù‡ÙØ© Ø¹Ù„Ù‰ Ø§Ù„Ù…Ø³ØªÙˆÙ‰ Ø§Ù„Ø¹Ø§Ù„Ù…ÙŠ.</span>
+            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">الحرفية بالنسبة لنا ليست مجرد كلمة تسويقية — بل هي انضباط يومي. نحن نختار موادنا الخام بنفس العناية التي نضعها في كل درزة وإطار. تتجاور أقمشة التنجيد الإيطالية والتركية الفاخرة مع لمسات الخشب المنحوتة يدوياً محلياً، لخلق قطع صناعة تدوم (Craftsmanship That Endures) الهوية بامتياز ومرهفة على المستوى العالمي.</span>
           </p>
 
           <p class="text-stone-400 leading-relaxed mb-8 font-light" style="font-size: 0.95rem;">
             <span x-show="lang==='en'">Our complimentary home visit service means our design consultants come to you — measuring your space, understanding your taste, and presenting a curated selection of materials right in your living room. Every sofa and majlis set is made-to-order: your dimensions, your fabric, your colour, your statement.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">ØªØ¹Ù†ÙŠ Ø®Ø¯Ù…Ø© Ø§Ù„Ø²ÙŠØ§Ø±Ø© Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ© Ø§Ù„Ù…Ø¬Ø§Ù†ÙŠØ© Ø£Ù† Ù…Ø³ØªØ´Ø§Ø±ÙŠ Ø§Ù„ØªØµÙ…ÙŠÙ… Ù„Ø¯ÙŠÙ†Ø§ ÙŠØ£ØªÙˆÙ† Ø¥Ù„ÙŠÙƒ — ÙŠÙ‚ÙŠØ³ÙˆÙ† Ù…Ø³Ø§Ø­ØªÙƒØŒ ÙŠÙÙ‡Ù…ÙˆÙ† Ø°ÙˆÙ‚ÙƒØŒ ÙˆÙŠÙ‚Ø¯Ù…ÙˆÙ† Ù…Ø¬Ù…ÙˆØ¹Ø© Ù…Ø®ØªØ§Ø±Ø© Ù…Ù† Ø§Ù„Ù…ÙˆØ§Ø¯ ÙÙŠ ØºØ±ÙØ© Ù…Ø¹ÙŠØ´ØªÙƒ. ÙƒÙ„ ÙƒÙ†Ø¨Ø© ÙˆÙ…Ø¬Ù…ÙˆØ¹Ø© Ù…Ø¬Ù„Ø³ Ù…ØµÙ†ÙˆØ¹Ø© Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨: Ù…Ù‚Ø§Ø³Ø§ØªÙƒØŒ Ù‚Ù…Ø§Ø´ÙƒØŒ Ù„ÙˆÙ†ÙƒØŒ Ø£Ø³Ù„ÙˆØ¨Ùƒ.</span>
+            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">تعني خدمة الزيارة المنزلية المجانية أن مستشاري التصميم لدينا يأتون إليك — يقيسون مساحتك، يفهمون ذوقك، ويقدمون مجموعة مختارة من المواد في غرفة معيشتك. كل كنبة ومجموعة مجلس مصنوعة حسب الطلب: مقاساتك، قماشك، لونك، أسلوبك.</span>
           </p>
 
           <!-- Mini stat row -->
           <div class="grid grid-cols-2 gap-6">
-            <div class="border-l-2 border-gold pl-4">
+            <div class="border-s-2 border-gold ps-4">
               <p class="font-serif text-gold text-3xl font-light">20+</p>
               <p class="text-stone-500 text-xs tracking-wider uppercase mt-1">
                 <span x-show="lang==='en'">Years of Craft</span>
-                <span x-show="lang==='ar'" class="font-arabic">Ø¹Ø§Ù…Ø§Ù‹ Ù…Ù† Ø§Ù„Ø­Ø±ÙÙŠØ©</span>
+                <span x-show="lang==='ar'" class="font-arabic">عاماً من الحرفية</span>
               </p>
             </div>
-            <div class="border-l-2 border-gold pl-4">
+            <div class="border-s-2 border-gold ps-4">
               <p class="font-serif text-gold text-3xl font-light">100%</p>
               <p class="text-stone-500 text-xs tracking-wider uppercase mt-1">
                 <span x-show="lang==='en'">Made to Order</span>
-                <span x-show="lang==='ar'" class="font-arabic">ØµÙ†Ø¹ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨</span>
+                <span x-show="lang==='ar'" class="font-arabic">صنع حسب الطلب</span>
               </p>
             </div>
           </div>
@@ -774,118 +671,37 @@
     </div>
   </section>
 
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       3. VALUE PILLARS
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="py-24 px-6" style="background: #f5f0e8;">
-    <div class="max-w-6xl mx-auto">
-
-      <div class="text-center mb-16 reveal">
-        <p class="section-eyebrow mb-3">
-          <span x-show="lang==='en'">Why Choose Us</span>
-          <span x-show="lang==='ar'" class="font-arabic">Ù„Ù…Ø§Ø°Ø§ ØªØ®ØªØ§Ø±Ù†Ø§</span>
-        </p>
-        <h2 class="font-serif text-stone-800 leading-tight" style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 300;">
-          <span x-show="lang==='en'">Our Promise to You</span>
-          <span x-show="lang==='ar'" class="font-arabic">ÙˆØ¹Ø¯Ù†Ø§ Ù„Ùƒ</span>
-        </h2>
-        <span class="block h-px w-20 mx-auto mt-4" style="background: var(--gold);"></span>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <!-- Pillar 1 -->
-        <div class="pillar-card reveal reveal-delay-1" style="background: rgba(8,8,9,0.04); border-color: rgba(201,169,110,0.25);">
-          <div class="pillar-icon">ðŸ­</div>
-          <h3 class="font-serif text-stone-800 text-xl mb-1 font-medium">
-            <span x-show="lang==='en'">Made in KSA</span>
-            <span x-show="lang==='ar'" class="font-arabic">ØµÙ†Ø¹ ÙÙŠ Ø§Ù„صناعة تدوم (Craftsmanship That Endures)</span>
-          </h3>
-          <p class="text-stone-400 text-xs tracking-widest uppercase mb-3 font-arabic" style="color:#c9a96e;">
-            ØµÙ†Ø¹ ÙÙŠ Ø§Ù„صناعة تدوم (Craftsmanship That Endures)
-          </p>
-          <p class="text-stone-600 text-sm leading-relaxed">
-            <span x-show="lang==='en'">Every piece proudly crafted right here in Al Qurayyat, supporting local artisanship and the Saudi Vision 2030 manufacturing goals.</span>
-            <span x-show="lang==='ar'" class="font-arabic block text-right" style="direction:rtl;">ÙƒÙ„ Ù‚Ø·Ø¹Ø© Ù…ØµÙ†ÙˆØ¹Ø© Ø¨ÙƒÙ„ ÙØ®Ø± Ù‡Ù†Ø§ ÙÙŠ Ø§Ù„Ù‚Ø±ÙŠØ§ØªØŒ Ø¯Ø¹Ù…Ø§Ù‹ Ù„Ù„Ø­Ø±ÙÙŠØ© Ø§Ù„Ù…Ø­Ù„ÙŠØ© ÙˆØ£Ù‡Ø¯Ø§Ù Ø§Ù„ØªØµÙ†ÙŠØ¹ ÙÙŠ Ø±Ø¤ÙŠØ© Ø§Ù„صناعة تدوم (Craftsmanship That Endures) 2030.</span>
-          </p>
-        </div>
-
-        <!-- Pillar 2 -->
-        <div class="pillar-card reveal reveal-delay-2" style="background: rgba(8,8,9,0.04); border-color: rgba(201,169,110,0.25);">
-          <div class="pillar-icon">ðŸ </div>
-          <h3 class="font-serif text-stone-800 text-xl mb-1 font-medium">
-            <span x-show="lang==='en'">Free Home Visit</span>
-            <span x-show="lang==='ar'" class="font-arabic">زيارة منزلية مجانية</span>
-          </h3>
-          <p class="text-stone-400 text-xs tracking-widest uppercase mb-3 font-arabic" style="color:#c9a96e;">
-            زيارة منزلية مجانية
-          </p>
-          <p class="text-stone-600 text-sm leading-relaxed">
-            <span x-show="lang==='en'">Our consultants visit your home at no cost to measure, advise, and present material swatches — making the design process effortless.</span>
-            <span x-show="lang==='ar'" class="font-arabic block text-right" style="direction:rtl;">ÙŠØ²ÙˆØ± Ù…Ø³ØªØ´Ø§Ø±ÙˆÙ†Ø§ Ù…Ù†Ø²Ù„Ùƒ Ù…Ø¬Ø§Ù†Ø§Ù‹ Ù„Ù„Ù‚ÙŠØ§Ø³ ÙˆØ§Ù„Ø¥Ø±Ø´Ø§Ø¯ ÙˆØªÙ‚Ø¯ÙŠÙ… Ø¹ÙŠÙ†Ø§Øª Ø§Ù„Ù…ÙˆØ§Ø¯ — Ù…Ù…Ø§ ÙŠØ¬Ø¹Ù„ Ø¹Ù…Ù„ÙŠØ© Ø§Ù„ØªØµÙ…ÙŠÙ… Ø³Ù„Ø³Ø© ÙˆØ¨Ù„Ø§ Ø¬Ù‡Ø¯.</span>
-          </p>
-        </div>
-
-        <!-- Pillar 3 -->
-        <div class="pillar-card reveal reveal-delay-3" style="background: rgba(8,8,9,0.04); border-color: rgba(201,169,110,0.25);">
-          <div class="pillar-icon">ðŸŽ¨</div>
-          <h3 class="font-serif text-stone-800 text-xl mb-1 font-medium">
-            <span x-show="lang==='en'">Material & Colour Selection</span>
-            <span x-show="lang==='ar'" class="font-arabic">ألوان وخامات متعددة</span>
-          </h3>
-          <p class="text-stone-400 text-xs tracking-widest uppercase mb-3 font-arabic" style="color:#c9a96e;">
-            ألوان وخامات متعددة
-          </p>
-          <p class="text-stone-600 text-sm leading-relaxed">
-            <span x-show="lang==='en'">Choose from hundreds of premium fabrics, velvet, linen, leather and more — in a full spectrum of colours to match your interior vision.</span>
-            <span x-show="lang==='ar'" class="font-arabic block text-right" style="direction:rtl;">Ø§Ø®ØªØ± Ù…Ù† Ø¨ÙŠÙ† Ù…Ø¦Ø§Øª Ø§Ù„Ø£Ù‚Ù…Ø´Ø© Ø§Ù„ÙØ§Ø®Ø±Ø©ØŒ Ø§Ù„Ù…Ø®Ù…Ù„ØŒ Ø§Ù„ÙƒØªØ§Ù†ØŒ Ø§Ù„Ø¬Ù„Ø¯ ÙˆØºÙŠØ±Ù‡Ø§ — Ø¨Ø·ÙŠÙ ÙƒØ§Ù…Ù„ Ù…Ù† Ø§Ù„Ø£Ù„ÙˆØ§Ù† Ù„ØªØªÙ†Ø§Ø³Ø¨ Ù…Ø¹ Ø±Ø¤ÙŠØªÙƒ Ø§Ù„Ø¯Ø§Ø®Ù„ÙŠØ©.</span>
-          </p>
-        </div>
-
-        <!-- Pillar 4 -->
-        <div class="pillar-card reveal reveal-delay-4" style="background: rgba(8,8,9,0.04); border-color: rgba(201,169,110,0.25);">
-          <div class="pillar-icon">ðŸšš</div>
-          <h3 class="font-serif text-stone-800 text-xl mb-1 font-medium">
-            <span x-show="lang==='en'">Free Home Delivery</span>
-            <span x-show="lang==='ar'" class="font-arabic">توصيل مجاني</span>
-          </h3>
-          <p class="text-stone-400 text-xs tracking-widest uppercase mb-3 font-arabic" style="color:#c9a96e;">
-            توصيل مجاني Ù„Ù„Ù…Ù†Ø²Ù„
-          </p>
-          <p class="text-stone-600 text-sm leading-relaxed">
-            <span x-show="lang==='en'">We deliver and install your finished furniture directly to your home — with white-glove care, on time, at no additional charge.</span>
-            <span x-show="lang==='ar'" class="font-arabic block text-right" style="direction:rtl;">Ù†ÙˆØµÙ‘Ù„ ÙˆÙ†Ø±ÙƒÙ‘Ø¨ Ø£Ø«Ø§Ø«Ùƒ Ø§Ù„Ù…Ù†ØªÙ‡ÙŠ Ù…Ø¨Ø§Ø´Ø±Ø© Ø¥Ù„Ù‰ Ù…Ù†Ø²Ù„Ùƒ — Ø¨Ø¹Ù†Ø§ÙŠØ© ÙØ§Ø¦Ù‚Ø©ØŒ ÙÙŠ Ø§Ù„ÙˆÙ‚Øª Ø§Ù„Ù…Ø­Ø¯Ø¯ØŒ Ø¯ÙˆÙ† Ø±Ø³ÙˆÙ… Ø¥Ø¶Ø§ÙÙŠØ©.</span>
-          </p>
-        </div>
-
-      </div>
+  <!-- 3. VALUE PILLARS (Shortened to Single Elegant Line) -->
+  <section class="py-12 px-6 border-b border-stone-200" style="background: #f5f0e8;">
+    <div class="max-w-6xl mx-auto text-center">
+      <p class="text-stone-800 text-sm md:text-base tracking-wide font-serif leading-relaxed uppercase">
+        <span x-show="lang==='en'">KSA Handcrafted • Free Home Consultation • Curated Materials • Free Delivery</span>
+        <span x-show="lang==='ar'" class="font-arabic font-semibold">صُنِع في المملكة • زيارة منزلية مجانية • ألوان وخامات متعددة • توصيل مجاني</span>
+      </p>
     </div>
   </section>
 
-
-
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  <!-- ╔══════════════════════════════════════════════════════╗
        CATEGORY GRID
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  ╚══════════════════════════════════════════════════════╝ -->
   <section style="background: var(--dark); padding: 5rem 0 6rem;">
     <div class="max-w-7xl mx-auto px-6 lg:px-10">
-
-      <!-- Section heading -->
       <div class="flex items-center gap-4 mb-10">
         <span class="section-label">Browse All</span>
         <div style="flex:1; height:1px; background:linear-gradient(to right, rgba(201,169,110,0.3), transparent);"></div>
-        <span style="font-family:'Inter',sans-serif; font-size:0.7rem; color:rgba(201,169,110,0.4); letter-spacing:0.1em;">6 Collections</span>
+        <span style="font-family:'Inter',sans-serif; font-size:0.7rem; color:rgba(201,169,110,0.4); letter-spacing:0.1em;" x-text="lang === 'ar' ? '٤ مجموعات' : '4 Collections'">4 Collections</span>
       </div>
 
-      <!-- Grid -->
-      <div class="categories-grid">
+      <div class="categories-grid grid grid-cols-2 gap-4 md:gap-6">
 
-        <!-- 1. Majlis -->
-        <a href="/majlis.html" class="category-card card-animate" aria-label="Explore Majlis Collection">
+        <!-- 1. Majlis — custom majlis seating Saudi Arabia -->
+        <a href="/majlis.html" class="category-card card-animate" aria-label="Explore Majlis Collection — bespoke Saudi majlis seating">
           <div class="category-card__topbar"></div>
-          <img src="/images/hero.png" alt="Majlis Collection" class="category-card__img" />
+          <img
+            src="https://ik.imagekit.io/de7qvcvqv/images/hero.png?updatedAt=1779608592778&tr=w-800,q-80"
+            alt="Majlis Collection — handcrafted Saudi majlis seating with gold and rich velvet fabrics, Al Qurayyat KSA"
+            class="category-card__img" loading="lazy"
+          />
           <div class="category-card__overlay"></div>
           <div class="category-card__glass"></div>
           <div class="category-card__content">
@@ -895,37 +711,41 @@
             <div class="category-card__cta">
               <div class="category-card__cta-line"></div>
               <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/>
-              </svg>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/></svg>
             </div>
           </div>
         </a>
 
-        <!-- 2. Bedroom -->
-        <a href="/bedroom.html" class="category-card card-animate" aria-label="Explore Bedroom Collection">
+        <!-- 2. Bedroom — luxury bedroom furniture KSA -->
+        <a href="/bedroom.html" class="category-card card-animate" aria-label="Explore Bedroom Collection — bespoke bedroom furniture KSA">
           <div class="category-card__topbar"></div>
-          <img src="/images/modern.png" alt="Bedroom Collection" class="category-card__img" />
+          <img
+            src="https://ik.imagekit.io/de7qvcvqv/images/modern.png?tr=w-800,q-80"
+            alt="Bedroom Collection — serene handcrafted bed frames and upholstered headboards for Saudi homes"
+            class="category-card__img" loading="lazy"
+          />
           <div class="category-card__overlay"></div>
           <div class="category-card__glass"></div>
           <div class="category-card__content">
             <span class="category-card__eyebrow">Bedroom Collection</span>
             <h2 class="category-card__name">Bedroom</h2>
-            <p class="category-card__arabic">ØºØ±ÙØ© Ø§Ù„Ù†ÙˆÙ…</p>
+            <p class="category-card__arabic">غرفة النوم</p>
             <div class="category-card__cta">
               <div class="category-card__cta-line"></div>
               <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/>
-              </svg>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/></svg>
             </div>
           </div>
         </a>
 
-        <!-- 3. Kitchen -->
-        <a href="/kitchen.html" class="category-card card-animate" aria-label="Explore Kitchen Collection">
+        <!-- 3. Kitchen — luxury kitchens Riyadh -->
+        <a href="/kitchen.html" class="category-card card-animate" aria-label="Explore Kitchen Collection — luxury kitchens KSA">
           <div class="category-card__topbar"></div>
-          <img src="/images/authentic.png" alt="Kitchen Collection" class="category-card__img" />
+          <img
+            src="https://ik.imagekit.io/de7qvcvqv/images/authentic.png?tr=w-800,q-80"
+            alt="Kitchen Collection — bespoke kitchen cabinetry with brass hardware and marble countertops, handcrafted KSA"
+            class="category-card__img" loading="lazy"
+          />
           <div class="category-card__overlay"></div>
           <div class="category-card__glass"></div>
           <div class="category-card__content">
@@ -935,37 +755,19 @@
             <div class="category-card__cta">
               <div class="category-card__cta-line"></div>
               <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/>
-              </svg>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/></svg>
             </div>
           </div>
         </a>
 
-        <!-- 4. Cot -->
-        <a href="/cot.html" class="category-card card-animate" aria-label="Explore Cot Collection">
+        <!-- 4. Almirah — bespoke wardrobes KSA -->
+        <a href="/almirah.html" class="category-card card-animate" aria-label="Explore Almirah Collection — bespoke fitted wardrobes KSA">
           <div class="category-card__topbar"></div>
-          <img src="/images/heritage.png" alt="Cot Collection" class="category-card__img" />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Cot Collection</span>
-            <h2 class="category-card__name">Cot</h2>
-            <p class="category-card__arabic">السرير</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        <!-- 5. Almirah -->
-        <a href="/almirah.html" class="category-card card-animate" aria-label="Explore Almirah Collection">
-          <div class="category-card__topbar"></div>
-          <img src="/images/modern_majlis.png" alt="Almirah Collection" class="category-card__img" />
+          <img
+            src="https://ik.imagekit.io/de7qvcvqv/images/modern_majlis.png?tr=w-800,q-80"
+            alt="Almirah Collection — solid walnut wardrobes and fitted dressing rooms, Saudi craftsmanship"
+            class="category-card__img" loading="lazy"
+          />
           <div class="category-card__overlay"></div>
           <div class="category-card__glass"></div>
           <div class="category-card__content">
@@ -975,33 +777,7 @@
             <div class="category-card__cta">
               <div class="category-card__cta-line"></div>
               <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        <!-- 6. Portfolio -->
-        <a href="/portfolio.html" class="category-card card-animate" aria-label="Explore Our Portfolio">
-          <div class="category-card__topbar"></div>
-          <img src="/images/authentic_majlis.png" alt="Portfolio" class="category-card__img" />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <!-- Special "Portfolio" badge -->
-          <div style="position:absolute; top:1.25rem; right:1.25rem; background:rgba(201,169,110,0.15); border:1px solid rgba(201,169,110,0.35); backdrop-filter:blur(8px); padding:0.2rem 0.65rem; border-radius:2px;">
-            <span style="font-family:'Inter',sans-serif; font-size:0.6rem; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold);">Our Work</span>
-          </div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Past Projects</span>
-            <h2 class="category-card__name">Portfolio</h2>
-            <p class="category-card__arabic">سابقة الأعمال</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/>
-              </svg>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/></svg>
             </div>
           </div>
         </a>
@@ -1077,8 +853,8 @@
         <div class="flex flex-col items-center gap-3 text-xs tracking-widest uppercase text-stone-400">
           <p class="text-white font-bold mb-2 tracking-[0.2em]">Explore</p>
           <a href="/index.html" class="hover:text-amber-500 transition-colors">Home</a>
-          <a href="/about.html" class="hover:text-amber-500 transition-colors">About</a>
-          <a href="/faq.html" class="hover:text-amber-500 transition-colors">FAQ</a>
+          <a href="/index.html#about" class="hover:text-amber-500 transition-colors">About</a>
+          <a href="/index.html#faq" class="hover:text-amber-500 transition-colors">FAQ</a>
           <a href="/contact.html" class="hover:text-amber-500 transition-colors">Contact</a>
         </div>
 

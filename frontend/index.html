@@ -1,1754 +1,899 @@
 <!DOCTYPE html>
-<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
+<html lang="ar" :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta property="og:title" content="Saeed Furniture | Luxury Bespoke Seating KSA">
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:,">
-  <title>Saeed Furniture | Master Showroom Gateway</title>
-  <meta name="description" content="Explore the Saeed Furniture digital showroom. Luxury made-to-order majlis, kitchens, bedrooms, cots, and almirahs crafted in Saudi Arabia.">
+  <title>سعيد للأثاث | Saeed Furniture — مجالس فاخرة</title>
+  <meta name="description" content="مجالس فاخرة مصنوعة في المملكة العربية السعودية. تصاميم عصرية وتراثية. زيارة منزلية مجانية.">
+  <meta property="og:title"       content="سعيد للأثاث | Luxury Majlis KSA">
+  <meta property="og:description" content="أثاث مخصص بتصاميم تناسب قلب منزلك.">
+  <meta property="og:type"        content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://ik.imagekit.io">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Noto+Kufi+Arabic:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="js/auth.js"></script>
   <link rel="stylesheet" href="/dist/output.css">
+
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
+    [x-cloak] { display: none !important; }
 
-    @keyframes pulse-glow {
-      0%, 100% { transform: scale(1); opacity: 0.9; box-shadow: 0 0 8px 2px rgba(255,255,255,0.6); }
-      50% { transform: scale(1.6); opacity: 0.4; box-shadow: 0 0 20px 8px rgba(255,255,255,0.2); }
-    }
-    .dot-pulse {
-      animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    /* ── Global Smooth Scroll ─────────────────────────── */
+    html { scroll-behavior: smooth; }
+
+    /* Language Toggle Fixed Position */
+    .fixed-lang-toggle {
+      position: fixed !important;
+      top: 1rem !important;
+      inset-inline-end: 1rem !important;
+      direction: ltr !important;
+      z-index: 200 !important;
     }
 
-    /* Tooltip label */
-    .map-label {
+    /* ── Scrollbar Hide ───────────────────────────────── */
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* ── Gold Decorative Lines ────────────────────────── */
+    .gold-lines-bg {
+      background-image:
+        linear-gradient(45deg, transparent 48%, #c9a96e 49%, #c9a96e 51%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, #c9a96e 49%, #c9a96e 51%, transparent 52%);
+      background-size: 200px 200px;
+      opacity: 0.05;
+    }
+    .gold-strip {
       position: absolute;
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      pointer-events: none;
-      transform: translate(-50%, calc(-200% - 1rem));
-      white-space: nowrap;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
-      opacity: 0;
-      transition: all 700ms ease-out;
-    }
-    .dot-wrapper:hover .map-label { 
-      opacity: 1; 
-      transform: translate(-50%, -200%);
-    }
-  
-    :root {
-      --gold: #c9a96e;
-      --gold-light: #e0c48a;
-      --gold-dim: rgba(201,169,110,0.15);
-      --dark: #080809;
+      background: linear-gradient(to bottom, transparent, #c9a96e, transparent);
+      width: 1px; height: 100%; opacity: 0.1; pointer-events: none;
     }
 
-    * { box-sizing: border-box; }
+    /* ── Phase 2 Animations ───────────────────────────── */
+    @keyframes sweep-shimmer {
+      0% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+      50% { opacity: 0.3; }
+      100% { transform: translateX(200%) skewX(-15deg); opacity: 0; }
+    }
+    .animate-sweep::after {
+      content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+      animation: sweep-shimmer 2s ease-out forwards; pointer-events: none;
+    }
+    @keyframes draw-line { from { width: 0; } to { width: 100%; } }
+    .animate-draw-line { animation: draw-line 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
-    body {
-      background-color: var(--dark);
-      font-family: 'Inter', sans-serif;
-      color: #e5e7eb;
-      margin: 0;
+    @keyframes scrollRibbon { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    .arabesque-bg {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23c9a96e" d="M50 0C50 25 75 50 100 50C75 50 50 75 50 100C50 75 25 50 0 50C25 50 50 25 50 0Z" opacity="0.03"/></svg>');
+      background-size: 100px 100px;
     }
 
-    /* â”€â”€ Header â”€â”€ */
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.97);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201,169,110,0.2);
-      box-shadow: 0 2px 24px rgba(0,0,0,0.08);
+    /* ── Form Inputs ──────────────────────────────────── */
+    .rtl-input-line { position: relative; }
+    .rtl-input-line::after {
+      content: ''; position: absolute; bottom: 0; right: 0; height: 2px; width: 0;
+      background: #c9a96e; transition: width 0.4s ease;
+    }
+    .rtl-input-line:focus-within::after { width: 100%; }
+
+    /* ── WhatsApp Pulse ───────────────────────────────── */
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    .animate-pulse-ring::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      border: 2px solid #25D366; animation: pulse-ring 2s infinite cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    /* â”€â”€ Hero â”€â”€ */
-    .hero-section {
-      background: var(--dark);
-      position: relative;
-      overflow: hidden;
-      min-height: 50vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* ── Micro-animations ─────────────────────────────── */
+    @keyframes draw-check { to { stroke-dashoffset: 0; } }
+    .animate-draw-check {
+      stroke-dasharray: 50; stroke-dashoffset: 50;
+      animation: draw-check 1s ease-out forwards; animation-delay: 0.3s;
     }
-
-    .hero-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,169,110,0.07) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(201,169,110,0.04) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .hero-section::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 0;
-      width: 1px;
-      height: 80px;
-      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-      opacity: 0.5;
-    }
-
-    /* Floating orb decoration */
-    .hero-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.06;
-      pointer-events: none;
-    }
-
-    .hero-orb-1 {
-      width: 500px; height: 500px;
-      background: var(--gold);
-      top: -200px; left: -100px;
-    }
-
-    .hero-orb-2 {
-      width: 400px; height: 400px;
-      background: var(--gold);
-      bottom: -150px; right: -100px;
-    }
-
-    /* â”€â”€ Gold Divider â”€â”€ */
-    .gold-divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      justify-content: center;
-      margin: 1.5rem auto;
-    }
-
-    .gold-divider::before,
-    .gold-divider::after {
-      content: '';
-      height: 1px;
-      width: 80px;
-      background: linear-gradient(to right, transparent, var(--gold));
-    }
-
-    .gold-divider::after {
-      background: linear-gradient(to left, transparent, var(--gold));
-    }
-
-    .gold-divider-diamond {
-      width: 6px; height: 6px;
-      background: var(--gold);
-      transform: rotate(45deg);
-    }
-
-    /* â”€â”€ Category Grid â”€â”€ */
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    @media (max-width: 1024px) {
-      .categories-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 640px) {
-      .categories-grid { grid-template-columns: 1fr; }
-    }
-
-    /* â”€â”€ Category Card â”€â”€ */
-    .category-card {
-      position: relative;
-      border-radius: 4px;
-      overflow: hidden;
-      height: 420px;
-      cursor: pointer;
-      border: 1px solid rgba(201,169,110,0.12);
-      transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94),
-                  box-shadow 0.5s cubic-bezier(0.25,0.46,0.45,0.94),
-                  border-color 0.5s ease;
-      text-decoration: none;
-      display: block;
-    }
-
-    .category-card:hover {
-      transform: scale(1.03);
-      box-shadow:
-        0 0 0 1px var(--gold),
-        0 8px 40px rgba(201,169,110,0.22),
-        0 32px 80px rgba(0,0,0,0.6);
-      border-color: var(--gold);
-    }
-
-    .category-card__img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
-
-    .category-card:hover .category-card__img {
-      transform: scale(1.08);
-    }
-
-    /* Dark gradient overlay */
-    .category-card__overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(8,8,9,0.92) 0%,
-        rgba(8,8,9,0.55) 45%,
-        rgba(8,8,9,0.15) 75%,
-        rgba(8,8,9,0.05) 100%
-      );
-      transition: background 0.5s ease;
-    }
-
-    .category-card:hover .category-card__overlay {
-      background: linear-gradient(
-        to top,
-        rgba(8,8,9,0.95) 0%,
-        rgba(8,8,9,0.65) 50%,
-        rgba(8,8,9,0.2) 75%,
-        rgba(8,8,9,0.08) 100%
-      );
-    }
-
-    /* Glassmorphism shimmer on hover */
-    .category-card__glass {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 120px;
-      background: linear-gradient(
-        180deg,
-        rgba(201,169,110,0.06) 0%,
-        transparent 100%
-      );
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      pointer-events: none;
-    }
-
-    .category-card:hover .category-card__glass {
-      opacity: 1;
-    }
-
-    /* Content area */
-    .category-card__content {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 2rem 1.75rem;
-    }
-
-    .category-card__eyebrow {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.5rem;
-      opacity: 0.9;
-    }
-
-    .category-card__name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.4rem;
-      font-weight: 300;
-      color: #fff;
-      line-height: 1.1;
-      margin: 0 0 0.3rem 0;
-      letter-spacing: 0.01em;
-    }
-
-    .category-card__arabic {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      color: rgba(201,169,110,0.8);
-      margin-bottom: 1rem;
-      direction: rtl;
-      letter-spacing: 0.03em;
-    }
-
-    /* Explore button that slides up on hover */
-    .category-card__cta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      transform: translateY(20px);
-      opacity: 0;
-      transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94),
-                  opacity 0.45s ease;
-    }
-
-    .category-card:hover .category-card__cta {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .category-card__cta-line {
-      width: 30px;
-      height: 1px;
-      background: var(--gold);
-      transition: width 0.35s ease 0.1s;
-    }
-
-    .category-card:hover .category-card__cta-line {
-      width: 50px;
-    }
-
-    /* Gold thin top accent bar on card */
-    .category-card__topbar {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .category-card:hover .category-card__topbar {
-      opacity: 1;
-    }
-
-    /* â”€â”€ Staggered card entry animation â”€â”€ */
-    @keyframes cardFadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .card-animate {
-      opacity: 0;
-      animation: cardFadeUp 0.7s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
-    }
-
-    .card-animate:nth-child(1) { animation-delay: 0.05s; }
-    .card-animate:nth-child(2) { animation-delay: 0.15s; }
-    .card-animate:nth-child(3) { animation-delay: 0.25s; }
-    .card-animate:nth-child(4) { animation-delay: 0.35s; }
-    .card-animate:nth-child(5) { animation-delay: 0.45s; }
-    .card-animate:nth-child(6) { animation-delay: 0.55s; }
-
-    /* â”€â”€ Hero animate â”€â”€ */
-    @keyframes heroFadeUp {
+    @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+    .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
 
-    .hero-animate-1 { animation: heroFadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.1s both; }
-    .hero-animate-2 { animation: heroFadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.25s both; }
-    .hero-animate-3 { animation: heroFadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s both; }
-    .hero-animate-4 { animation: heroFadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.55s both; }
-
-    /* â”€â”€ WhatsApp CTA strip â”€â”€ */
-    .whatsapp-strip {
-      background: linear-gradient(135deg, #0d0d0e 0%, #111110 50%, #0d0d0e 100%);
-      border-top: 1px solid rgba(201,169,110,0.12);
-      border-bottom: 1px solid rgba(201,169,110,0.12);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .whatsapp-strip::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(201,169,110,0.04) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .whatsapp-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: #25d366;
-      color: #fff;
-      padding: 0.85rem 2rem;
-      border-radius: 2px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .whatsapp-btn:hover {
-      background: #20bd5a;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(37,211,102,0.3);
-    }
-
-    /* â”€â”€ Footer â”€â”€ */
-    .site-footer {
-      background: #080809;
-      border-top: 1px solid rgba(201,169,110,0.12);
-    }
-
-    .footer-logo {
-      filter: brightness(0) invert(1);
-      opacity: 0.85;
-    }
-
-    /* Nav hover gold underline */
-    .nav-link {
-      position: relative;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #374151;
-      text-decoration: none;
-      transition: color 0.3s ease;
-      padding-bottom: 2px;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -2px; left: 0;
-      width: 0; height: 1px;
-      background: var(--gold);
-      transition: width 0.3s ease;
-    }
-
-    .nav-link:hover { color: #111; }
-    .nav-link:hover::after { width: 100%; }
-
-    /* Back button */
-    .back-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #6b7280;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .back-btn:hover { color: #374151; }
-
-    .back-btn svg {
-      transition: transform 0.3s ease;
-    }
-
-    .back-btn:hover svg {
-      transform: translateX(-3px);
-    }
-
-    /* Section label */
-    .section-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-  
-  
-/* Keyframe animations */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
+    /* ── Splash Screen ────────────────────────────────── */
+    @keyframes splashIn {
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-    @keyframes scaleIn {
-      from { opacity: 0; transform: scale(0.92); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-    @keyframes goldPulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
-    @keyframes lineExpand {
-      from { width: 0; }
-      to   { width: 80px; }
+
+    /* ── USP Section: Editorial Typography ───────────── */
+    .usp-pillar { transition: opacity 0.4s ease; }
+    .usp-pillar:hover { opacity: 1 !important; }
+    .pillar-eyebrow {
+      font-size: 0.65rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: #b45309;
+      margin-bottom: 1rem; display: block;
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
-
-    /* Hero */
-    .hero-section {
-      position: relative;
-      min-height: 60vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('https://ik.imagekit.io/de7qvcvqv/images/trust_handshake.png');
-      background-size: cover;
-      background-position: center;
-      filter: brightness(0.35);
-      transform: scale(1.05);
-      transition: transform 8s ease-out;
-    }
-    .hero-section:hover .hero-bg {
-      transform: scale(1.0);
-    }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(8,8,9,0.4) 0%, rgba(8,8,9,0.2) 50%, rgba(8,8,9,0.7) 100%);
-    }
-    .hero-content {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      animation: fadeInUp 1.2s cubic-bezier(0.22,1,0.36,1) both;
+    /* ── About Section ────────────────────────────────── */
+    .about-card {
+      background: white;
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 40px rgba(0,0,0,0.04);
     }
 
-    /* Gold divider line */
-    .gold-line {
-      display: block;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 1.5rem auto;
-      width: 200px;
-      animation: fadeIn 1.5s ease both;
+    /* ── Custom Cursor ────────────────────────────────── */
+    .custom-cursor {
+      position: fixed; top: 0; left: 0;
+      width: 10px; height: 10px;
+      background: #c9a96e; border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease,
+                  border-radius 0.3s ease, opacity 0.3s ease;
+      display: none; opacity: 0;
     }
+    @media (pointer: fine) {
+      .custom-cursor { display: block; }
+      .cursor-bound { cursor: none !important; }
+    }
+    .custom-cursor.active {
+      opacity: 1; width: 60px; height: 60px;
+      background: rgba(201,169,110, 0.15);
+      border: 1px solid rgba(201,169,110, 0.6);
+      backdrop-filter: blur(2px);
+    }
+  </style>
 
-    /* Sticky header */
-    .sticky-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(8, 8, 9, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201, 169, 110, 0.15);
-      transition: background 0.3s;
-    }
-
-    /* Nav link */
-    .nav-link {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #a89880;
-      transition: color 0.3s;
-      position: relative;
-      padding-bottom: 2px;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--gold);
-      transition: width 0.3s;
-    }
-    .nav-link:hover { color: var(--gold); }
-    .nav-link:hover::after { width: 100%; }
-    .nav-link.active { color: var(--gold); }
-    .nav-link.active::after { width: 100%; }
-
-    /* Image carousel */
-    .carousel-container {
-      position: relative;
-      width: 100%;
-      max-width: 320px;
-      margin: 0 auto;
-    }
-    .carousel-pill {
-      border-radius: 9999px;
-      overflow: hidden;
-      aspect-ratio: 9/16;
-      max-height: 520px;
-      position: relative;
-      border: 1px solid rgba(201,169,110,0.3);
-      box-shadow: 0 0 60px rgba(201,169,110,0.1);
-    }
-    .carousel-slide {
-      position: absolute;
-      inset: 0;
-      transition: opacity 0.8s ease-in-out;
-      opacity: 0;
-    }
-    .carousel-slide.active { opacity: 1; }
-    .carousel-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .carousel-dots {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin-top: 16px;
-    }
-    .carousel-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(201,169,110,0.3);
-      transition: background 0.3s, transform 0.3s;
-      cursor: pointer;
-    }
-    .carousel-dot.active {
-      background: var(--gold);
-      transform: scale(1.4);
-    }
-
-    
-/* Value pillars */
-    .pillar-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(201,169,110,0.12);
-      border-radius: 12px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      transition: transform 0.3s, border-color 0.3s, background 0.3s;
-    }
-    .pillar-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(201,169,110,0.4);
-      background: rgba(201,169,110,0.05);
-    }
-    .pillar-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      border: 1.5px solid var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.2rem;
-      font-size: 1.6rem;
-      background: rgba(201,169,110,0.08);
-    }
-
-    
-/* Accordion */
-    .faq-item {
-      border-left: 3px solid transparent;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    .faq-item.faq-active {
-      border-left-color: var(--gold);
-      box-shadow: 0 4px 24px rgba(201,169,110,0.07);
-    }
-
-    .faq-answer {
-      overflow: hidden;
-      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
-      max-height: 0;
-      opacity: 0;
-    }
-    .faq-answer.open {
-      max-height: 600px;
-      opacity: 1;
-    }
-
-    /* Arrow rotation */
-    .faq-arrow {
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .faq-arrow.rotated {
-      transform: rotate(180deg);
-    }
-
-    
-</style>
+  <script defer src="/js/app.js"></script>
+  <script defer src="https://unpkg.com/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <link rel="alternate" hreflang="en" href="/index.html" />
+  <link rel="alternate" hreflang="ar" href="/index.html" />
+  <link rel="alternate" hreflang="x-default" href="/index.html" /></head>
+<body
+  :class="isNightMode ? 'bg-[#080809] text-white/90' : 'bg-ivory text-bronze'"
+  class="font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-gold/30 transition-colors duration-1000"
+  x-data="saeedApp()"
+  x-init="init()"
+  @scroll.window="scrolled = (window.pageYOffset > 50)">
 
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
-</head>
-<body class="m-0 p-0 overflow-x-hidden bg-stone-950 font-sans" x-data="{ lang: 'en', expanded: false, active: null, showCollections: false }">
-<!-- Restored Transparent Header -->
-<header class="absolute top-0 inset-x-0 z-[150] flex justify-between items-center px-6 md:px-10 py-5 text-white pointer-events-none">
-  <!-- Left Logo -->
-  <a href="/index.html" class="pointer-events-auto flex items-center gap-4 group">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1);">
-    <div class="hidden sm:block">
-      <span class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</span>
-      <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
+  <!-- ── Progress Indicator ──────────────────────────── -->
+  <div class="fixed top-0 inset-x-0 h-[3px] bg-ivory-darker z-[200]" x-show="step !== 'success' && step !== 'hero'">
+    <div class="h-full bg-gold transition-all duration-700 ease-out shadow-[0_0_10px_rgba(201,169,110,0.5)]" :style="'width:' + progress + '%'"></div>
+  </div>
+
+  <!-- ── Splash Screen ───────────────────────────────── -->
+  <div class="fixed inset-0 flex flex-col items-center justify-center z-[9999]"
+       style="background: radial-gradient(ellipse at top, #131318 0%, #080809 55%, #04040a 100%);"
+       x-show="loading" x-cloak
+       x-transition:leave="transition ease-in-out duration-700"
+       x-transition:leave-start="opacity-100"
+       x-transition:leave-end="opacity-0">
+    <div class="flex flex-col items-center gap-6" style="animation: splashIn 0.9s cubic-bezier(0.22,1,0.36,1) forwards;">
+      <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture"
+           class="h-16 object-contain"
+           style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.15);">
+      <div class="text-center space-y-2">
+        <p class="text-white text-2xl font-bold" style="font-family: 'Noto Kufi Arabic', sans-serif; letter-spacing: 0.05em;">مرحباً بكم في شركة سعيد</p>
+        <p class="text-white/40 text-sm font-medium tracking-[0.25em] uppercase">Welcome to Saeed Furniture</p>
+      </div>
+      <div class="flex gap-2 mt-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e] animate-bounce"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e] animate-bounce" style="animation-delay: 180ms"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#c9a96e] animate-bounce" style="animation-delay: 360ms"></span>
+      </div>
     </div>
-  </a>
+  </div>
 
-  <!-- Right: Navigation & Lang Toggle -->
-  <div class="flex items-center gap-6 md:gap-8 pointer-events-auto">
-    <!-- Restored Navigation Routes -->
-    <nav class="hidden md:flex items-center gap-6 md:gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300 drop-shadow-md">
-      <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300">Home</a>
-      <a href="/about.html" class="hover:text-amber-400 transition-colors duration-300">About</a>
-      <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-300">FAQ</a>
-      <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300">Contact</a>
+  
+
+  <!-- ── Header ──────────────────────────────────────── -->
+  <header  class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out border-b border-transparent"
+          :class="scrolled ? 'bg-stone-950/80 backdrop-blur-md shadow-2xl border-white/5' : 'bg-transparent border-transparent'" >
+    <a href="/index.html" class="h-10 flex items-center gap-3 transition-transform duration-500 hover:scale-105">
+      <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture" class="h-full object-contain drop-shadow-[0_0_15px_rgba(201,169,110,0.3)]" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
+      <div class="flex flex-col">
+        <span class="text-white font-bold text-sm tracking-[0.15em] uppercase whitespace-nowrap" x-text="lang === 'ar' ? 'مفروشات سعيد' : 'Saeed Furniture'">Saeed Furniture</span>
+        <span class="text-amber-500/80 text-[0.55rem] tracking-[0.2em] uppercase whitespace-nowrap mt-0.5" x-text="lang === 'ar' ? 'فخامة تدوم' : 'Bespoke Mastery'">Bespoke Mastery</span>
+      </div>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px]">
+      <a href="#about" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
+      <a href="/select.html" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
+      <a href="#faq"   x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
+      <a href="/contact.html" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
+      <button @click="handleOrderClick()"
+              class="relative hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem] text-[#c9a96e] overflow-hidden group whitespace-nowrap"
+              x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
+      </button>
     </nav>
-    
-    <!-- Divider -->
-    <div class="hidden md:block w-px h-6 bg-white/20"></div>
 
-    <!-- Language Toggle -->
-    <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20">
-      <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-300 hover:text-white'" class="px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.2em] rounded-full transition-all duration-300">EN</button>
-      <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-300 hover:text-white'" class="px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.1em] rounded-full transition-all duration-300" style="font-family: 'Cairo', sans-serif;">عربي</button>
+    <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
+
+      <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 ml-2" dir="ltr">
+        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-3 text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300 min-h-[44px] flex items-center justify-center">EN</button>
+        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-3 text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo min-h-[44px] flex items-center justify-center">عربي</button>
+      </div>
+      <!-- Mobile Hamburger -->
+      <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-[#c9a96e] transition-colors">
+        <svg x-show="!mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg x-show="mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
+  </header>
 
-    <!-- Mobile Menu Toggle -->
-    <button class="md:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">
-      <svg class="w-6 h-6 drop-shadow-md" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-    </button>
+  <div x-show="mobileMenuOpen" x-cloak
+       x-transition:enter="transition ease-out duration-300"
+       x-transition:enter-start="opacity-0"
+       x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-200"
+       x-transition:leave-start="opacity-100"
+       x-transition:leave-end="opacity-0"
+       class="fixed inset-0 z-[90] bg-[#080809]/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 md:hidden">
+    <a href="#about" @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
+    <a href="/select.html" @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
+    <a href="#faq"   @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
+    <a href="/contact.html" @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
+    <button @click="handleOrderClick(); mobileMenuOpen = false" class="text-2xl font-light text-gold hover:text-gold/80 transition-colors uppercase tracking-[0.3em]" x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')"></button>
+    <div class="w-12 h-[1px] bg-gold/30 my-4"></div>
   </div>
-</header>
 
-<!-- Mobile Nav Dropdown -->
-<div id="mobile-nav" class="hidden md:hidden fixed top-24 inset-x-6 z-[140] bg-stone-950/95 backdrop-blur-md border border-white/10 rounded-2xl px-6 py-6 space-y-4 shadow-2xl pointer-events-auto text-center">
-  <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Home</a>
-  <a href="/about.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">About</a>
-  <a href="/faq.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">FAQ</a>
-  <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Contact</a>
-</div>
+  <!-- ══ HERO: Immersive Showroom Map ════════════════ -->
+  <section id="hero" x-data="{ hoverTarget: null }" class="relative overflow-hidden bg-stone-950 w-full h-screen" aria-label="Saeed Furniture Immersive Showroom">
 
-  <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
-  <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
-  </div>
+    <!-- Background Image (Desktop Only) -->
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/Day%20room%20Hero?updatedAt=1779819466896"
+         class="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block"
+         alt="Saeed Furniture — bespoke Saudi handcrafted furniture showroom Al Qurayyat" loading="eager" fetchpriority="high" width="1920" height="1080">
 
+      <!-- Overlay gradient for text readability (Desktop Only) -->
+      <div class="absolute inset-0 z-5 bg-gradient-to-b from-black/30 via-transparent to-black/50 hidden md:block"></div>
 
-  <!-- â”€â”€ Global Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
-    <!-- ===================== UNIFIED GLOBAL HEADER ===================== -->
-  
-  
+      <!-- Subtle hero label (Desktop Only) -->
+      <div class="absolute top-28 inset-x-0 z-20 flex flex-col items-center gap-2 pointer-events-none hidden md:flex">
+        <p class="text-[0.6rem] uppercase tracking-[0.4em] text-white/50 font-bold" x-text="lang === 'ar' ? 'استكشف معرضنا' : 'Explore Our Showroom'"></p>
+        <div class="w-8 h-px bg-white/30"></div>
+      </div>
 
-  <!-- â”€â”€ Master Gateway: Full Viewport Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
-  <main class="relative w-full h-screen overflow-hidden">
-
-    <!-- LAYER 0: Day Room Hero Image -->
-    <img
-      src="https://ik.imagekit.io/de7qvcvqv/images/Day%20room%20Hero?updatedAt=1779819466896"
-      class="absolute inset-0 w-full h-full object-cover object-center z-0"
-      alt="Master Showroom Gateway"
-    />
-
-    <!-- LAYER 1: Very subtle gradient overlay for header legibility only -->
-    <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/50 to-transparent z-10 pointer-events-none"></div>
-    <!-- Subtle bottom gradient for CTA text legibility -->
-    <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/40 to-transparent z-10 pointer-events-none"></div>
-
-    <!-- LAYER 2: Pulsing Discoverability Dots (z-30, above SVG) -->
-    <!-- Majlis center approx (25%, 75%) -->
-    <div class="dot-wrapper absolute z-30" style="left: 25%; top: 75%;">
-      <div class="dot-pulse absolute w-3 h-3 bg-white/90 rounded-full shadow-[0_0_15px_white]" style="transform: translate(-50%, -50%);"></div>
-      <span class="map-label" style="left:0; top:0;">Majlis</span>
-    </div>
-
-    <!-- Kitchen center approx (52.5%, 35%) -->
-    <div class="dot-wrapper absolute z-30" style="left: 52.5%; top: 35%;">
-      <div class="dot-pulse absolute w-3 h-3 bg-white/90 rounded-full shadow-[0_0_15px_white]" style="transform: translate(-50%, -50%);"></div>
-      <span class="map-label" style="left:0; top:0;">Kitchen</span>
-    </div>
-
-    <!-- Cot center approx (70%, 62.5%) -->
-    <div class="dot-wrapper absolute z-30" style="left: 70%; top: 62.5%;">
-      <div class="dot-pulse absolute w-3 h-3 bg-white/90 rounded-full shadow-[0_0_15px_white]" style="transform: translate(-50%, -50%);"></div>
-      <span class="map-label" style="left:0; top:0;">Cot</span>
-    </div>
-
-    <!-- Bedroom center approx (87.5%, 65%) -->
-    <div class="dot-wrapper absolute z-30" style="left: 87.5%; top: 65%;">
-      <div class="dot-pulse absolute w-3 h-3 bg-white/90 rounded-full shadow-[0_0_15px_white]" style="transform: translate(-50%, -50%);"></div>
-      <span class="map-label" style="left:0; top:0;">Bedroom</span>
-    </div>
-
-    <!-- Almirah center approx (77.5%, 35%) -->
-    <div class="dot-wrapper absolute z-30" style="left: 77.5%; top: 35%;">
-      <div class="dot-pulse absolute w-3 h-3 bg-white/90 rounded-full shadow-[0_0_15px_white]" style="transform: translate(-50%, -50%);"></div>
-      <span class="map-label" style="left:0; top:0;">Almirah</span>
-    </div>
-
-    <!-- LAYER 3: Transparent SVG Polygon Hit-Map (z-20) -->
-    <svg
-      class="absolute inset-0 w-full h-full z-20 pointer-events-none"
-      viewBox="0 0 100 100"
-      preserveAspectRatio="xMidYMid slice"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <!-- Majlis -->
-      <a href="/majlis.html" class="pointer-events-auto">
-        <polygon
-          points="0,50 50,50 50,100 0,100"
-          fill="rgba(0,0,0,0)"
-          class="cursor-pointer hover:fill-white/15 transition-all duration-500 ease-in-out"
-        />
-      </a>
-
-      <!-- Kitchen -->
-      <a href="/kitchen.html" class="pointer-events-auto">
-        <polygon
-          points="40,25 65,25 65,45 40,45"
-          fill="rgba(0,0,0,0)"
-          class="cursor-pointer hover:fill-white/15 transition-all duration-500 ease-in-out"
-        />
-      </a>
-
-      <!-- Cot -->
-      <a href="/cot.html" class="pointer-events-auto">
-        <polygon
-          points="65,55 75,55 75,70 65,70"
-          fill="rgba(0,0,0,0)"
-          class="cursor-pointer hover:fill-white/15 transition-all duration-500 ease-in-out"
-        />
-      </a>
-
-      <!-- Bedroom -->
-      <a href="/bedroom.html" class="pointer-events-auto">
-        <polygon
-          points="75,50 100,50 100,80 75,80"
-          fill="rgba(0,0,0,0)"
-          class="cursor-pointer hover:fill-white/15 transition-all duration-500 ease-in-out"
-        />
-      </a>
-
-      <!-- Almirah -->
-      <a href="/almirah.html" class="pointer-events-auto">
-        <polygon
-          points="70,20 85,20 85,50 70,50"
-          fill="rgba(0,0,0,0)"
-          class="cursor-pointer hover:fill-white/15 transition-all duration-500 ease-in-out"
-        />
-      </a>
-    </svg>
-
-    <!-- LAYER 4: Bottom CTA hint -->
-    <div class="absolute bottom-10 inset-x-0 z-30 flex flex-col items-center gap-2 pointer-events-none">
-      <p class="text-white/60 text-xs tracking-[0.3em] uppercase font-medium drop-shadow">Hover the room to explore</p>
-      <svg class="w-5 h-5 text-white/40 animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path d="M19 9l-7 7-7-7"/>
+      <svg class="absolute inset-0 w-full h-full z-20 pointer-events-none hidden md:block" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <a href="/majlis.html"><polygon points="0,50 50,50 50,100 0,100" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'majlis'" @mouseleave="hoverTarget = null" /></a>
+        <a href="/kitchen.html"><polygon points="40,25 65,25 65,45 40,45" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'kitchen'" @mouseleave="hoverTarget = null" /></a>
+        <a href="/cot.html"><polygon points="65,55 75,55 75,70 65,70" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'cot'" @mouseleave="hoverTarget = null" /></a>
+        <a href="/bedroom.html"><polygon points="75,50 100,50 100,80 75,80" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'bedroom'" @mouseleave="hoverTarget = null" /></a>
+        <a href="/almirah.html"><polygon points="62,18 74,18 74,50 62,50" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'almirah'" @mouseleave="hoverTarget = null" /></a>
       </svg>
-    </div>
+
+      <!-- Pulse Markers & Hover Labels -->
+      <div class="absolute inset-0 z-[25] pointer-events-none hidden md:block">
+        <!-- Majlis -->
+        <div class="absolute" style="left: 25%; top: 75%; transform: translate(-50%, -50%);">
+          <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
+          <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-all duration-300 pointer-events-none text-sm"
+               :class="hoverTarget === 'majlis' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
+            <span x-text="lang === 'ar' ? 'مجلس' : 'Majlis'"></span>
+          </div>
+        </div>
+        <!-- Kitchen -->
+        <div class="absolute" style="left: 52.5%; top: 35%; transform: translate(-50%, -50%);">
+          <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
+          <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-all duration-300 pointer-events-none text-sm"
+               :class="hoverTarget === 'kitchen' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
+            <span x-text="lang === 'ar' ? 'مطبخ' : 'Kitchen'"></span>
+          </div>
+        </div>
+        <!-- Cot -->
+        <div class="absolute" style="left: 70%; top: 62.5%; transform: translate(-50%, -50%);">
+          <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
+          <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-all duration-300 pointer-events-none text-sm"
+               :class="hoverTarget === 'cot' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
+            <span x-text="lang === 'ar' ? 'سرير أطفال' : 'Cot'"></span>
+          </div>
+        </div>
+        <!-- Bedroom -->
+        <div class="absolute" style="left: 87.5%; top: 65%; transform: translate(-50%, -50%);">
+          <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
+          <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-all duration-300 pointer-events-none text-sm"
+               :class="hoverTarget === 'bedroom' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
+            <span x-text="lang === 'ar' ? 'غرفة نوم' : 'Bedroom'"></span>
+          </div>
+        </div>
+        <!-- Almirah -->
+        <div class="absolute" style="left: 68%; top: 32%; transform: translate(-50%, -50%);">
+          <div class="w-4 h-4 rounded-full bg-white/40 border-2 border-white animate-pulse"></div>
+          <div class="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white font-cairo transition-all duration-300 pointer-events-none text-sm"
+               :class="hoverTarget === 'almirah' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
+            <span x-text="lang === 'ar' ? 'خزانة' : 'Almirah'"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Hero 2x2 Grid (visible only on mobile) -->
+      <div class="absolute inset-0 z-30 block md:hidden p-4 pt-24 pb-8 bg-[#080809]" style="pointer-events: auto;">
+        <div class="grid grid-cols-2 gap-4 h-full">
+          <a href="/majlis.html" class="relative rounded-2xl overflow-hidden block h-full group">
+            <img src="https://ik.imagekit.io/de7qvcvqv/majlis_hero.png" class="absolute inset-0 w-full h-full object-cover" alt="Majlis">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المجلس' : 'Majlis'"></span>
+            </div>
+          </a>
+          <a href="/kitchen.html" class="relative rounded-2xl overflow-hidden block h-full group">
+            <img src="https://ik.imagekit.io/de7qvcvqv/kitchen_hero.png" class="absolute inset-0 w-full h-full object-cover" alt="Kitchen">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المطبخ' : 'Kitchen'"></span>
+            </div>
+          </a>
+          <a href="/bedroom.html" class="relative rounded-2xl overflow-hidden block h-full group">
+            <img src="https://ik.imagekit.io/de7qvcvqv/bedroom_hero.png" class="absolute inset-0 w-full h-full object-cover" alt="Bedroom">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'غرفة النوم' : 'Bedroom'"></span>
+            </div>
+          </a>
+          <a href="/almirah.html" class="relative rounded-2xl overflow-hidden block h-full group">
+            <img src="https://ik.imagekit.io/de7qvcvqv/almirah_hero.png" class="absolute inset-0 w-full h-full object-cover" alt="Almirah">
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'الخزائن' : 'Almirah'"></span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Scroll hint (Desktop Only) -->
+      <div class="absolute bottom-8 inset-x-0 flex justify-center z-30 pointer-events-none hidden md:flex">
+        <div class="flex flex-col items-center gap-2 animate-bounce">
+          <p class="text-[0.55rem] uppercase tracking-[0.35em] text-white/40 font-bold" x-text="lang === 'ar' ? 'مرر للأسفل' : 'Scroll'"></p>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
+      </div>
+  </section>
+  <!-- END HERO -->
+
+  <!-- ── Main ─────────────────────────────────── -->
+  <main class="transition-all duration-500" x-show="!loading" x-cloak>
+
+    <!-- ══ USP SECTION: Editorial Typography ═══════════ -->
+    <section id="usp" class="py-32 bg-stone-50 text-stone-900 relative overflow-hidden">
+
+      <!-- Subtle arabesque background pattern -->
+      <div class="absolute inset-0 pointer-events-none" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22><path fill=%22%23b45309%22 d=%22M60 0C60 30 90 60 120 60C90 60 60 90 60 120C60 90 30 60 0 60C30 60 60 30 60 0Z%22 opacity=%220.018%22/></svg>'); background-size: 120px 120px; opacity: 0.6;"></div>
+
+      <div class="max-w-7xl mx-auto px-8 flex flex-col lg:flex-row gap-20 relative">
+
+        <!-- LEFT: Sticky Editorial Anchor Column -->
+        <div class="lg:w-1/3 lg:sticky lg:top-32 h-fit">
+          <!-- EN headline -->
+          <h2 x-show="lang !== 'ar'"
+              class="text-5xl lg:text-7xl font-light tracking-tight leading-none mb-6"
+              style="font-family: 'Playfair Display', serif;">
+            Quiet<br>Luxury,<br>
+            <em class="text-amber-700 not-italic" style="font-style: italic;">Redefined.</em>
+          </h2>
+          <!-- AR headline -->
+          <h2 x-show="lang === 'ar'"
+              class="text-5xl lg:text-7xl font-light tracking-tight leading-none mb-6"
+              style="font-family: 'Noto Kufi Arabic', sans-serif;">
+            فخامة هادئة،<br>
+            <span class="text-amber-700 italic">بمفهوم جديد.</span>
+          </h2>
+
+          <div class="w-12 h-px bg-amber-700/40 mb-6"></div>
+          <p class="text-stone-400 text-xs tracking-[0.25em] uppercase font-medium" x-text="lang === 'ar' ? 'شركة سعيد للأثاث — القريات' : 'Saeed Furniture — Al Qurayyat'"></p>
+
+          <!-- Decorative brand monogram -->
+          <div class="mt-12 select-none hidden lg:block">
+            <div class="text-[2.5rem] font-medium text-amber-700/20 leading-tight"
+                 style="font-family: 'Noto Kufi Arabic', sans-serif;"
+                 x-show="lang === 'ar'">شركة سعيد</div>
+            <div class="text-[2rem] font-light text-stone-200/20 leading-tight tracking-[0.2em] uppercase"
+                 style="font-family: 'Playfair Display', serif;"
+                 x-show="lang !== 'ar'">Saeed<br>Furniture</div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Scrolling Pillar Blocks -->
+        <div class="lg:w-2/3 flex flex-col gap-16">
+
+          <!-- Pillar 01 -->
+          <div class="usp-pillar group">
+            <span class="pillar-eyebrow" x-text="lang === 'ar' ? '٠١ / الإرث' : '01 / The Heritage'"></span>
+            <h3 class="text-3xl font-medium mb-4 leading-tight group-hover:text-amber-700 transition-colors duration-300"
+                x-text="lang === 'ar' ? 'دقة معمارية' : 'Architectural Precision'"></h3>
+            <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
+               x-show="lang !== 'ar'">
+              Every piece emerges from Al Qurayyat's master workshops — where Saudi craftsmen fuse centuries-old joinery traditions with contemporary form. Each grain is chosen, each joint hand-fitted. Furniture that speaks the language of the land.
+            </p>
+            <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
+               x-show="lang === 'ar'"
+               style="font-family: 'Noto Kufi Arabic', sans-serif;">
+              كل قطعة تولد من ورش القريات المتخصصة — حيث يمزج الحرفيون السعوديون تقاليد النجارة العريقة مع الشكل المعاصر. كل حبة خشب مختارة بعناية، وكل مفصل يُنجز باليد.
+            </p>
+          </div>
+
+          <hr class="border-stone-200">
+
+          <!-- Pillar 02 -->
+          <div class="usp-pillar group">
+            <span class="pillar-eyebrow" x-text="lang === 'ar' ? '٠٢ / العملية' : '02 / The Process'"></span>
+            <h3 class="text-3xl font-medium mb-4 leading-tight group-hover:text-amber-700 transition-colors duration-300"
+                x-text="lang === 'ar' ? 'مخصص حتى العظم' : 'Bespoke to the Bone'"></h3>
+            <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
+               x-show="lang !== 'ar'">
+              We don't sell from inventory. Every commission begins with a home visit — understanding your space, your light, your family. The result is furniture that could only ever belong to you. Nothing generic, nothing off-the-shelf.
+            </p>
+            <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
+               x-show="lang === 'ar'"
+               style="font-family: 'Noto Kufi Arabic', sans-serif;">
+              لا نبيع من المخزون. كل طلب يبدأ بزيارة منزلية — لفهم مساحتك، وإضاءتك، وعائلتك. النتيجة أثاث لا يمكن أن يكون لأحد سواك.
+            </p>
+          </div>
+
+          <hr class="border-stone-200">
+
+          <!-- Pillar 03 -->
+          <div class="usp-pillar group">
+            <span class="pillar-eyebrow" x-text="lang === 'ar' ? '٠٣ / الوعد' : '03 / The Promise'"></span>
+            <h3 class="text-3xl font-medium mb-4 leading-tight group-hover:text-amber-700 transition-colors duration-300"
+                x-text="lang === 'ar' ? 'روح سعودية، معيار عالمي' : 'Saudi Soul, Global Standard'"></h3>
+            <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
+               x-show="lang !== 'ar'">
+              Rooted in the Jawf region's cultural pride, finished to international material standards. We build what lasts — for the next generation of Saudi homes. Quiet luxury, handed down.
+            </p>
+            <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
+               x-show="lang === 'ar'"
+               style="font-family: 'Noto Kufi Arabic', sans-serif;">
+              متجذر في فخر منطقة الجوف الثقافي، ومُنجز وفق أعلى معايير المواد العالمية. نبني ما يدوم — للجيل القادم من البيوت السعودية.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ ABOUT SECTION ═══════════════════════════════ -->
+    <section id="about" class="py-24 bg-stone-100 relative overflow-hidden">
+
+      <!-- Faint decorative company name -->
+      <div class="absolute -right-8 top-1/2 -translate-y-1/2 select-none leading-none pointer-events-none hidden lg:block"
+           :class="lang === 'ar' ? '-right-auto -left-8' : ''"
+           x-show="lang !== 'ar'">
+        <div class="text-[9rem] font-light text-stone-200/30" style="font-family: 'Playfair Display', serif; writing-mode: vertical-lr; text-orientation: mixed;">Saeed</div>
+      </div>
+      <div class="absolute -right-4 top-1/2 -translate-y-1/2 select-none leading-none pointer-events-none hidden lg:block"
+           :class="lang === 'ar' ? '-right-auto -left-4' : ''"
+           x-show="lang === 'ar'">
+        <div class="text-[3.5rem] font-medium text-amber-700/10 leading-snug text-center" style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة<br>سعيد</div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-8 relative">
+
+        <!-- Section Label -->
+        <div class="flex items-center gap-4 mb-16">
+          <div class="w-8 h-px bg-amber-700"></div>
+          <span class="text-xs uppercase tracking-[0.35em] text-amber-700 font-bold" x-text="lang === 'ar' ? 'من نحن' : 'About Us'"></span>
+        </div>
+
+        <!-- Two-column layout -->
+        <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+          <!-- Left: Statement -->
+          <div>
+            <h2 class="text-4xl lg:text-5xl font-light leading-tight mb-8 text-stone-800"
+                x-show="lang !== 'ar'"
+                style="font-family: 'Playfair Display', serif;">
+              Crafting the<br><em class="text-amber-700">Heart</em> of<br>Saudi Homes.
+            </h2>
+            <h2 class="text-4xl lg:text-5xl font-light leading-tight mb-8 text-stone-800"
+                x-show="lang === 'ar'"
+                style="font-family: 'Noto Kufi Arabic', sans-serif;">
+              نصنع <span class="text-amber-700">قلب</span><br>البيوت السعودية.
+            </h2>
+
+            <!-- Stats row -->
+            <div class="grid grid-cols-3 gap-6 mb-10">
+              <div class="text-center">
+                <p class="text-3xl font-light text-amber-700 mb-1">15+</p>
+                <p class="text-xs uppercase tracking-widest text-stone-400" x-text="lang === 'ar' ? 'سنة خبرة' : 'Years Est.'"></p>
+              </div>
+              <div class="text-center border-x border-stone-300">
+                <p class="text-3xl font-light text-amber-700 mb-1">500+</p>
+                <p class="text-xs uppercase tracking-widest text-stone-400" x-text="lang === 'ar' ? 'مشروع منجز' : 'Projects'"></p>
+              </div>
+              <div class="text-center">
+                <p class="text-3xl font-light text-amber-700 mb-1">100%</p>
+                <p class="text-xs uppercase tracking-widest text-stone-400" x-text="lang === 'ar' ? 'صنع في السعودية' : 'Made in KSA'"></p>
+              </div>
+            </div>
+
+            <!-- CTA with Home Visit Modal -->
+            <div x-data="{ showVisitModal: false, visitName: '', visitEmail: '', visitTime: 'Morning', visitLocation: '' }">
+              <div class="flex flex-wrap gap-4">
+                <button @click="showVisitModal = true"
+                   class="inline-flex items-center gap-3 px-8 py-4 bg-stone-900 text-white text-sm font-bold uppercase tracking-[0.2em] hover:bg-amber-700 transition-all duration-500 group">
+                  <span x-text="lang === 'ar' ? 'احجز زيارة منزلية' : 'Book a Home Visit'"></span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+                <a href="/contact.html"
+                   class="inline-flex items-center gap-3 px-8 py-4 border border-stone-300 text-stone-800 text-sm font-bold uppercase tracking-[0.2em] hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-all duration-500 group">
+                  <span x-text="lang === 'ar' ? 'تعرف أكثر' : 'Know More'"></span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+
+              <!-- Luxury Home Visit Modal -->
+              <div x-show="showVisitModal" 
+                   x-transition:enter="transition ease-out duration-300"
+                   x-transition:enter-start="opacity-0"
+                   x-transition:enter-end="opacity-100"
+                   x-transition:leave="transition ease-in duration-200"
+                   x-transition:leave-start="opacity-100"
+                   x-transition:leave-end="opacity-0"
+                   class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+                   x-cloak
+                   @click.self="showVisitModal = false">
+                   
+                <div class="bg-stone-950 border border-[#c9a96e]/30 rounded-2xl w-full max-w-lg p-6 md:p-8 relative shadow-[0_24px_50px_rgba(0,0,0,0.8)] text-left" :dir="lang === 'ar' ? 'rtl' : 'ltr'">
+                  <!-- Close button -->
+                  <button @click="showVisitModal = false" class="absolute top-5 right-5 text-white/40 hover:text-white text-2xl transition-colors">&times;</button>
+                  
+                  <!-- Modal Header -->
+                  <div class="mb-6">
+                    <h3 class="text-xl font-light text-white font-serif tracking-wide" x-text="lang === 'ar' ? 'طلب زيارة منزلية مجانية' : 'Book a Free Home Visit'"></h3>
+                    <p class="text-stone-400 text-xs mt-2" x-text="lang === 'ar' ? 'يرجى ملء البيانات التالية وسنوجهك مباشرة لتأكيد الموعد عبر واتساب' : 'Please enter your details. We will direct you to confirm on WhatsApp.'"></p>
+                  </div>
+                  
+                  <!-- Inputs -->
+                  <div class="space-y-5 text-stone-200">
+                    <div>
+                      <label class="block text-[0.65rem] font-bold text-white/40 uppercase tracking-widest mb-1.5" x-text="lang === 'ar' ? 'الاسم الكريم' : 'Your Name'"></label>
+                      <input type="text" name="full_name" x-model="visitName" class="w-full bg-transparent border-b border-white/10 pb-2 text-white text-base outline-none focus:border-[#c9a96e] transition-colors" placeholder="Salmaan">
+                    </div>
+                    
+                    <div>
+                      <label class="block text-[0.65rem] font-bold text-white/40 uppercase tracking-widest mb-1.5" x-text="lang === 'ar' ? 'البريد الإلكتروني' : 'Email Address'"></label>
+                      <input type="email" name="email" x-model="visitEmail" class="w-full bg-transparent border-b border-white/10 pb-2 text-white text-base outline-none focus:border-[#c9a96e] transition-colors" placeholder="name@domain.com">
+                    </div>
+
+                    <div>
+                      <label class="block text-[0.65rem] font-bold text-white/40 uppercase tracking-widest mb-2" x-text="lang === 'ar' ? 'الوقت المفضل للزيارة' : 'Preferred Time Slot'"></label>
+                      <div class="grid grid-cols-3 gap-2">
+                        <button @click="visitTime = 'Morning'" :class="visitTime === 'Morning' ? 'border-[#c9a96e] bg-[#c9a96e]/10 text-white' : 'border-white/10 text-stone-400'" class="border py-2 px-1 text-center text-[0.65rem] font-bold rounded-lg transition-all">
+                          <span x-text="lang === 'ar' ? 'صباحاً (9-12)' : 'Morning (9-12)'"></span>
+                        </button>
+                        <button @click="visitTime = 'Afternoon'" :class="visitTime === 'Afternoon' ? 'border-[#c9a96e] bg-[#c9a96e]/10 text-white' : 'border-white/10 text-stone-400'" class="border py-2 px-1 text-center text-[0.65rem] font-bold rounded-lg transition-all">
+                          <span x-text="lang === 'ar' ? 'ظهراً (12-4)' : 'Afternoon (12-4)'"></span>
+                        </button>
+                        <button @click="visitTime = 'Evening'" :class="visitTime === 'Evening' ? 'border-[#c9a96e] bg-[#c9a96e]/10 text-white' : 'border-white/10 text-stone-400'" class="border py-2 px-1 text-center text-[0.65rem] font-bold rounded-lg transition-all">
+                          <span x-text="lang === 'ar' ? 'مساءً (4-9)' : 'Evening (4-9)'"></span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="block text-[0.65rem] font-bold text-white/40 uppercase tracking-widest mb-1.5" x-text="lang === 'ar' ? 'المدينة / الحي' : 'City / Neighborhood'"></label>
+                      <input type="text" name="district_city" x-model="visitLocation" class="w-full bg-transparent border-b border-white/10 pb-2 text-white text-base outline-none focus:border-[#c9a96e] transition-colors" :placeholder="lang === 'ar' ? 'مثال: القريات، حي الخالدية' : 'e.g. Al Qurayyat, Al Khaldiyah'">
+                    </div>
+                  </div>
+                  
+                  <!-- Submit -->
+                  <div class="mt-8">
+                    <a :href="'https://wa.me/9669288004450?text=' + encodeURIComponent(
+                      (lang === 'ar' 
+                        ? 'مرحباً مفروشات سعيد، أود حجز زيارة منزلية مجانية:\n' +
+                          '• الاسم: ' + (visitName || '[لم يتم إدخاله]') + '\n' +
+                          '• البريد: ' + (visitEmail || '[لم يتم إدخاله]') + '\n' +
+                          '• الوقت المفضل: ' + (visitTime === 'Morning' ? 'صباحاً (9:00 ص - 12:00 م)' : visitTime === 'Afternoon' ? 'ظهراً (12:00 م - 4:00 م)' : 'مساءً (4:00 م - 9:00 م)') + '\n' +
+                          '• الموقع: ' + (visitLocation || '[سأرسله بالخريطة]') + '\n' +
+                          '(ملاحظة: سأقوم بمشاركة موقعي المباشر في هذه الدردشة)'
+                        : 'Hello Saeed Furniture, I would like to book a free Home Visit:\n' +
+                          '• Name: ' + (visitName || '[Not provided]') + '\n' +
+                          '• Email: ' + (visitEmail || '[Not provided]') + '\n' +
+                          '• Preferred Time: ' + visitTime + '\n' +
+                          '• Location: ' + (visitLocation || '[Will share live location]') + '\n' +
+                          '(Note: I will also share my live location in this chat)')
+                    )"
+                    target="_blank"
+                    @click="showVisitModal = false"
+                    class="w-full text-center py-4 bg-[#25d366] text-white font-bold text-sm uppercase tracking-widest hover:bg-[#20bd5a] transition-all rounded-xl shadow-[0_4px_20px_rgba(37,211,102,0.3)] block">
+                      <span x-text="lang === 'ar' ? 'تأكيد وإرسال الموعد عبر واتساب' : 'Confirm & Open WhatsApp'"></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Brand Story Cards -->
+          <div class="space-y-6">
+            <div class="about-card p-8 border-l-2 border-amber-700" :class="lang === 'ar' ? 'border-l-0 border-r-2' : ''">
+              <h4 class="text-sm font-bold uppercase tracking-widest text-stone-800 mb-3" x-text="lang === 'ar' ? 'قصة البداية' : 'Our Story'"></h4>
+              <p class="text-stone-500 leading-relaxed" x-show="lang !== 'ar'">
+                Founded in Al Qurayyat, Saeed Furniture began as a single workshop with a commitment to quality that the region had never seen. Today, we are the benchmark for bespoke interiors across Tabuk and Al Jawf.
+              </p>
+              <p class="text-stone-500 leading-relaxed" x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;">
+                تأسست شركة سعيد للأثاث في القريات من ورشة صغيرة واحدة، بالتزام بالجودة لم تشهده المنطقة من قبل. اليوم، نحن المعيار في الأثاث المخصص عبر تبوك والجوف.
+              </p>
+            </div>
+
+            <div class="about-card p-8 border-l-2 border-stone-300" :class="lang === 'ar' ? 'border-l-0 border-r-2' : ''">
+              <h4 class="text-sm font-bold uppercase tracking-widest text-stone-800 mb-3" x-text="lang === 'ar' ? 'فلسفتنا' : 'Our Philosophy'"></h4>
+              <p class="text-stone-500 leading-relaxed" x-show="lang !== 'ar'">
+                Quiet luxury is not about excess — it's about intention. Every curve, every joinery, every fabric choice is deliberate. We believe a home's furniture should whisper its owner's story.
+              </p>
+              <p class="text-stone-500 leading-relaxed" x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;">
+                الفخامة الهادئة ليست في الإسراف — بل في الهدف. كل منحنى، كل وصل، كل اختيار قماش، هو قرار مدروس. نؤمن أن أثاث المنزل يجب أن يهمس بقصة صاحبه.
+              </p>
+            </div>
+
+            <div class="about-card p-8 border-l-2 border-stone-300" :class="lang === 'ar' ? 'border-l-0 border-r-2' : ''">
+              <h4 class="text-sm font-bold uppercase tracking-widest text-stone-800 mb-3" x-text="lang === 'ar' ? 'الموقع' : 'Location'"></h4>
+              <p class="text-stone-500 leading-relaxed flex items-start gap-3">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" class="flex-shrink-0 mt-0.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span x-text="lang === 'ar' ? 'القريات، منطقة الجوف، المملكة العربية السعودية' : 'Al Qurayyat, Al Jawf Region, Kingdom of Saudi Arabia'"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ DESKTOP HORIZONTAL RIBBON ════════════════════ -->
+    <section class="py-16 bg-stone-950 overflow-hidden hidden md:block">
+      <div class="max-w-[100vw] overflow-x-auto hide-scrollbar">
+        <div class="flex gap-6 px-8 w-max" style="animation: scrollRibbon 40s linear infinite;">
+          <a href="/majlis.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+            <img src="https://ik.imagekit.io/de7qvcvqv/majlis_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Majlis">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 text-white pointer-events-none">
+              <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المجلس' : 'Majlis'"></span>
+              <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
+            </div>
+          </a>
+          <a href="/kitchen.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+            <img src="https://ik.imagekit.io/de7qvcvqv/kitchen_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Kitchen">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 text-white pointer-events-none">
+              <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المطبخ' : 'Kitchen'"></span>
+              <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
+            </div>
+          </a>
+          <a href="/bedroom.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+            <img src="https://ik.imagekit.io/de7qvcvqv/bedroom_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Bedroom">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 text-white pointer-events-none">
+              <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'غرفة النوم' : 'Bedroom'"></span>
+              <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
+            </div>
+          </a>
+          <a href="/almirah.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+            <img src="https://ik.imagekit.io/de7qvcvqv/almirah_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Almirah">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 text-white pointer-events-none">
+              <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'الخزائن' : 'Almirah'"></span>
+              <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
+            </div>
+          </a>
+          <!-- Duplicate for infinite scroll effect -->
+          <a href="/majlis.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+            <img src="https://ik.imagekit.io/de7qvcvqv/majlis_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Majlis">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 text-white pointer-events-none">
+              <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المجلس' : 'Majlis'"></span>
+              <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
+            </div>
+          </a>
+          <a href="/kitchen.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+            <img src="https://ik.imagekit.io/de7qvcvqv/kitchen_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Kitchen">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-6 left-6 text-white pointer-events-none">
+              <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المطبخ' : 'Kitchen'"></span>
+              <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
 
   </main>
-<!-- Restored Transparent Header -->
-<header class="absolute top-0 inset-x-0 z-[150] flex justify-between items-center px-6 md:px-10 py-5 text-white pointer-events-none">
-  <!-- Left Logo -->
-  <a href="/index.html" class="pointer-events-auto flex items-center gap-4 group">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1);">
-    <div class="hidden sm:block">
-      <span class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</span>
-      <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
-    </div>
-  </a>
 
-  <!-- Right: Navigation & Lang Toggle -->
-  <div class="flex items-center gap-6 md:gap-8 pointer-events-auto">
-    <!-- Restored Navigation Routes -->
-    <nav class="hidden md:flex items-center gap-6 md:gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300 drop-shadow-md">
-      <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300">Home</a>
-      <a href="/about.html" class="hover:text-amber-400 transition-colors duration-300">About</a>
-      <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-300">FAQ</a>
-      <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300">Contact</a>
-    </nav>
-    
-    <!-- Divider -->
-    <div class="hidden md:block w-px h-6 bg-white/20"></div>
+  <!-- ── FAQ Section ─────────────────────────────────── -->
+  <section id="faq" class="pt-24 pb-12 bg-stone-900 relative overflow-hidden" x-show="!loading" x-cloak>
+    <!-- Subtle diagonal line background -->
+    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: repeating-linear-gradient(135deg, #c9a96e 0, #c9a96e 1px, transparent 0, transparent 50%); background-size: 40px 40px;"></div>
 
-    <!-- Language Toggle -->
-    <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20">
-      <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-300 hover:text-white'" class="px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.2em] rounded-full transition-all duration-300">EN</button>
-      <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-300 hover:text-white'" class="px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.1em] rounded-full transition-all duration-300" style="font-family: 'Cairo', sans-serif;">عربي</button>
-    </div>
+    <div class="max-w-3xl mx-auto px-8 relative">
 
-    <!-- Mobile Menu Toggle -->
-    <button class="md:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">
-      <svg class="w-6 h-6 drop-shadow-md" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-    </button>
-  </div>
-</header>
-
-<!-- Mobile Nav Dropdown -->
-<div id="mobile-nav" class="hidden md:hidden fixed top-24 inset-x-6 z-[140] bg-stone-950/95 backdrop-blur-md border border-white/10 rounded-2xl px-6 py-6 space-y-4 shadow-2xl pointer-events-auto text-center">
-  <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Home</a>
-  <a href="/about.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">About</a>
-  <a href="/faq.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">FAQ</a>
-  <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Contact</a>
-</div>
-
-  <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
-  <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
-  </div>
-
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       STICKY HEADER
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-    <!-- ===================== UNIFIED GLOBAL HEADER ===================== -->
-  
-  
-
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       1. HERO SECTION
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="hero-section">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content px-6" style="max-width: 800px;">
-      <p class="section-eyebrow mb-6 tracking-widest" style="animation-delay:0.2s;">
-        EST. — AL QURAYYAT, KSA
-      </p>
-      <h1 class="font-serif text-white leading-none mb-2" style="font-size: clamp(3rem, 8vw, 6rem); font-weight: 300;">
-        <span x-show="lang==='en'">Our Story</span>
-        <span x-show="lang==='ar'" class="font-arabic" style="font-size: clamp(2.5rem, 7vw, 5rem);">قصتنا</span>
-      </h1>
-      <span class="gold-line"></span>
-      <p class="text-stone-300 font-light tracking-wide" style="font-size: clamp(0.9rem, 2vw, 1.1rem);">
-        <span x-show="lang==='en'">Two decades of handcrafted excellence</span>
-        <span x-show="lang==='ar'" class="font-arabic">Ø¹Ù‚Ø¯Ø§Ù† Ù…Ù† Ø§Ù„ØªÙ…ÙŠØ² Ø§Ù„ÙŠØ¯ÙˆÙŠ ÙÙŠ ØµÙ†Ø§Ø¹Ø© Ø§Ù„Ø£Ø«Ø§Ø«</span>
-      </p>
-    </div>
-  </section>
-
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       2. BRAND STORY — 3-column grid
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="py-24 px-6" style="background: var(--dark);">
-    <div class="max-w-7xl mx-auto">
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 items-center">
-
-        <!-- LEFT COL: Text + icon -->
-        <div class="reveal">
-          <!-- Sofa SVG Line Art Icon -->
-          <div class="sofa-icon mb-8">
-            <svg width="72" height="48" viewBox="0 0 72 48" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="4" y="20" width="64" height="20" rx="4"/>
-              <rect x="4" y="28" width="10" height="12" rx="2"/>
-              <rect x="58" y="28" width="10" height="12" rx="2"/>
-              <rect x="14" y="14" width="44" height="14" rx="3"/>
-              <line x1="14" y1="40" x2="10" y2="47"/>
-              <line x1="58" y1="40" x2="62" y2="47"/>
-              <line x1="26" y1="40" x2="26" y2="47"/>
-              <line x1="46" y1="40" x2="46" y2="47"/>
-            </svg>
-          </div>
-
-          <h2 class="font-serif text-gold mb-6 leading-tight" style="font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 400;">
-            <span x-show="lang==='en'">Explore Our Options</span>
-            <span x-show="lang==='ar'" class="font-arabic">Ø§Ø³ØªÙƒØ´Ù Ø®ÙŠØ§Ø±Ø§ØªÙ†Ø§</span>
-          </h2>
-
-          <p class="text-stone-400 leading-relaxed mb-5 font-light" style="font-size: 0.95rem;">
-            <span x-show="lang==='en'">At Saeed Furniture, every piece begins as a conversation. Founded in Al Qurayyat, Al Jawf, our workshop has been the region's foremost destination for custom-crafted majlis seating and bespoke sofas for over two decades. We believe that furniture is not merely functional — it is the language through which a home speaks.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">ÙÙŠ Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø«ØŒ ÙƒÙ„ Ù‚Ø·Ø¹Ø© ØªØ¨Ø¯Ø£ Ø¨Ø­ÙˆØ§Ø±. ØªØ£Ø³Ø³Øª ÙÙŠ Ø§Ù„Ù‚Ø±ÙŠØ§ØªØŒ Ø§Ù„Ø¬ÙˆÙØŒ ÙˆÙƒØ§Ù†Øª ÙˆØ±Ø´ØªÙ†Ø§ Ø§Ù„ÙˆØ¬Ù‡Ø© Ø§Ù„Ø±Ø§Ø¦Ø¯Ø© ÙÙŠ Ø§Ù„Ù…Ù†Ø·Ù‚Ø© Ù„Ø£Ø«Ø§Ø« المجلس Ø§Ù„Ù…ØµÙ†ÙˆØ¹ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨ ÙˆØ§Ù„ÙƒÙ†Ø¨ Ø§Ù„Ù…Ø®ØµØµ Ù„Ø£ÙƒØ«Ø± Ù…Ù† Ø¹Ù‚Ø¯ÙŠÙ† Ù…Ù† Ø§Ù„Ø²Ù…Ù†. Ù†Ø¤Ù…Ù† Ø¨Ø£Ù† Ø§Ù„Ø£Ø«Ø§Ø« Ù„ÙŠØ³ Ù…Ø¬Ø±Ø¯ ÙˆØ¸ÙŠÙØ© — Ø¨Ù„ Ù‡Ùˆ Ø§Ù„Ù„ØºØ© Ø§Ù„ØªÙŠ ÙŠØªØ­Ø¯Ø« Ø¨Ù‡Ø§ Ø§Ù„Ù…Ù†Ø²Ù„.</span>
-          </p>
-
-          <p class="text-stone-400 leading-relaxed font-light" style="font-size: 0.95rem;">
-            <span x-show="lang==='en'">Our craftsmen combine time-honoured Arabian design traditions with premium imported fabrics, hardwood frames, and precision upholstery techniques learned over generations. From the initial sketch to the final stitch, every detail is shaped by skilled hands inside our Al Qurayyat atelier.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">ÙŠØ¬Ù…Ø¹ Ø­Ø±ÙÙŠÙˆÙ†Ø§ Ø¨ÙŠÙ† ØªÙ‚Ø§Ù„ÙŠØ¯ Ø§Ù„ØªØµÙ…ÙŠÙ… Ø§Ù„Ø¹Ø±Ø¨ÙŠ Ø§Ù„Ø¹Ø±ÙŠÙ‚Ø© ÙˆØ§Ù„Ø£Ù‚Ù…Ø´Ø© Ø§Ù„Ù…Ø³ØªÙˆØ±Ø¯Ø© Ø§Ù„ÙØ§Ø®Ø±Ø© ÙˆØ¥Ø·Ø§Ø±Ø§Øª Ø§Ù„Ø®Ø´Ø¨ Ø§Ù„ØµÙ„Ø¨ ÙˆØªÙ‚Ù†ÙŠØ§Øª Ø§Ù„ØªÙ†Ø¬ÙŠØ¯ Ø§Ù„Ø¯Ù‚ÙŠÙ‚Ø© Ø§Ù„Ù…ØªÙˆØ§Ø±Ø«Ø© Ø¹Ø¨Ø± Ø§Ù„Ø£Ø¬ÙŠØ§Ù„. Ù…Ù† Ø§Ù„Ø±Ø³Ù… Ø§Ù„Ø£ÙˆÙ„ÙŠ Ø¥Ù„Ù‰ Ø§Ù„ØºØ±Ø²Ø© Ø§Ù„Ø£Ø®ÙŠØ±Ø©ØŒ ÙƒÙ„ ØªÙØµÙŠÙ„ ÙŠÙØ´ÙƒÙ‘Ù„ Ø¨Ø£ÙŠØ¯Ù Ù…Ø§Ù‡Ø±Ø© Ø¯Ø§Ø®Ù„ ÙˆØ±Ø´ØªÙ†Ø§ ÙÙŠ Ø§Ù„Ù‚Ø±ÙŠØ§Øª.</span>
-          </p>
-        </div>
-
-        <!-- CENTER COL: Image Carousel Pill -->
-        <div class="flex flex-col items-center reveal reveal-delay-2"
-             x-data="{
-               current: 0,
-               slides: ['/images/modern.png', '/images/authentic.png', '/images/heritage.png'],
-               init() {
-                 setInterval(() => { this.current = (this.current + 1) % this.slides.length; }, 4000);
-               }
-             }">
-          <div class="carousel-container">
-            <div class="carousel-pill">
-              <template x-for="(src, idx) in slides" :key="idx">
-                <div class="carousel-slide" :class="{ active: current === idx }">
-                  <img :src="src" :alt="'Saeed Furniture collection ' + (idx+1)" loading="lazy" />
-                </div>
-              </template>
-            </div>
-            <!-- Dots -->
-            <div class="carousel-dots mt-4">
-              <template x-for="(src, idx) in slides" :key="idx">
-                <button class="carousel-dot" :class="{ active: current === idx }" @click="current = idx" :aria-label="'Go to slide ' + (idx+1)"></button>
-              </template>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT COL: More paragraphs -->
-        <div class="reveal reveal-delay-3">
-          <p class="text-stone-400 leading-relaxed mb-5 font-light" style="font-size: 0.95rem;">
-            <span x-show="lang==='en'">Craftsmanship, for us, is not a marketing word — it is a daily discipline. We source our raw materials with the same care we bring to every seam and join. Premium Italian and Turkish upholstery fabrics sit alongside locally sourced hand-carved wood accents, creating pieces that are unmistakably Saudi yet universally refined.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">Ø§Ù„Ø­Ø±ÙÙŠØ© Ø¨Ø§Ù„Ù†Ø³Ø¨Ø© Ù„Ù†Ø§ Ù„ÙŠØ³Øª Ù…Ø¬Ø±Ø¯ ÙƒÙ„Ù…Ø© ØªØ³ÙˆÙŠÙ‚ÙŠØ© — Ø¨Ù„ Ù‡ÙŠ Ø§Ù†Ø¶Ø¨Ø§Ø· ÙŠÙˆÙ…ÙŠ. Ù†Ø­Ù† Ù†Ø®ØªØ§Ø± Ù…ÙˆØ§Ø¯Ù†Ø§ Ø§Ù„Ø®Ø§Ù… Ø¨Ù†ÙØ³ Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø§Ù„ØªÙŠ Ù†Ø¶Ø¹Ù‡Ø§ ÙÙŠ ÙƒÙ„ Ø¯Ø±Ø²Ø© ÙˆØ¥Ø·Ø§Ø±. ØªØªØ¬Ø§ÙˆØ± Ø£Ù‚Ù…Ø´Ø© Ø§Ù„ØªÙ†Ø¬ÙŠØ¯ Ø§Ù„Ø¥ÙŠØ·Ø§Ù„ÙŠØ© ÙˆØ§Ù„ØªØ±ÙƒÙŠØ© Ø§Ù„ÙØ§Ø®Ø±Ø© Ù…Ø¹ Ù„Ù…Ø³Ø§Øª Ø§Ù„Ø®Ø´Ø¨ Ø§Ù„Ù…Ù†Ø­ÙˆØªØ© ÙŠØ¯ÙˆÙŠØ§Ù‹ Ù…Ø­Ù„ÙŠØ§Ù‹ØŒ Ù„Ø®Ù„Ù‚ Ù‚Ø·Ø¹ صناعة تدوم (Craftsmanship That Endures) Ø§Ù„Ù‡ÙˆÙŠØ© Ø¨Ø§Ù…ØªÙŠØ§Ø² ÙˆÙ…Ø±Ù‡ÙØ© Ø¹Ù„Ù‰ Ø§Ù„Ù…Ø³ØªÙˆÙ‰ Ø§Ù„Ø¹Ø§Ù„Ù…ÙŠ.</span>
-          </p>
-
-          <p class="text-stone-400 leading-relaxed mb-8 font-light" style="font-size: 0.95rem;">
-            <span x-show="lang==='en'">Our complimentary home visit service means our design consultants come to you — measuring your space, understanding your taste, and presenting a curated selection of materials right in your living room. Every sofa and majlis set is made-to-order: your dimensions, your fabric, your colour, your statement.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">ØªØ¹Ù†ÙŠ Ø®Ø¯Ù…Ø© Ø§Ù„Ø²ÙŠØ§Ø±Ø© Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ© Ø§Ù„Ù…Ø¬Ø§Ù†ÙŠØ© Ø£Ù† Ù…Ø³ØªØ´Ø§Ø±ÙŠ Ø§Ù„ØªØµÙ…ÙŠÙ… Ù„Ø¯ÙŠÙ†Ø§ ÙŠØ£ØªÙˆÙ† Ø¥Ù„ÙŠÙƒ — ÙŠÙ‚ÙŠØ³ÙˆÙ† Ù…Ø³Ø§Ø­ØªÙƒØŒ ÙŠÙÙ‡Ù…ÙˆÙ† Ø°ÙˆÙ‚ÙƒØŒ ÙˆÙŠÙ‚Ø¯Ù…ÙˆÙ† Ù…Ø¬Ù…ÙˆØ¹Ø© Ù…Ø®ØªØ§Ø±Ø© Ù…Ù† Ø§Ù„Ù…ÙˆØ§Ø¯ ÙÙŠ ØºØ±ÙØ© Ù…Ø¹ÙŠØ´ØªÙƒ. ÙƒÙ„ ÙƒÙ†Ø¨Ø© ÙˆÙ…Ø¬Ù…ÙˆØ¹Ø© Ù…Ø¬Ù„Ø³ Ù…ØµÙ†ÙˆØ¹Ø© Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨: Ù…Ù‚Ø§Ø³Ø§ØªÙƒØŒ Ù‚Ù…Ø§Ø´ÙƒØŒ Ù„ÙˆÙ†ÙƒØŒ Ø£Ø³Ù„ÙˆØ¨Ùƒ.</span>
-          </p>
-
-          <!-- Mini stat row -->
-          <div class="grid grid-cols-2 gap-6">
-            <div class="border-l-2 border-gold pl-4">
-              <p class="font-serif text-gold text-3xl font-light">20+</p>
-              <p class="text-stone-500 text-xs tracking-wider uppercase mt-1">
-                <span x-show="lang==='en'">Years of Craft</span>
-                <span x-show="lang==='ar'" class="font-arabic">Ø¹Ø§Ù…Ø§Ù‹ Ù…Ù† Ø§Ù„Ø­Ø±ÙÙŠØ©</span>
-              </p>
-            </div>
-            <div class="border-l-2 border-gold pl-4">
-              <p class="font-serif text-gold text-3xl font-light">100%</p>
-              <p class="text-stone-500 text-xs tracking-wider uppercase mt-1">
-                <span x-show="lang==='en'">Made to Order</span>
-                <span x-show="lang==='ar'" class="font-arabic">ØµÙ†Ø¹ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       3. VALUE PILLARS
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="py-24 px-6" style="background: #f5f0e8;">
-    <div class="max-w-6xl mx-auto">
-
-      <div class="text-center mb-16 reveal">
-        <p class="section-eyebrow mb-3">
-          <span x-show="lang==='en'">Why Choose Us</span>
-          <span x-show="lang==='ar'" class="font-arabic">Ù„Ù…Ø§Ø°Ø§ ØªØ®ØªØ§Ø±Ù†Ø§</span>
-        </p>
-        <h2 class="font-serif text-stone-800 leading-tight" style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 300;">
-          <span x-show="lang==='en'">Our Promise to You</span>
-          <span x-show="lang==='ar'" class="font-arabic">ÙˆØ¹Ø¯Ù†Ø§ Ù„Ùƒ</span>
-        </h2>
-        <span class="block h-px w-20 mx-auto mt-4" style="background: var(--gold);"></span>
+      <!-- Section Label -->
+      <div class="flex items-center gap-4 mb-16">
+        <div class="w-8 h-px bg-amber-700/60"></div>
+        <span class="text-xs uppercase tracking-[0.35em] text-amber-700 font-bold" x-text="lang === 'ar' ? 'أسئلة شائعة' : 'Frequently Asked'"></span>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <h2 class="text-4xl lg:text-5xl font-light text-white mb-16 leading-tight"
+          x-show="lang !== 'ar'" style="font-family: 'Playfair Display', serif;">
+        Questions &amp; <em class="text-amber-700">Answers</em>
+      </h2>
+      <h2 class="text-4xl lg:text-5xl font-light text-white mb-16 leading-tight"
+          x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;">
+        أسئلة <span class="text-amber-700">شائعة</span>
+      </h2>
 
-        <!-- Pillar 1 -->
-        <div class="pillar-card reveal reveal-delay-1" style="background: rgba(8,8,9,0.04); border-color: rgba(201,169,110,0.25);">
-          <div class="pillar-icon">ðŸ­</div>
-          <h3 class="font-serif text-stone-800 text-xl mb-1 font-medium">
-            <span x-show="lang==='en'">Made in KSA</span>
-            <span x-show="lang==='ar'" class="font-arabic">ØµÙ†Ø¹ ÙÙŠ Ø§Ù„صناعة تدوم (Craftsmanship That Endures)</span>
-          </h3>
-          <p class="text-stone-400 text-xs tracking-widest uppercase mb-3 font-arabic" style="color:#c9a96e;">
-            ØµÙ†Ø¹ ÙÙŠ Ø§Ù„صناعة تدوم (Craftsmanship That Endures)
-          </p>
-          <p class="text-stone-600 text-sm leading-relaxed">
-            <span x-show="lang==='en'">Every piece proudly crafted right here in Al Qurayyat, supporting local artisanship and the Saudi Vision 2030 manufacturing goals.</span>
-            <span x-show="lang==='ar'" class="font-arabic block text-right" style="direction:rtl;">ÙƒÙ„ Ù‚Ø·Ø¹Ø© Ù…ØµÙ†ÙˆØ¹Ø© Ø¨ÙƒÙ„ ÙØ®Ø± Ù‡Ù†Ø§ ÙÙŠ Ø§Ù„Ù‚Ø±ÙŠØ§ØªØŒ Ø¯Ø¹Ù…Ø§Ù‹ Ù„Ù„Ø­Ø±ÙÙŠØ© Ø§Ù„Ù…Ø­Ù„ÙŠØ© ÙˆØ£Ù‡Ø¯Ø§Ù Ø§Ù„ØªØµÙ†ÙŠØ¹ ÙÙŠ Ø±Ø¤ÙŠØ© Ø§Ù„صناعة تدوم (Craftsmanship That Endures) 2030.</span>
-          </p>
-        </div>
+      <!-- FAQ Accordion -->
+      <div class="space-y-0" x-data="{ openFaq: null }">
 
-        <!-- Pillar 2 -->
-        <div class="pillar-card reveal reveal-delay-2" style="background: rgba(8,8,9,0.04); border-color: rgba(201,169,110,0.25);">
-          <div class="pillar-icon">ðŸ </div>
-          <h3 class="font-serif text-stone-800 text-xl mb-1 font-medium">
-            <span x-show="lang==='en'">Free Home Visit</span>
-            <span x-show="lang==='ar'" class="font-arabic">زيارة منزلية مجانية</span>
-          </h3>
-          <p class="text-stone-400 text-xs tracking-widest uppercase mb-3 font-arabic" style="color:#c9a96e;">
-            زيارة منزلية مجانية
-          </p>
-          <p class="text-stone-600 text-sm leading-relaxed">
-            <span x-show="lang==='en'">Our consultants visit your home at no cost to measure, advise, and present material swatches — making the design process effortless.</span>
-            <span x-show="lang==='ar'" class="font-arabic block text-right" style="direction:rtl;">ÙŠØ²ÙˆØ± Ù…Ø³ØªØ´Ø§Ø±ÙˆÙ†Ø§ Ù…Ù†Ø²Ù„Ùƒ Ù…Ø¬Ø§Ù†Ø§Ù‹ Ù„Ù„Ù‚ÙŠØ§Ø³ ÙˆØ§Ù„Ø¥Ø±Ø´Ø§Ø¯ ÙˆØªÙ‚Ø¯ÙŠÙ… Ø¹ÙŠÙ†Ø§Øª Ø§Ù„Ù…ÙˆØ§Ø¯ — Ù…Ù…Ø§ ÙŠØ¬Ø¹Ù„ Ø¹Ù…Ù„ÙŠØ© Ø§Ù„ØªØµÙ…ÙŠÙ… Ø³Ù„Ø³Ø© ÙˆØ¨Ù„Ø§ Ø¬Ù‡Ø¯.</span>
-          </p>
-        </div>
-
-        <!-- Pillar 3 -->
-        <div class="pillar-card reveal reveal-delay-3" style="background: rgba(8,8,9,0.04); border-color: rgba(201,169,110,0.25);">
-          <div class="pillar-icon">ðŸŽ¨</div>
-          <h3 class="font-serif text-stone-800 text-xl mb-1 font-medium">
-            <span x-show="lang==='en'">Material & Colour Selection</span>
-            <span x-show="lang==='ar'" class="font-arabic">ألوان وخامات متعددة</span>
-          </h3>
-          <p class="text-stone-400 text-xs tracking-widest uppercase mb-3 font-arabic" style="color:#c9a96e;">
-            ألوان وخامات متعددة
-          </p>
-          <p class="text-stone-600 text-sm leading-relaxed">
-            <span x-show="lang==='en'">Choose from hundreds of premium fabrics, velvet, linen, leather and more — in a full spectrum of colours to match your interior vision.</span>
-            <span x-show="lang==='ar'" class="font-arabic block text-right" style="direction:rtl;">Ø§Ø®ØªØ± Ù…Ù† Ø¨ÙŠÙ† Ù…Ø¦Ø§Øª Ø§Ù„Ø£Ù‚Ù…Ø´Ø© Ø§Ù„ÙØ§Ø®Ø±Ø©ØŒ Ø§Ù„Ù…Ø®Ù…Ù„ØŒ Ø§Ù„ÙƒØªØ§Ù†ØŒ Ø§Ù„Ø¬Ù„Ø¯ ÙˆØºÙŠØ±Ù‡Ø§ — Ø¨Ø·ÙŠÙ ÙƒØ§Ù…Ù„ Ù…Ù† Ø§Ù„Ø£Ù„ÙˆØ§Ù† Ù„ØªØªÙ†Ø§Ø³Ø¨ Ù…Ø¹ Ø±Ø¤ÙŠØªÙƒ Ø§Ù„Ø¯Ø§Ø®Ù„ÙŠØ©.</span>
-          </p>
-        </div>
-
-        <!-- Pillar 4 -->
-        <div class="pillar-card reveal reveal-delay-4" style="background: rgba(8,8,9,0.04); border-color: rgba(201,169,110,0.25);">
-          <div class="pillar-icon">ðŸšš</div>
-          <h3 class="font-serif text-stone-800 text-xl mb-1 font-medium">
-            <span x-show="lang==='en'">Free Home Delivery</span>
-            <span x-show="lang==='ar'" class="font-arabic">توصيل مجاني</span>
-          </h3>
-          <p class="text-stone-400 text-xs tracking-widest uppercase mb-3 font-arabic" style="color:#c9a96e;">
-            توصيل مجاني Ù„Ù„Ù…Ù†Ø²Ù„
-          </p>
-          <p class="text-stone-600 text-sm leading-relaxed">
-            <span x-show="lang==='en'">We deliver and install your finished furniture directly to your home — with white-glove care, on time, at no additional charge.</span>
-            <span x-show="lang==='ar'" class="font-arabic block text-right" style="direction:rtl;">Ù†ÙˆØµÙ‘Ù„ ÙˆÙ†Ø±ÙƒÙ‘Ø¨ Ø£Ø«Ø§Ø«Ùƒ Ø§Ù„Ù…Ù†ØªÙ‡ÙŠ Ù…Ø¨Ø§Ø´Ø±Ø© Ø¥Ù„Ù‰ Ù…Ù†Ø²Ù„Ùƒ — Ø¨Ø¹Ù†Ø§ÙŠØ© ÙØ§Ø¦Ù‚Ø©ØŒ ÙÙŠ Ø§Ù„ÙˆÙ‚Øª Ø§Ù„Ù…Ø­Ø¯Ø¯ØŒ Ø¯ÙˆÙ† Ø±Ø³ÙˆÙ… Ø¥Ø¶Ø§ÙÙŠØ©.</span>
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-<!-- Restored Transparent Header -->
-<header class="absolute top-0 inset-x-0 z-[150] flex justify-between items-center px-6 md:px-10 py-5 text-white pointer-events-none">
-  <!-- Left Logo -->
-  <a href="/index.html" class="pointer-events-auto flex items-center gap-4 group">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1);">
-    <div class="hidden sm:block">
-      <span class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</span>
-      <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
-    </div>
-  </a>
-
-  <!-- Right: Navigation & Lang Toggle -->
-  <div class="flex items-center gap-6 md:gap-8 pointer-events-auto">
-    <!-- Restored Navigation Routes -->
-    <nav class="hidden md:flex items-center gap-6 md:gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300 drop-shadow-md">
-      <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300">Home</a>
-      <a href="/about.html" class="hover:text-amber-400 transition-colors duration-300">About</a>
-      <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-300">FAQ</a>
-      <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300">Contact</a>
-    </nav>
-    
-    <!-- Divider -->
-    <div class="hidden md:block w-px h-6 bg-white/20"></div>
-
-    <!-- Language Toggle -->
-    <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20">
-      <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-300 hover:text-white'" class="px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.2em] rounded-full transition-all duration-300">EN</button>
-      <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-300 hover:text-white'" class="px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.1em] rounded-full transition-all duration-300" style="font-family: 'Cairo', sans-serif;">عربي</button>
-    </div>
-
-    <!-- Mobile Menu Toggle -->
-    <button class="md:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">
-      <svg class="w-6 h-6 drop-shadow-md" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-    </button>
-  </div>
-</header>
-
-<!-- Mobile Nav Dropdown -->
-<div id="mobile-nav" class="hidden md:hidden fixed top-24 inset-x-6 z-[140] bg-stone-950/95 backdrop-blur-md border border-white/10 rounded-2xl px-6 py-6 space-y-4 shadow-2xl pointer-events-auto text-center">
-  <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Home</a>
-  <a href="/about.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">About</a>
-  <a href="/faq.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">FAQ</a>
-  <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400">Contact</a>
-</div>
-
-  <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
-  <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
-  </div>
-
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       STICKY HEADER
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-    <!-- ===================== UNIFIED GLOBAL HEADER ===================== -->
-  
-  
-
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       1. HERO SECTION
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="hero-section">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content px-6" style="max-width: 800px;">
-      <p class="section-eyebrow mb-6 tracking-widest" style="animation-delay:0.2s;">
-        EST. — AL QURAYYAT, KSA
-      </p>
-      <h1 class="font-serif text-white leading-none mb-2" style="font-size: clamp(3rem, 8vw, 6rem); font-weight: 300;">
-        <span x-show="lang==='en'">Our Story</span>
-        <span x-show="lang==='ar'" class="font-arabic" style="font-size: clamp(2.5rem, 7vw, 5rem);">قصتنا</span>
-      </h1>
-      <span class="gold-line"></span>
-      <p class="text-stone-300 font-light tracking-wide" style="font-size: clamp(0.9rem, 2vw, 1.1rem);">
-        <span x-show="lang==='en'">Two decades of handcrafted excellence</span>
-        <span x-show="lang==='ar'" class="font-arabic">Ø¹Ù‚Ø¯Ø§Ù† Ù…Ù† Ø§Ù„ØªÙ…ÙŠØ² Ø§Ù„ÙŠØ¯ÙˆÙŠ ÙÙŠ ØµÙ†Ø§Ø¹Ø© Ø§Ù„Ø£Ø«Ø§Ø«</span>
-      </p>
-    </div>
-  </section>
-
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       2. BRAND STORY — 3-column grid
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="py-24 px-6" style="background: var(--dark);">
-    <div class="max-w-7xl mx-auto">
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 items-center">
-
-        <!-- LEFT COL: Text + icon -->
-        <div class="reveal">
-          <!-- Sofa SVG Line Art Icon -->
-          <div class="sofa-icon mb-8">
-            <svg width="72" height="48" viewBox="0 0 72 48" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="4" y="20" width="64" height="20" rx="4"/>
-              <rect x="4" y="28" width="10" height="12" rx="2"/>
-              <rect x="58" y="28" width="10" height="12" rx="2"/>
-              <rect x="14" y="14" width="44" height="14" rx="3"/>
-              <line x1="14" y1="40" x2="10" y2="47"/>
-              <line x1="58" y1="40" x2="62" y2="47"/>
-              <line x1="26" y1="40" x2="26" y2="47"/>
-              <line x1="46" y1="40" x2="46" y2="47"/>
-            </svg>
-          </div>
-
-          <h2 class="font-serif text-gold mb-6 leading-tight" style="font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 400;">
-            <span x-show="lang==='en'">Explore Our Options</span>
-            <span x-show="lang==='ar'" class="font-arabic">Ø§Ø³ØªÙƒØ´Ù Ø®ÙŠØ§Ø±Ø§ØªÙ†Ø§</span>
-          </h2>
-
-          <p class="text-stone-400 leading-relaxed mb-5 font-light" style="font-size: 0.95rem;">
-            <span x-show="lang==='en'">At Saeed Furniture, every piece begins as a conversation. Founded in Al Qurayyat, Al Jawf, our workshop has been the region's foremost destination for custom-crafted majlis seating and bespoke sofas for over two decades. We believe that furniture is not merely functional — it is the language through which a home speaks.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">ÙÙŠ Ø³Ø¹ÙŠØ¯ Ù„Ù„Ø£Ø«Ø§Ø«ØŒ ÙƒÙ„ Ù‚Ø·Ø¹Ø© ØªØ¨Ø¯Ø£ Ø¨Ø­ÙˆØ§Ø±. ØªØ£Ø³Ø³Øª ÙÙŠ Ø§Ù„Ù‚Ø±ÙŠØ§ØªØŒ Ø§Ù„Ø¬ÙˆÙØŒ ÙˆÙƒØ§Ù†Øª ÙˆØ±Ø´ØªÙ†Ø§ Ø§Ù„ÙˆØ¬Ù‡Ø© Ø§Ù„Ø±Ø§Ø¦Ø¯Ø© ÙÙŠ Ø§Ù„Ù…Ù†Ø·Ù‚Ø© Ù„Ø£Ø«Ø§Ø« المجلس Ø§Ù„Ù…ØµÙ†ÙˆØ¹ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨ ÙˆØ§Ù„ÙƒÙ†Ø¨ Ø§Ù„Ù…Ø®ØµØµ Ù„Ø£ÙƒØ«Ø± Ù…Ù† Ø¹Ù‚Ø¯ÙŠÙ† Ù…Ù† Ø§Ù„Ø²Ù…Ù†. Ù†Ø¤Ù…Ù† Ø¨Ø£Ù† Ø§Ù„Ø£Ø«Ø§Ø« Ù„ÙŠØ³ Ù…Ø¬Ø±Ø¯ ÙˆØ¸ÙŠÙØ© — Ø¨Ù„ Ù‡Ùˆ Ø§Ù„Ù„ØºØ© Ø§Ù„ØªÙŠ ÙŠØªØ­Ø¯Ø« Ø¨Ù‡Ø§ Ø§Ù„Ù…Ù†Ø²Ù„.</span>
-          </p>
-
-          <p class="text-stone-400 leading-relaxed font-light" style="font-size: 0.95rem;">
-            <span x-show="lang==='en'">Our craftsmen combine time-honoured Arabian design traditions with premium imported fabrics, hardwood frames, and precision upholstery techniques learned over generations. From the initial sketch to the final stitch, every detail is shaped by skilled hands inside our Al Qurayyat atelier.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">ÙŠØ¬Ù…Ø¹ Ø­Ø±ÙÙŠÙˆÙ†Ø§ Ø¨ÙŠÙ† ØªÙ‚Ø§Ù„ÙŠØ¯ Ø§Ù„ØªØµÙ…ÙŠÙ… Ø§Ù„Ø¹Ø±Ø¨ÙŠ Ø§Ù„Ø¹Ø±ÙŠÙ‚Ø© ÙˆØ§Ù„Ø£Ù‚Ù…Ø´Ø© Ø§Ù„Ù…Ø³ØªÙˆØ±Ø¯Ø© Ø§Ù„ÙØ§Ø®Ø±Ø© ÙˆØ¥Ø·Ø§Ø±Ø§Øª Ø§Ù„Ø®Ø´Ø¨ Ø§Ù„ØµÙ„Ø¨ ÙˆØªÙ‚Ù†ÙŠØ§Øª Ø§Ù„ØªÙ†Ø¬ÙŠØ¯ Ø§Ù„Ø¯Ù‚ÙŠÙ‚Ø© Ø§Ù„Ù…ØªÙˆØ§Ø±Ø«Ø© Ø¹Ø¨Ø± Ø§Ù„Ø£Ø¬ÙŠØ§Ù„. Ù…Ù† Ø§Ù„Ø±Ø³Ù… Ø§Ù„Ø£ÙˆÙ„ÙŠ Ø¥Ù„Ù‰ Ø§Ù„ØºØ±Ø²Ø© Ø§Ù„Ø£Ø®ÙŠØ±Ø©ØŒ ÙƒÙ„ ØªÙØµÙŠÙ„ ÙŠÙØ´ÙƒÙ‘Ù„ Ø¨Ø£ÙŠØ¯Ù Ù…Ø§Ù‡Ø±Ø© Ø¯Ø§Ø®Ù„ ÙˆØ±Ø´ØªÙ†Ø§ ÙÙŠ Ø§Ù„Ù‚Ø±ÙŠØ§Øª.</span>
-          </p>
-        </div>
-
-        <!-- CENTER COL: Image Carousel Pill -->
-        <div class="flex flex-col items-center reveal reveal-delay-2"
-             x-data="{
-               current: 0,
-               slides: ['/images/modern.png', '/images/authentic.png', '/images/heritage.png'],
-               init() {
-                 setInterval(() => { this.current = (this.current + 1) % this.slides.length; }, 4000);
-               }
-             }">
-          <div class="carousel-container">
-            <div class="carousel-pill">
-              <template x-for="(src, idx) in slides" :key="idx">
-                <div class="carousel-slide" :class="{ active: current === idx }">
-                  <img :src="src" :alt="'Saeed Furniture collection ' + (idx+1)" loading="lazy" />
-                </div>
-              </template>
-            </div>
-            <!-- Dots -->
-            <div class="carousel-dots mt-4">
-              <template x-for="(src, idx) in slides" :key="idx">
-                <button class="carousel-dot" :class="{ active: current === idx }" @click="current = idx" :aria-label="'Go to slide ' + (idx+1)"></button>
-              </template>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT COL: More paragraphs -->
-        <div class="reveal reveal-delay-3">
-          <p class="text-stone-400 leading-relaxed mb-5 font-light" style="font-size: 0.95rem;">
-            <span x-show="lang==='en'">Craftsmanship, for us, is not a marketing word — it is a daily discipline. We source our raw materials with the same care we bring to every seam and join. Premium Italian and Turkish upholstery fabrics sit alongside locally sourced hand-carved wood accents, creating pieces that are unmistakably Saudi yet universally refined.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">Ø§Ù„Ø­Ø±ÙÙŠØ© Ø¨Ø§Ù„Ù†Ø³Ø¨Ø© Ù„Ù†Ø§ Ù„ÙŠØ³Øª Ù…Ø¬Ø±Ø¯ ÙƒÙ„Ù…Ø© ØªØ³ÙˆÙŠÙ‚ÙŠØ© — Ø¨Ù„ Ù‡ÙŠ Ø§Ù†Ø¶Ø¨Ø§Ø· ÙŠÙˆÙ…ÙŠ. Ù†Ø­Ù† Ù†Ø®ØªØ§Ø± Ù…ÙˆØ§Ø¯Ù†Ø§ Ø§Ù„Ø®Ø§Ù… Ø¨Ù†ÙØ³ Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø§Ù„ØªÙŠ Ù†Ø¶Ø¹Ù‡Ø§ ÙÙŠ ÙƒÙ„ Ø¯Ø±Ø²Ø© ÙˆØ¥Ø·Ø§Ø±. ØªØªØ¬Ø§ÙˆØ± Ø£Ù‚Ù…Ø´Ø© Ø§Ù„ØªÙ†Ø¬ÙŠØ¯ Ø§Ù„Ø¥ÙŠØ·Ø§Ù„ÙŠØ© ÙˆØ§Ù„ØªØ±ÙƒÙŠØ© Ø§Ù„ÙØ§Ø®Ø±Ø© Ù…Ø¹ Ù„Ù…Ø³Ø§Øª Ø§Ù„Ø®Ø´Ø¨ Ø§Ù„Ù…Ù†Ø­ÙˆØªØ© ÙŠØ¯ÙˆÙŠØ§Ù‹ Ù…Ø­Ù„ÙŠØ§Ù‹ØŒ Ù„Ø®Ù„Ù‚ Ù‚Ø·Ø¹ صناعة تدوم (Craftsmanship That Endures) Ø§Ù„Ù‡ÙˆÙŠØ© Ø¨Ø§Ù…ØªÙŠØ§Ø² ÙˆÙ…Ø±Ù‡ÙØ© Ø¹Ù„Ù‰ Ø§Ù„Ù…Ø³ØªÙˆÙ‰ Ø§Ù„Ø¹Ø§Ù„Ù…ÙŠ.</span>
-          </p>
-
-          <p class="text-stone-400 leading-relaxed mb-8 font-light" style="font-size: 0.95rem;">
-            <span x-show="lang==='en'">Our complimentary home visit service means our design consultants come to you — measuring your space, understanding your taste, and presenting a curated selection of materials right in your living room. Every sofa and majlis set is made-to-order: your dimensions, your fabric, your colour, your statement.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">ØªØ¹Ù†ÙŠ Ø®Ø¯Ù…Ø© Ø§Ù„Ø²ÙŠØ§Ø±Ø© Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ© Ø§Ù„Ù…Ø¬Ø§Ù†ÙŠØ© Ø£Ù† Ù…Ø³ØªØ´Ø§Ø±ÙŠ Ø§Ù„ØªØµÙ…ÙŠÙ… Ù„Ø¯ÙŠÙ†Ø§ ÙŠØ£ØªÙˆÙ† Ø¥Ù„ÙŠÙƒ — ÙŠÙ‚ÙŠØ³ÙˆÙ† Ù…Ø³Ø§Ø­ØªÙƒØŒ ÙŠÙÙ‡Ù…ÙˆÙ† Ø°ÙˆÙ‚ÙƒØŒ ÙˆÙŠÙ‚Ø¯Ù…ÙˆÙ† Ù…Ø¬Ù…ÙˆØ¹Ø© Ù…Ø®ØªØ§Ø±Ø© Ù…Ù† Ø§Ù„Ù…ÙˆØ§Ø¯ ÙÙŠ ØºØ±ÙØ© Ù…Ø¹ÙŠØ´ØªÙƒ. ÙƒÙ„ ÙƒÙ†Ø¨Ø© ÙˆÙ…Ø¬Ù…ÙˆØ¹Ø© Ù…Ø¬Ù„Ø³ Ù…ØµÙ†ÙˆØ¹Ø© Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨: Ù…Ù‚Ø§Ø³Ø§ØªÙƒØŒ Ù‚Ù…Ø§Ø´ÙƒØŒ Ù„ÙˆÙ†ÙƒØŒ Ø£Ø³Ù„ÙˆØ¨Ùƒ.</span>
-          </p>
-
-          <!-- Mini stat row -->
-          <div class="grid grid-cols-2 gap-6">
-            <div class="border-l-2 border-gold pl-4">
-              <p class="font-serif text-gold text-3xl font-light">20+</p>
-              <p class="text-stone-500 text-xs tracking-wider uppercase mt-1">
-                <span x-show="lang==='en'">Years of Craft</span>
-                <span x-show="lang==='ar'" class="font-arabic">Ø¹Ø§Ù…Ø§Ù‹ Ù…Ù† Ø§Ù„Ø­Ø±ÙÙŠØ©</span>
-              </p>
-            </div>
-            <div class="border-l-2 border-gold pl-4">
-              <p class="font-serif text-gold text-3xl font-light">100%</p>
-              <p class="text-stone-500 text-xs tracking-wider uppercase mt-1">
-                <span x-show="lang==='en'">Made to Order</span>
-                <span x-show="lang==='ar'" class="font-arabic">ØµÙ†Ø¹ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-<!-- ===================== FAQ ACCORDION ===================== -->
-  <section class="section-ivory py-20 px-4">
-    <div
-      class="max-w-3xl mx-auto"
-      x-data="{
-        active: null,
-        lang: 'en',
-        faqs: [
-          {
-            id: 1,
-            en: {
-              q: 'I see your sofas are made-to-order. What exactly happens after I place an order?',
-              a: 'Once your order is confirmed, our workshop team begins sourcing your selected fabric and frame materials. A dedicated craftsman is assigned to your piece. We cut and shape the solid-wood frame by hand, then wrap it in high-density foam before upholstering with your chosen fabric. Throughout the process you receive updates, and the finished piece is delivered and installed in your home — usually within 3—4 weeks.'
-            },
-            ar: {
-              q: 'Ø£Ø±Ù‰ Ø£Ù† Ø£Ø±Ø§Ø¦ÙƒÙƒÙ… ØªÙØµÙ†Ø¹ Ø­Ø³Ø¨ Ø§Ù„Ø·Ù„Ø¨. Ù…Ø§ Ø§Ù„Ø°ÙŠ ÙŠØ­Ø¯Ø« Ø¨Ø§Ù„Ø¶Ø¨Ø· Ø¨Ø¹Ø¯ ØªÙ‚Ø¯ÙŠÙ… Ø§Ù„Ø·Ù„Ø¨ØŸ',
-              a: 'Ø¨Ù…Ø¬Ø±Ø¯ ØªØ£ÙƒÙŠØ¯ Ø·Ù„Ø¨ÙƒØŒ ÙŠØ¨Ø¯Ø£ ÙØ±ÙŠÙ‚ ÙˆØ±Ø´ØªÙ†Ø§ ÙÙŠ ØªØ¬Ù‡ÙŠØ² Ø§Ù„Ù‚Ù…Ø§Ø´ ÙˆØ§Ù„Ø¥Ø·Ø§Ø± Ø§Ù„Ù…Ø®ØªØ§Ø±. ÙŠØªÙ… ØªØ¹ÙŠÙŠÙ† Ø­Ø±ÙÙŠ Ù…ØªØ®ØµØµ Ù„Ù‚Ø·Ø¹ØªÙƒØŒ Ø­ÙŠØ« ÙŠØªÙ… Ù‚Ø·Ø¹ Ø¥Ø·Ø§Ø± Ø§Ù„Ø®Ø´Ø¨ Ø§Ù„ØµÙ„Ø¨ ÙˆØªØ´ÙƒÙŠÙ„Ù‡ ÙŠØ¯ÙˆÙŠÙ‹Ø§ØŒ Ø«Ù… ØªØºÙ„ÙŠÙÙ‡ Ø¨Ø§Ù„Ø¥Ø³ÙÙ†Ø¬ Ø¹Ø§Ù„ÙŠ Ø§Ù„ÙƒØ«Ø§ÙØ© Ù‚Ø¨Ù„ Ø§Ù„ØªÙ†Ø¬ÙŠØ¯ Ø¨Ø§Ù„Ù‚Ù…Ø§Ø´ Ø§Ù„Ø°ÙŠ Ø§Ø®ØªØ±ØªÙ‡. Ø³ØªØªÙ„Ù‚Ù‰ ØªØ­Ø¯ÙŠØ«Ø§Øª Ø·ÙˆØ§Ù„ Ø§Ù„Ø¹Ù…Ù„ÙŠØ©ØŒ ÙˆØ³ÙŠØªÙ… ØªÙˆØµÙŠÙ„ Ø§Ù„Ù‚Ø·Ø¹Ø© ÙˆØªØ±ÙƒÙŠØ¨Ù‡Ø§ ÙÙŠ Ù…Ù†Ø²Ù„Ùƒ — Ø¹Ø§Ø¯Ø©Ù‹ ÙÙŠ ØºØ¶ÙˆÙ† 3 Ø¥Ù„Ù‰ 4 Ø£Ø³Ø§Ø¨ÙŠØ¹.'
-            }
-          },
-          {
-            id: 2,
-            en: {
-              q: 'I don\'t know my exact room measurements yet. Do you come measure it for me?',
-              a: 'Absolutely — and it\'s completely free. We offer a complimentary home visit service where one of our consultants comes to your space, takes precise measurements, and helps you visualise how different sofa sizes and configurations would look in your room. There\'s no pressure and no obligation. We want you to feel fully confident before any decisions are made.'
-            },
-            ar: {
-              q: 'Ù„Ø§ Ø£Ø¹Ø±Ù Ù…Ù‚Ø§Ø³Ø§Øª ØºØ±ÙØªÙŠ Ø¨Ø¯Ù‚Ø© Ø¨Ø¹Ø¯. Ù‡Ù„ ØªØ£ØªÙˆÙ† Ù„Ù‚ÙŠØ§Ø³Ù‡Ø§ Ù„ÙŠØŸ',
-              a: 'Ø¨Ø§Ù„ØªØ£ÙƒÙŠØ¯ — ÙˆÙ‡Ø°Ù‡ Ø§Ù„Ø®Ø¯Ù…Ø© Ù…Ø¬Ø§Ù†ÙŠØ© ØªÙ…Ø§Ù…Ù‹Ø§. Ù†Ù‚Ø¯Ù… Ø®Ø¯Ù…Ø© زيارة منزلية مجانية Ø­ÙŠØ« ÙŠØ£ØªÙŠ Ø£Ø­Ø¯ Ù…Ø³ØªØ´Ø§Ø±ÙŠÙ†Ø§ Ø¥Ù„Ù‰ Ù…ÙƒØ§Ù†ÙƒØŒ ÙˆÙŠØ£Ø®Ø° Ø§Ù„Ù‚ÙŠØ§Ø³Ø§Øª Ø§Ù„Ø¯Ù‚ÙŠÙ‚Ø©ØŒ ÙˆÙŠØ³Ø§Ø¹Ø¯Ùƒ ÙÙŠ ØªØµÙˆØ± ÙƒÙŠÙÙŠØ© ØªÙ†Ø§Ø³Ø¨ Ø£Ø­Ø¬Ø§Ù… ÙˆØªØ´ÙƒÙŠÙ„Ø§Øª Ø§Ù„Ø£Ø±ÙŠÙƒØ© Ø§Ù„Ù…Ø®ØªÙ„ÙØ© ÙÙŠ ØºØ±ÙØªÙƒ. Ù„Ø§ Ø¶ØºØ· ÙˆÙ„Ø§ Ø§Ù„ØªØ²Ø§Ù…. Ù†Ø±ÙŠØ¯Ùƒ Ø£Ù† ØªØ´Ø¹Ø± Ø¨Ø§Ù„Ø«Ù‚Ø© Ø§Ù„ÙƒØ§Ù…Ù„Ø© Ù‚Ø¨Ù„ Ø§ØªØ®Ø§Ø° Ø£ÙŠ Ù‚Ø±Ø§Ø±.'
-            }
-          },
-          {
-            id: 3,
-            en: {
-              q: 'I\'m worried about choosing fabric online. Can I see and touch the materials first?',
-              a: 'We completely understand — fabric is something you need to experience in person. During your free home visit, our consultant brings a curated selection of fabric swatches right to your home. You can feel the texture, observe the colour in your room\'s lighting, and compare them against your existing dÃ©cor. You\'ll never have to guess what your sofa will feel like.'
-            },
-            ar: {
-              q: 'أنا قلق من اختيار القماش عبر الإنترنت. هل يمكنني رؤية المواد ولمسها أولًا؟',
-              a: 'Ù†ØªÙÙ‡Ù… Ø°Ù„Ùƒ ØªÙ…Ø§Ù…Ù‹Ø§ — Ø§Ù„Ù‚Ù…Ø§Ø´ Ø´ÙŠØ¡ ØªØ­ØªØ§Ø¬ Ø¥Ù„Ù‰ ØªØ¬Ø±Ø¨ØªÙ‡ Ø´Ø®ØµÙŠÙ‹Ø§. Ø®Ù„Ø§Ù„ Ø²ÙŠØ§Ø±ØªÙ†Ø§ Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ© Ø§Ù„Ù…Ø¬Ø§Ù†ÙŠØ©ØŒ ÙŠÙØ­Ø¶Ø± Ù…Ø³ØªØ´Ø§Ø±Ù†Ø§ ØªØ´ÙƒÙŠÙ„Ø© Ù…Ø®ØªØ§Ø±Ø© Ù…Ù† Ø¹ÙŠÙ†Ø§Øª Ø§Ù„Ø£Ù‚Ù…Ø´Ø© Ø¥Ù„Ù‰ Ù…Ù†Ø²Ù„Ùƒ Ù…Ø¨Ø§Ø´Ø±Ø©. ÙŠÙ…ÙƒÙ†Ùƒ Ø§Ù„Ø¥Ø­Ø³Ø§Ø³ Ø¨Ø§Ù„Ù…Ù„Ù…Ø³ØŒ ÙˆÙ…Ø´Ø§Ù‡Ø¯Ø© Ø§Ù„Ù„ÙˆÙ† ÙÙŠ Ø¥Ø¶Ø§Ø¡Ø© ØºØ±ÙØªÙƒØŒ ÙˆÙ…Ù‚Ø§Ø±Ù†ØªÙ‡Ø§ Ù…Ø¹ Ø¯ÙŠÙƒÙˆØ±Ùƒ Ø§Ù„Ø­Ø§Ù„ÙŠ. Ù„Ù† ØªØ¶Ø·Ø± Ø£Ø¨Ø¯Ù‹Ø§ Ø¥Ù„Ù‰ Ø§Ù„ØªØ®Ù…ÙŠÙ†.'
-            }
-          },
-          {
-            id: 4,
-            en: {
-              q: 'When do I get to choose the colours?',
-              a: 'Colour selection happens in two ways — whichever suits you best. During your free home visit, you can browse our full swatch collection under your own lighting with our consultant guiding you. Alternatively, you\'re welcome to visit our showroom in Al Qurayyat at any time where the full range is on display. We never rush this step — the right colour makes all the difference.'
-            },
-            ar: {
-              q: 'متى يمكنني اختيار الألوان؟',
-              a: 'ÙŠØªÙ… Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ø£Ù„ÙˆØ§Ù† Ø¨Ø·Ø±ÙŠÙ‚ØªÙŠÙ† — Ø£ÙŠÙ‡Ù…Ø§ ÙŠÙ†Ø§Ø³Ø¨Ùƒ. Ø®Ù„Ø§Ù„ Ø§Ù„Ø²ÙŠØ§Ø±Ø© Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ© Ø§Ù„Ù…Ø¬Ø§Ù†ÙŠØ©ØŒ ÙŠÙ…ÙƒÙ†Ùƒ ØªØµÙØ­ Ù…Ø¬Ù…ÙˆØ¹ØªÙ†Ø§ Ø§Ù„ÙƒØ§Ù…Ù„Ø© Ù…Ù† Ø§Ù„Ø¹ÙŠÙ†Ø§Øª ØªØ­Øª Ø¥Ø¶Ø§Ø¡Ø© ØºØ±ÙØªÙƒ Ù…Ø¹ Ø¥Ø±Ø´Ø§Ø¯ Ù…Ø³ØªØ´Ø§Ø±Ù†Ø§. Ø¨Ø¯Ù„Ù‹Ø§ Ù…Ù† Ø°Ù„ÙƒØŒ ÙŠØ³Ø¹Ø¯Ù†Ø§ Ø§Ø³ØªÙ‚Ø¨Ø§Ù„Ùƒ ÙÙŠ ØµØ§Ù„Ø© Ø¹Ø±Ø¶Ù†Ø§ ÙÙŠ Ø§Ù„Ù‚Ø±ÙŠØ§Øª ÙÙŠ Ø£ÙŠ ÙˆÙ‚Øª Ø­ÙŠØ« ØªØ¹Ø±Ø¶ Ø§Ù„Ù†Ø·Ø§Ù‚ Ø§Ù„ÙƒØ§Ù…Ù„. Ù„Ø§ Ù†ØªØ³Ø±Ø¹ Ø£Ø¨Ø¯Ù‹Ø§ ÙÙŠ Ù‡Ø°Ù‡ Ø§Ù„Ø®Ø·ÙˆØ© — Ø§Ù„Ù„ÙˆÙ† Ø§Ù„ØµØ­ÙŠØ­ ÙŠØµÙ†Ø¹ Ø§Ù„ÙØ§Ø±Ù‚ ÙƒÙ„Ù‡.'
-            }
-          },
-          {
-            id: 5,
-            en: {
-              q: 'Will the sofa sink or lose its shape over time? What kind of materials do you use?',
-              a: 'Longevity is built into every piece. Our frames are constructed from kiln-dried solid hardwood — resistant to warping and built to last decades. The cushions use high-resilience, high-density foam that springs back fully and maintains its shape for years. The fabrics are chosen for durability as much as beauty. Every element is selected with the Saudi climate and lifestyle in mind.'
-            },
-            ar: {
-              q: 'Ù‡Ù„ Ø³ØªÙ†Ù‡Ø§Ø± Ø§Ù„Ø£Ø±ÙŠÙƒØ© Ø£Ùˆ ØªÙÙ‚Ø¯ Ø´ÙƒÙ„Ù‡Ø§ Ù…Ø¹ Ù…Ø±ÙˆØ± Ø§Ù„ÙˆÙ‚ØªØŸ Ù…Ø§ Ø£Ù†ÙˆØ§Ø¹ Ø§Ù„Ù…ÙˆØ§Ø¯ Ø§Ù„ØªÙŠ ØªØ³ØªØ®Ø¯Ù…ÙˆÙ†Ù‡Ø§ØŸ',
-              a: 'Ø§Ù„Ù…ØªØ§Ù†Ø© Ù…Ø¯Ù…Ø¬Ø© ÙÙŠ ÙƒÙ„ Ù‚Ø·Ø¹Ø©. Ø¥Ø·Ø§Ø±Ø§ØªÙ†Ø§ Ù…ØµÙ†ÙˆØ¹Ø© Ù…Ù† Ø®Ø´Ø¨ ØµÙ„Ø¨ Ù…Ø¬ÙÙ ÙÙŠ Ø§Ù„Ø£ÙØ±Ø§Ù† — Ù…Ù‚Ø§ÙˆÙ… Ù„Ù„Ø§Ù†Ø­Ù†Ø§Ø¡ ÙˆÙ…ØµÙ…Ù… Ù„ÙŠØ¯ÙˆÙ… Ø¹Ù‚ÙˆØ¯Ù‹Ø§. ÙˆØ³Ø§Ø¦Ø¯ Ø§Ù„Ø¬Ù„ÙˆØ³ ØªØ³ØªØ®Ø¯Ù… Ø¥Ø³ÙÙ†Ø¬Ù‹Ø§ Ø¹Ø§Ù„ÙŠ Ø§Ù„Ù…Ø±ÙˆÙ†Ø© ÙˆØ¹Ø§Ù„ÙŠ Ø§Ù„ÙƒØ«Ø§ÙØ© ÙŠØ±ØªØ¯ Ø¨Ø´ÙƒÙ„ ÙƒØ§Ù…Ù„ ÙˆÙŠØ­Ø§ÙØ¸ Ø¹Ù„Ù‰ Ø´ÙƒÙ„Ù‡ Ù„Ø³Ù†ÙˆØ§Øª. ØªÙØ®ØªØ§Ø± Ø§Ù„Ø£Ù‚Ù…Ø´Ø© Ù„Ù„Ù…ØªØ§Ù†Ø© Ø¨Ù‚Ø¯Ø± Ù…Ø§ ØªÙØ®ØªØ§Ø± Ù„Ù„Ø¬Ù…Ø§Ù„. ÙƒÙ„ Ø¹Ù†ØµØ± ÙŠÙØ®ØªØ§Ø± Ù…Ø¹ Ù…Ø±Ø§Ø¹Ø§Ø© Ø§Ù„Ù…Ù†Ø§Ø® ÙˆØ£Ø³Ù„ÙˆØ¨ Ø§Ù„Ø­ÙŠØ§Ø© Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠ.'
-            }
-          },
-          {
-            id: 6,
-            en: {
-              q: 'Who is actually building my sofa? Is it mass-produced or made by hand?',
-              a: 'Your sofa is handcrafted by artisans who have dedicated 20 or more years to their craft. Each piece passes through the hands of our frame-maker, foam specialist, and upholsterer — all working in our own workshop. Nothing is outsourced, nothing is factory-pressed. We believe the care embedded in handcraft is something you feel every time you sit down.'
-            },
-            ar: {
-              q: 'Ù…Ù† ÙŠØ¨Ù†ÙŠ Ø£Ø±ÙŠÙƒØªÙŠ ÙØ¹Ù„ÙŠÙ‹Ø§ØŸ Ù‡Ù„ ØªÙØµÙ†ÙŽÙ‘Ø¹ Ø¨Ø´ÙƒÙ„ Ø¶Ø®Ù… Ø£Ù… ÙŠØ¯ÙˆÙŠÙ‹Ø§ØŸ',
-              a: 'Ø£Ø±ÙŠÙƒØªÙƒ ØªÙØµÙ†Ø¹ ÙŠØ¯ÙˆÙŠÙ‹Ø§ Ù…Ù† Ù‚ÙØ¨ÙŽÙ„ Ø­Ø±ÙÙŠÙŠÙ† Ø£ÙÙ†ÙˆØ§ 20 Ø¹Ø§Ù…Ù‹Ø§ Ø£Ùˆ Ø£ÙƒØ«Ø± ÙÙŠ Ø¥ØªÙ‚Ø§Ù† ØµÙ†Ø¹ØªÙ‡Ù…. ÙƒÙ„ Ù‚Ø·Ø¹Ø© ØªÙ…Ø± Ø¹Ø¨Ø± Ø£ÙŠØ¯ÙŠ ØµØ§Ù†Ø¹ Ø§Ù„Ø¥Ø·Ø§Ø± ÙˆÙ…ØªØ®ØµØµ Ø§Ù„Ø¥Ø³ÙÙ†Ø¬ ÙˆØ§Ù„Ù…Ù†Ø¬ÙÙ‘Ø¯ — Ø¬Ù…ÙŠØ¹Ù‡Ù… ÙŠØ¹Ù…Ù„ÙˆÙ† ÙÙŠ ÙˆØ±Ø´ØªÙ†Ø§ Ø§Ù„Ø®Ø§ØµØ©. Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ø£ÙŠ ØªØ¹Ù‡ÙŠØ¯ Ø®Ø§Ø±Ø¬ÙŠØŒ ÙˆÙ„Ø§ Ø´ÙŠØ¡ ÙŠÙØ¶ØºØ· ÙÙŠ Ù…ØµÙ†Ø¹. Ù†Ø¤Ù…Ù† Ø£Ù† Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø§Ù„Ù…Ø¶Ù…Ù‘Ù†Ø© ÙÙŠ Ø§Ù„Ø­Ø±ÙØ© Ø§Ù„ÙŠØ¯ÙˆÙŠØ© Ù‡ÙŠ Ø´ÙŠØ¡ ØªØ´Ø¹Ø± Ø¨Ù‡ ÙÙŠ ÙƒÙ„ Ù…Ø±Ø© ØªØ¬Ù„Ø³ ÙÙŠÙ‡Ø§.'
-            }
-          },
-          {
-            id: 7,
-            en: {
-              q: 'How long does delivery take?',
-              a: 'Typically 3—4 weeks from the moment your order is confirmed. Because each sofa is handcrafted specifically for you, the timeline reflects the genuine care and skill that goes into it. We\'ll keep you updated at every stage — from workshop start to quality inspection and delivery scheduling — so you\'re never left wondering.'
-            },
-            ar: {
-              q: 'كم يستغرق التوصيل؟',
-              a: 'Ø¹Ø§Ø¯Ø©Ù‹ Ù…Ù† 3 Ø¥Ù„Ù‰ 4 Ø£Ø³Ø§Ø¨ÙŠØ¹ Ù…Ù† Ù„Ø­Ø¸Ø© ØªØ£ÙƒÙŠØ¯ Ø·Ù„Ø¨Ùƒ. Ù†Ø¸Ø±Ù‹Ø§ Ù„Ø£Ù† ÙƒÙ„ Ø£Ø±ÙŠÙƒØ© ØªÙØµÙ†Ø¹ ÙŠØ¯ÙˆÙŠÙ‹Ø§ Ø®ØµÙŠØµÙ‹Ø§ Ù„ÙƒØŒ ÙØ¥Ù† Ø§Ù„Ø¬Ø¯ÙˆÙ„ Ø§Ù„Ø²Ù…Ù†ÙŠ ÙŠØ¹ÙƒØ³ Ø§Ù„Ø±Ø¹Ø§ÙŠØ© ÙˆØ§Ù„Ù…Ù‡Ø§Ø±Ø© Ø§Ù„Ø­Ù‚ÙŠÙ‚ÙŠØ© Ø§Ù„ØªÙŠ ØªÙØ¨Ø°Ù„ ÙÙŠÙ‡Ø§. Ø³Ù†Ø¨Ù‚ÙŠÙƒ Ø¹Ù„Ù‰ Ø§Ø·Ù„Ø§Ø¹ ÙÙŠ ÙƒÙ„ Ù…Ø±Ø­Ù„Ø© — Ù…Ù† Ø¨Ø¯Ø¡ Ø§Ù„Ø¹Ù…Ù„ ÙÙŠ Ø§Ù„ÙˆØ±Ø´Ø© Ø¥Ù„Ù‰ ÙØ­Øµ Ø§Ù„Ø¬ÙˆØ¯Ø© ÙˆØ¬Ø¯ÙˆÙ„Ø© Ø§Ù„ØªÙˆØµÙŠÙ„ — Ø­ØªÙ‰ Ù„Ø§ ØªØ¸Ù„ ÙÙŠ Ø­ÙŠØ±Ø©.'
-            }
-          },
-          {
-            id: 8,
-            en: {
-              q: 'Do you deliver outside Al Qurayyat?',
-              a: 'Yes — we deliver across major cities throughout Saudi Arabia. Whether you\'re in Riyadh, Jeddah, Tabuk, or anywhere in Al Jawf region, we can arrange delivery to your door. Reach out to us via WhatsApp or phone to confirm your area and discuss logistics. Delivery fees for outside Al Qurayyat may apply depending on distance.'
-            },
-            ar: {
-              q: 'Ù‡Ù„ ØªÙÙˆØµÙÙ‘Ù„ÙˆÙ† Ø®Ø§Ø±Ø¬ Ø§Ù„Ù‚Ø±ÙŠØ§ØªØŸ',
-              a: 'Ù†Ø¹Ù… — Ù†ÙÙˆØµÙÙ‘Ù„ Ø¥Ù„Ù‰ Ø§Ù„Ù…Ø¯Ù† Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© ÙÙŠ Ø¬Ù…ÙŠØ¹ Ø£Ù†Ø­Ø§Ø¡ Ø§Ù„Ù…Ù…Ù„ÙƒØ© Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© Ø§Ù„صناعة تدوم (Craftsmanship That Endures). Ø³ÙˆØ§Ø¡ ÙƒÙ†Øª ÙÙŠ Ø§Ù„Ø±ÙŠØ§Ø¶ Ø£Ùˆ Ø¬Ø¯Ø© Ø£Ùˆ ØªØ¨ÙˆÙƒ Ø£Ùˆ ÙÙŠ Ø£ÙŠ Ù…ÙƒØ§Ù† ÙÙŠ Ù…Ù†Ø·Ù‚Ø© Ø§Ù„Ø¬ÙˆÙØŒ ÙŠÙ…ÙƒÙ†Ù†Ø§ ØªØ±ØªÙŠØ¨ Ø§Ù„ØªÙˆØµÙŠÙ„ Ø¥Ù„Ù‰ Ø¨Ø§Ø¨Ùƒ. تواصل معنا Ø¹Ø¨Ø± Ø§Ù„ÙˆØ§ØªØ³Ø§Ø¨ Ø£Ùˆ Ø§Ù„Ù‡Ø§ØªÙ Ù„ØªØ£ÙƒÙŠØ¯ Ù…Ù†Ø·Ù‚ØªÙƒ ÙˆÙ…Ù†Ø§Ù‚Ø´Ø© Ø§Ù„Ø®Ø¯Ù…Ø§Øª Ø§Ù„Ù„ÙˆØ¬Ø³ØªÙŠØ©. Ù‚Ø¯ ØªÙØ·Ø¨ÙŽÙ‘Ù‚ Ø±Ø³ÙˆÙ… ØªÙˆØµÙŠÙ„ Ù„Ø®Ø§Ø±Ø¬ Ø§Ù„Ù‚Ø±ÙŠØ§Øª Ø­Ø³Ø¨ Ø§Ù„Ù…Ø³Ø§ÙØ©.'
-            }
-          },
-          {
-            id: 9,
-            en: {
-              q: 'Can I see the furniture before it\'s delivered?',
-              a: 'Absolutely. You\'re always welcome to visit our showroom in Al Qurayyat for a final preview once your piece is complete and before it leaves for delivery. Many of our clients find this a satisfying moment — seeing their custom sofa finished and in person for the first time. We can also send photos and video of the completed piece if an in-person visit isn\'t convenient.'
-            },
-            ar: {
-              q: 'هل يمكنني رؤية الأثاث قبل توصيله؟',
-              a: 'Ø¨Ø§Ù„ØªØ£ÙƒÙŠØ¯. ÙŠØ³Ø¹Ø¯Ù†Ø§ Ø¯Ø§Ø¦Ù…Ù‹Ø§ Ø§Ø³ØªÙ‚Ø¨Ø§Ù„Ùƒ ÙÙŠ ØµØ§Ù„Ø© Ø¹Ø±Ø¶Ù†Ø§ ÙÙŠ Ø§Ù„Ù‚Ø±ÙŠØ§Øª Ù„Ù„Ù…Ø¹Ø§ÙŠÙ†Ø© Ø§Ù„Ù†Ù‡Ø§Ø¦ÙŠØ© Ø¨Ù…Ø¬Ø±Ø¯ Ø§ÙƒØªÙ…Ø§Ù„ Ù‚Ø·Ø¹ØªÙƒ ÙˆÙ‚Ø¨Ù„ Ù…ØºØ§Ø¯Ø±ØªÙ‡Ø§ Ù„Ù„ØªÙˆØµÙŠÙ„. ÙŠØ¬Ø¯ ÙƒØ«ÙŠØ± Ù…Ù† Ø¹Ù…Ù„Ø§Ø¦Ù†Ø§ Ù‡Ø°Ù‡ Ø§Ù„Ù„Ø­Ø¸Ø© Ù…ÙØ±Ø¶ÙŠØ© — Ø±Ø¤ÙŠØ© Ø£Ø±ÙŠÙƒØªÙ‡Ù… Ø§Ù„Ù…Ø®ØµØµØ© Ø¬Ø§Ù‡Ø²Ø© Ù„Ø£ÙˆÙ„ Ù…Ø±Ø© Ø´Ø®ØµÙŠÙ‹Ø§. ÙŠÙ…ÙƒÙ†Ù†Ø§ Ø£ÙŠØ¶Ù‹Ø§ Ø¥Ø±Ø³Ø§Ù„ ØµÙˆØ± ÙˆÙÙŠØ¯ÙŠÙˆ Ù„Ù„Ù‚Ø·Ø¹Ø© Ø§Ù„Ù…ÙƒØªÙ…Ù„Ø© Ø¥Ø°Ø§ Ù„Ù… ØªÙƒÙ† Ø§Ù„Ø²ÙŠØ§Ø±Ø© Ø§Ù„Ø´Ø®ØµÙŠØ© Ù…Ù†Ø§Ø³Ø¨Ø©.'
-            }
-          },
-          {
-            id: 10,
-            en: {
-              q: 'What if I want a completely custom design not in your catalogue?',
-              a: 'That is exactly the kind of work we love most. WhatsApp us any reference images, sketches, or inspiration you have — whether from social media, magazines, or your own ideas. Our designers will study your references and work closely with you to bring your vision to life. Every Saeed piece can be adapted: proportions, leg style, arm shape, fabric, colour — nothing is off the table.'
-            },
-            ar: {
-              q: 'Ù…Ø§Ø°Ø§ Ù„Ùˆ Ø£Ø±Ø¯Øª ØªØµÙ…ÙŠÙ…Ù‹Ø§ Ù…Ø®ØµØµÙ‹Ø§ ØªÙ…Ø§Ù…Ù‹Ø§ ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯ ÙÙŠ ÙƒØªØ§Ù„ÙˆØ¬ÙƒÙ…ØŸ',
-              a: 'Ù‡Ø°Ø§ Ø¨Ø§Ù„Ø¶Ø¨Ø· Ù†ÙˆØ¹ Ø§Ù„Ø¹Ù…Ù„ Ø§Ù„Ø°ÙŠ Ù†Ø­Ø¨Ù‡ Ø£ÙƒØ«Ø±. Ø£Ø±Ø³Ù„ Ù„Ù†Ø§ Ø¹Ø¨Ø± ÙˆØ§ØªØ³Ø§Ø¨ Ø£ÙŠ ØµÙˆØ± Ù…Ø±Ø¬Ø¹ÙŠØ© Ø£Ùˆ Ø±Ø³ÙˆÙ…Ø§Øª Ø£Ùˆ Ø£ÙÙƒØ§Ø± Ø¥Ù„Ù‡Ø§Ù… Ù„Ø¯ÙŠÙƒ — Ø³ÙˆØ§Ø¡ Ù…Ù† ÙˆØ³Ø§Ø¦Ù„ Ø§Ù„ØªÙˆØ§ØµÙ„ Ø§Ù„Ø§Ø¬ØªÙ…Ø§Ø¹ÙŠ Ø£Ùˆ Ø§Ù„Ù…Ø¬Ù„Ø§Øª Ø£Ùˆ Ø£ÙÙƒØ§Ø±Ùƒ Ø§Ù„Ø®Ø§ØµØ©. Ø³ÙŠØ¯Ø±Ø³ Ù…ØµÙ…Ù…ÙˆÙ†Ø§ØªØ®ØµØµÙˆÙ† Ù…Ø±Ø§Ø¬Ø¹Ùƒ ÙˆÙŠØ¹Ù…Ù„ÙˆÙ† Ù…Ø¹Ùƒ Ø¹Ù† ÙƒØ«Ø¨ Ù„ØªØ¬Ø³ÙŠØ¯ Ø±Ø¤ÙŠØªÙƒ. ÙƒÙ„ Ù‚Ø·Ø¹Ø© Ù…Ù† Ø³Ø¹ÙŠØ¯ Ù‚Ø§Ø¨Ù„Ø© Ù„Ù„ØªØ¹Ø¯ÙŠÙ„: Ø§Ù„Ù†Ø³Ø¨ØŒ ÙˆØ£Ø³Ù„ÙˆØ¨ Ø§Ù„Ø£Ø±Ø¬Ù„ØŒ ÙˆØ´ÙƒÙ„ Ø§Ù„Ù…Ø³Ø§Ù†Ø¯ØŒ ÙˆØ§Ù„Ù‚Ù…Ø§Ø´ØŒ ÙˆØ§Ù„Ù„ÙˆÙ† — Ù„Ø§ Ø´ÙŠØ¡ Ù…Ø³ØªØ­ÙŠÙ„.'
-            }
-          }
-        ]
-      }"
-    >
-
-      <!-- Language Toggle -->
-      <div class="flex justify-end mb-8 gap-2">
-        <button
-          @click="lang = 'en'"
-          :class="lang === 'en' ? 'bg-amber-600 text-white' : 'bg-stone-200 text-stone-600 hover:bg-stone-300'"
-          class="px-4 py-1.5 text-xs font-semibold tracking-widest uppercase rounded transition-colors duration-200"
-        >EN</button>
-        <button
-          @click="lang = 'ar'"
-          :class="lang === 'ar' ? 'bg-amber-600 text-white' : 'bg-stone-200 text-stone-600 hover:bg-stone-300'"
-          class="px-4 py-1.5 text-xs font-semibold tracking-widest uppercase rounded transition-colors duration-200 font-arabic"
-        >Ø¹Ø±Ø¨ÙŠ</button>
-      </div>
-
-      <!-- Accordion items -->
-      <div class="space-y-3">
-        <template x-for="faq in faqs" :key="faq.id">
-          <div
-            class="faq-item bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
-            :class="active === faq.id ? 'faq-active' : ''"
-            @click="active = (active === faq.id) ? null : faq.id"
-          >
-            <!-- Question row -->
-            <div class="flex items-start justify-between gap-4 px-6 py-5">
-              <div class="flex items-start gap-4 flex-1 min-w-0">
-                <!-- Number badge -->
-                <span
-                  class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold mt-0.5 transition-colors duration-300"
-                  :class="active === faq.id ? 'bg-amber-600 text-white' : 'bg-stone-100 text-stone-500'"
-                  x-text="faq.id < 10 ? '0' + faq.id : faq.id"
-                ></span>
-                <!-- Question text -->
-                <p
-                  class="font-medium text-stone-800 leading-snug flex-1"
-                  :class="lang === 'ar' ? 'font-arabic text-base text-right' : 'text-sm md:text-base'"
-                  :dir="lang === 'ar' ? 'rtl' : 'ltr'"
-                  x-text="lang === 'en' ? faq.en.q : faq.ar.q"
-                ></p>
-              </div>
-              <!-- Arrow icon -->
-              <svg
-                class="faq-arrow flex-shrink-0 w-5 h-5 text-stone-400 mt-0.5"
-                :class="active === faq.id ? 'rotated' : ''"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-              >
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        <template x-for="(item, i) in [
+          { q: 'How does the ordering process work?', qa: 'كيف تسير عملية الطلب؟', a: 'We begin with a free home visit to understand your space, needs, and design preferences. From there, our team proposes designs, you select materials, and we begin crafting — with delivery and installation handled end-to-end.', aa: 'نبدأ بزيارة منزلية مجانية لفهم مساحتك واحتياجاتك وتفضيلاتك التصميمية. ثم نقترح تصاميم وتختار الخامات، ونبدأ التصنيع مع توصيل وتركيب كاملين.' },
+          { q: 'What is the typical lead time?', qa: 'ما هو وقت التسليم المعتاد؟', a: 'Lead times vary by collection and complexity. On average, bespoke pieces take 6–12 weeks from design approval to delivery. We keep you updated throughout the process.', aa: 'تتفاوت مدد التسليم حسب المجموعة وتعقيدها. في المتوسط تستغرق القطع المخصصة 6–12 أسبوعاً من اعتماد التصميم حتى التسليم.' },
+          { q: 'Do you offer free consultations?', qa: 'هل تقدمون استشارات مجانية؟', a: 'Yes. Every project starts with a complimentary home consultation — no obligation, no pressure. One of our design specialists visits your home, takes measurements, and presents initial ideas.', aa: 'نعم. كل مشروع يبدأ باستشارة منزلية مجانية دون أي التزامات. يزور أحد متخصصي التصميم لدينا منزلك ويقيس المساحة ويقدم أفكاراً أولية.' },
+          { q: 'Can I customise dimensions and fabrics?', qa: 'هل يمكني تخصيص الأبعاد والأقمشة؟', a: 'Absolutely. Every piece we make is fully bespoke — dimensions, timber species, fabric, cushion fill, finish, and hardware are all chosen by you. Nothing is off-the-shelf.', aa: 'بالتأكيد. كل قطعة نصنعها مخصصة بالكامل — الأبعاد ونوع الخشب والقماش وحشو الوساد والتشطيب والتفاصيل — كلها تختارها أنت.' },
+          { q: 'Do you deliver and install?', qa: 'هل توفرون خدمة التوصيل والتركيب؟', a: 'Yes, we handle white-glove delivery and professional installation. Our team ensures every piece is placed and fixed to perfection before we leave your home.', aa: 'نعم، نتولى التوصيل والتركيب الاحترافي. يحرص فريقنا على أن تكون كل قطعة في مكانها الصحيح وثابتة بإتقان قبل مغادرتنا منزلك.' }
+        ]" :key="i">
+          <div class="border-b border-white/8">
+            <button class="w-full py-6 flex items-center justify-between text-left rtl:text-right group"
+                    @click="openFaq === i ? openFaq = null : openFaq = i">
+              <span class="text-base font-medium text-white/80 group-hover:text-white transition-colors pr-8 rtl:pl-8 rtl:pr-0"
+                    x-text="lang === 'ar' ? item.qa : item.q"></span>
+              <svg class="flex-shrink-0 w-5 h-5 text-amber-700 transition-transform duration-300"
+                   :class="openFaq === i ? 'rotate-45' : ''"
+                   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
               </svg>
-            </div>
-
-            <!-- Answer -->
-            <div
-              class="faq-answer"
-              :class="active === faq.id ? 'open' : ''"
-            >
-              <div class="px-6 pb-6 pt-0">
-                <div class="border-t border-stone-100 pt-4 ml-11">
-                  <p
-                    class="text-stone-600 leading-relaxed"
-                    :class="lang === 'ar' ? 'font-arabic text-base text-right' : 'text-sm md:text-[15px]'"
-                    :dir="lang === 'ar' ? 'rtl' : 'ltr'"
-                    x-text="lang === 'en' ? faq.en.a : faq.ar.a"
-                  ></p>
-                </div>
-              </div>
+            </button>
+            <div x-show="openFaq === i"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 -translate-y-2"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 -translate-y-2"
+                 class="pb-6">
+              <p class="text-stone-400 leading-relaxed" x-text="lang === 'ar' ? item.aa : item.a"></p>
             </div>
           </div>
         </template>
+
+      </div>
+
+      <!-- Bottom CTA -->
+      <div class="mt-8 flex flex-col sm:flex-row items-center gap-4">
+        <p class="text-stone-500 text-sm" x-text="lang === 'ar' ? 'لديك سؤال آخر؟' : 'Have another question?'"></p>
+        <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
+           class="inline-flex items-center gap-3 px-6 py-3 bg-amber-700/10 border border-amber-700/30 text-amber-600 text-sm font-bold uppercase tracking-widest hover:bg-amber-700 hover:text-white hover:border-amber-700 transition-all duration-300 rounded-sm">
+          <span x-text="lang === 'ar' ? 'اسأل عبر واتساب' : 'Ask on WhatsApp'"></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
 
     </div>
   </section>
 
+  <!-- ── Footer ───────────────────────────────────────── -->
+  <!-- ── Footer ───────────────────────────────────────── -->
+  <footer id="footer" class="bg-[#07070a] border-t border-[#c9a96e]/10 py-8 px-6 text-center" x-show="!loading" x-cloak>
 
-
-
-
-
-  <!-- â”€â”€ Collections Overlay â”€â”€ -->
-  <div x-show="showCollections" style="display: none;" 
-       x-transition:enter="transition ease-out duration-700" 
-       x-transition:enter-start="opacity-0 translate-y-8" 
-       x-transition:enter-end="opacity-100 translate-y-0" 
-       x-transition:leave="transition ease-in duration-500" 
-       x-transition:leave-start="opacity-100 translate-y-0" 
-       x-transition:leave-end="opacity-0 translate-y-8" 
-       class="fixed inset-0 z-[150] bg-stone-950 overflow-y-auto">
-       
-    <!-- Close Button -->
-    <button @click="showCollections = false" aria-label="Close Collections" class="fixed top-6 right-6 md:top-10 md:right-10 z-[160] w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white/50 hover:text-white hover:bg-white/20 transition-all border border-white/10">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
-
-    <div class="pt-20">
-      <section class="hero-section">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-
-    <div class="relative z-10 text-center px-6 py-20">
-
-      <!-- Eyebrow -->
-      <p class="section-label hero-animate-1">
-        Saeed Furniture &mdash; The Collections
-      </p>
-
-      <!-- Headline -->
-      <h1 class="hero-animate-2 mt-4 font-light text-white"
-          style="font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,7vw,5.5rem); font-weight:300; letter-spacing:0.02em; line-height:1.05;">
-        Select Your Category
-      </h1>
-
-      <!-- Gold divider -->
-      <div class="gold-divider hero-animate-3">
-        <div class="gold-divider-diamond"></div>
-      </div>
-
-      <!-- Subtitle -->
-      <div class="hero-animate-4 space-y-2">
-        <p style="font-family:'Inter',sans-serif; font-size:0.9rem; color:rgba(201,169,110,0.9); letter-spacing:0.08em; direction:rtl;">
-          Ø£Ø«Ø§Ø« ÙØ§Ø®Ø± Ù…ØµÙ†ÙˆØ¹ ÙŠØ¯ÙˆÙŠÙ‹Ø§ Ù„ÙƒÙ„ Ø²Ø§ÙˆÙŠØ© Ù…Ù† Ù…Ù†Ø²Ù„Ùƒ
-        </p>
-        <p style="font-family:'Inter',sans-serif; font-size:0.85rem; color:rgba(229,231,235,0.5); letter-spacing:0.06em;">
-          Handcrafted luxury for every corner of your home
-        </p>
-      </div>
-
+    <!-- Phone + Address -->
+    <p class="text-white/50 text-sm mb-1" dir="ltr">+966 92 880 04450 — Al Qurayyat, Al Jawf, KSA</p>
+    <p class="text-[#c9a96e]/60 text-xs mb-4" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، الجوف، المملكة العربية السعودية — شركة سعيد للأثاث</p>
+    <!-- Logo -->
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture"
+         width="120" height="40"
+         class="h-8 w-auto mx-auto mb-4 object-contain opacity-60"
+         style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+    <!-- Nav Links -->
+    <nav class="flex flex-wrap justify-center gap-6 mb-4">
+      <a href="/" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'الرئيسية' : 'Home'"></a>
+      <a href="/select.html" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
+      <a href="/index.html#about" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
+      <a href="/index.html#faq" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
+      <a href="/contact.html" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
+    </nav>
+    <div class="w-16 h-px bg-[#c9a96e]/20 mx-auto mb-4"></div>
+    <div class="text-white/20 text-[0.65rem] uppercase tracking-[0.15em] font-bold relative">
+      <a href="/auth" class="absolute bottom-0 left-4 text-[0.5rem] opacity-20 hover:opacity-100 transition-opacity">Atelier Login</a>
+      &copy; 2026 Saeed Furniture. All Rights Reserved.
     </div>
-  </section>
+  </footer>
 
+  <!-- ── Floating WhatsApp ────────────────────────────── -->
+  <div class="fixed bottom-8 end-6 z-40 animate-pulse-ring rounded-full">
+    <a class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] relative z-10 transition-transform duration-300 hover:scale-110 active:scale-90"
+       aria-label="Contact us on WhatsApp"
+       :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
+       @click="onWhatsAppClick()"
+       :title="lang === 'ar' ? 'تحدث معنا على واتساب' : 'Chat with us on WhatsApp'">
+      <svg class="w-6 h-6 md:w-[30px] md:h-[30px]" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+  </div>
 
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       CATEGORY GRID
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section style="background: var(--dark); padding: 5rem 0 6rem;">
-    <div class="max-w-7xl mx-auto px-6 lg:px-10">
-
-      <!-- Section heading -->
-      <div class="flex items-center gap-4 mb-10">
-        <span class="section-label">Browse All</span>
-        <div style="flex:1; height:1px; background:linear-gradient(to right, rgba(201,169,110,0.3), transparent);"></div>
-        <span style="font-family:'Inter',sans-serif; font-size:0.7rem; color:rgba(201,169,110,0.4); letter-spacing:0.1em;">5 Collections</span>
+  <!-- ── Auth Modal ────────────────────────────────────── -->
+  <div x-data="{ tab: 'signin', email: '', password: '', showPass: false, loading: false, error: '' }"
+       x-show="$store.saeedAuth && $store.saeedAuth.showAuthModal"
+       class="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-xl"
+       x-transition:enter="transition ease-out duration-300"
+       x-transition:enter-start="opacity-0 scale-95"
+       x-transition:enter-end="opacity-100 scale-100"
+       x-transition:leave="transition ease-in duration-200"
+       x-transition:leave-start="opacity-100 scale-100"
+       x-transition:leave-end="opacity-0 scale-95"
+       style="display: none;">
+    <div class="bg-[#0e0e10] border border-white/10 rounded-3xl p-8 max-w-[420px] w-full mx-4 shadow-[0_32px_80px_rgba(0,0,0,0.8)] relative" @click.stop>
+      <button @click="$store.saeedAuth.showAuthModal = false; error = ''" class="absolute top-5 right-5 text-white/30 hover:text-white text-xl transition-colors">&times;</button>
+      <div class="text-center mb-8 pt-2">
+        <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="lazy" alt="Saeed Furniture" class="h-10 mx-auto object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+        <p class="text-white text-lg font-bold mt-3" style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة سعيد</p>
+        <p class="text-white/30 text-[0.65rem] mt-1 uppercase tracking-widest" x-text="lang === 'ar' ? 'اتيليه المجالس' : 'Bespoke Majlis Atelier'"></p>
       </div>
-
-      <!-- Grid -->
-      <div class="categories-grid">
-
-        <!-- 1. Majlis -->
-        <a href="/majlis.html" class="category-card card-animate" aria-label="Explore Majlis Collection">
-          <div class="category-card__topbar"></div>
-          <img src="/images/hero.png" alt="Majlis Collection" class="category-card__img" />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Majlis Collection</span>
-            <h2 class="category-card__name">Majlis</h2>
-            <p class="category-card__arabic">المجلس</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        <!-- 2. Bedroom -->
-        <a href="/bedroom.html" class="category-card card-animate" aria-label="Explore Bedroom Collection">
-          <div class="category-card__topbar"></div>
-          <img loading="lazy" src="/images/modern.png" alt="Bedroom Collection" class="category-card__img" />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Bedroom Collection</span>
-            <h2 class="category-card__name">Bedroom</h2>
-            <p class="category-card__arabic">ØºØ±ÙØ© Ø§Ù„Ù†ÙˆÙ…</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        <!-- 3. Kitchen -->
-        <a href="/kitchen.html" class="category-card card-animate" aria-label="Explore Kitchen Collection">
-          <div class="category-card__topbar"></div>
-          <img loading="lazy" src="/images/authentic.png" alt="Kitchen Collection" class="category-card__img" />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Kitchen Collection</span>
-            <h2 class="category-card__name">Kitchen</h2>
-            <p class="category-card__arabic">المطبخ</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        <!-- 4. Cot -->
-        <a href="/cot.html" class="category-card card-animate" aria-label="Explore Cot Collection">
-          <div class="category-card__topbar"></div>
-          <img loading="lazy" src="/images/heritage.png" alt="Cot Collection" class="category-card__img" />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Cot Collection</span>
-            <h2 class="category-card__name">Cot</h2>
-            <p class="category-card__arabic">السرير</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        <!-- 5. Almirah -->
-        <a href="/almirah.html" class="category-card card-animate" aria-label="Explore Almirah Collection">
-          <div class="category-card__topbar"></div>
-          <img loading="lazy" src="/images/modern_majlis.png" alt="Almirah Collection" class="category-card__img" />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Almirah Collection</span>
-            <h2 class="category-card__name">Almirah</h2>
-            <p class="category-card__arabic">الخزانة</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        
-
-      </div><!-- /grid -->
-
-      <!-- Bottom note -->
-      <p class="text-center mt-10" style="font-family:'Inter',sans-serif; font-size:0.75rem; color:rgba(229,231,235,0.3); letter-spacing:0.08em;">
-        All pieces are crafted to order &mdash; custom dimensions, fabrics and finishes available.
-      </p>
-
-    </div>
-  </section>
-
-
-  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       WHATSAPP CTA STRIP
-  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="whatsapp-strip py-14">
-    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
-
-      <p class="section-label mb-4">Direct Consultation</p>
-
-      <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,3.2rem); font-weight:300; color:var(--gold); letter-spacing:0.02em; margin-bottom:0.75rem;">
-        Need Help Choosing?
-      </h2>
-
-      <p style="font-family:'Inter',sans-serif; font-size:0.85rem; color:rgba(229,231,235,0.55); letter-spacing:0.05em; max-width:440px; margin:0 auto 2rem; line-height:1.7;">
-        Our design consultants are ready to guide you — whether you're furnishing a single room or an entire villa.
-      </p>
-
-      <!-- Decorative gold line -->
-      <div class="gold-divider mb-8">
-        <div class="gold-divider-diamond"></div>
+      <div class="flex border border-white/10 rounded-2xl p-1 mb-8">
+        <button @click="tab = 'signin'; error = ''" :class="tab === 'signin' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'" class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all" x-text="lang === 'ar' ? 'تسجيل الدخول' : 'Sign In'"></button>
+        <button @click="tab = 'signup'; error = ''" :class="tab === 'signup' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'" class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all" x-text="lang === 'ar' ? 'إنشاء حساب' : 'Create Account'"></button>
       </div>
-
-      <a href="https://wa.me/9288004450" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
-        <!-- WhatsApp icon -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.554 4.112 1.524 5.84L.058 23.487a.5.5 0 00.609.61l5.757-1.505A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22A10 10 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-        </svg>
-        Chat on WhatsApp
-      </a>
-
-      <p class="mt-4" style="font-family:'Inter',sans-serif; font-size:0.7rem; color:rgba(229,231,235,0.25); letter-spacing:0.08em;">
-        +966 92 880 04450 &mdash; Al Qurayyat, Al Jawf, KSA
-      </p>
-
-    </div>
-  </section>
+      <div x-show="error" x-transition class="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-xl px-4 py-3 mb-6 text-center" x-text="error"></div>
+      <div class="space-y-6">
+        <div>
+          <label class="block text-[0.7rem] font-bold text-white/30 mb-3 uppercase tracking-widest" x-text="lang === 'ar' ? 'البريد الإلكتروني' : 'Email Address'"></label>
+          <input type="email" name="email" x-model="email" autocomplete="email" class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-base outline-none transition-colors duration-300 focus:border-[#c9a96e]" placeholder="example@email.com">
+        </div>
+        <div class="relative">
+          <label class="block text-[0.7rem] font-bold text-white/30 mb-3 uppercase tracking-widest" x-text="lang === 'ar' ? 'كلمة المرور' : 'Password'"></label>
+          <input :type="showPass ? 'text' : 'password'" name="password" x-model="password" autocomplete="current-password" class="w-full bg-transparent border-b border-white/10 pb-3 text-white text-base outline-none transition-colors duration-300 focus:border-[#c9a96e] pr-10" placeholder="••••••••">
+          <button type="button" @click="showPass = !showPass" aria-label="Toggle Password Visibility" class="absolute right-0 bottom-3 text-white/30 hover:text-white transition-colors">
+            <svg x-show="!showPass" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg x-show="showPass" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+      </div>
+      <button @click="async () => {
+        if (!email || !password) { error = lang === 'ar' ? 'يرجى ملء جميع الحقول' : 'Please fill in all fields'; return; }
+        loading = true; error = '';
+        try {
+          let result;
+          if (tab === 'signin') {
+            result = await $store.saeedAuth.signInWithPassword(email, password);
+            if (result.error) { error = lang === 'ar' ? 'البريد أو كلمة المرور غير صحيحة' : 'Incorrect email or password.'; }
+            else { $store.saeedAuth.showAuthModal = false; email = ''; password = ''; error = ''; if ($store.saeedAuth.pendingAction) { $store.saeedAuth.pendingAction(); $store.saeedAuth.pendingAction = null; } }
+          } else {
+            result = await $store.saeedAuth.signUp(email, password);
+            if (result.error) { const msg = result.error.message || ''; if (msg.toLowerCase().includes('already')) { error = lang === 'ar' ? 'هذا البريد مسجّل مسبقاً.' : 'This email is already registered.'; } else { error = msg || (lang === 'ar' ? 'حدث خطأ' : 'An error occurred.'); } }
+            else { $store.saeedAuth.showAuthModal = false; email = ''; password = ''; error = ''; if ($store.saeedAuth.pendingAction) { $store.saeedAuth.pendingAction(); $store.saeedAuth.pendingAction = null; } }
+          }
+        } catch(e) { error = lang === 'ar' ? 'حدث خطأ غير متوقع' : 'An unexpected error occurred'; }
+        finally { loading = false; }
+      }"
+      class="w-full mt-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3"
+      :class="loading ? 'bg-white/10 text-white/40 cursor-not-allowed' : 'bg-[#c9a96e] text-black hover:bg-[#d4b87a]'"
+      :disabled="loading">
+        <svg x-show="loading" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+        <span x-text="loading ? (lang === 'ar' ? 'جاري...' : 'Please wait...') : (tab === 'signin' ? (lang === 'ar' ? 'دخول' : 'Sign In') : (lang === 'ar' ? 'إنشاء الحساب' : 'Create Account'))"></span>
+      </button>
+      <p class="text-center text-white/20 text-[0.65rem] mt-6 uppercase tracking-widest" x-text="lang === 'ar' ? 'بياناتك آمنة ومحمية' : 'Your data is secure & protected'"></p>
     </div>
   </div>
+
+  <!-- ── Toast Notification ───────────────────────────── -->
+  <div x-show="toastVisible" x-cloak
+       x-transition:enter="transition ease-out duration-500"
+       x-transition:enter-start="opacity-0 translate-y-8"
+       x-transition:enter-end="opacity-100 translate-y-0"
+       x-transition:leave="transition ease-in duration-300"
+       x-transition:leave-start="opacity-100 translate-y-0"
+       x-transition:leave-end="opacity-0 translate-y-8"
+       class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[9000] px-8 py-3.5 bg-[#111114]/90 backdrop-blur-xl border border-gold/30 rounded-full shadow-[0_8px_30px_rgba(201,169,110,0.2)] flex items-center gap-3">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+    <span class="text-white/80 text-sm font-bold" x-text="toastMessage"></span>
+  </div>
+
+  <!-- ── Custom Cursor ─────────────────────────────────── -->
+  <div id="customCursor" class="custom-cursor"></div>
 
 </body>
 </html>

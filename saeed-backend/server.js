@@ -80,7 +80,7 @@ app.use(
       }
     },
     methods:      ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "x-user-email"],
+    allowedHeaders: ["Content-Type", "Authorization", "x-user-email"],
     credentials:  true,
   })
 );
@@ -195,8 +195,30 @@ async function start() {
   });
 }
 
-start().catch((err) => {
+const server = start().then((srv) => srv).catch((err) => {
   console.error("[FATAL] Server failed to start:", err);
+  process.exit(1);
+});
+
+// ─── Graceful Shutdown ────────────────────────────────────────────────────────
+function shutdown(signal) {
+  console.log(`[server] ${signal} received. Shutting down gracefully...`);
+  // Give active requests 10s to complete before forcing exit
+  setTimeout(() => {
+    console.error("[server] Force-exiting after shutdown timeout.");
+    process.exit(1);
+  }, 10_000).unref();
+}
+
+process.on("SIGINT",  () => shutdown("SIGINT"));
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+
+process.on("unhandledRejection", (reason) => {
+  console.error("[server] Unhandled Promise Rejection:", reason);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("[server] Uncaught Exception:", err);
   process.exit(1);
 });
 
