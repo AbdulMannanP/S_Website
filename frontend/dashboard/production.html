@@ -7,6 +7,7 @@
   <meta name="description" content="Manage your Saeed Furniture orders, tracking, and atelier customizations in KSA.">
   <link rel="stylesheet" href="/dist/output.css">
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="/js/api.js"></script>
   <script defer src="/js/auth.js"></script>
   <script defer src="/js/production.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -46,11 +47,11 @@
 </head>
 <body class="min-h-screen" x-data="workshopDashboard()" x-init="initDashboard()" x-cloak>
 
-  <!-- ── Navigation ──────────────────────────────────────────── -->
+  <!-- â”€â”€ Navigation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <nav class="border-b border-stone-900 px-6 py-4 flex justify-between items-center bg-[#0a0a0a] sticky top-0 z-50">
     <div class="flex items-center gap-4">
       <a href="/">
-        <img src="/images/logo.png" alt="Saeed Furniture" class="h-7 object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-7 object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
       </a>
       <span class="text-[0.65rem] font-bold uppercase tracking-widest text-white/40 border-l border-white/10 pl-4">Workshop</span>
     </div>
@@ -60,14 +61,14 @@
     </div>
   </nav>
 
-  <!-- ── Loading Skeleton ──────────────────────────────────────── -->
+  <!-- â”€â”€ Loading Skeleton â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <div x-show="isLoading" class="max-w-4xl mx-auto px-6 py-12 space-y-4">
     <div class="skeleton h-8 w-48 mb-10"></div>
     <div class="skeleton h-40 w-full rounded-3xl"></div>
     <div class="skeleton h-40 w-full rounded-3xl"></div>
   </div>
 
-  <!-- ── Main Content ──────────────────────────────────────────── -->
+  <!-- â”€â”€ Main Content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <main x-show="!isLoading" class="max-w-4xl mx-auto px-6 py-12">
 
     <!-- Access Denied -->
@@ -127,27 +128,27 @@
               <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8 p-5 bg-stone-50 rounded-2xl border border-stone-100">
                 <div x-show="task.conf.name">
                   <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Client</div>
-                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.name || '—'"></div>
+                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.name || 'â€”'"></div>
                 </div>
                 <div x-show="task.conf.phone">
                   <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Contact</div>
-                  <div class="text-sm font-bold text-[#c9a96e] font-mono" x-text="task.conf.phone || '—'"></div>
+                  <div class="text-sm font-bold text-[#c9a96e] font-mono" x-text="task.conf.phone || 'â€”'"></div>
                 </div>
                 <div x-show="task.conf.city_selected">
                   <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Location</div>
-                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.city_selected || '—'"></div>
+                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.city_selected || 'â€”'"></div>
                 </div>
                 <div x-show="task.conf.style_selected">
                   <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Style</div>
-                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.style_selected || '—'"></div>
+                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.style_selected || 'â€”'"></div>
                 </div>
                 <div x-show="task.conf.capacity_selected">
                   <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Capacity</div>
-                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.capacity_selected || '—'"></div>
+                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.capacity_selected || 'â€”'"></div>
                 </div>
                 <div x-show="task.conf.visit_preference">
                   <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Visit Type</div>
-                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.visit_preference || '—'"></div>
+                  <div class="text-sm font-bold text-stone-800" x-text="task.conf.visit_preference || 'â€”'"></div>
                 </div>
               </div>
 
@@ -293,3 +294,4 @@
   </script>
 </body>
 </html>
+

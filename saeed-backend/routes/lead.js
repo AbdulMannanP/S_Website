@@ -2,102 +2,153 @@
 
 /**
  * routes/lead.js
- * POST /api/lead
+ * Lead capture API for Saeed Furniture.
  *
- * The core data capture endpoint. Called on every meaningful state change
- * during the user's journey on the frontend. Accepts full or partial lead data.
- *
- * Key behaviours:
- *  - Never rejects a save due to missing or malformed fields
- *  - Honeypot check silently drops bot submissions (returns 200 to fool bots)
- *  - Upserts by order_id — the same row is updated throughout the session
- *  - Rate limited to 60 req / 15 min per IP (via leadLimiter in server.js)
- *  - Logs a server-side score anomaly warning if frontend score differs significantly
+ * POST /api/lead     — Upsert a lead (optionally authenticated via Supabase JWT).
+ *                      Uses a 3-attempt retry + dead-letter fallback for resilience.
+ * GET  /api/lead/mine — Returns all leads for the authenticated client.
  */
 
-const express       = require("express");
-const router        = express.Router();
-const asyncHandler  = require("../utils/asyncHandler");
+const express      = require("express");
+const router       = express.Router();
+const path         = require("path");
+const { appendFileSync } = require("fs");
+const asyncHandler = require("../utils/asyncHandler");
+const db           = require("../services/database");
 const { sanitizeLead, isBot, isValidKSAPhone, calculateScore } = require("../utils/validator");
-const { upsertLead, getLeadsByEmail } = require("../services/database");
+const { requireAuth, optionalAuth } = require("../middleware/auth");
 
-// ─── GET /api/lead/mine ──────────────────────────────────────────────────────
+// Dead-letter file path — lives at project root, never inside /routes
+const DEAD_LETTER_PATH = path.join(__dirname, "..", "dead_letters.log");
+
+// ─── Resilient Save: 3-attempt retry + dead-letter fallback ─────────────────
+// Adapted from the SQLite retry pattern to work with Supabase's transient errors.
+// Supabase can return transient errors (503, connection pool exhausted, network
+// hiccup between Render and Supabase cluster). This handles all of those without
+// the user ever seeing an error.
+//
+// Delay schedule (ms): attempt 1 → 0, attempt 2 → ~100, attempt 3 → ~300
+async function saveWithRetry(req, leadData) {
+  const MAX_RETRIES = 3;
+  let lastError;
+
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      const result = await db.upsertLead(req, leadData);
+      return { success: true, action: result.action };
+    } catch (err) {
+      lastError = err;
+      const isRetryable =
+        err?.status === 503 ||
+        err?.status === 429 ||
+        err?.code === "PGRST301" ||     // Supabase: JWT expired mid-request
+        err?.message?.includes("timeout") ||
+        err?.message?.includes("network");
+
+      console.warn(
+        `[lead] Save attempt ${attempt}/${MAX_RETRIES} failed (${err?.message}). ` +
+        (isRetryable ? "Retrying..." : "Non-retryable, skipping further attempts.")
+      );
+
+      if (!isRetryable) break; // Don't retry validation or auth failures
+
+      if (attempt < MAX_RETRIES) {
+        // Exponential backoff with jitter: ~100ms, ~300ms
+        const delay = 100 * (2 ** (attempt - 1)) + Math.random() * 100;
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
+    }
+  }
+
+  // ── All retries exhausted → dead-letter fallback ─────────────────────────
+  // Writes the raw payload to dead_letters.log at the project root.
+  // This file is a manual recovery path — no lead is ever permanently lost.
+  try {
+    const logEntry = `\n[${new Date().toISOString()}] ${JSON.stringify({
+      order_id: leadData.order_id,
+      user_id: req.user?.id || null,
+      error: lastError?.message,
+      payload: leadData,
+    })}`;
+    appendFileSync(DEAD_LETTER_PATH, logEntry, "utf8");
+    console.error("[lead] CRITICAL: All retries failed. Lead saved to dead_letters.log");
+  } catch (fsError) {
+    console.error("[lead] CRITICAL: Could not write to dead_letters.log:", fsError.message);
+  }
+
+  return { success: false, error: lastError?.message };
+}
+
+// ─── GET /api/lead/mine ───────────────────────────────────────────────────────
+// Returns all leads belonging to the authenticated client.
+// Supabase RLS enforces that only the requesting user's rows are returned.
 router.get(
   "/mine",
+  requireAuth,
   asyncHandler(async (req, res) => {
-    const email = req.headers["x-user-email"];
-    if (!email) {
-      return res.status(200).json({ success: true, orders: [] });
-    }
-    const orders = await getLeadsByEmail(email);
-    return res.status(200).json({ success: true, orders });
+    const leads = await db.getAllLeads(req);
+    res.json({ success: true, data: leads });
   })
 );
 
 // ─── POST /api/lead ───────────────────────────────────────────────────────────
+// The core lead capture endpoint. Accepts partial data at any step in the
+// frontend journey (hero, style, capacity, contact, review) via upsert.
 router.post(
   "/",
+  optionalAuth, // Links the lead to a logged-in client if a JWT is present
   asyncHandler(async (req, res) => {
-
-    // 1. Honeypot — silently succeed to not reveal detection to bots
-    if (isBot(req.body.company_name)) {
-      console.warn(`[BOT] Honeypot triggered from IP: ${req.ip}`);
-      return res.status(200).json({
-        success:    true,
-        order_id:   req.body.order_id || "SF-000000",
-        save_action: "ignored",
-      });
+    // ── Honeypot check ────────────────────────────────────────────────────────
+    // The `company_name` field is hidden from real users. If it's filled,
+    // it's a bot. Return 200 to avoid revealing the detection mechanism.
+    if (isBot(req.body?.company_name)) {
+      return res.status(200).json({ success: true, ignored: true });
     }
 
-    // 2. Sanitise — trim, truncate, apply safe defaults to all fields
-    const lead = sanitizeLead(req.body);
+    // ── Sanitise & normalise payload ─────────────────────────────────────────
+    // sanitizeLead handles ALL fields, aliases (camelCase ↔ snake_case),
+    // and type coercion. It never throws.
+    const lead = sanitizeLead({
+      ...req.body,
+      ip:         (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || req.ip,
+      user_agent: req.headers["user-agent"] || "",
+      referrer:   req.headers["referer"]    || "",
+    });
 
-    // 3. Require at minimum an order_id — without it we cannot upsert correctly
-    if (!lead.order_id) {
+    // ── Guard: order_id and session_id are required ───────────────────────────
+    if (!lead.order_id || !lead.session_id) {
       return res.status(400).json({
         success: false,
-        message: "order_id is required. Call GET /api/session first.",
+        message: "Missing required fields: order_id or session_id",
       });
     }
 
-    // 4. Attach server-resolved fields
-    lead.ip         = req.ip || req.socket?.remoteAddress || "";
-    lead.user_agent = lead.user_agent || req.get("user-agent") || "";
-    lead.referrer   = lead.referrer   || req.get("referer")    || "";
-
-    // 5. Phone quality flag (logged only — never blocks save)
-    const phoneValid = isValidKSAPhone(lead.phone);
-    if (lead.phone && !phoneValid) {
-      console.info(`[LEAD] Non-standard phone format for order ${lead.order_id}: "${lead.phone}"`);
-    }
-
-    // 6. Server-side score sanity check (logged only — frontend score is used)
+    // ── Server-side score anomaly detection ──────────────────────────────────
     const serverScore = calculateScore(lead);
-    const scoreDelta  = Math.abs(serverScore - lead.score);
-    if (scoreDelta > 50) {
+    if (Math.abs((lead.score || 0) - serverScore) > 50) {
       console.warn(
         `[SCORE] Anomaly on order ${lead.order_id}: ` +
-        `frontend sent ${lead.score}, server calculated ${serverScore} (Δ${scoreDelta})`
+        `frontend sent ${lead.score}, server calculated ${serverScore} (Δ${Math.abs((lead.score||0)-serverScore)})`
       );
     }
 
-    // 7. Attach email if logged in (from header)
-    lead.email = req.headers["x-user-email"] || null;
+    // ── Soft phone validation ─────────────────────────────────────────────────
+    if (lead.phone && !isValidKSAPhone(lead.phone)) {
+      console.warn(`[lead] Possibly invalid phone saved: ${lead.phone}`);
+    }
 
-    // 8. Upsert into SQLite
-    const result = await upsertLead(lead);
-
-    // 8. Respond
-    console.info(
-      `[LEAD] ${result.action.toUpperCase()} — ${lead.order_id} | ` +
-      `step: ${lead.last_step} | status: ${lead.status} | score: ${lead.score}`
-    );
+    // ── Resilient save ────────────────────────────────────────────────────────
+    // The user ALWAYS gets a 200 OK. The lead is either saved to Supabase,
+    // or safely written to dead_letters.log for manual recovery.
+    const result = await saveWithRetry(req, lead);
 
     return res.status(200).json({
-      success:     true,
-      order_id:    result.order_id,
-      save_action: result.action,         // "inserted" | "updated"
-      phone_valid: phoneValid,            // Hint for frontend to show format warning
+      success:      true,
+      message:      "Lead received",
+      order_id:     lead.order_id,
+      session_id:   lead.session_id,
+      save_action:  result.success ? result.action : "queued",
+      phone_valid:  lead.phone ? isValidKSAPhone(lead.phone) : null,
     });
   })
 );

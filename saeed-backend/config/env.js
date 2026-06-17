@@ -6,7 +6,8 @@
  * Import this module anywhere config values are needed.
  */
 
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "..", ".env") });
 
 function required(key, defaultValue = "") {
   const val = process.env[key];
@@ -28,7 +29,14 @@ if (!Number.isInteger(rawPort) || rawPort < 1 || rawPort > 65535) {
   process.exit(1);
 }
 
+const redisUrl = process.env.REDIS_URL;
+
+if (process.env.NODE_ENV === "production" && !redisUrl) {
+  console.warn("[WARN] REDIS_URL is missing. Rate limiting will fall back to memory.");
+}
+
 const config = {
+  redisUrl: redisUrl || "redis://127.0.0.1:6379",
   port:            rawPort,
   nodeEnv:         optional("NODE_ENV", "development"),
   isProd:          optional("NODE_ENV", "development") === "production",

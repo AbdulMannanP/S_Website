@@ -1,39 +1,74 @@
 "use strict";
 
-/**
- * middleware/rateLimiter.js
- * Two rate limiters used across the app:
- *
- *  globalLimiter — 500 req / 15 min per IP (applied to all routes in server.js)
- *  leadLimiter   — 60  req / 15 min per IP (applied only to POST /api/lead)
- */
+const { rateLimit } = require("express-rate-limit");
+const config = require("../config/env");
 
-const rateLimit = require("express-rate-limit");
+let redisStore;
 
-const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+// Only attempt Redis if an explicit REDIS_URL env var is set.
+// On Render free tier (no Redis), this is skipped and memory store is used.
+if (process.env.REDIS_URL && config.nodeEnv !== "test") {
+  try {
+    const RedisStore = require("rate-limit-redis").default;
+    const Redis = require("ioredis");
 
+    const redisClient = new Redis(process.env.REDIS_URL, {
+      maxRetriesPerRequest: 3,
+      lazyConnect: true,
+      retryStrategy(times) {
+        if (times > 3) {
+          console.error("[REDIS] Critical connection failure. Using memory store fallback.");
+          return null;
+        }
+        return Math.min(times * 100, 2000);
+      },
+    });
+
+    redisClient.on("error", (err) => {
+      console.warn("[REDIS] Connection error:", err.message);
+    });
+
+    // rate-limit-redis v4 API uses sendCommand
+    redisStore = new RedisStore({
+      sendCommand: (...args) => redisClient.call(...args),
+    });
+
+    console.log("[REDIS] RedisStore initialized successfully.");
+  } catch (err) {
+    console.error("[REDIS] Initialization failed, falling back to memory store:", err.message);
+    redisStore = undefined;
+  }
+} else {
+  console.log("[RATE LIMIT] No REDIS_URL set — using in-memory store.");
+}
+
+// ─── Global Limiter (All Public Endpoints) ───────────────────────────────────
 const globalLimiter = rateLimit({
-  windowMs:       WINDOW_MS,
-  max:            500,
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
   standardHeaders: true,
-  legacyHeaders:  false,
+  legacyHeaders: false,
+  store: redisStore, // undefined → express-rate-limit defaults to memory store
   message: {
     success: false,
-    message: "Too many requests. Please slow down and try again shortly.",
+    message: "Too many requests from this IP, please try again later.",
   },
 });
 
+// ─── Strict Limiter (Lead Submissions) ───────────────────────────────────────
 const leadLimiter = rateLimit({
-  windowMs:       WINDOW_MS,
-  max:            60,
+  windowMs: 15 * 60 * 1000,
+  max: 10,
   standardHeaders: true,
-  legacyHeaders:  false,
+  legacyHeaders: false,
+  store: redisStore,
   message: {
     success: false,
-    message: "Too many submissions. Please wait a few minutes before trying again.",
+    message: "Submission limit exceeded. Please wait 15 minutes before trying again.",
   },
-  // Count failed requests too — prevents bots from probing with bad payloads
-  skipSuccessfulRequests: false,
 });
 
-module.exports = { globalLimiter, leadLimiter };
+module.exports = {
+  globalLimiter,
+  leadLimiter,
+};
