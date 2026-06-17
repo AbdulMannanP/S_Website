@@ -29,7 +29,7 @@ try {
 
     // Build the distributed rate limit store
     redisStore = new RedisStore({
-      sendCommand: (...args) => redisClient.call(...args),
+      client: redisClient,
     });
   }
 } catch (error) {
