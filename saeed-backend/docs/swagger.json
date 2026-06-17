@@ -1,0 +1,43 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Saeed Furniture Lead API",
+    "version": "1.0.0",
+    "description": "Internal API documentation for frontend teams."
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "Current Server"
+    }
+  ],
+  "paths": {
+    "/lead": {
+      "post": {
+        "summary": "Upsert a lead",
+        "description": "Creates or updates a lead payload based on order_id.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": { "type": "string", "example": "SF-D5YRMH" },
+                  "session_id": { "type": "string", "example": "uuid" },
+                  "name": { "type": "string" },
+                  "phone": { "type": "string" }
+                },
+                "required": ["order_id", "session_id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Lead received safely" },
+          "400": { "description": "Missing required fields" }
+        }
+      }
+    }
+  }
+}

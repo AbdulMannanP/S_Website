@@ -28,7 +28,12 @@ const compression = require("compression");
 const { globalLimiter, leadLimiter } = require("./middleware/rateLimiter");
 const notFound     = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
-const { initSchema } = require("./services/database");
+const { requireAdmin } = require("./middleware/auth");
+const { initSchema, getStats } = require("./services/database");
+
+const morgan       = require("morgan");
+const swaggerUi    = require("swagger-ui-express");
+const swaggerDoc   = require("./docs/swagger.json");
 
 const leadRoute    = require("./routes/lead");
 const adminRoute   = require("./routes/admin");
@@ -56,6 +61,7 @@ app.use(helmet({
 // ─── Body Parsers ─────────────────────────────────────────────────────────────
 app.use(express.json({ limit: "10kb" }));
 app.use(cookieParser());
+app.use(morgan("dev"));
 
 // ─── CORS ─────────────────────────────────────────────────────────────────────
 app.use(
@@ -113,6 +119,22 @@ app.get("/health", (req, res) => {
 });
 
 /**
+ * GET /api/keep-alive
+ * Lightweight ping that wakes both Render and Supabase.
+ * Registered BEFORE the global rate limiter so cron services
+ * are never blocked regardless of hit frequency.
+ */
+app.get("/api/keep-alive", async (req, res) => {
+  try {
+    await getStats(); // non-destructive read — wakes the Supabase connection pool
+    res.status(200).json({ success: true, message: "Render and Supabase are awake." });
+  } catch (e) {
+    // Still return 200 so cron services don't alarm on DB hiccups
+    res.status(200).json({ success: true, message: "Render is awake. Supabase may be slow." });
+  }
+});
+
+/**
  * GET /api/session
  * Called once on page load. Returns a cryptographically secure
  * order_id and session_id for the frontend to persist for the session.
@@ -147,6 +169,7 @@ app.use("/api/lead", leadLimiter, leadRoute);
 // ─── Admin Routes ─────────────────────────────────────────────────────────────
 app.use("/admin", adminRoute);
 app.use("/api/admin", adminApi);
+app.use("/api-docs", requireAdmin, swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 // ─── Dashboard & Auth Routes (Frontend) ───────────────────────────────────────
 app.get("/dashboard/client", (req, res) => res.sendFile(path.join(frontendPath, "dashboard", "client.html")));
@@ -195,10 +218,12 @@ async function start() {
   });
 }
 
-const server = start().then((srv) => srv).catch((err) => {
-  console.error("[FATAL] Server failed to start:", err);
-  process.exit(1);
-});
+if (process.env.NODE_ENV !== 'test') {
+  start().catch((err) => {
+    console.error("[FATAL] Server failed to start:", err);
+    process.exit(1);
+  });
+}
 
 // ─── Graceful Shutdown ────────────────────────────────────────────────────────
 function shutdown(signal) {
