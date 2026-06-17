@@ -3,21 +3,27 @@
   "version": "1.0.0",
   "description": "Root package for Saeed Furniture project deployment",
   "scripts": {
+    "build:react": "esbuild frontend/src/react/index.jsx --bundle --outfile=frontend/dist/react-bundle.js --loader:.js=jsx --loader:.jsx=jsx --minify",
     "build:css": "npx @tailwindcss/cli -i ./frontend/input.css -o ./frontend/dist/output.css --minify",
-    "build": "node -e \"require('fs').rmSync('node_modules', {recursive:true, force:true})\" && npm install && echo 'Build complete'",
+    "build": "node -e \"require('fs').rmSync('node_modules', {recursive:true, force:true})\" && npm install && npm run build:css && npm run build:react && echo 'Build complete'",
     "start": "node ./saeed-backend/server.js"
   },
   "private": true,
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
     "@supabase/supabase-js": "^2.106.1",
     "@tailwindcss/cli": "^4.3.0",
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "esbuild": "^0.28.1",
     "express": "^4.18.3",
     "express-rate-limit": "^7.2.0",
+    "framer-motion": "^12.40.0",
     "helmet": "^7.1.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "tailwindcss": "^4.3.0"
   }
 }
