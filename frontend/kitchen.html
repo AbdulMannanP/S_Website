@@ -1,119 +1,254 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="ar" :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:,">
-  <title>Saeed Furniture | Kitchen — Master Your Space</title>
-  <meta name="description" content="Bespoke luxury kitchen cabinetry and fittings. Master your kitchen space with Saeed Furniture — crafted in Saudi Arabia.">
+  <title>سعيد للأثاث | Kitchen — مطابخ عصرية فاخرة</title>
+  <meta name="description" content="مطابخ فاخرة مصنوعة في المملكة العربية السعودية. دقة حديثة، تشطيبات نحاسية، تصميم لا مثيل له.">
+  <meta property="og:title" content="سعيد للأثاث | Luxury Modern Kitchens KSA">
+  <meta property="og:description" content="أثاث مخصص بتصاميم تناسب قلب منزلك.">
+  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://ik.imagekit.io">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Noto+Kufi+Arabic:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="js/auth.js"></script>
   <link rel="stylesheet" href="/dist/output.css">
+
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
+    html { scroll-behavior: smooth; }
+    [x-cloak] { display: none !important; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    .animate-pulse-ring::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      border: 2px solid #25D366; animation: pulse-ring 2s infinite cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(32px); }
+      from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .fade-in-up { animation: fadeInUp 0.9s cubic-bezier(0.22,1,0.36,1) both; }
-    .delay-100  { animation-delay: 0.1s; }
-    .delay-200  { animation-delay: 0.2s; }
-    .delay-300  { animation-delay: 0.3s; }
+    .fade-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+    .fade-up-1 { animation-delay: 0.1s; }
+    .fade-up-2 { animation-delay: 0.3s; }
+    .fade-up-3 { animation-delay: 0.5s; }
+    /* Product page theme: Kitchen — Modern Precision */
+    .feature-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 2px;
+      transition: all 0.4s ease;
+    }
+    .feature-card:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(202, 138, 4, 0.3);
+      transform: translateY(-2px);
+    }
+    .custom-cursor {
+      position: fixed; top: 0; left: 0;
+      width: 10px; height: 10px;
+      background: #ca8a04; border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+      display: none; opacity: 0;
+    }
+    @media (pointer: fine) { .custom-cursor { display: block; } .cursor-bound { cursor: none !important; } }
+    .custom-cursor.active { opacity: 1; width: 60px; height: 60px; background: rgba(202,138,4,0.1); border: 1px solid rgba(202,138,4,0.4); backdrop-filter: blur(2px); }
+  
+    /* Language Toggle Fixed Position */
+    .fixed-lang-toggle {
+      position: fixed !important;
+      top: 1rem !important;
+      inset-inline-end: 1rem !important;
+      direction: ltr !important;
+      z-index: 200 !important;
+    }
   </style>
+
+  <script defer src="/js/app.js"></script>
+  <script defer src="https://unpkg.com/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
 </head>
-<body class="m-0 p-0 overflow-x-hidden bg-stone-950 font-sans" x-data="{ lang: 'en' }">
+<body
+  class="bg-slate-900 text-slate-300 font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-yellow-600/30 transition-colors duration-1000"
+  x-data="saeedApp()"
+  x-init="init()"
+  @scroll.window="scrolled = (window.pageYOffset > 50)">
 
-  <!-- ── Global Header ─────────────────────────────── -->
-  <header class="absolute top-0 inset-x-0 z-50 flex justify-between items-center px-6 md:px-10 py-5 text-white pointer-events-none">
-    <a href="/index.html" class="pointer-events-auto">
-      <img src="/images/logo.png" alt="Saeed Furniture" class="h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-      <div style="display:none" class="font-bold text-xl tracking-widest text-amber-500 flex items-center gap-2">
-        <svg class="w-7 h-7 fill-amber-500" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 4.5l7 14h-14l7-14z"/></svg>
-        SAEED FURNITURE
-      </div>
+  
+
+  <!-- ── Header ──────────────────────────────────────── -->
+  <header  class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out border-b border-transparent"
+          :class="scrolled ? 'bg-slate-900/80 backdrop-blur-md shadow-2xl border-white/5' : 'bg-transparent border-transparent'" >
+    <a href="/" class="h-10 flex items-center gap-4 transition-transform duration-500 hover:scale-105">
+      <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture" class="h-full object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
     </a>
-    <nav class="hidden md:flex gap-8 text-sm tracking-widest pointer-events-auto drop-shadow-md font-medium">
-      <a href="/select.html" class="hover:text-amber-400 transition-colors duration-500">COLLECTIONS</a>
-      <a href="/about.html" class="hover:text-amber-400 transition-colors duration-500">ABOUT</a>
-      <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-500">FAQ</a>
-      <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-500">CONTACT</a>
+
+    <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px]">
+      <a href="/index.html#about" class="hover:text-yellow-500 transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
+      <a href="/" class="hover:text-yellow-500 transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'المعرض' : 'Showroom'"></a>
+      <a href="/select.html" class="hover:text-yellow-500 transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'الأعمال' : 'Collections'"></a>
+      <a href="/contact.html" class="hover:text-yellow-500 transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
+      <button @click="handleOrderClick()"
+              class="text-yellow-500 hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem] whitespace-nowrap"
+              x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
+      </button>
     </nav>
+
+    <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
+
+      <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 ml-2" dir="ltr">
+        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-4 py-2 min-h-[44px] text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300">EN</button>
+        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-4 py-2 min-h-[44px] text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo">عربي</button>
+      </div>
+      <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-yellow-500 transition-colors">
+        <svg x-show="!mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg x-show="mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
   </header>
 
-  <!-- ── Back Navigation (z-40) ───────────────────── -->
-  <a href="/index.html"
-     class="fixed top-24 left-8 z-40 inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold tracking-widest uppercase rounded-full hover:bg-white/25 hover:border-white/40 transition-all duration-500 ease-in-out shadow-lg">
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    Back to Master Room
+  <!-- Mobile Drawer -->
+  <div x-show="mobileMenuOpen" x-cloak
+       x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+       class="fixed inset-0 z-[90] bg-slate-900/98 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 md:hidden">
+    <a href="/index.html#about" @click="mobileMenuOpen = false" class="min-h-[44px] flex items-center text-xl font-light text-white/70 hover:text-yellow-500 transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
+    <a href="/" @click="mobileMenuOpen = false" class="min-h-[44px] flex items-center text-xl font-light text-white/70 hover:text-yellow-500 transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'المعرض' : 'Showroom'"></a>
+    <a href="/select.html" @click="mobileMenuOpen = false" class="min-h-[44px] flex items-center text-xl font-light text-white/70 hover:text-yellow-500 transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'الأعمال' : 'Collections'"></a>
+    <a href="/contact.html" @click="mobileMenuOpen = false" class="min-h-[44px] flex items-center text-xl font-light text-white/70 hover:text-yellow-500 transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
+    <button @click="handleOrderClick(); mobileMenuOpen = false" class="min-h-[44px] flex items-center text-2xl font-light text-yellow-500 hover:text-yellow-400 transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'اطلب الآن' : 'Order Now'"></button>
+  </div>
+
+  <!-- ── Back Button ──────────────────────────────────── -->
+  <a href="/" class="fixed top-24 start-6 z-50 px-4 py-2 bg-white/5 text-slate-300 backdrop-blur-md rounded-lg border border-white/10 hover:bg-yellow-600/20 hover:border-yellow-600/30 transition-all font-cairo flex items-center gap-2 text-sm">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rtl:rotate-180"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span x-text="lang === 'ar' ? 'العودة للمعرض' : 'Back'"></span>
   </a>
 
-  <!-- ── 100vh Hero — No Image, Solid Color ────────── -->
-  <section class="relative h-screen w-full bg-slate-900 flex items-center justify-center flex-col text-center px-6 overflow-hidden">
+  <!-- ── Hero: Full Bleed 100vh ───────────────────────── -->
+  <section class="relative w-full h-screen overflow-hidden">
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/Day%20room%20Hero?updatedAt=1779819466896" fetchpriority="high"
+         width="1920" height="1080"
+         class="absolute inset-0 w-full h-full object-cover z-0" alt="Kitchen Collection">
+    <div class="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/30 to-slate-900/90 z-10"></div>
 
-    <!-- Decorative geometric lines -->
-    <div class="absolute inset-0 pointer-events-none opacity-10">
-      <div class="absolute top-1/4 left-0 right-0 h-px bg-amber-400"></div>
-      <div class="absolute bottom-1/4 left-0 right-0 h-px bg-amber-400"></div>
-      <div class="absolute top-0 bottom-0 left-1/4 w-px bg-amber-400"></div>
-      <div class="absolute top-0 bottom-0 right-1/4 w-px bg-amber-400"></div>
+    <!-- Hero Content -->
+    <div class="absolute inset-0 z-20 flex flex-col items-center justify-end pb-24 text-center px-8">
+      <p class="text-xs uppercase tracking-[0.4em] text-yellow-500 mb-4 fade-up fade-up-1" x-text="lang === 'ar' ? 'مجموعة المطابخ' : 'Kitchen Collection'"></p>
+      <h1 class="text-5xl md:text-7xl font-light text-white mb-6 leading-tight fade-up fade-up-2"
+          style="font-family: 'Playfair Display', serif;">
+        <span x-show="lang !== 'ar'">The <em class="text-yellow-500">Kitchen</em></span>
+        <span x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;">المطبخ الفاخر</span>
+      </h1>
+      <p class="text-slate-300/80 max-w-xl text-lg fade-up fade-up-3"
+         x-text="lang === 'ar' ? 'مطابخ عصرية بتشطيبات نحاسية راقية — قلب منزلك بأبهى صورة.' : 'Modern kitchens with premium brass finishes — the heart of your home at its finest.'"></p>
+      <div class="mt-10 flex items-center gap-6 fade-up fade-up-3">
+        <button @click="handleOrderClick()"
+                class="px-8 py-4 bg-yellow-600 text-slate-900 font-bold shadow-lg hover:bg-yellow-500 transition-all duration-300 uppercase tracking-[0.2em] text-sm">
+          <span x-text="lang === 'ar' ? 'اطلب الآن' : 'Request Bespoke'"></span>
+        </button>
+        <a href="/index.html" class="text-slate-400 hover:text-white transition-colors text-sm uppercase tracking-widest flex items-center gap-2">
+          <span x-text="lang === 'ar' ? 'جميع المنتجات' : 'All Collections'"></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
     </div>
-
-    <!-- Corner accents -->
-    <div class="absolute top-8 left-8 w-12 h-12 border-t-2 border-l-2 border-amber-500/40 pointer-events-none"></div>
-    <div class="absolute top-8 right-8 w-12 h-12 border-t-2 border-r-2 border-amber-500/40 pointer-events-none"></div>
-    <div class="absolute bottom-8 left-8 w-12 h-12 border-b-2 border-l-2 border-amber-500/40 pointer-events-none"></div>
-    <div class="absolute bottom-8 right-8 w-12 h-12 border-b-2 border-r-2 border-amber-500/40 pointer-events-none"></div>
-
-    <!-- Category tag -->
-    <p class="fade-in-up text-amber-500/70 text-xs tracking-[0.4em] uppercase font-medium mb-6">Saeed Furniture — Kitchen Collection</p>
-
-    <h1 class="fade-in-up delay-100 text-5xl md:text-7xl text-amber-500 mb-4 leading-tight">Master Your Space</h1>
-
-    <p class="fade-in-up delay-200 text-slate-300/60 text-sm tracking-widest uppercase mb-10 font-light">
-      تحكم في مساحتك
-    </p>
-
-    <!-- Divider -->
-    <div class="fade-in-up delay-200 w-16 h-px bg-amber-500/50 mb-10"></div>
-
-    <p class="fade-in-up delay-200 text-white/50 text-sm max-w-md leading-relaxed mb-10">
-      Precision-engineered kitchen cabinetry and bespoke fittings. Every detail considered, every surface crafted with purpose.
-    </p>
-
-    <button class="fade-in-up delay-300 group px-10 py-4 bg-amber-500 text-stone-950 font-bold text-sm tracking-[0.2em] uppercase rounded-none hover:bg-amber-400 transition-all duration-500 ease-in-out shadow-[0_0_40px_rgba(245,158,11,0.3)] hover:shadow-[0_0_60px_rgba(245,158,11,0.5)]">
-      Master Your Space | تحكم في مساحتك
-    </button>
   </section>
 
-  <!-- ── Under Construction Canvas ─────────────────── -->
-  <section class="min-h-[50vh] bg-stone-50 flex flex-col items-center justify-center text-stone-600 tracking-wide px-8 text-center">
-    <div class="w-12 h-px bg-amber-400 mb-8"></div>
-    <svg class="w-10 h-10 text-stone-300 mb-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z"/>
-    </svg>
-    <h2 class="text-2xl md:text-3xl font-light text-stone-400 mb-4" style="font-family:'Cormorant Garamond',serif;">Digital Showroom Under Construction</h2>
-    <p class="text-stone-400 text-sm tracking-widest max-w-md">The full Kitchen digital catalogue is being curated. Check back soon.</p>
-    <div class="w-12 h-px bg-amber-400 mt-8"></div>
+  <!-- ── Product Showcase Section ─────────────────────── -->
+  <section class="py-24 bg-slate-900">
+    <div class="max-w-7xl mx-auto px-8">
+
+      <div class="flex items-center gap-4 mb-16">
+        <div class="w-8 h-px bg-yellow-600"></div>
+        <span class="text-xs uppercase tracking-[0.35em] text-yellow-600 font-bold"
+              x-text="lang === 'ar' ? 'الدقة والأناقة' : 'Precision &amp; Elegance'"></span>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="feature-card p-8">
+          <div class="w-8 h-px bg-yellow-600 mb-6"></div>
+          <h3 class="text-xl font-medium text-slate-200 mb-3" x-text="lang === 'ar' ? 'تشطيبات نحاسية' : 'Brass Finishes'"></h3>
+          <p class="text-slate-300 leading-relaxed text-sm" x-text="lang === 'ar' ? 'تفاصيل نحاسية مُصاغة يدوياً تضفي دفئاً ورقياً لا مثيل له.' : 'Hand-crafted brass detailing adds warmth and elegance found nowhere else.'"></p>
+        </div>
+        <div class="feature-card p-8">
+          <div class="w-8 h-px bg-yellow-600 mb-6"></div>
+          <h3 class="text-xl font-medium text-slate-200 mb-3" x-text="lang === 'ar' ? 'تخطيط وظيفي' : 'Functional Layout'"></h3>
+          <p class="text-slate-300 leading-relaxed text-sm" x-text="lang === 'ar' ? 'تصاميم مدروسة تجعل كل حركة في المطبخ سهلة وعملية.' : 'Thoughtful designs that make every movement in the kitchen effortless and efficient.'"></p>
+        </div>
+        <div class="feature-card p-8">
+          <div class="w-8 h-px bg-yellow-600 mb-6"></div>
+          <h3 class="text-xl font-medium text-slate-200 mb-3" x-text="lang === 'ar' ? 'جودة دائمة' : 'Lasting Quality'"></h3>
+          <p class="text-slate-300 leading-relaxed text-sm" x-text="lang === 'ar' ? 'مواد مقاومة للرطوبة والحرارة تضمن مطبخاً يدوم لعقود.' : 'Moisture and heat resistant materials ensuring a kitchen that lasts for decades.'"></p>
+        </div>
+      </div>
+
+      <!-- CTA Banner -->
+      <div class="mt-20 p-12 border border-yellow-600/20 bg-yellow-600/5 text-center">
+        <p class="text-xs uppercase tracking-[0.4em] text-yellow-600 mb-4"
+           x-text="lang === 'ar' ? 'ابدأ رحلتك' : 'Start Your Journey'"></p>
+        <h2 class="text-3xl font-light text-slate-200 mb-6"
+            x-text="lang === 'ar' ? 'احجز زيارة منزلية مجانية' : 'Book a Free Kitchen Consultation'"></h2>
+        <p class="text-slate-300 mb-8 max-w-lg mx-auto"
+           x-text="lang === 'ar' ? 'سنزور منزلك ونقيس ونقترح التصاميم المناسبة — مجاناً وبدون التزام.' : 'We visit, measure, and propose designs tailored to your home — free, with no obligation.'"></p>
+        <button @click="handleOrderClick()"
+                class="px-10 py-4 bg-yellow-600 text-slate-900 font-bold uppercase tracking-[0.25em] text-sm hover:bg-yellow-500 transition-all duration-300">
+          <span x-text="lang === 'ar' ? 'تواصل معنا' : 'Get in Touch'"></span>
+        </button>
+      </div>
+
+    </div>
   </section>
 
-  <!-- ── Footer ─────────────────────────────────────── -->
-  <footer class="bg-stone-950 py-12 px-8 text-center text-stone-500 text-xs tracking-widest uppercase border-t border-stone-800">
-    <div class="flex justify-center mb-6">
-      <img src="/images/logo.png" alt="Saeed Furniture" class="h-10 w-auto object-contain" style="filter: brightness(0) invert(0.6)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-      <svg style="display:none" class="w-6 h-6 fill-amber-500/50" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 4.5l7 14h-14l7-14z"/></svg>
+      <!-- ── Footer ───────────────────────────────────────── -->
+  <footer id="footer" class="bg-[#07070a] border-t border-[#c9a96e]/10 py-16 px-6 text-center">
+    <!-- WhatsApp Big Button -->
+    <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9289288004450')"
+       class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#25d366] text-white font-bold text-sm uppercase tracking-[0.15em] hover:bg-[#20bd5a] transition-all duration-300 shadow-[0_8px_30px_rgba(37,211,102,0.3)] mb-8">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span x-text="lang === 'ar' ? 'تواصل عبر واتساب' : 'Chat on WhatsApp'"></span>
+    </a>
+    <!-- Phone + Address -->
+    <p class="text-white/50 text-sm mb-1" dir="ltr">+966 92 880 04450 — Al Qurayyat, Al Jawf, KSA</p>
+    <p class="text-[#c9a96e]/60 text-xs mb-8" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، الجوف، المملكة العربية السعودية — شركة سعيد للأثاث</p>
+    <!-- Logo -->
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture"
+         width="120" height="40"
+         class="h-8 w-auto mx-auto mb-6 object-contain opacity-60"
+         style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+    <!-- Nav Links -->
+    <nav class="flex flex-wrap justify-center gap-6 mb-8">
+      <a href="/" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'الرئيسية' : 'Home'"></a>
+      <a href="/select.html" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
+      <a href="/index.html#about" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
+      <a href="/index.html#faq" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
+      <a href="/contact.html" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
+    </nav>
+    <div class="w-16 h-px bg-[#c9a96e]/20 mx-auto mb-6"></div>
+    <div class="text-white/20 text-[0.65rem] uppercase tracking-[0.15em] font-bold relative">
+      <a href="/auth" class="absolute bottom-0 left-4 text-[0.5rem] opacity-20 hover:opacity-100 transition-opacity">Atelier Login</a>
+      &copy; 2026 Saeed Furniture. All Rights Reserved.
     </div>
-    <p class="text-stone-400 font-medium mb-1">Saeed Furniture — Al Qurayyat, Al Jawf, KSA</p>
-    <div class="flex justify-center gap-6 mt-4 mb-4">
-      <a href="/about.html" class="hover:text-amber-500 transition-colors">About</a>
-      <a href="/faq.html" class="hover:text-amber-500 transition-colors">FAQ</a>
-      <a href="/contact.html" class="hover:text-amber-500 transition-colors">Contact</a>
-      <a href="/portfolio.html" class="hover:text-amber-500 transition-colors">Portfolio</a>
-    </div>
-    <p class="text-stone-600 mt-2">&copy; 2026 Saeed Furniture. All Rights Reserved.</p>
   </footer>
+
+  <!-- Floating WhatsApp -->
+  <div class="fixed bottom-8 end-6 z-40 animate-pulse-ring rounded-full">
+    <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9289288004450')"
+       class="w-14 h-14 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] relative z-10 hover:scale-110 transition-transform"
+       aria-label="WhatsApp">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
+  <div id="customCursor" class="custom-cursor"></div>
 
 </body>
 </html>

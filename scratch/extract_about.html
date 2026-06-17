@@ -1,0 +1,54 @@
+<section id="about" class="py-12 md:py-24 px-5 bg-ivory-darker border-b border-ivory arabesque-bg relative overflow-hidden">
+      <div class="max-w-[1400px] mx-auto gsap-reveal opacity-0">
+        
+        <div class="flex flex-col lg:grid lg:grid-cols-[1fr_350px_1fr] xl:grid-cols-[1fr_450px_1fr] gap-8 lg:gap-16 items-start">
+          
+          <!-- Column 1: Lead-in & P1 -->
+          <div class="space-y-6 md:space-y-8 lg:mt-16 animate-fade-in-up" style="animation-delay: 200ms;">
+             <!-- Sofa Line Art Vector -->
+             <svg class="w-16 h-8 text-gold/60 mx-auto lg:mx-0" viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 35h80M15 35v-5a5 5 0 015-5h60a5 5 0 015 5v5M25 25v-5a5 5 0 015-5h40a5 5 0 015 5v5"/></svg>
+             <h2 class="text-3xl md:text-5xl font-extrabold text-gold uppercase mb-4 font-cairo" x-text="lang === 'ar' ? 'اكتشف خياراتنا' : 'Explore Our Options'"></h2>
+             <div x-data="{ expanded: false }">
+               <div :class="expanded ? '' : 'line-clamp-3 md:line-clamp-4'">
+                 <p class="text-lg md:text-xl font-medium text-stone-800 leading-snug tracking-wide" x-text="lang === 'ar' ? 'في شركة سعيد للأثاث، نُعرف بين أفضل صناع أثاث الكنب وخبراء الكنب التفصيل في السعودية.' : 'At Saeed Furniture Company — شركة سعيد للأثاث — we are known among the best sofa furniture makers and custom sofa makers in KSA for creating premium Arabic sofas and reception-room seating.'"></p>
+                 <div class="w-12 h-[1px] bg-gold my-8" x-show="expanded"></div>
+                 <p class="text-lg text-stone-800 leading-loose font-medium" x-show="expanded" x-text="lang === 'ar' ? 'كل طلب هو عبارة عن طقم كنب مخصص أو جلسة مجلس تفصيل، يُصنع بالكامل كأثاث حسب الطلب في السعودية، مُصمم ليناسب ذوقك ومبني خصيصاً لمنزلك. من الاستشارة الأولى وحتى اللمسة الأخيرة، نتبع نهجاً احترافياً في تصميم الكنب المخصص لإنتاج أثاث مجالس فاخر – طابع شخصي، جودة تدوم، وحرفية ترتقي بتجربة استقبال ضيوفك.' : 'Every commission is a custom-made sofa set or bespoke majlis seating, entirely made-to-order furniture in Saudi Arabia, designed to your taste and built for your home. From the first consultation to the final stitch, we follow a custom sofa design KSA approach that results in luxury majlis furniture – personal, lasting, and crafted to elevate your guest room experience.'"></p>
+               </div>
+               <button @click="expanded = !expanded" x-text="expanded ? 'Read Less' : 'Read More'" class="mt-4 text-sm text-yellow-600 hover:text-yellow-500 uppercase tracking-widest font-bold focus:outline-none"></button>
+             </div>
+          </div>
+
+          <!-- Column 2: Center Image Carousel -->
+          <div class="w-full h-[300px] md:h-[500px] lg:h-[600px] rounded-t-full rounded-b-full overflow-hidden shadow-[0_30px_80px_-15px_rgba(201,169,110,0.4)] bg-[#080809] border-4 border-ivory relative group animate-fade-in-up" style="animation-delay: 300ms;" x-data="{ timer: null, next() { const clientW = this.$refs.carousel.clientWidth; const scrollW = this.$refs.carousel.scrollWidth; const scrollL = this.$refs.carousel.scrollLeft; requestAnimationFrame(() => { this.$refs.carousel.scrollBy({ left: clientW, behavior: 'smooth' }); if(scrollL >= scrollW - clientW - 10) { this.$refs.carousel.scrollTo({ left: 0, behavior: 'smooth' }); } }); } }" x-init="timer = setInterval(() => next(), 4000)">
+            <div x-ref="carousel" class="flex h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar">
+              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                <div class="absolute inset-0 overflow-hidden bg-black">
+                  <img :src="IMAGE_BASE_URL + 'images/modern.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Modern">
+                </div>
+                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
+              </div>
+              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                <div class="absolute inset-0 overflow-hidden bg-black">
+                  <img :src="IMAGE_BASE_URL + 'images/authentic.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Authentic">
+                </div>
+                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
+              </div>
+              <div class="relative w-full h-full snap-center flex-none group/img cursor-none" x-data="{ loaded: false }">
+                <div class="absolute inset-0 overflow-hidden bg-black">
+                  <img :src="IMAGE_BASE_URL + 'images/heritage.png'" loading="lazy" @load="loaded = true" class="absolute inset-0 w-full h-full object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/img:scale-95 group-hover/img:opacity-70" :class="loaded ? 'blur-0' : 'blur-md'" alt="Heritage">
+                </div>
+                <div class="absolute inset-0 border border-gold/0 group-hover/img:border-gold/30 transition-all duration-[1.5s] pointer-events-none scale-105 group-hover/img:scale-95"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: P2 & P3 -->
+          <div class="space-y-6 md:space-y-8 lg:mt-32 animate-fade-in-up" style="animation-delay: 400ms;">
+             <p class="text-lg text-stone-800 leading-loose font-medium" x-text="lang === 'ar' ? 'عملية التصنيع حسب الطلب لدينا تزيل أي حيرة. بعد اختيارك للموديل، نزورك في منزلك أو نرحب بك في معرضنا – وبصفتنا مصنع كنب متكامل، لا نطلب منك أبداً قياس الغرفة بنفسك؛ نحن نقيسها بالنيابة عنك.' : 'Our made-to-order process removes all uncertainty. After you select a model, we visit your home or welcome you to our showroom – as a full-service sofa manufacturer, we never ask you to premeasure the room; we measure it for you.'"></p>
+             <p class="text-lg text-stone-800 leading-loose font-medium" x-text="lang === 'ar' ? 'ثم يقوم حرفيونا ببناء الهيكل، وتطبيق الطلاء الواقي، وتركيب الإسفنج عالي الكثافة، وتفصيل التنجيد يدوياً، لنقدم لك أفضل تجربة لاقتناء كنب تفصيل وأثاث مجالس في السعودية. سواء كنت تطلب طقم كنب مجلس عربي، أو تجهيز كامل من الأثاث المصنوع يدوياً، أو أثاث خشبي تفصيل مع ستائر متناسقة، فإن النتيجة النهائية هي أثاث داخلي للمجالس يعكس المعنى الحقيقي للأثاث المخصص بأعلى معايير الجودة.' : 'Our artisans then build the frame, apply protective coatings, place high-density sponge, and tailor the upholstery by hand, delivering the best place to buy custom sofa experiences for custom majlis furniture in Saudi Arabia. Whether you order an Arabic majlis sofa set, a complete handcrafted furniture Saudi Arabia installation, or bespoke wood furniture Saudi Arabia with matching curtains, the final result is majlis interior furniture that reflects true tailor-made furniture with quality and welcomes family and guests beautifully.'"></p>
+             <p class="text-[0.8rem] text-stone-500 font-bold uppercase tracking-widest mt-12" x-text="lang === 'ar' ? '* تطبق الشروط والأحكام' : '* Terms & Conditions apply'"></p>
+          </div>
+
+        </div>
+      </div>
+    </section>

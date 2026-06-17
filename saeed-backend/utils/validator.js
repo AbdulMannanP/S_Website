@@ -1,5 +1,7 @@
 "use strict";
 
+const xss = require("xss");
+
 /**
  * utils/validator.js
  * Input validation and sanitisation for lead submissions.
@@ -17,7 +19,8 @@
  */
 function sanitizeStr(val, maxLen = 500) {
   if (typeof val !== "string") return "";
-  return val.trim().slice(0, maxLen);
+  const cleanVal = xss(val);
+  return cleanVal.trim().slice(0, maxLen);
 }
 
 /**

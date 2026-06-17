@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
@@ -9,6 +9,10 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://ik.imagekit.io" />
+  <link rel="alternate" hreflang="en" href="/portfolio.html" />
+  <link rel="alternate" hreflang="ar" href="/portfolio.html" />
+  <link rel="alternate" hreflang="x-default" href="/portfolio.html" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <!-- Alpine.js -->
@@ -395,21 +399,26 @@
 <body x-data="portfolioApp()" x-init="init()">
 
   <!-- ═══ HEADER ═══════════════════════════════════════════════ -->
-  <header class="pf-header">
+  <header  class="pf-header" >
     <a href="/">
-      <img src="/images/logo.png" class="pf-header-logo" alt="Saeed Furniture" onerror="this.src='https://ik.imagekit.io/de7qvcvqv/images/logo.png'">
+      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?tr=w-120,q-90" class="pf-header-logo" alt="Saeed Furniture" loading="eager" fetchpriority="high" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span style="display:none; font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:600; color:var(--brown); letter-spacing:0.1em;">Saeed Furniture</span>
     </a>
-    <nav style="display:flex; gap:2rem; align-items:center;">
-      <a href="/select.html" class="pf-back" style="border:none; font-size:0.65rem; letter-spacing:0.2em; font-weight:700; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='var(--muted)'">Collections</a>
-      <a href="/about.html" class="pf-back" style="border:none; font-size:0.65rem; letter-spacing:0.2em; font-weight:700; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='var(--muted)'">About</a>
-      <a href="/faq.html" class="pf-back" style="border:none; font-size:0.65rem; letter-spacing:0.2em; font-weight:700; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='var(--muted)'">FAQ</a>
-      <a href="/contact.html" class="pf-back" style="border:none; font-size:0.65rem; letter-spacing:0.2em; font-weight:700; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
-      <a href="/" class="pf-back">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        <span x-text="lang === 'ar' ? 'العودة' : 'Back to Home'"></span>
-      </a>
-    </nav>
-  </header>
+    <a href="/" class="pf-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span x-text="lang === 'ar' ? 'العودة' : 'Back to Home'"></span>
+    </a>
+    <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
+
+      <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 ml-2" dir="ltr">
+        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1 text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300">EN</button>
+        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1 text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo">عربي</button>
+      </div>
+  </div>
+</header>
+
+  <!-- Language Toggle — fixed top-right, consistent with all pages -->
+  
 
   <!-- ═══ HERO ══════════════════════════════════════════════════ -->
   <div class="pf-hero">

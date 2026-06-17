@@ -1,718 +1,322 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact — Saeed Furniture | Get In Touch</title>
-  <meta name="description" content="Reach out to Saeed Furniture — Saudi Arabia's premier bespoke furniture atelier. Chat on WhatsApp, visit our Al Qurayyat showroom, or enquire about custom pieces today." />
-  <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="Contact — Saeed Furniture | Get In Touch" />
-  <meta property="og:description" content="Connect with our team for bespoke furniture consultations, custom orders, and showroom visits in Al Qurayyat, Al Jawf, KSA." />
-  <meta property="og:type" content="website" />
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-  <!-- TailwindCSS -->
-  <link rel="stylesheet" href="/dist/output.css" />
-
-  <!-- Alpine.js -->
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
+  <title>Contact — Saeed Furniture | تواصل معنا</title>
+  <meta name="description" content="Get in touch with Saeed Furniture. Visit our showroom in Al Qurayyat, Al Jawf or chat with us on WhatsApp. Bespoke luxury furniture for Saudi homes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ik.imagekit.io">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Noto+Kufi+Arabic:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/dist/output.css">
+  <script defer src="/js/app.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
 
   <style>
-    :root {
-      --gold: #c9a96e;
-      --gold-light: #dfc08e;
-      --gold-dark: #a8803f;
-      --green-wa: #25d366;
-      --bg-dark: #080809;
-    }
+    [x-cloak] { display: none !important; }
+    html { scroll-behavior: smooth; }
+    body { background: #0a0a0d; font-family: 'Inter', 'Cairo', sans-serif; }
 
-    * { box-sizing: border-box; }
-
-    body {
-      background-color: var(--bg-dark);
-      color: #e8e0d5;
-      font-family: 'Inter', sans-serif;
-      -webkit-font-smoothing: antialiased;
+    /* Card hover glow */
+    .contact-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(201,169,110,0.12);
+      border-radius: 12px;
+      transition: transform 0.4s ease, border-color 0.4s ease, background 0.4s ease;
     }
-
-    .font-cormorant { font-family: 'Cormorant Garamond', serif; }
-    .font-cairo { font-family: 'Cairo', sans-serif; }
-
-    /* ── Sticky Header ── */
-    .sticky-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(8, 8, 9, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(201, 169, 110, 0.12);
-      transition: background 0.3s ease;
-    }
-
-    /* ── Nav ── */
-    .nav-link {
-      position: relative;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(232, 224, 213, 0.65);
-      transition: color 0.3s ease;
-      padding-bottom: 2px;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--gold);
-      transition: width 0.35s ease;
-    }
-    .nav-link:hover { color: var(--gold); }
-    .nav-link:hover::after { width: 100%; }
-    .nav-link.active {
-      color: var(--gold);
-    }
-    .nav-link.active::after { width: 100%; }
-
-    /* ── Back Arrow ── */
-    .back-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      color: rgba(201, 169, 110, 0.7);
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: color 0.3s ease, gap 0.3s ease;
-    }
-    .back-btn:hover { color: var(--gold); gap: 0.6rem; }
-
-    /* ── Hero ── */
-    .hero-section {
-      min-height: 50vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      background: radial-gradient(ellipse 80% 70% at 50% 50%, rgba(201,169,110,0.07) 0%, rgba(8,8,9,0) 70%),
-                  radial-gradient(ellipse 50% 50% at 30% 80%, rgba(201,169,110,0.04) 0%, transparent 60%),
-                  var(--bg-dark);
-    }
-    .hero-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a96e' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      pointer-events: none;
-    }
-
-    .gold-divider {
-      width: 80px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 1.5rem auto;
-    }
-
-    .eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 500;
-    }
-
-    /* ── Glass Cards ── */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 1.5rem;
-      padding: 2.5rem 2rem;
-      transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .glass-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(201,169,110,0.3), transparent);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .glass-card:hover {
+    .contact-card:hover {
       transform: translateY(-4px);
-      border-color: rgba(201, 169, 110, 0.35);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(201,169,110,0.08);
-    }
-    .glass-card:hover::before { opacity: 1; }
-
-    .glass-card.wa-card:hover {
-      border-color: rgba(37, 211, 102, 0.4);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 50px rgba(37,211,102,0.1);
+      border-color: rgba(201,169,110,0.35);
+      background: rgba(201,169,110,0.04);
     }
 
-    /* ── Buttons ── */
-    .btn-gold {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.75rem;
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-dark));
-      background-size: 200% 100%;
-      background-position: right;
-      color: #080809;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border-radius: 0.5rem;
-      transition: background-position 0.4s ease, box-shadow 0.4s ease, transform 0.2s ease;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-gold:hover {
-      background-position: left;
-      box-shadow: 0 8px 30px rgba(201,169,110,0.4);
-      transform: translateY(-1px);
-    }
-
-    .btn-whatsapp {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.85rem 2rem;
-      background: #25d366;
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border-radius: 0.5rem;
-      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-      text-decoration: none;
-    }
-    .btn-whatsapp:hover {
-      background: #1ebe5c;
-      box-shadow: 0 8px 35px rgba(37,211,102,0.45);
-      transform: translateY(-2px);
-    }
-
-    .btn-outline-gold {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.75rem;
-      background: transparent;
-      color: var(--gold);
-      border: 1px solid rgba(201,169,110,0.4);
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border-radius: 0.5rem;
-      transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease, transform 0.2s ease;
-      text-decoration: none;
-    }
-    .btn-outline-gold:hover {
-      border-color: var(--gold);
-      background: rgba(201,169,110,0.08);
-      color: var(--gold-light);
-      transform: translateY(-1px);
-    }
-
-    /* ── Steps ── */
-    .step-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.9rem;
-      margin-bottom: 0.85rem;
-    }
-    .step-num {
-      flex-shrink: 0;
-      width: 1.75rem;
-      height: 1.75rem;
-      border-radius: 50%;
-      border: 1px solid rgba(201,169,110,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--gold);
-      background: rgba(201,169,110,0.08);
-    }
-    .step-text {
-      font-size: 0.88rem;
-      color: rgba(232,224,213,0.75);
-      line-height: 1.5;
-      padding-top: 0.2rem;
-    }
-
-    /* ── WhatsApp Strip ── */
-    .wa-strip {
-      background: linear-gradient(135deg, #090a0b 0%, #0d0e10 50%, #090a0b 100%);
-      border-top: 1px solid rgba(201,169,110,0.15);
-      border-bottom: 1px solid rgba(201,169,110,0.08);
-      position: relative;
-      overflow: hidden;
-    }
-    .wa-strip::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 200px;
-      background: radial-gradient(ellipse, rgba(37,211,102,0.05) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* ── Footer ── */
-    footer {
-      background: #040405;
-      border-top: 1px solid rgba(201,169,110,0.12);
-    }
-
-    /* ── Icon Containers ── */
-    .icon-wrap {
-      width: 4rem;
-      height: 4rem;
-      border-radius: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-    }
-    .icon-wrap-gold {
-      background: rgba(201,169,110,0.1);
+    /* Icon circle */
+    .contact-icon-wrap {
+      width: 56px; height: 56px;
+      border-radius: 12px;
       border: 1px solid rgba(201,169,110,0.25);
-    }
-    .icon-wrap-green {
-      background: rgba(37,211,102,0.1);
-      border: 1px solid rgba(37,211,102,0.25);
-    }
-
-    /* ── Animations ── */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
+      background: rgba(201,169,110,0.08);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
     }
 
-    .anim-fade-up {
-      opacity: 0;
-      animation: fadeInUp 0.8s ease forwards;
-    }
-    .delay-100 { animation-delay: 0.1s; }
-    .delay-200 { animation-delay: 0.2s; }
-    .delay-300 { animation-delay: 0.3s; }
-    .delay-400 { animation-delay: 0.4s; }
-    .delay-500 { animation-delay: 0.5s; }
-    .delay-600 { animation-delay: 0.6s; }
-
-    /* ── Arabic badge ── */
-    .arabic-badge {
-      display: inline-block;
-      font-family: 'Cairo', sans-serif;
-      font-size: 0.8rem;
-      color: rgba(232,224,213,0.45);
-      margin-top: 0.35rem;
+    /* Numbered steps */
+    .step-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: rgba(201,169,110,0.12);
+      border: 1px solid rgba(201,169,110,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700;
+      color: #c9a96e;
+      flex-shrink: 0;
     }
 
-    /* Mobile nav toggle */
-    .mobile-menu {
-      display: none;
+    @keyframes pulse-ring {
+      0%  { transform: scale(1); opacity: 0.5; }
+      100%{ transform: scale(1.5); opacity: 0; }
     }
-    @media (max-width: 768px) {
-      .mobile-menu.open { display: flex; }
-      .desktop-nav { display: none; }
-    }
-    @media (min-width: 769px) {
-      .desktop-nav { display: flex; }
-      .hamburger { display: none; }
+    .animate-pulse-ring::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      border: 2px solid #25D366; animation: pulse-ring 2s infinite cubic-bezier(0.2,0.8,0.2,1);
     }
 
-    /* ── Hours grid ── */
-    .hours-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      font-size: 0.85rem;
+    /* Footer nav link */
+    .footer-nav-link {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      text-decoration: none; transition: color 0.3s ease;
     }
-    .hours-row:last-child { border-bottom: none; }
-    .hours-day { color: rgba(232,224,213,0.55); }
-    .hours-time { color: rgba(232,224,213,0.9); font-weight: 500; }
+    .footer-nav-link:hover { color: #c9a96e; }
+
+    /* Language Toggle Fixed Position */
+    .fixed-lang-toggle {
+      position: fixed !important;
+      top: 1rem !important;
+      inset-inline-end: 1rem !important;
+      direction: ltr !important;
+      z-index: 200 !important;
+    }
   </style>
-</head>
+  <link rel="alternate" hreflang="en" href="/contact.html" />
+  <link rel="alternate" hreflang="ar" href="/contact.html" />
+  <link rel="alternate" hreflang="x-default" href="/contact.html" /></head>
+<body
+  class="text-white/90 font-cairo antialiased min-h-screen"
+  x-data="{ ...saeedApp() }"
+  x-init="init()"
+  @scroll.window="scrolled = (window.pageYOffset > 50)">
 
-<body x-data="{ mobileOpen: false }">
+  
 
-  <!-- ═══════════════════════════════════════
-       STICKY HEADER
-  ═══════════════════════════════════════ -->
-  <header class="sticky-header">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
-
-      <!-- Back + Logo -->
-      <div class="flex items-center gap-5">
-        <a href="/index.html" class="back-btn" aria-label="Back to home">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-          <span class="hidden sm:inline">Home</span>
-        </a>
-        <div class="w-px h-5 bg-white/10"></div>
-        <a href="/index.html">
-          <img src="/images/logo.png" alt="Saeed Furniture" class="h-10 w-auto object-contain" />
-        </a>
+  <!-- ── Header ──────────────────────────────────────── -->
+  <header  class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 border-b border-transparent"
+          :class="scrolled ? 'bg-[#0a0a0d]/90 backdrop-blur-md shadow-2xl border-white/5' : 'bg-[#0a0a0d]/70 backdrop-blur-sm'" >
+    <a href="/index.html" class="h-10 flex items-center gap-3 transition-transform duration-500 hover:scale-105">
+      <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture"
+           class="h-full object-contain drop-shadow-[0_0_15px_rgba(201,169,110,0.3)]"
+           style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
+      <div class="flex flex-col">
+        <span class="text-white font-bold text-sm tracking-[0.15em] uppercase whitespace-nowrap" x-text="lang === 'ar' ? 'مفروشات سعيد' : 'Saeed Furniture'">Saeed Furniture</span>
+        <span class="text-amber-500/80 text-[0.55rem] tracking-[0.2em] uppercase whitespace-nowrap mt-0.5" x-text="lang === 'ar' ? 'فخامة تدوم' : 'Bespoke Mastery'">Bespoke Mastery</span>
       </div>
+    </a>
 
-      <!-- Desktop Nav -->
-      <nav class="desktop-nav items-center gap-8">
-        <a href="/about.html" class="nav-link">About</a>
-        <a href="/faq.html" class="nav-link">FAQ</a>
-        <a href="/contact.html" class="nav-link active">Contact</a>
-        <a href="/select.html" class="nav-link" style="color: var(--gold);">Collections</a>
-      </nav>
+    <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em]">
+      <a href="/" class="hover:text-[#c9a96e] transition-colors whitespace-nowrap" x-text="lang === 'ar' ? 'الرئيسية' : 'Home'"></a>
+      <a href="/select.html" class="hover:text-[#c9a96e] transition-colors whitespace-nowrap" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
+      <a href="/index.html#about" class="hover:text-[#c9a96e] transition-colors whitespace-nowrap" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
+      <a href="/index.html#faq" class="hover:text-[#c9a96e] transition-colors whitespace-nowrap" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
+      <a href="/contact.html" class="text-[#c9a96e] whitespace-nowrap" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
+    </nav>
 
-      <!-- Hamburger -->
-      <button class="hamburger flex flex-col gap-1.5 p-1" @click="mobileOpen = !mobileOpen" aria-label="Toggle menu">
-        <span class="block w-5 h-0.5 bg-amber-400 transition-all duration-300" :class="mobileOpen ? 'rotate-45 translate-y-2' : ''"></span>
-        <span class="block w-5 h-0.5 bg-amber-400 transition-all duration-300" :class="mobileOpen ? 'opacity-0' : ''"></span>
-        <span class="block w-5 h-0.5 bg-amber-400 transition-all duration-300" :class="mobileOpen ? '-rotate-45 -translate-y-2' : ''"></span>
+    <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
+
+      <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 ml-2" dir="ltr">
+        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-3 text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300 min-h-[44px]">EN</button>
+        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-3 text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo min-h-[44px]">عربي</button>
+      </div>
+      <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Menu" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-[#c9a96e] transition-colors">
+        <svg x-show="!mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg x-show="mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu flex-col gap-0 border-t border-white/5 bg-stone-950/95" :class="mobileOpen ? 'open' : ''" x-show="mobileOpen" x-transition>
-      <a href="/about.html" class="px-6 py-4 text-sm tracking-widest uppercase text-white/60 hover:text-amber-400 border-b border-white/5">About</a>
-      <a href="/faq.html" class="px-6 py-4 text-sm tracking-widest uppercase text-white/60 hover:text-amber-400 border-b border-white/5">FAQ</a>
-      <a href="/contact.html" class="px-6 py-4 text-sm tracking-widest uppercase border-b border-white/5" style="color: var(--gold);">Contact</a>
-      <a href="/select.html" class="px-6 py-4 text-sm tracking-widest uppercase text-amber-400 hover:text-amber-300">Collections</a>
     </div>
   </header>
 
+  <!-- Mobile Drawer -->
+  <div x-show="mobileMenuOpen" x-cloak
+       class="fixed inset-0 z-[90] bg-[#0a0a0d]/98 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 md:hidden"
+       x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+    <a href="/" @click="mobileMenuOpen=false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] min-h-[44px] flex items-center" x-text="lang==='ar'?'الرئيسية':'Home'"></a>
+    <a href="/select.html" @click="mobileMenuOpen=false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] min-h-[44px] flex items-center" x-text="lang==='ar'?'المجموعات':'Collections'"></a>
+    <a href="/index.html#about" @click="mobileMenuOpen=false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] min-h-[44px] flex items-center" x-text="lang==='ar'?'من نحن':'About'"></a>
+    <a href="/index.html#faq" @click="mobileMenuOpen=false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] min-h-[44px] flex items-center" x-text="lang==='ar'?'الأسئلة':'FAQ'"></a>
+    <a href="/contact.html" @click="mobileMenuOpen=false" class="text-xl font-light text-[#c9a96e] uppercase tracking-[0.3em] min-h-[44px] flex items-center" x-text="lang==='ar'?'تواصل':'Contact'"></a>
+  </div>
 
-  <!-- ═══════════════════════════════════════
-       HERO SECTION
-  ═══════════════════════════════════════ -->
-  <section class="hero-section">
-    <div class="text-center px-6 relative z-10">
+  <!-- ── Hero ─────────────────────────────────────────── -->
+  <section class="pb-16 md:pb-20 px-6 text-center relative overflow-hidden" style="padding-top: clamp(80px, 15vh, 144px);">
+    <!-- Faint glow -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-[#c9a96e]/5 blur-[80px] pointer-events-none"></div>
 
-      <p class="eyebrow anim-fade-up delay-100">Reach Us Anytime</p>
+    <p class="text-[0.65rem] uppercase tracking-[0.35em] text-[#c9a96e] font-bold mb-4 relative z-10"
+       x-text="lang === 'ar' ? 'تواصل في أي وقت' : 'Reach Us Anytime'"></p>
 
-      <h1 class="font-cormorant anim-fade-up delay-200 mt-5"
-          style="font-size: clamp(3rem, 8vw, 6rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; color: #f0ebe3;">
-        Get In Touch
-      </h1>
+    <h1 class="relative z-10 font-light text-white leading-tight mb-4" style="font-family:'Playfair Display',serif; font-size:clamp(2.8rem,7vw,5rem);">
+      <span x-show="lang !== 'ar'">Get In Touch</span>
+      <span x-show="lang === 'ar'" style="font-family:'Noto Kufi Arabic',sans-serif;">تواصل معنا</span>
+    </h1>
 
-      <p class="font-cairo anim-fade-up delay-300"
-         style="font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 300; color: rgba(201,169,110,0.7); margin-top: 0.3rem; letter-spacing: 0.05em;">
-        تواصل معنا
-      </p>
+    <div class="flex items-center justify-center gap-4 mb-6 relative z-10">
+      <div class="w-12 h-px bg-gradient-to-r from-transparent to-[#c9a96e]"></div>
+      <div class="w-1.5 h-1.5 bg-[#c9a96e] rotate-45"></div>
+      <div class="w-12 h-px bg-gradient-to-l from-transparent to-[#c9a96e]"></div>
+    </div>
 
-      <div class="gold-divider anim-fade-up delay-400"></div>
+    <!-- Arabic sub-heading in gold -->
+    <p class="text-[#c9a96e]/80 text-base mb-4 relative z-10" x-show="lang !== 'ar'" style="font-family:'Noto Kufi Arabic',sans-serif;">تواصل معنا</p>
 
-      <p class="anim-fade-up delay-500 max-w-md mx-auto"
-         style="font-size: 0.95rem; color: rgba(232,224,213,0.55); letter-spacing: 0.04em; line-height: 1.7;">
-        Our team responds within a few hours &mdash; we're here to assist with every detail.
-      </p>
+    <p class="text-white/40 text-sm leading-relaxed max-w-md mx-auto relative z-10"
+       x-text="lang === 'ar' ? 'فريقنا يرد في غضون ساعات قليلة — نحن هنا للمساعدة في كل التفاصيل.' : 'Our team responds within a few hours — we\'re here to assist with every detail.'"></p>
+  </section>
+
+  <!-- ── 3-Card Grid ──────────────────────────────────── -->
+  <section class="px-6 pb-20 md:pb-24 max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
+
+      <!-- Card 1: WhatsApp -->
+      <div class="contact-card p-5 md:p-7 flex flex-col">
+        <div class="contact-icon-wrap" style="background: rgba(37,211,102,0.1); border-color: rgba(37,211,102,0.25);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-1" x-text="lang === 'ar' ? 'واتساب' : 'WhatsApp'"></h3>
+        <p class="text-white/40 text-xs mb-5 leading-relaxed" x-text="lang === 'ar' ? 'تحدث معنا مباشرة' : 'Chat with us directly'"></p>
+
+        <div class="mb-4">
+          <p class="text-[0.6rem] uppercase tracking-[0.25em] text-[#c9a96e] font-bold mb-1.5" x-text="lang === 'ar' ? 'رقمنا' : 'Our Number'"></p>
+          <p class="text-white font-bold text-lg tracking-wider" dir="ltr">+966 928 800 4450</p>
+        </div>
+
+        <p class="text-white/30 text-xs leading-relaxed mb-6"
+           x-text="lang === 'ar' ? 'متاح يومياً · عادة يرد خلال 30 دقيقة' : 'Available daily · Usually responds within 30 minutes'"></p>
+
+        <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9289288004450')"
+           class="mt-auto flex items-center justify-center gap-2 py-3.5 rounded-lg bg-[#25d366] text-white font-bold text-sm uppercase tracking-[0.15em] hover:bg-[#20bd5a] transition-all duration-300 shadow-[0_4px_20px_rgba(37,211,102,0.25)]">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span x-text="lang === 'ar' ? 'ابدأ المحادثة' : 'Start Chatting'"></span>
+        </a>
+
+        <p class="text-white/20 text-[0.65rem] text-center mt-3" x-text="lang === 'ar' ? 'اضغط للانتقال لواتساب' : 'Tap to open WhatsApp'"></p>
+      </div>
+
+      <!-- Card 2: Visit Our Showroom -->
+      <div class="contact-card p-5 md:p-7 flex flex-col">
+        <div class="contact-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-1" x-text="lang === 'ar' ? 'زيارة المعرض' : 'Visit Our Showroom'"></h3>
+        <p class="text-white/40 text-xs mb-5 leading-relaxed" x-text="lang === 'ar' ? 'استعرض مجموعاتنا شخصياً' : 'Experience our collections in person'"></p>
+
+        <div class="mb-4">
+          <p class="text-[0.6rem] uppercase tracking-[0.25em] text-[#c9a96e] font-bold mb-2" x-text="lang === 'ar' ? 'العنوان' : 'Address'"></p>
+          <p class="text-white/80 text-sm leading-relaxed" x-show="lang !== 'ar'">Al Qurayyat, Al Jawf<br>Kingdom of Saudi Arabia<br><span class="text-white/40 text-xs">(Craftsmanship That Endures)</span></p>
+          <p class="text-white/80 text-sm leading-relaxed" x-show="lang === 'ar'" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، منطقة الجوف<br>المملكة العربية السعودية<br><span class="text-white/40 text-xs">حرفية تدوم</span></p>
+        </div>
+
+        <div class="mb-6">
+          <p class="text-[0.6rem] uppercase tracking-[0.25em] text-[#c9a96e] font-bold mb-2" x-text="lang === 'ar' ? 'أوقات العمل' : 'Opening Hours'"></p>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-white/40" x-text="lang === 'ar' ? 'السبت — الخميس' : 'Sat — Thu'"></span>
+              <span class="text-white/70 font-bold" dir="ltr">9:00 AM — 10:00 PM</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-white/40" x-text="lang === 'ar' ? 'الجمعة' : 'Friday'"></span>
+              <span class="text-white/70 font-bold" dir="ltr">4:00 PM — 10:00 PM</span>
+            </div>
+            <p class="text-white/20 text-xs mt-1" x-text="lang === 'ar' ? 'السبت - الخميس ٩ص - ١٠م · الجمعة ٤م - ١٠م' : ''"></p>
+          </div>
+        </div>
+
+        <a href="https://maps.google.com/?q=Al+Qurayyat+Al+Jawf+Saudi+Arabia" target="_blank" rel="noopener"
+           aria-label="Get directions to Saeed Furniture showroom on Google Maps, opens in new tab"
+           class="mt-auto flex items-center justify-center gap-2 py-3.5 rounded-lg border border-[#c9a96e]/30 text-[#c9a96e] text-sm font-bold uppercase tracking-[0.15em] hover:bg-[#c9a96e]/10 transition-all duration-300">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span x-text="lang === 'ar' ? 'احصل على الاتجاهات' : 'Get Directions'"></span>
+        </a>
+        <p class="text-white/20 text-[0.65rem] text-center mt-3" x-text="lang === 'ar' ? 'يفتح خرائط جوجل' : 'Opens Google Maps'"></p>
+      </div>
+
+      <!-- Card 3: How to Order -->
+      <div class="contact-card p-5 md:p-7 flex flex-col">
+        <div class="contact-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 class="text-white font-bold text-lg mb-1" x-text="lang === 'ar' ? 'كيف تطلب' : 'How to Order'"></h3>
+        <p class="text-white/40 text-xs mb-5 leading-relaxed" x-text="lang === 'ar' ? 'من أول استفسار إلى باب منزلك' : 'From first enquiry to your doorstep'"></p>
+
+        <div class="space-y-3.5 flex-1">
+          <div class="flex items-start gap-3">
+            <div class="step-num">1</div>
+            <p class="text-white/60 text-sm leading-relaxed" x-text="lang === 'ar' ? 'تصفح الكتالوج واختر مجموعة' : 'Browse our catalogue & select a collection'"></p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="step-num">2</div>
+            <p class="text-white/60 text-sm leading-relaxed" x-text="lang === 'ar' ? 'تواصل معنا عبر واتساب أو زيارة المعرض' : 'WhatsApp us or visit the showroom'"></p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="step-num">3</div>
+            <p class="text-white/60 text-sm leading-relaxed" x-text="lang === 'ar' ? 'زيارة منزلية مجانية لقياس المكان' : 'Free home measurement consultation'"></p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="step-num">4</div>
+            <p class="text-white/60 text-sm leading-relaxed" x-text="lang === 'ar' ? 'تخصيص المواد والأبعاد والتشطيبات' : 'Customise materials, dimensions & finishes'"></p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="step-num">5</div>
+            <p class="text-white/60 text-sm leading-relaxed" x-text="lang === 'ar' ? 'تسليم وتركيب متكامل' : 'White-glove delivery & installation'"></p>
+          </div>
+        </div>
+
+        <div class="mt-5 p-3 rounded-lg bg-[#c9a96e]/8 border border-[#c9a96e]/20">
+          <p class="text-[#c9a96e] text-xs font-bold mb-0.5" x-text="lang === 'ar' ? 'مدة التنفيذ المعتادة' : 'Typical Lead Time'"></p>
+          <p class="text-white/50 text-xs" x-text="lang === 'ar' ? '٣ — ٦ أسابيع من التأكيد' : '3 — 6 weeks from confirmation'"></p>
+          <p class="text-white/30 text-xs mt-1" x-show="lang === 'ar'" style="font-family:'Noto Kufi Arabic',sans-serif;">٣ — ٦ أسابيع من التأكيد</p>
+        </div>
+
+        <a href="/select.html"
+           class="mt-4 flex items-center justify-center gap-2 py-3.5 rounded-lg bg-[#c9a96e] text-[#0a0a0d] text-sm font-bold uppercase tracking-[0.15em] hover:bg-[#d4b87a] transition-all duration-300">
+          <span x-text="lang === 'ar' ? 'تصفح الكتالوج' : 'Browse Catalogue'"></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
 
     </div>
   </section>
 
+  <!-- ── Footer ───────────────────────────────────────── -->
+  <footer class="bg-[#07070a] border-t border-[#c9a96e]/10 py-16 px-6 text-center">
+    <!-- WhatsApp Big Button -->
+    <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9289288004450')"
+       class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#25d366] text-white font-bold text-sm uppercase tracking-[0.15em] hover:bg-[#20bd5a] transition-all duration-300 shadow-[0_8px_30px_rgba(37,211,102,0.3)] mb-8">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span x-text="lang === 'ar' ? 'تواصل عبر واتساب' : 'Chat on WhatsApp'"></span>
+    </a>
 
-  <!-- ═══════════════════════════════════════
-       CONTACT CARDS
-  ═══════════════════════════════════════ -->
-  <section class="py-24 px-6" style="background: linear-gradient(180deg, var(--bg-dark) 0%, #0c0c0e 100%);">
-    <div class="max-w-6xl mx-auto">
+    <!-- Phone + Address -->
+    <p class="text-white/50 text-sm mb-1" dir="ltr">+966 92 880 04450 — Al Qurayyat, Al Jawf, KSA</p>
+    <p class="text-[#c9a96e]/60 text-xs mb-8" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، الجوف، المملكة العربية السعودية — شركة سعيد للأثاث</p>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+    <!-- Logo -->
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture"
+         width="120" height="40"
+         class="h-8 w-auto mx-auto mb-6 object-contain opacity-60"
+         style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
 
-        <!-- ── Card 1: WhatsApp ── -->
-        <div class="glass-card wa-card anim-fade-up delay-200 flex flex-col">
+    <!-- Nav Links -->
+    <nav class="flex flex-wrap justify-center gap-6 mb-8">
+      <a href="/" class="footer-nav-link" x-text="lang === 'ar' ? 'الرئيسية' : 'Home'"></a>
+      <a href="/select.html" class="footer-nav-link" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
+      <a href="/index.html#about" class="footer-nav-link" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
+      <a href="/index.html#faq" class="footer-nav-link" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
+      <a href="/contact.html" class="footer-nav-link text-[#c9a96e]" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
+    </nav>
 
-          <div class="icon-wrap icon-wrap-green">
-            <!-- WhatsApp SVG -->
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="#25d366">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-            </svg>
-          </div>
-
-          <div class="flex-1">
-            <h2 class="font-cormorant text-2xl font-light text-white/95 mb-1">WhatsApp</h2>
-            <p class="text-sm mb-5" style="color: rgba(232,224,213,0.5); letter-spacing: 0.02em;">
-              Fastest response &mdash; chat with us directly
-            </p>
-
-            <div class="mb-6 p-3 rounded-xl" style="background: rgba(37,211,102,0.06); border: 1px solid rgba(37,211,102,0.15);">
-              <p class="text-xs uppercase tracking-widest mb-1" style="color: rgba(37,211,102,0.6);">Our Number</p>
-              <p class="font-cormorant text-2xl font-light" style="color: #25d366; letter-spacing: 0.05em;">+966 928 800 4450</p>
-            </div>
-
-            <p class="text-xs mb-4" style="color: rgba(232,224,213,0.35); letter-spacing: 0.03em;">
-              Available daily &bull; Usually responds within 30 minutes
-            </p>
-          </div>
-
-          <div class="mt-auto">
-            <a href="https://wa.me/9288004450?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20custom%20furniture"
-               target="_blank" rel="noopener noreferrer"
-               class="btn-whatsapp w-full justify-center">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-              </svg>
-              Start Chatting
-            </a>
-            <p class="font-cairo text-center mt-2 arabic-badge">تواصل الآن عبر واتساب</p>
-          </div>
-
-        </div>
-
-
-        <!-- ── Card 2: Visit Us ── -->
-        <div class="glass-card anim-fade-up delay-300 flex flex-col">
-
-          <div class="icon-wrap icon-wrap-gold">
-            <!-- Map Pin SVG -->
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-          </div>
-
-          <div class="flex-1">
-            <h2 class="font-cormorant text-2xl font-light text-white/95 mb-1">Visit Our Showroom</h2>
-            <p class="text-sm mb-5" style="color: rgba(232,224,213,0.5); letter-spacing: 0.02em;">
-              Experience our collections in person
-            </p>
-
-            <div class="mb-5 p-3 rounded-xl" style="background: rgba(201,169,110,0.05); border: 1px solid rgba(201,169,110,0.12);">
-              <p class="text-xs uppercase tracking-widest mb-1" style="color: rgba(201,169,110,0.6);">Address</p>
-              <p class="text-white/90 font-medium text-sm leading-relaxed">Al Qurayyat, Al Jawf</p>
-              <p class="text-white/60 text-sm">Kingdom of Saudi Arabia</p>
-              <p class="font-cairo text-xs mt-1" style="color: rgba(201,169,110,0.55);">القريات، الجوف، المملكة العربية السعودية</p>
-            </div>
-
-            <div class="mb-6">
-              <p class="text-xs uppercase tracking-widest mb-3" style="color: rgba(201,169,110,0.6);">Opening Hours</p>
-              <div class="hours-row">
-                <span class="hours-day">Sat – Thu</span>
-                <span class="hours-time">9:00 AM – 10:00 PM</span>
-              </div>
-              <div class="hours-row">
-                <span class="hours-day">Friday</span>
-                <span class="hours-time">4:00 PM – 10:00 PM</span>
-              </div>
-              <p class="font-cairo text-xs mt-2" style="color: rgba(232,224,213,0.3);">
-                السبت–الخميس: ٩ص–١٠م &bull; الجمعة: ٤م–١٠م
-              </p>
-            </div>
-          </div>
-
-          <div class="mt-auto">
-            <a href="https://www.google.com/maps/search/Al+Qurayyat+Al+Jawf+Saudi+Arabia"
-               target="_blank" rel="noopener noreferrer"
-               class="btn-outline-gold w-full justify-center">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-              </svg>
-              Get Directions
-            </a>
-            <p class="font-cairo text-center mt-2 arabic-badge">احصل على الاتجاهات</p>
-          </div>
-
-        </div>
-
-
-        <!-- ── Card 3: Order Process ── -->
-        <div class="glass-card anim-fade-up delay-400 flex flex-col">
-
-          <div class="icon-wrap icon-wrap-gold">
-            <!-- Clock SVG -->
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <polyline points="12 6 12 12 16 14"/>
-            </svg>
-          </div>
-
-          <div class="flex-1">
-            <h2 class="font-cormorant text-2xl font-light text-white/95 mb-1">How to Order</h2>
-            <p class="text-sm mb-5" style="color: rgba(232,224,213,0.5); letter-spacing: 0.02em;">
-              From first enquiry to your doorstep
-            </p>
-
-            <div class="mb-4">
-              <div class="step-item">
-                <div class="step-num">1</div>
-                <p class="step-text">Browse our catalogue &amp; select a collection</p>
-              </div>
-              <div class="step-item">
-                <div class="step-num">2</div>
-                <p class="step-text">WhatsApp us or visit the showroom</p>
-              </div>
-              <div class="step-item">
-                <div class="step-num">3</div>
-                <p class="step-text">Free home measurement consultation</p>
-              </div>
-              <div class="step-item">
-                <div class="step-num">4</div>
-                <p class="step-text">Customise materials, dimensions &amp; finishes</p>
-              </div>
-              <div class="step-item">
-                <div class="step-num">5</div>
-                <p class="step-text">White-glove delivery &amp; installation</p>
-              </div>
-            </div>
-
-            <div class="p-3 rounded-xl mb-4" style="background: rgba(201,169,110,0.06); border: 1px solid rgba(201,169,110,0.15);">
-              <p class="text-xs" style="color: rgba(201,169,110,0.8);">
-                <span class="font-semibold" style="color: var(--gold);">Typical Lead Time:</span>
-                &nbsp;3 – 4 weeks from confirmation
-              </p>
-              <p class="font-cairo text-xs mt-0.5" style="color: rgba(201,169,110,0.45);">مدة التنفيذ المعتادة: ٣–٤ أسابيع</p>
-            </div>
-          </div>
-
-          <div class="mt-auto">
-            <a href="/select.html" class="btn-gold w-full justify-center">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-              </svg>
-              Browse Catalogue
-            </a>
-            <p class="font-cairo text-center mt-2 arabic-badge">تصفح الكتالوج</p>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════
-       WHATSAPP STRIP
-  ═══════════════════════════════════════ -->
-  <section class="wa-strip py-20 px-6">
-    <div class="max-w-3xl mx-auto text-center relative z-10">
-
-      <div class="flex items-center justify-center gap-3 mb-5">
-        <div class="h-px flex-1 max-w-16" style="background: linear-gradient(90deg, transparent, rgba(201,169,110,0.3));"></div>
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="#25d366" style="filter: drop-shadow(0 0 12px rgba(37,211,102,0.4));">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-        </svg>
-        <div class="h-px flex-1 max-w-16" style="background: linear-gradient(90deg, rgba(201,169,110,0.3), transparent);"></div>
-      </div>
-
-      <h2 class="font-cormorant text-white/95 mb-3"
-          style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; letter-spacing: -0.01em; line-height: 1.1;">
-        Prefer to Chat?
-      </h2>
-      <p class="text-sm mb-2" style="color: rgba(232,224,213,0.55); letter-spacing: 0.05em;">
-        We're on WhatsApp 24 / 7 &mdash; get instant answers to all your questions
-      </p>
-      <p class="font-cairo text-sm mb-8" style="color: rgba(232,224,213,0.3);">
-        نحن متاحون على واتساب على مدار الساعة
-      </p>
-
-      <a href="https://wa.me/9288004450?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20custom%20furniture"
-         target="_blank" rel="noopener noreferrer"
-         class="btn-whatsapp text-base px-10 py-4 inline-flex items-center gap-3">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-        </svg>
-        Start a Conversation
-      </a>
-
-      <p class="mt-4 text-xs" style="color: rgba(232,224,213,0.25); letter-spacing: 0.06em; text-transform: uppercase;">
-        +966 928 800 4450
-      </p>
-
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════ -->
-  <footer class="py-16 px-6">
-    <div class="max-w-7xl mx-auto">
-
-      <!-- Top Row -->
-      <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-10 mb-12">
-
-        <!-- Brand -->
-        <div class="text-center md:text-left">
-          <img src="/images/logo.png" alt="Saeed Furniture" class="h-10 w-auto object-contain mb-4 mx-auto md:mx-0"
-               style="filter: brightness(0) invert(1); opacity: 0.75;" />
-          <p class="text-xs tracking-widest uppercase mb-1" style="color: rgba(201,169,110,0.5);">Bespoke Furniture Atelier</p>
-          <p class="font-cairo text-xs" style="color: rgba(232,224,213,0.3);">سعيد للأثاث &bull; القريات، الجوف</p>
-        </div>
-
-        <!-- Links -->
-        <div class="flex flex-wrap justify-center gap-8">
-          <div>
-            <p class="text-xs uppercase tracking-widest mb-3" style="color: rgba(201,169,110,0.5);">Navigate</p>
-            <ul class="space-y-2">
-              <li><a href="/about.html" class="text-xs text-white/40 hover:text-amber-400 transition-colors tracking-wide uppercase">About</a></li>
-              <li><a href="/select.html" class="text-xs text-white/40 hover:text-amber-400 transition-colors tracking-wide uppercase">Collections</a></li>
-              <li><a href="/faq.html" class="text-xs text-white/40 hover:text-amber-400 transition-colors tracking-wide uppercase">FAQ</a></li>
-              <li><a href="/contact.html" class="text-xs tracking-wide uppercase" style="color: var(--gold);">Contact</a></li>
-            </ul>
-          </div>
-          <div>
-            <p class="text-xs uppercase tracking-widest mb-3" style="color: rgba(201,169,110,0.5);">Contact</p>
-            <ul class="space-y-2">
-              <li>
-                <a href="https://wa.me/9288004450" target="_blank" class="text-xs text-white/40 hover:text-green-400 transition-colors">
-                  +966 928 800 4450
-                </a>
-              </li>
-              <li class="text-xs text-white/30">Al Qurayyat, Al Jawf, KSA</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Divider -->
-      <div class="h-px mb-8" style="background: linear-gradient(90deg, transparent, rgba(201,169,110,0.15), transparent);"></div>
-
-      <!-- Bottom Row -->
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center">
-        <p class="text-xs" style="color: rgba(232,224,213,0.25); letter-spacing: 0.04em;">
-          &copy; 2026 Saeed Furniture. All rights reserved.
-        </p>
-        <p class="font-cairo text-xs" style="color: rgba(232,224,213,0.18);">
-          سعيد للأثاث &mdash; القريات، الجوف، المملكة العربية السعودية
-        </p>
-      </div>
-
-    </div>
+    <div class="w-16 h-px bg-[#c9a96e]/20 mx-auto mb-6"></div>
+    <p class="text-white/20 text-[0.65rem] uppercase tracking-[0.15em] font-bold">&copy; 2026 Saeed Furniture. All Rights Reserved.</p>
   </footer>
+
+  <!-- Floating WhatsApp -->
+  <div class="fixed bottom-8 end-6 z-40 animate-pulse-ring rounded-full">
+    <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9289288004450')"
+       class="w-14 h-14 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] relative z-10 hover:scale-110 transition-transform"
+       aria-label="WhatsApp">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
 
 </body>
 </html>

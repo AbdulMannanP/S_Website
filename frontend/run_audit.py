@@ -10,7 +10,6 @@ ROOT = 'd:/Saeed Furniture/frontend'
 FILES = {
     'index.html':               os.path.join(ROOT, 'index.html'),
     'auth.html':                os.path.join(ROOT, 'auth.html'),
-    'portfolio.html':           os.path.join(ROOT, 'portfolio.html'),
     'majlis.html':              os.path.join(ROOT, 'majlis.html'),
     'kitchen.html':             os.path.join(ROOT, 'kitchen.html'),
     'bedroom.html':             os.path.join(ROOT, 'bedroom.html'),

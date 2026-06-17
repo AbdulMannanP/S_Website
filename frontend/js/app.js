@@ -26,6 +26,11 @@
       activeShowroom:    'gateway', // SPA route: gateway|majlis|kitchen|bedroom|cot|almirah
       mobileMenuOpen:    false,
       highlightWhatsApp: false,
+      sidebarOpen:       window.innerWidth >= 768,
+      bookingModalOpen:  false,
+      bottomSheetOpen:   false,
+      bookingName:       '',
+      bookingPhone:      '',
 
       /* ── Content CMS ──────────────────────────────────── */
       content: { brand:{}, hero:{}, usps:[], styles:{options:[]}, capacity:{options:[]}, contact:{}, success:{} },
@@ -297,13 +302,9 @@
         document.addEventListener('visibilitychange', () => {
           if (document.visibilityState === 'hidden') {
             if (!this.form.order_id || this.form.order_id === 'SF-LOCAL') return;
-            const auth = Alpine.store('saeedAuth');
-            const headers = { 'Content-Type': 'application/json' };
-            if (auth?.user?.email) headers['x-user-email'] = auth.user.email;
             
-            fetch(`${API}/api/lead`, {
+            window.api.secureFetch(`${API}/api/lead`, {
               method: 'POST',
-              headers: headers,
               body: JSON.stringify(this.form),
               keepalive: true
             }).catch(() => {});
@@ -332,13 +333,8 @@
         autoSaveController = new AbortController();
 
         try {
-          const auth = Alpine.store('saeedAuth');
-          const headers = { 'Content-Type': 'application/json' };
-          if (auth?.user?.email) headers['x-user-email'] = auth.user.email;
-
-          await fetch(`${API}/api/lead`, {
+          await window.api.secureFetch(`${API}/api/lead`, {
             method: 'POST',
-            headers: headers,
             body: JSON.stringify(this.form),
             signal: autoSaveController.signal
           });
