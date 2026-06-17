@@ -3,7 +3,7 @@ services:
     name: saeed-furniture
     env: node
     plan: free
-    buildCommand: npm install && npx @tailwindcss/cli -i ./frontend/input.css -o ./frontend/dist/output.css --minify && npx esbuild frontend/src/react/index.jsx --bundle --outfile=frontend/dist/react-bundle.js --loader:.js=jsx --loader:.jsx=jsx --minify --define:process.env.NODE_ENV=\"production\" && cd saeed-backend && npm install
+    buildCommand: npm install && npx @tailwindcss/cli -i ./frontend/input.css -o ./frontend/dist/output.css --minify && npx esbuild frontend/src/react/index.jsx --bundle --outfile=frontend/dist/react-bundle.js --loader:.js=jsx --loader:.jsx=jsx --minify --define:process.env.NODE_ENV=\"'production'\" && cd saeed-backend && npm install
     startCommand: node ./saeed-backend/server.js
     envVars:
       - key: NODE_ENV
