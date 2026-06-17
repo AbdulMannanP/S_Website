@@ -1,67 +1,91 @@
 "use strict";
 
-const crypto = require("crypto");
+const { createClient } = require("@supabase/supabase-js");
 const config = require("../config/env");
 
-/**
- * middleware/auth.js
- * Shared authentication logic for admin access.
- */
+// Create a singleton Supabase client for validating JWTs
+const supabase = createClient(config.supabaseUrl, config.supabaseAnonKey);
 
-function signToken(value) {
-  return crypto
-    .createHmac("sha256", config.sessionSecret)
-    .update(value)
-    .digest("hex");
-}
-
-function isValidToken(token) {
-  if (!token || typeof token !== "string") return false;
-  const lastDot = token.lastIndexOf(".");
-  if (lastDot === -1) return false;
-  
-  const payload  = token.slice(0, lastDot);
-  const sig      = token.slice(lastDot + 1);
-  const expected = signToken(payload);
-  
-  // Extract timestamp from payload and verify expiration
-  const [timestampStr] = payload.split("-");
-  const timestamp = parseInt(timestampStr, 10);
-  if (isNaN(timestamp) || Date.now() - timestamp > config.cookieMaxAge) {
-    return false; // Token expired
-  }
-  
-  // Constant-time comparison to prevent timing attacks
+async function requireAuth(req, res, next) {
   try {
-    return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
-  } catch {
-    return false;
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ success: false, message: "Unauthorized: Missing Bearer Token" });
+    }
+
+    const token = authHeader.split(" ")[1];
+    
+    // Verify token using Supabase Auth
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error || !user) {
+      return res.status(401).json({ success: false, message: "Unauthorized: Invalid Token" });
+    }
+
+    // Attach user to request object
+    req.user = user;
+    req.token = token;
+    next();
+  } catch (error) {
+    next(error);
   }
 }
 
-function isAuthenticated(req) {
-  const token = req.cookies?.[config.cookieName];
-  return isValidToken(token);
+async function requireAdmin(req, res, next) {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ success: false, message: "Unauthorized: Missing Bearer Token" });
+    }
+
+    const token = authHeader.split(" ")[1];
+    
+    // Verify token using Supabase Auth
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error || !user) {
+      return res.status(401).json({ success: false, message: "Unauthorized: Invalid Token" });
+    }
+
+    // Check if user has admin role from profiles table
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (profileError || !profile || profile.role !== "admin") {
+      return res.status(403).json({ success: false, message: "Forbidden: Admin access required" });
+    }
+
+    // Attach user to request object
+    req.user = user;
+    req.token = token;
+    next();
+  } catch (error) {
+    next(error);
+  }
 }
 
-/**
- * Middleware to protect routes.
- * Traditional routes redirect to /admin/login.
- * API routes return a 401 Unauthorized JSON.
- */
-function requireAuth(isApi = false) {
-  return (req, res, next) => {
-    if (isAuthenticated(req)) return next();
-    
-    if (isApi) {
-      return res.status(401).json({ success: false, message: "Unauthorized. Please log in as admin." });
+async function optionalAuth(req, res, next) {
+  try {
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      const token = authHeader.split(" ")[1];
+      const { data: { user }, error } = await supabase.auth.getUser(token);
+      if (!error && user) {
+        req.user = user;
+        req.token = token;
+      }
     }
-    res.redirect("/admin/login");
-  };
+    next();
+  } catch (error) {
+    next();
+  }
 }
 
 module.exports = {
-  isValidToken,
-  isAuthenticated,
   requireAuth,
+  requireAdmin,
+  optionalAuth,
 };

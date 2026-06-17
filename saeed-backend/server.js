@@ -28,7 +28,12 @@ const compression = require("compression");
 const { globalLimiter, leadLimiter } = require("./middleware/rateLimiter");
 const notFound     = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
-const { initSchema } = require("./services/database");
+const { requireAdmin } = require("./middleware/auth");
+const { initSchema, getStats } = require("./services/database");
+
+const morgan       = require("morgan");
+const swaggerUi    = require("swagger-ui-express");
+const swaggerDoc   = require("./docs/swagger.json");
 
 const leadRoute    = require("./routes/lead");
 const adminRoute   = require("./routes/admin");
@@ -56,34 +61,24 @@ app.use(helmet({
 // ─── Body Parsers ─────────────────────────────────────────────────────────────
 app.use(express.json({ limit: "10kb" }));
 app.use(cookieParser());
+app.use(morgan("dev"));
 
 // ─── CORS ─────────────────────────────────────────────────────────────────────
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, or direct navigations)
-      if (!origin || origin === "null") {
-        return callback(null, true);
-      }
+const allowedOrigins = process.env.NODE_ENV === 'production' 
+  ? [process.env.FRONTEND_URL] 
+  : ['http://localhost:3000', 'http://127.0.0.1:3000'];
 
-      // Check against allowed list or allow local development origins
-      if (
-        config.allowedOrigins.includes(origin) ||
-        origin.includes("localhost") ||
-        origin.includes("127.0.0.1")
-      ) {
-        callback(null, true);
-      } else {
-        const corsError = new Error("CORS: origin not allowed");
-        corsError.status = 403;
-        callback(corsError);
-      }
-    },
-    methods:      ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "x-user-email"],
-    credentials:  true,
-  })
-);
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl) or strictly whitelisted domains
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS: Origin not allowed by strict policy'));
+    }
+  },
+  credentials: true
+}));
 
 // ─── Serve Frontend Static Files ────────────────────────────────────────────
 // Serves index.html and all assets from ../frontend at http://localhost:3001
@@ -110,6 +105,22 @@ app.get("/health", (req, res) => {
     timestamp:   new Date().toISOString(),
     environment: config.nodeEnv,
   });
+});
+
+/**
+ * GET /api/keep-alive
+ * Lightweight ping that wakes both Render and Supabase.
+ * Registered BEFORE the global rate limiter so cron services
+ * are never blocked regardless of hit frequency.
+ */
+app.get("/api/keep-alive", async (req, res) => {
+  try {
+    await getStats(); // non-destructive read — wakes the Supabase connection pool
+    res.status(200).json({ success: true, message: "Render and Supabase are awake." });
+  } catch (e) {
+    // Still return 200 so cron services don't alarm on DB hiccups
+    res.status(200).json({ success: true, message: "Render is awake. Supabase may be slow." });
+  }
 });
 
 /**
@@ -147,6 +158,7 @@ app.use("/api/lead", leadLimiter, leadRoute);
 // ─── Admin Routes ─────────────────────────────────────────────────────────────
 app.use("/admin", adminRoute);
 app.use("/api/admin", adminApi);
+app.use("/api-docs", requireAdmin, swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 // ─── Dashboard & Auth Routes (Frontend) ───────────────────────────────────────
 app.get("/dashboard/client", (req, res) => res.sendFile(path.join(frontendPath, "dashboard", "client.html")));
@@ -195,8 +207,32 @@ async function start() {
   });
 }
 
-start().catch((err) => {
-  console.error("[FATAL] Server failed to start:", err);
+if (process.env.NODE_ENV !== 'test') {
+  start().catch((err) => {
+    console.error("[FATAL] Server failed to start:", err);
+    process.exit(1);
+  });
+}
+
+// ─── Graceful Shutdown ────────────────────────────────────────────────────────
+function shutdown(signal) {
+  console.log(`[server] ${signal} received. Shutting down gracefully...`);
+  // Give active requests 10s to complete before forcing exit
+  setTimeout(() => {
+    console.error("[server] Force-exiting after shutdown timeout.");
+    process.exit(1);
+  }, 10_000).unref();
+}
+
+process.on("SIGINT",  () => shutdown("SIGINT"));
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+
+process.on("unhandledRejection", (reason) => {
+  console.error("[server] Unhandled Promise Rejection:", reason);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("[server] Uncaught Exception:", err);
   process.exit(1);
 });
 

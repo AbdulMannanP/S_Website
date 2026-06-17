@@ -3,34 +3,28 @@
 const { createClient } = require("@supabase/supabase-js");
 const config = require("../config/env");
 
-// ─── Initialize Supabase Client ───────────────────────────────────────────────
-let supabase = null;
-if (config.supabaseUrl && (config.supabaseServiceKey || config.supabaseAnonKey)) {
-  try {
-    supabase = createClient(config.supabaseUrl, config.supabaseServiceKey || config.supabaseAnonKey);
-  } catch (err) {
-    console.error("[DB] Failed to initialize Supabase client:", err.message);
-  }
-} else {
-  console.error("[DB] Supabase credentials missing (SUPABASE_URL / SUPABASE_ANON_KEY). Database operations will fail.");
-}
+// ─── Initialize Base Supabase Client ──────────────────────────────────────────
+const serviceClient = createClient(config.supabaseUrl, config.supabaseAnonKey);
 
-function checkDb() {
-  if (!supabase) {
-    throw new Error("[DB] Supabase client is not initialized. Check environment variables.");
+// ─── Authenticated Client Factory ─────────────────────────────────────────────
+// Generates a per-request client using the user's JWT to enforce RLS
+function getAuthClient(req) {
+  const token = req.token; // Extracted in requireAuth middleware
+  if (!token) {
+    throw new Error("Missing authentication token for database client");
   }
+  return createClient(config.supabaseUrl, config.supabaseAnonKey, {
+    global: { headers: { Authorization: `Bearer ${token}` } }
+  });
 }
 
 async function initSchema() {
-  if (!supabase) {
-    console.warn("[DB] [WARNING] Supabase is not connected because credentials are missing.");
-  } else {
-    console.log("[DB] Connected to Supabase");
-  }
+  console.log("[DB] Connected to Supabase with RLS Integration");
 }
 
-async function upsertLead(data) {
-  checkDb();
+async function upsertLead(req, data) {
+  const supabase = req.user ? getAuthClient(req) : serviceClient; // Use auth client if user exists
+  
   const {
     order_id, session_id,
     name = "", phone = "", district_city = "",
@@ -51,10 +45,10 @@ async function upsertLead(data) {
     color_preference, material_preference, 
     photo_urls: typeof photo_urls === 'string' ? JSON.parse(photo_urls || "[]") : photo_urls,
     vision_notes, last_step, status, score, time_spent,
-    source, user_agent, referrer, ip, company_name, email
+    source, user_agent, referrer, ip, company_name, email,
+    user_id: req.user ? req.user.id : null // Link to authenticated user if exists
   };
 
-  // Check if lead exists to determine action type for logging
   const { data: existing } = await supabase
     .from('leads')
     .select('order_id')
@@ -75,20 +69,20 @@ async function upsertLead(data) {
   return { order_id, action };
 }
 
-async function getLeadByOrderId(order_id) {
-  checkDb();
+async function getLeadByOrderId(req, order_id) {
+  const supabase = getAuthClient(req);
   const { data, error } = await supabase
     .from('leads')
     .select('*')
     .eq('order_id', order_id)
     .single();
 
-  if (error && error.code !== 'PGRST116') throw error; // PGRST116 is not found
+  if (error && error.code !== 'PGRST116') throw error;
   return data;
 }
 
-async function getAllLeads() {
-  checkDb();
+async function getAllLeads(req) {
+  const supabase = getAuthClient(req);
   const { data, error } = await supabase
     .from('leads')
     .select('*')
@@ -98,8 +92,8 @@ async function getAllLeads() {
   return data || [];
 }
 
-async function getStats() {
-  checkDb();
+async function getStats(req) {
+  const supabase = getAuthClient(req);
   const { data, error } = await supabase.rpc('get_leads_stats');
   if (error) throw error;
   
@@ -111,8 +105,8 @@ async function getStats() {
   };
 }
 
-async function getLeadsByEmail(email) {
-  checkDb();
+async function getLeadsByEmail(req, email) {
+  const supabase = getAuthClient(req);
   const { data, error } = await supabase
     .from('leads')
     .select('*')
@@ -123,8 +117,8 @@ async function getLeadsByEmail(email) {
   return data || [];
 }
 
-async function updateLeadCRM(order_id, data) {
-  checkDb();
+async function updateLeadCRM(req, order_id, data) {
+  const supabase = getAuthClient(req);
   const { lead_status, sales_notes, home_visit_completed, assigned_to } = data;
   
   const payload = {};
