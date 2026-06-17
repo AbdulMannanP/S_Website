@@ -9,7 +9,8 @@ let redisClient;
 let redisStore;
 
 try {
-  if (config.redisUrl) {
+  // Skip Redis in testing environment since a local instance might not be running
+  if (config.redisUrl && config.nodeEnv !== "test") {
     // Initialize secure Redis connection
     redisClient = new Redis(config.redisUrl, {
       maxRetriesPerRequest: 3,

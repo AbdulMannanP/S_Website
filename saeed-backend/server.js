@@ -64,32 +64,21 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 // ─── CORS ─────────────────────────────────────────────────────────────────────
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, or direct navigations)
-      if (!origin || origin === "null") {
-        return callback(null, true);
-      }
+const allowedOrigins = process.env.NODE_ENV === 'production' 
+  ? [process.env.FRONTEND_URL] 
+  : ['http://localhost:3000', 'http://127.0.0.1:3000'];
 
-      // Check against allowed list or allow local development origins
-      if (
-        config.allowedOrigins.includes(origin) ||
-        origin.includes("localhost") ||
-        origin.includes("127.0.0.1")
-      ) {
-        callback(null, true);
-      } else {
-        const corsError = new Error("CORS: origin not allowed");
-        corsError.status = 403;
-        callback(corsError);
-      }
-    },
-    methods:      ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization", "x-user-email"],
-    credentials:  true,
-  })
-);
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl) or strictly whitelisted domains
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS: Origin not allowed by strict policy'));
+    }
+  },
+  credentials: true
+}));
 
 // ─── Serve Frontend Static Files ────────────────────────────────────────────
 // Serves index.html and all assets from ../frontend at http://localhost:3001
