@@ -64,21 +64,32 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 // ─── CORS ─────────────────────────────────────────────────────────────────────
-const allowedOrigins = process.env.NODE_ENV === 'production' 
-  ? [process.env.FRONTEND_URL] 
-  : ['http://localhost:3000', 'http://127.0.0.1:3000'];
-
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl) or strictly whitelisted domains
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
+    // 1. Allow same-origin requests (static files) and mobile apps/curl where origin is undefined
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    // 2. Define the allowed list
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'http://localhost:5500',
+      'http://127.0.0.1:3000',
+      process.env.FRONTEND_URL 
+    ].filter(Boolean);
+
+    // 3. The Validation Check
+    if (allowedOrigins.includes(origin) || origin.endsWith('.onrender.com')) {
+      callback(null, true); // Let it through
     } else {
-      callback(new Error('CORS: Origin not allowed by strict policy'));
+      callback(new Error('CORS: Origin not allowed by strict policy')); // Block it
     }
   },
   credentials: true
-}));
+};
+
+app.use(cors(corsOptions));
 
 // ─── Serve Frontend Static Files ────────────────────────────────────────────
 // Serves index.html and all assets from ../frontend at http://localhost:3001
