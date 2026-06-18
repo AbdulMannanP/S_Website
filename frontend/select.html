@@ -534,6 +534,13 @@
     <nav class="hidden md:flex items-center gap-6 md:gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300 drop-shadow-md ml-auto pr-6">
       <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300" x-text="lang === 'ar' ? 'الرئيسية' : 'Home'">Home</a>
       <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300" x-text="lang === 'ar' ? 'تواصل' : 'Contact'">Contact</a>
+    
+      <!-- Desktop Language Toggle -->
+      <div class="hidden md:flex items-center gap-2 bg-white/5 border border-white/10 rounded-full p-1 backdrop-blur-sm relative z-50 ml-6" dir="ltr">
+        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all">EN</button>
+        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all font-cairo" style="font-family:'Noto Kufi Arabic',sans-serif;">عربي</button>
+      </div>
+
     </nav>
     
     <!-- Mobile Menu Toggle -->

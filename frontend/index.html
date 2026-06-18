@@ -16,7 +16,7 @@
 
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script defer src="js/auth.js"></script>
-  <link rel="stylesheet" href="/dist/output.css?v=4">
+  <link rel="stylesheet" href="/dist/output.css?v=7">
 
   <style>
     [x-cloak] { display: none !important; }
@@ -216,6 +216,13 @@
         <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all">EN</button>
         <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all font-cairo" style="font-family:'Noto Kufi Arabic',sans-serif;">عربي</button>
       </div>    
+    
+      <!-- Desktop Language Toggle -->
+      <div class="hidden md:flex items-center gap-2 bg-white/5 border border-white/10 rounded-full p-1 backdrop-blur-sm relative z-50 ml-6" dir="ltr">
+        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all">EN</button>
+        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all font-cairo" style="font-family:'Noto Kufi Arabic',sans-serif;">عربي</button>
+      </div>
+
     </nav>
 
     <div class="flex items-center gap-4 flex-shrink-0 ml-auto md:ml-0" dir="ltr">

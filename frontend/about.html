@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" x-data="{ lang: 'en', menuOpen: false }">
+<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" x-data="{ lang: 'ar', menuOpen: false }">
 <head>
   <meta charset="UTF-8">
   
@@ -328,7 +328,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
 </head>
-<body class="antialiased font-sans" x-data="{ lang: 'en' }">
+<body class="antialiased font-sans" x-data="{ lang: 'ar' }">
 <!-- Restored Transparent Header -->
 <header class="absolute top-0 inset-x-0 z-[150] flex justify-between items-center px-6 md:px-10 py-5 text-white pointer-events-none">
   <!-- Left Logo -->
@@ -348,6 +348,13 @@
       <a href="/about.html" class="hover:text-amber-400 transition-colors duration-300">About</a>
       <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-300">FAQ</a>
       <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300">Contact</a>
+    
+      <!-- Desktop Language Toggle -->
+      <div class="hidden md:flex items-center gap-2 bg-white/5 border border-white/10 rounded-full p-1 backdrop-blur-sm relative z-50 ml-6" dir="ltr">
+        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all">EN</button>
+        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all font-cairo" style="font-family:'Noto Kufi Arabic',sans-serif;">عربي</button>
+      </div>
+
     </nav>
     
     <!-- Divider -->
