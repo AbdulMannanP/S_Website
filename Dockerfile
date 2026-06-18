@@ -5,6 +5,8 @@ WORKDIR /app
 # Copy the root package files to install Tailwind CSS
 COPY package*.json ./
 RUN npm install
+# Copy Tailwind configuration
+COPY tailwind.config.js ./
 
 # Copy the frontend files
 COPY frontend/ ./frontend/
