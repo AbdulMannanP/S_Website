@@ -92,7 +92,7 @@
       <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture" class="h-full object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
     </a>
 
-    <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px]">
+    <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px] ml-auto pr-6">
       <a href="/index.html#about" class="hover:text-yellow-500 transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
       <a href="/" class="hover:text-yellow-500 transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'المعرض' : 'Showroom'"></a>
       <a href="/select.html" class="hover:text-yellow-500 transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'الأعمال' : 'Collections'"></a>
@@ -105,10 +105,7 @@
 
     <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
 
-      <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 ml-2" dir="ltr">
-        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-4 py-2 min-h-[44px] text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300">EN</button>
-        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-4 py-2 min-h-[44px] text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo">عربي</button>
-      </div>
+      
       <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-yellow-500 transition-colors">
         <svg x-show="!mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         <svg x-show="mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -221,7 +218,7 @@
     <p class="text-white/50 text-sm mb-1" dir="ltr">+966 92 880 04450 — Al Qurayyat, Al Jawf, KSA</p>
     <p class="text-[#c9a96e]/60 text-xs mb-8" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، الجوف، المملكة العربية السعودية — شركة سعيد للأثاث</p>
     <!-- Logo -->
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture"
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" loading="lazy" alt="Saeed Furniture"
          width="120" height="40"
          class="h-8 w-auto mx-auto mb-6 object-contain opacity-60"
          style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">

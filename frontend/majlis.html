@@ -19,13 +19,13 @@
     }
   </style>
 </head>
-<body x-data="{ scrolled: false, mobileMenuOpen: false, lang: 'en', isSelectionMode: false, isNightMode: false }" @scroll.window="scrolled = (window.pageYOffset > 50)" class="bg-gradient-to-br from-[#FDFBF7] via-[#F4EFE6] to-[#E8DFD1] overflow-x-hidden m-0 p-0 text-[#1C1A17] antialiased selection:bg-[#A68A56] selection:text-white">
+<body x-data="{ scrolled: false, mobileMenuOpen: false, lang: 'en', isSelectionMode: false, isNightMode: false, loading: false }" @scroll.window="scrolled = (window.pageYOffset > 50)" class="bg-gradient-to-br from-[#FDFBF7] via-[#F4EFE6] to-[#E8DFD1] overflow-x-hidden m-0 p-0 text-[#1C1A17] antialiased selection:bg-[#A68A56] selection:text-white">
   
   <!-- ── Header ──────────────────────────────────────── -->
   <header  class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out border-b border-transparent"
           :class="scrolled ? 'bg-[#FDFBF7]/80 backdrop-blur-md shadow-2xl border-[#A68A56]/20' : 'bg-transparent border-transparent'" >
     <a href="/index.html" class="h-10 flex items-center gap-3 transition-transform duration-500 hover:scale-105">
-      <img src="images/logo.png" loading="eager" alt="Saeed Furniture" class="h-full object-contain" style="filter: brightness(0.1);">
+      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" loading="eager" alt="Saeed Furniture" class="h-full object-contain" style="filter: brightness(0.1);">
       <div class="flex flex-col">
         <span class="text-[#1C1A17] font-bold text-sm tracking-[0.15em] uppercase whitespace-nowrap" x-text="lang === 'ar' ? 'مفروشات سعيد' : 'Saeed Furniture'">Saeed Furniture</span>
         <span class="text-[#A68A56] text-[0.55rem] tracking-[0.2em] uppercase whitespace-nowrap mt-0.5" x-text="lang === 'ar' ? 'فخامة تدوم' : 'Bespoke Mastery'">Bespoke Mastery</span>
@@ -39,10 +39,7 @@
       <a href="/index.html#faq" x-show="!isSelectionMode" class="hover:text-[#A68A56] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
       <a href="/contact.html" class="hover:text-[#A68A56] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
       <!-- Single Language Toggle, last item in nav row -->
-      <div class="flex items-center bg-[#1C1A17]/5 backdrop-blur-md rounded-full p-1 border border-[#1C1A17]/10" dir="ltr">
-        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#A68A56] text-white' : 'text-[#1C1A17]/60 hover:text-[#1C1A17]'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all duration-300">EN</button>
-        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#A68A56] text-white' : 'text-[#1C1A17]/60 hover:text-[#1C1A17]'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all duration-300">عربي</button>
-      </div>
+      
     </nav>
 
     <!-- Mobile Hamburger only -->
@@ -70,6 +67,12 @@
     <a href="/index.html#faq"   @click="mobileMenuOpen = false" class="text-xl font-light text-[#1C1A17]/70 hover:text-[#A68A56] transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
     <a href="/contact.html" @click="mobileMenuOpen = false" class="text-xl font-light text-[#1C1A17]/70 hover:text-[#A68A56] transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
     <div class="w-12 h-[1px] bg-[#A68A56]/30 my-4"></div>
+  
+    <!-- Mobile Language Toggle -->
+    <div class="flex items-center bg-white/5 border border-white/10 rounded-full p-1 backdrop-blur-sm" dir="ltr">
+      <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-6 py-2 text-sm font-bold rounded-full transition-all">EN</button>
+      <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-6 py-2 text-sm font-bold rounded-full transition-all font-cairo" style="font-family:'Noto Kufi Arabic',sans-serif;">عربي</button>
+    </div>
   </div>
 
   <!-- React Root -->
@@ -81,7 +84,7 @@
     <p class="text-white/50 text-sm mb-1" dir="ltr">+966 92 880 04450 — Al Qurayyat, Al Jawf, KSA</p>
     <p class="text-[#c9a96e]/60 text-xs mb-4" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، الجوف، المملكة العربية السعودية — شركة سعيد للأثاث</p>
     <!-- Logo -->
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture"
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" loading="lazy" alt="Saeed Furniture"
          width="120" height="40"
          class="h-8 w-auto mx-auto mb-4 object-contain opacity-60"
          style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">

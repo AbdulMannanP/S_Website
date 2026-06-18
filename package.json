@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Root package for Saeed Furniture project deployment",
   "scripts": {
-    "build:react": "esbuild frontend/src/react/index.jsx --bundle --outfile=frontend/dist/react-bundle.js --loader:.js=jsx --loader:.jsx=jsx --minify --define:process.env.NODE_ENV=\"'production'\"",
+    "build:react": "node build.js",
     "build:css": "npx @tailwindcss/cli -i ./frontend/input.css -o ./frontend/dist/output.css --minify",
-    "build": "node -e \"require('fs').rmSync('node_modules', {recursive:true, force:true})\" && npm install && npm run build:css && npm run build:react && echo 'Build complete'",
+    "build": "npm install && npm run build:css && npm run build:react && cd saeed-backend && npm install && echo 'Build complete'",
     "start": "node ./saeed-backend/server.js"
   },
   "private": true,

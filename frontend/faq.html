@@ -176,7 +176,7 @@
   <!-- Right: Navigation & Lang Toggle -->
   <div class="flex items-center gap-6 md:gap-8 pointer-events-auto">
     <!-- Restored Navigation Routes -->
-    <nav class="hidden md:flex items-center gap-6 md:gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300 drop-shadow-md">
+    <nav class="hidden md:flex items-center gap-6 md:gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300 drop-shadow-md ml-auto pr-6">
       <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300">Home</a>
       <a href="/about.html" class="hover:text-amber-400 transition-colors duration-300">About</a>
       <a href="/faq.html" class="hover:text-amber-400 transition-colors duration-300">FAQ</a>
@@ -187,10 +187,7 @@
     <div class="hidden md:block w-px h-6 bg-white/20"></div>
 
     <!-- Language Toggle -->
-    <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20">
-      <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-300 hover:text-white'" class="px-3 py-1.5 text-[0.65rem] font-bold tracking-[0.2em] rounded-full transition-all duration-300">EN</button>
-      <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-amber-600 text-white shadow-lg' : 'text-stone-300 hover:text-white'" class="px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.1em] rounded-full transition-all duration-300" style="font-family: 'Cairo', sans-serif;">عربي</button>
-    </div>
+    
 
     <!-- Mobile Menu Toggle -->
     <button class="md:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">

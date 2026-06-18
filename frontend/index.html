@@ -203,7 +203,7 @@
       </div>
     </a>
 
-    <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px]">
+    <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px] ml-auto pr-6">
       <a href="#about" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
       <a href="/select.html" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
       <a href="#faq"   x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
@@ -218,12 +218,7 @@
       </div>    
     </nav>
 
-    <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
-
-      <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 ml-2" dir="ltr">
-        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-3 text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300 min-h-[44px] flex items-center justify-center">EN</button>
-        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-3 text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo min-h-[44px] flex items-center justify-center">عربي</button>
-      </div>
+    <div class="flex items-center gap-4 flex-shrink-0 ml-auto md:ml-0" dir="ltr">
       <!-- Mobile Hamburger -->
       <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-[#c9a96e] transition-colors">
         <svg x-show="!mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -245,7 +240,14 @@
     <a href="#faq"   @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
     <a href="/contact.html" @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
     <button @click="handleOrderClick(); mobileMenuOpen = false" class="text-2xl font-light text-gold hover:text-gold/80 transition-colors uppercase tracking-[0.3em]" x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')"></button>
-    <div class="w-12 h-[1px] bg-gold/30 my-4"></div>
+    
+    <div class="w-12 h-[1px] bg-[#c9a96e]/30 my-4"></div>
+    
+    <!-- Mobile Language Toggle -->
+    <div class="flex items-center bg-white/5 border border-white/10 rounded-full p-1 backdrop-blur-sm" dir="ltr">
+      <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-6 py-2 text-sm font-bold rounded-full transition-all">EN</button>
+      <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-6 py-2 text-sm font-bold rounded-full transition-all font-cairo" style="font-family:'Noto Kufi Arabic',sans-serif;">عربي</button>
+    </div>
   </div>
 
   <!-- ══ HERO: Immersive Showroom Map ════════════════ -->
@@ -787,7 +789,7 @@
     <p class="text-white/50 text-sm mb-1" dir="ltr">+966 92 880 04450 — Al Qurayyat, Al Jawf, KSA</p>
     <p class="text-[#c9a96e]/60 text-xs mb-4" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، الجوف، المملكة العربية السعودية — شركة سعيد للأثاث</p>
     <!-- Logo -->
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture"
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" loading="lazy" alt="Saeed Furniture"
          width="120" height="40"
          class="h-8 w-auto mx-auto mb-4 object-contain opacity-60"
          style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
