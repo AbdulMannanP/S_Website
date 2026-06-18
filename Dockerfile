@@ -1,22 +1,7 @@
-# STAGE 1: Build the Frontend (Tailwind CSS)
-FROM node:20-alpine AS builder
-WORKDIR /app
-
-# Copy the root package files to install Tailwind CSS
-COPY package*.json ./
-RUN npm install
-# Copy Tailwind configuration
-COPY tailwind.config.js ./
-
-# Copy the frontend files
-COPY frontend/ ./frontend/
-
-# Copy build.js which is essential for bundling the React Majlis page
-COPY build.js ./
-
-# Build the Tailwind CSS and the React JSX bundle
-RUN npm run build:css
-RUN npm run build:react
+# STAGE 1: Skipped.
+# We are skipping the Tailwind and React builds on Render because the 
+# free tier (512MB RAM) often OOM kills esbuild/tailwindcss.
+# All compiled assets (react-bundle.js, output.css) are now committed directly to Git.
 
 # STAGE 2: Setup the Production Node Backend
 FROM node:22-alpine
@@ -33,10 +18,8 @@ RUN cd saeed-backend && npm install --omit=dev
 COPY saeed-backend/ ./saeed-backend/
 
 # 3. Copy Frontend Code
-# Copy the static HTML/JS files
+# Copy the static HTML/JS files, including the pre-built dist folder
 COPY frontend/ ./frontend/
-# Overwrite with the built CSS from Stage 1
-COPY --from=builder /app/frontend/dist ./frontend/dist
 
 # Ensure the app runs in production mode
 ENV NODE_ENV=production
