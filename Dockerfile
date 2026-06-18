@@ -19,7 +19,7 @@ RUN npm run build:css
 RUN npm run build:react
 
 # STAGE 2: Setup the Production Node Backend
-FROM node:20-alpine
+FROM node:22-alpine
 WORKDIR /app
 
 # 1. Setup Backend Dependencies

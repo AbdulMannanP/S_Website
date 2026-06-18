@@ -2,9 +2,15 @@
 
 const { createClient } = require("@supabase/supabase-js");
 const config = require("../config/env");
+// Path B: Explicitly provide a WebSocket implementation.
+const WebSocket = require("ws");
+
+const supabaseBaseOptions = {
+  realtime: { transport: WebSocket }
+};
 
 // ─── Initialize Base Supabase Client ──────────────────────────────────────────
-const serviceClient = createClient(config.supabaseUrl, config.supabaseAnonKey);
+const serviceClient = createClient(config.supabaseUrl, config.supabaseAnonKey, supabaseBaseOptions);
 
 // ─── Authenticated Client Factory ─────────────────────────────────────────────
 // Generates a per-request client using the user's JWT to enforce RLS
@@ -14,7 +20,8 @@ function getAuthClient(req) {
     throw new Error("Missing authentication token for database client");
   }
   return createClient(config.supabaseUrl, config.supabaseAnonKey, {
-    global: { headers: { Authorization: `Bearer ${token}` } }
+    global: { headers: { Authorization: `Bearer ${token}` } },
+    realtime: { transport: WebSocket }
   });
 }
 
