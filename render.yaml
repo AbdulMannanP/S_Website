@@ -1,10 +1,8 @@
 services:
   - type: web
     name: saeed-furniture
-    env: node
+    env: docker
     plan: free
-    buildCommand: npm run build
-    startCommand: node ./saeed-backend/server.js
     envVars:
       - key: NODE_ENV
         value: production
