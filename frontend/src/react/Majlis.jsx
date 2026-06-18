@@ -454,31 +454,26 @@ export default function InteractiveLookbook() {
               setIsConciergeOpen(true);
             }
           } else {
-            setIsBespokeModalOpen(true);
-            setIsSubmitted(false);
+            window.open("https://wa.me/9288004450?text=I%20would%20like%20to%20share%20a%20reference", "_blank");
           }
         }}
-        className={`group fixed bottom-10 right-10 md:bottom-12 md:right-12 z-[150] flex items-center justify-start overflow-hidden rounded-full backdrop-blur-md bg-[#FDFBF7]/80 border border-[#A68A56]/40 shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.65,0,0.05,1)] h-14 ${
+        className={`group fixed bottom-10 right-10 md:bottom-12 md:right-12 z-[150] flex items-center justify-start overflow-hidden rounded-full backdrop-blur-md bg-[#25d366] border border-[#25d366]/40 shadow-[0_8px_30px_rgba(37,211,102,0.4)] transition-all duration-500 ease-[cubic-bezier(0.65,0,0.05,1)] h-14 ${
           isTouchDevice
-            ? isConciergeOpen ? 'w-64' : 'w-14'
-            : 'w-14 hover:w-64'
-        } ${isTouchDevice ? 'cursor-pointer' : 'cursor-none'}`}
+            ? isConciergeOpen ? 'w-72' : 'w-14'
+            : 'w-14 hover:w-72'
+        } ${isTouchDevice ? 'cursor-pointer' : 'cursor-pointer'}`}
       >
-        {/* Icon Zone — fixed 56×56 circle, never collapses */}
-        <div className="w-14 h-14 flex-shrink-0 flex items-center justify-center text-[#A68A56]">
-          {/* Refined geometric diamond SVG — 1px stroke, no fill */}
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A68A56" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2L22 12L12 22L2 12Z" />
-            <path d="M12 7L17 12L12 17L7 12Z" opacity="0.4" />
+        <div className="w-14 h-14 flex-shrink-0 flex items-center justify-center text-white">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
           </svg>
         </div>
-        {/* Reveal Text — visible on hover (desktop) or toggle (mobile) */}
-        <span className={`font-serif tracking-[0.2em] text-[11px] text-[#1C1A17] whitespace-nowrap pr-6 transition-opacity duration-500 delay-100 ${
+        <span className={`font-sans font-bold tracking-[0.1em] text-[10px] text-white whitespace-nowrap pr-6 transition-opacity duration-500 delay-100 ${
           isTouchDevice
             ? isConciergeOpen ? 'opacity-100' : 'opacity-0'
             : 'opacity-0 group-hover:opacity-100'
         }`}>
-          BESPOKE CONCIERGE
+          SHARE YOUR REFERENCE WITH US
         </span>
       </div>
 
