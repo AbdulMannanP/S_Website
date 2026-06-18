@@ -38,8 +38,17 @@
       <a href="/select.html" x-show="!isSelectionMode" class="hover:text-[#A68A56] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
       <a href="/index.html#faq" x-show="!isSelectionMode" class="hover:text-[#A68A56] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
       <a href="/contact.html" class="hover:text-[#A68A56] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
-      <!-- Single Language Toggle, last item in nav row -->
       
+      <button @click="handleOrderClick()"
+              class="text-[#A68A56] hover:text-[#1C1A17] transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem] whitespace-nowrap"
+              x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
+      </button>
+
+      <!-- Desktop Language Toggle -->
+      <div class="hidden md:flex items-center gap-2 bg-[#1C1A17]/5 border border-[#1C1A17]/10 rounded-full p-1 backdrop-blur-sm relative z-50 ml-6" dir="ltr">
+        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-[#1C1A17]/60 hover:text-[#1C1A17]'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all">EN</button>
+        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-[#1C1A17]/60 hover:text-[#1C1A17]'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all font-cairo" style="font-family:'Noto Kufi Arabic',sans-serif;">عربي</button>
+      </div>
     </nav>
 
     <!-- Mobile Hamburger only -->
