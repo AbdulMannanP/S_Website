@@ -69,7 +69,7 @@
     @keyframes scrollRibbon { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     .arabesque-bg {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23c9a96e" d="M50 0C50 25 75 50 100 50C75 50 50 75 50 100C50 75 25 50 0 50C25 50 50 25 50 0Z" opacity="0.03"/></svg>');
+      background-image: url('data:image/svg+xml;utf8,<svg class="" fill="currentColor" stroke="none" width="100" height="100"><use href="/images/sprite.svg#icon-1"></use></svg>');
       background-size: 100px 100px;
     }
 
@@ -176,9 +176,9 @@
        x-transition:leave-start="opacity-100"
        x-transition:leave-end="opacity-0">
     <div class="flex flex-col items-center gap-6" style="animation: splashIn 0.9s cubic-bezier(0.22,1,0.36,1) forwards;">
-      <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture"
+      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="eager" alt="Saeed Furniture"
            class="h-16 object-contain"
-           style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.15);">
+           style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
       <div class="text-center space-y-2">
         <p class="text-white text-2xl font-bold" style="font-family: 'Noto Kufi Arabic', sans-serif; letter-spacing: 0.05em;">مرحباً بكم في شركة سعيد</p>
         <p class="text-white/40 text-sm font-medium tracking-[0.25em] uppercase">Welcome to Saeed Furniture</p>
@@ -197,7 +197,7 @@
   <header  class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out border-b border-transparent"
           :class="scrolled ? 'bg-stone-950/80 backdrop-blur-md shadow-2xl border-white/5' : 'bg-transparent border-transparent'" >
     <a href="/index.html" class="h-10 flex items-center gap-3 transition-transform duration-500 hover:scale-105">
-      <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="eager" alt="Saeed Furniture" class="h-full object-contain drop-shadow-[0_0_15px_rgba(201,169,110,0.3)]" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
+      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="eager" alt="Saeed Furniture" class="h-full object-contain drop-shadow-[0_0_15px_rgba(201,169,110,0.3)]" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
       <div class="flex flex-col">
         <span class="text-white font-bold text-sm tracking-[0.15em] uppercase whitespace-nowrap" x-text="lang === 'ar' ? 'مفروشات سعيد' : 'Saeed Furniture'">Saeed Furniture</span>
         <span class="text-amber-500/80 text-[0.55rem] tracking-[0.2em] uppercase whitespace-nowrap mt-0.5" x-text="lang === 'ar' ? 'فخامة تدوم' : 'Bespoke Mastery'">Bespoke Mastery</span>
@@ -209,7 +209,7 @@
       <a href="/select.html" x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
       <a href="#faq"   x-show="!isSelectionMode" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
       <a href="/contact.html" class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
-      <button @click="handleOrderClick()"
+      <button aria-label="Action Button" @click="handleOrderClick()"
               class="relative hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem] text-[#c9a96e] overflow-hidden group whitespace-nowrap"
               x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
       </button>
@@ -218,8 +218,8 @@
     <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
 
       <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 ml-2" dir="ltr">
-        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-3 text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300 min-h-[44px] flex items-center justify-center">EN</button>
-        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-3 text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo min-h-[44px] flex items-center justify-center">عربي</button>
+        <button aria-label="Action Button" @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-3 text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300 min-h-[44px] flex items-center justify-center">EN</button>
+        <button aria-label="Action Button" @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-3 text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo min-h-[44px] flex items-center justify-center">عربي</button>
       </div>
       <!-- Mobile Hamburger -->
       <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu" class="md:hidden w-10 h-10 flex items-center justify-center text-white/70 hover:text-[#c9a96e] transition-colors">
@@ -241,7 +241,7 @@
     <a href="/select.html" @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
     <a href="#faq"   @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
     <a href="/contact.html" @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-gold transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
-    <button @click="handleOrderClick(); mobileMenuOpen = false" class="text-2xl font-light text-gold hover:text-gold/80 transition-colors uppercase tracking-[0.3em]" x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')"></button>
+    <button aria-label="Action Button" @click="handleOrderClick(); mobileMenuOpen = false" class="text-2xl font-light text-gold hover:text-gold/80 transition-colors uppercase tracking-[0.3em]" x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')"></button>
     <div class="w-12 h-[1px] bg-gold/30 my-4"></div>
   </div>
 
@@ -251,7 +251,7 @@
     <!-- Background Image (Desktop Only) -->
     <img src="https://ik.imagekit.io/de7qvcvqv/images/Day%20room%20Hero?updatedAt=1779819466896"
          class="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block"
-         alt="Saeed Furniture — bespoke Saudi handcrafted furniture showroom Al Qurayyat" loading="eager" fetchpriority="high" width="1920" height="1080">
+         alt="Saeed Furniture — bespoke Saudi handcrafted furniture showroom Al Qurayyat" loading="eager" fetchpriority="high">
 
       <!-- Overlay gradient for text readability (Desktop Only) -->
       <div class="absolute inset-0 z-5 bg-gradient-to-b from-black/30 via-transparent to-black/50 hidden md:block"></div>
@@ -262,13 +262,7 @@
         <div class="w-8 h-px bg-white/30"></div>
       </div>
 
-      <svg class="absolute inset-0 w-full h-full z-20 pointer-events-none hidden md:block" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <a href="/majlis.html"><polygon points="0,50 50,50 50,100 0,100" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'majlis'" @mouseleave="hoverTarget = null" /></a>
-        <a href="/kitchen.html"><polygon points="40,25 65,25 65,45 40,45" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'kitchen'" @mouseleave="hoverTarget = null" /></a>
-        <a href="/cot.html"><polygon points="65,55 75,55 75,70 65,70" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'cot'" @mouseleave="hoverTarget = null" /></a>
-        <a href="/bedroom.html"><polygon points="75,50 100,50 100,80 75,80" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'bedroom'" @mouseleave="hoverTarget = null" /></a>
-        <a href="/almirah.html"><polygon points="62,18 74,18 74,50 62,50" fill="rgba(0,0,0,0)" pointer-events="visiblePainted" class="cursor-pointer" @mouseenter="hoverTarget = 'almirah'" @mouseleave="hoverTarget = null" /></a>
-      </svg>
+      <svg class="absolute inset-0 w-full h-full z-20 pointer-events-none hidden md:block" fill="currentColor" stroke="none"  ><use href="/images/sprite.svg#icon-2"></use></svg>
 
       <!-- Pulse Markers & Hover Labels -->
       <div class="absolute inset-0 z-[25] pointer-events-none hidden md:block">
@@ -317,28 +311,28 @@
       <!-- Mobile Hero 2x2 Grid (visible only on mobile) -->
       <div class="absolute inset-0 z-30 block md:hidden p-4 pt-24 pb-8 bg-[#080809]" style="pointer-events: auto;">
         <div class="grid grid-cols-2 gap-4 h-full">
-          <a href="/majlis.html" class="relative rounded-2xl overflow-hidden block h-full group">
+          <a href="/showroom.html?category=type_modern_floor_majlis" class="relative rounded-2xl overflow-hidden block h-full group">
             <img src="https://ik.imagekit.io/de7qvcvqv/majlis_hero.png" class="absolute inset-0 w-full h-full object-cover" alt="Majlis">
             <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
             <div class="absolute bottom-4 left-4 right-4 text-white">
               <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المجلس' : 'Majlis'"></span>
             </div>
           </a>
-          <a href="/kitchen.html" class="relative rounded-2xl overflow-hidden block h-full group">
+          <a href="/showroom.html?category=type_tub_style_hybrid" class="relative rounded-2xl overflow-hidden block h-full group">
             <img src="https://ik.imagekit.io/de7qvcvqv/kitchen_hero.png" class="absolute inset-0 w-full h-full object-cover" alt="Kitchen">
             <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
             <div class="absolute bottom-4 left-4 right-4 text-white">
               <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المطبخ' : 'Kitchen'"></span>
             </div>
           </a>
-          <a href="/bedroom.html" class="relative rounded-2xl overflow-hidden block h-full group">
+          <a href="/showroom.html?category=type_elevated_contemporary" class="relative rounded-2xl overflow-hidden block h-full group">
             <img src="https://ik.imagekit.io/de7qvcvqv/bedroom_hero.png" class="absolute inset-0 w-full h-full object-cover" alt="Bedroom">
             <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
             <div class="absolute bottom-4 left-4 right-4 text-white">
               <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'غرفة النوم' : 'Bedroom'"></span>
             </div>
           </a>
-          <a href="/almirah.html" class="relative rounded-2xl overflow-hidden block h-full group">
+          <a href="/showroom.html?category=type_tub_style_hybrid" class="relative rounded-2xl overflow-hidden block h-full group">
             <img src="https://ik.imagekit.io/de7qvcvqv/almirah_hero.png" class="absolute inset-0 w-full h-full object-cover" alt="Almirah">
             <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
             <div class="absolute bottom-4 left-4 right-4 text-white">
@@ -352,7 +346,7 @@
       <div class="absolute bottom-8 inset-x-0 flex justify-center z-30 pointer-events-none hidden md:flex">
         <div class="flex flex-col items-center gap-2 animate-bounce">
           <p class="text-[0.55rem] uppercase tracking-[0.35em] text-white/40 font-bold" x-text="lang === 'ar' ? 'مرر للأسفل' : 'Scroll'"></p>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          <svg class="" fill="none" stroke="rgba(255,255,255,0.4)" width="16" height="16"><use href="/images/sprite.svg#icon-3"></use></svg>
         </div>
       </div>
   </section>
@@ -362,10 +356,10 @@
   <main class="transition-all duration-500" x-show="!loading" x-cloak>
 
     <!-- ══ USP SECTION: Editorial Typography ═══════════ -->
-    <section id="usp" class="py-32 bg-stone-50 text-stone-900 relative overflow-hidden">
+    <section id="usp" class="py-12 md:py-32 bg-stone-50 text-stone-900 relative overflow-hidden">
 
       <!-- Subtle arabesque background pattern -->
-      <div class="absolute inset-0 pointer-events-none" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22><path fill=%22%23b45309%22 d=%22M60 0C60 30 90 60 120 60C90 60 60 90 60 120C60 90 30 60 0 60C30 60 60 30 60 0Z%22 opacity=%220.018%22/></svg>'); background-size: 120px 120px; opacity: 0.6;"></div>
+      <div class="absolute inset-0 pointer-events-none" style="background-image: url('data:image/svg+xml;utf8,<svg class="" fill="currentColor" stroke="none"  ><use href="/images/sprite.svg#icon-4"></use></svg>'); background-size: 120px 120px; opacity: 0.6;"></div>
 
       <div class="max-w-7xl mx-auto px-8 flex flex-col lg:flex-row gap-20 relative">
 
@@ -460,7 +454,7 @@
     </section>
 
     <!-- ══ ABOUT SECTION ═══════════════════════════════ -->
-    <section id="about" class="py-24 bg-stone-100 relative overflow-hidden">
+    <section id="about" class="py-10 md:py-24 bg-stone-100 relative overflow-hidden">
 
       <!-- Faint decorative company name -->
       <div class="absolute -right-8 top-1/2 -translate-y-1/2 select-none leading-none pointer-events-none hidden lg:block"
@@ -517,15 +511,15 @@
             <!-- CTA with Home Visit Modal -->
             <div x-data="{ showVisitModal: false, visitName: '', visitEmail: '', visitTime: 'Morning', visitLocation: '' }">
               <div class="flex flex-wrap gap-4">
-                <button @click="showVisitModal = true"
+                <button aria-label="Action Button" @click="showVisitModal = true"
                    class="inline-flex items-center gap-3 px-8 py-4 bg-stone-900 text-white text-sm font-bold uppercase tracking-[0.2em] hover:bg-amber-700 transition-all duration-500 group">
                   <span x-text="lang === 'ar' ? 'احجز زيارة منزلية' : 'Book a Home Visit'"></span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg class="transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180" fill="none" stroke="currentColor" width="16" height="16"><use href="/images/sprite.svg#icon-5"></use></svg>
                 </button>
                 <a href="/contact.html"
                    class="inline-flex items-center gap-3 px-8 py-4 border border-stone-300 text-stone-800 text-sm font-bold uppercase tracking-[0.2em] hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-all duration-500 group">
                   <span x-text="lang === 'ar' ? 'تعرف أكثر' : 'Know More'"></span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg class="transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180" fill="none" stroke="currentColor" width="16" height="16"><use href="/images/sprite.svg#icon-6"></use></svg>
                 </a>
               </div>
 
@@ -543,7 +537,7 @@
                    
                 <div class="bg-stone-950 border border-[#c9a96e]/30 rounded-2xl w-full max-w-lg p-6 md:p-8 relative shadow-[0_24px_50px_rgba(0,0,0,0.8)] text-left" :dir="lang === 'ar' ? 'rtl' : 'ltr'">
                   <!-- Close button -->
-                  <button @click="showVisitModal = false" class="absolute top-5 right-5 text-white/40 hover:text-white text-2xl transition-colors">&times;</button>
+                  <button aria-label="Action Button" @click="showVisitModal = false" class="absolute top-5 right-5 text-white/40 hover:text-white text-2xl transition-colors">&times;</button>
                   
                   <!-- Modal Header -->
                   <div class="mb-6">
@@ -566,13 +560,13 @@
                     <div>
                       <label class="block text-[0.65rem] font-bold text-white/40 uppercase tracking-widest mb-2" x-text="lang === 'ar' ? 'الوقت المفضل للزيارة' : 'Preferred Time Slot'"></label>
                       <div class="grid grid-cols-3 gap-2">
-                        <button @click="visitTime = 'Morning'" :class="visitTime === 'Morning' ? 'border-[#c9a96e] bg-[#c9a96e]/10 text-white' : 'border-white/10 text-stone-400'" class="border py-2 px-1 text-center text-[0.65rem] font-bold rounded-lg transition-all">
+                        <button aria-label="Action Button" @click="visitTime = 'Morning'" :class="visitTime === 'Morning' ? 'border-[#c9a96e] bg-[#c9a96e]/10 text-white' : 'border-white/10 text-stone-400'" class="border py-2 px-1 text-center text-[0.65rem] font-bold rounded-lg transition-all">
                           <span x-text="lang === 'ar' ? 'صباحاً (9-12)' : 'Morning (9-12)'"></span>
                         </button>
-                        <button @click="visitTime = 'Afternoon'" :class="visitTime === 'Afternoon' ? 'border-[#c9a96e] bg-[#c9a96e]/10 text-white' : 'border-white/10 text-stone-400'" class="border py-2 px-1 text-center text-[0.65rem] font-bold rounded-lg transition-all">
+                        <button aria-label="Action Button" @click="visitTime = 'Afternoon'" :class="visitTime === 'Afternoon' ? 'border-[#c9a96e] bg-[#c9a96e]/10 text-white' : 'border-white/10 text-stone-400'" class="border py-2 px-1 text-center text-[0.65rem] font-bold rounded-lg transition-all">
                           <span x-text="lang === 'ar' ? 'ظهراً (12-4)' : 'Afternoon (12-4)'"></span>
                         </button>
-                        <button @click="visitTime = 'Evening'" :class="visitTime === 'Evening' ? 'border-[#c9a96e] bg-[#c9a96e]/10 text-white' : 'border-white/10 text-stone-400'" class="border py-2 px-1 text-center text-[0.65rem] font-bold rounded-lg transition-all">
+                        <button aria-label="Action Button" @click="visitTime = 'Evening'" :class="visitTime === 'Evening' ? 'border-[#c9a96e] bg-[#c9a96e]/10 text-white' : 'border-white/10 text-stone-400'" class="border py-2 px-1 text-center text-[0.65rem] font-bold rounded-lg transition-all">
                           <span x-text="lang === 'ar' ? 'مساءً (4-9)' : 'Evening (4-9)'"></span>
                         </button>
                       </div>
@@ -637,7 +631,7 @@
             <div class="about-card p-8 border-l-2 border-stone-300" :class="lang === 'ar' ? 'border-l-0 border-r-2' : ''">
               <h4 class="text-sm font-bold uppercase tracking-widest text-stone-800 mb-3" x-text="lang === 'ar' ? 'الموقع' : 'Location'"></h4>
               <p class="text-stone-500 leading-relaxed flex items-start gap-3">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" class="flex-shrink-0 mt-0.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <svg class="flex-shrink-0 mt-0.5" fill="none" stroke="#b45309" width="16" height="16"><use href="/images/sprite.svg#icon-7"></use></svg>
                 <span x-text="lang === 'ar' ? 'القريات، منطقة الجوف، المملكة العربية السعودية' : 'Al Qurayyat, Al Jawf Region, Kingdom of Saudi Arabia'"></span>
               </p>
             </div>
@@ -650,7 +644,7 @@
     <section class="py-16 bg-stone-950 overflow-hidden hidden md:block">
       <div class="max-w-[100vw] overflow-x-auto hide-scrollbar">
         <div class="flex gap-6 px-8 w-max" style="animation: scrollRibbon 40s linear infinite;">
-          <a href="/majlis.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+          <a href="/showroom.html?category=type_modern_floor_majlis" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
             <img src="https://ik.imagekit.io/de7qvcvqv/majlis_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Majlis">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 text-white pointer-events-none">
@@ -658,7 +652,7 @@
               <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
             </div>
           </a>
-          <a href="/kitchen.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+          <a href="/showroom.html?category=type_tub_style_hybrid" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
             <img src="https://ik.imagekit.io/de7qvcvqv/kitchen_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Kitchen">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 text-white pointer-events-none">
@@ -666,7 +660,7 @@
               <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
             </div>
           </a>
-          <a href="/bedroom.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+          <a href="/showroom.html?category=type_elevated_contemporary" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
             <img src="https://ik.imagekit.io/de7qvcvqv/bedroom_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Bedroom">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 text-white pointer-events-none">
@@ -674,7 +668,7 @@
               <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
             </div>
           </a>
-          <a href="/almirah.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+          <a href="/showroom.html?category=type_tub_style_hybrid" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
             <img src="https://ik.imagekit.io/de7qvcvqv/almirah_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Almirah">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 text-white pointer-events-none">
@@ -683,7 +677,7 @@
             </div>
           </a>
           <!-- Duplicate for infinite scroll effect -->
-          <a href="/majlis.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+          <a href="/showroom.html?category=type_modern_floor_majlis" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
             <img src="https://ik.imagekit.io/de7qvcvqv/majlis_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Majlis">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 text-white pointer-events-none">
@@ -691,7 +685,7 @@
               <span class="text-[#c9a96e] text-xs font-bold tracking-widest uppercase mt-1">Explore</span>
             </div>
           </a>
-          <a href="/kitchen.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
+          <a href="/showroom.html?category=type_tub_style_hybrid" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
             <img src="https://ik.imagekit.io/de7qvcvqv/kitchen_hero.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Kitchen">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 text-white pointer-events-none">
@@ -738,15 +732,11 @@
           { q: 'Do you deliver and install?', qa: 'هل توفرون خدمة التوصيل والتركيب؟', a: 'Yes, we handle white-glove delivery and professional installation. Our team ensures every piece is placed and fixed to perfection before we leave your home.', aa: 'نعم، نتولى التوصيل والتركيب الاحترافي. يحرص فريقنا على أن تكون كل قطعة في مكانها الصحيح وثابتة بإتقان قبل مغادرتنا منزلك.' }
         ]" :key="i">
           <div class="border-b border-white/8">
-            <button class="w-full py-6 flex items-center justify-between text-left rtl:text-right group"
+            <button aria-label="Action Button" class="w-full py-6 flex items-center justify-between text-left rtl:text-right group"
                     @click="openFaq === i ? openFaq = null : openFaq = i">
               <span class="text-base font-medium text-white/80 group-hover:text-white transition-colors pr-8 rtl:pl-8 rtl:pr-0"
                     x-text="lang === 'ar' ? item.qa : item.q"></span>
-              <svg class="flex-shrink-0 w-5 h-5 text-amber-700 transition-transform duration-300"
-                   :class="openFaq === i ? 'rotate-45' : ''"
-                   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-              </svg>
+              <svg class="flex-shrink-0 w-5 h-5 text-amber-700 transition-transform duration-300" fill="none" stroke="currentColor" width="2" ><use href="/images/sprite.svg#icon-8"></use></svg>
             </button>
             <div x-show="openFaq === i"
                  x-transition:enter="transition ease-out duration-300"
@@ -769,7 +759,7 @@
         <a :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
            class="inline-flex items-center gap-3 px-6 py-3 bg-amber-700/10 border border-amber-700/30 text-amber-600 text-sm font-bold uppercase tracking-widest hover:bg-amber-700 hover:text-white hover:border-amber-700 transition-all duration-300 rounded-sm">
           <span x-text="lang === 'ar' ? 'اسأل عبر واتساب' : 'Ask on WhatsApp'"></span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg class="rtl:rotate-180" fill="none" stroke="currentColor" width="14" height="14"><use href="/images/sprite.svg#icon-9"></use></svg>
         </a>
       </div>
 
@@ -784,10 +774,10 @@
     <p class="text-white/50 text-sm mb-1" dir="ltr">+966 92 880 04450 — Al Qurayyat, Al Jawf, KSA</p>
     <p class="text-[#c9a96e]/60 text-xs mb-4" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، الجوف، المملكة العربية السعودية — شركة سعيد للأثاث</p>
     <!-- Logo -->
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="lazy" alt="Saeed Furniture"
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="eager" fetchpriority="high" alt="Saeed Furniture"
          width="120" height="40"
          class="h-8 w-auto mx-auto mb-4 object-contain opacity-60"
-         style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+         style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
     <!-- Nav Links -->
     <nav class="flex flex-wrap justify-center gap-6 mb-4">
       <a href="/" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'الرئيسية' : 'Home'"></a>
@@ -810,9 +800,7 @@
        :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
        @click="onWhatsAppClick()"
        :title="lang === 'ar' ? 'تحدث معنا على واتساب' : 'Chat with us on WhatsApp'">
-      <svg class="w-6 h-6 md:w-[30px] md:h-[30px]" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-      </svg>
+      <svg class="w-6 h-6 md:w-[30px] md:h-[30px]" fill="currentColor" stroke="none"  ><use href="/images/sprite.svg#icon-10"></use></svg>
     </a>
   </div>
 
@@ -828,15 +816,15 @@
        x-transition:leave-end="opacity-0 scale-95"
        style="display: none;">
     <div class="bg-[#0e0e10] border border-white/10 rounded-3xl p-8 max-w-[420px] w-full mx-4 shadow-[0_32px_80px_rgba(0,0,0,0.8)] relative" @click.stop>
-      <button @click="$store.saeedAuth.showAuthModal = false; error = ''" class="absolute top-5 right-5 text-white/30 hover:text-white text-xl transition-colors">&times;</button>
+      <button aria-label="Action Button" @click="$store.saeedAuth.showAuthModal = false; error = ''" class="absolute top-5 right-5 text-white/30 hover:text-white text-xl transition-colors">&times;</button>
       <div class="text-center mb-8 pt-2">
-        <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="lazy" alt="Saeed Furniture" class="h-10 mx-auto object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png" loading="eager" fetchpriority="high" alt="Saeed Furniture" class="h-10 mx-auto object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
         <p class="text-white text-lg font-bold mt-3" style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة سعيد</p>
         <p class="text-white/30 text-[0.65rem] mt-1 uppercase tracking-widest" x-text="lang === 'ar' ? 'اتيليه المجالس' : 'Bespoke Majlis Atelier'"></p>
       </div>
       <div class="flex border border-white/10 rounded-2xl p-1 mb-8">
-        <button @click="tab = 'signin'; error = ''" :class="tab === 'signin' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'" class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all" x-text="lang === 'ar' ? 'تسجيل الدخول' : 'Sign In'"></button>
-        <button @click="tab = 'signup'; error = ''" :class="tab === 'signup' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'" class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all" x-text="lang === 'ar' ? 'إنشاء حساب' : 'Create Account'"></button>
+        <button aria-label="Action Button" @click="tab = 'signin'; error = ''" :class="tab === 'signin' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'" class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all" x-text="lang === 'ar' ? 'تسجيل الدخول' : 'Sign In'"></button>
+        <button aria-label="Action Button" @click="tab = 'signup'; error = ''" :class="tab === 'signup' ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white'" class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all" x-text="lang === 'ar' ? 'إنشاء حساب' : 'Create Account'"></button>
       </div>
       <div x-show="error" x-transition class="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-xl px-4 py-3 mb-6 text-center" x-text="error"></div>
       <div class="space-y-6">
@@ -853,7 +841,7 @@
           </button>
         </div>
       </div>
-      <button @click="async () => {
+      <button aria-label="Action Button" @click="async () => {
         if (!email || !password) { error = lang === 'ar' ? 'يرجى ملء جميع الحقول' : 'Please fill in all fields'; return; }
         loading = true; error = '';
         try {
@@ -889,12 +877,12 @@
        x-transition:leave-start="opacity-100 translate-y-0"
        x-transition:leave-end="opacity-0 translate-y-8"
        class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[9000] px-8 py-3.5 bg-[#111114]/90 backdrop-blur-xl border border-gold/30 rounded-full shadow-[0_8px_30px_rgba(201,169,110,0.2)] flex items-center gap-3">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+    <svg class="" fill="none" stroke="#c9a96e" width="16" height="16"><use href="/images/sprite.svg#icon-11"></use></svg>
     <span class="text-white/80 text-sm font-bold" x-text="toastMessage"></span>
   </div>
 
   <!-- ── Custom Cursor ─────────────────────────────────── -->
-  <div id="customCursor" class="custom-cursor"></div>
+  <div id="customCursor" class="custom-cursor">
 
 </body>
 </html>

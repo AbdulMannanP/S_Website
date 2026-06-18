@@ -551,15 +551,15 @@
   <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
 
       <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 ml-2" dir="ltr">
-        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-4 py-3 min-h-[44px] text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300">EN</button>
-        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-4 py-3 min-h-[44px] text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo">عربي</button>
+        <button aria-label="Action Button" @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-4 py-3 min-h-[44px] text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300">EN</button>
+        <button aria-label="Action Button" @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-4 py-3 min-h-[44px] text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo">عربي</button>
       </div>
   </div>
 </header>
 
   <!-- ── Page Loader ── -->
   <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
+    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
   </div>
 
   <!-- ╔════════════════════════════════════════════════════╗
@@ -598,7 +598,7 @@
   </section>
 
   <!-- 2. BRAND STORY — 3-column grid -->
-  <section class="py-24 px-6" style="background: var(--dark);">
+  <section class="py-10 md:py-24 px-6" style="background: var(--dark);">
     <div class="max-w-7xl mx-auto">
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
@@ -694,93 +694,32 @@
 
       <div class="categories-grid grid grid-cols-2 gap-4 md:gap-6">
 
-        <!-- 1. Majlis — custom majlis seating Saudi Arabia -->
-        <a href="/majlis.html" class="category-card card-animate" aria-label="Explore Majlis Collection — bespoke Saudi majlis seating">
-          <div class="category-card__topbar"></div>
-          <img
-            src="https://ik.imagekit.io/de7qvcvqv/images/hero.png?updatedAt=1779608592778&tr=w-800,q-80"
-            alt="Majlis Collection — handcrafted Saudi majlis seating with gold and rich velvet fabrics, Al Qurayyat KSA"
-            class="category-card__img" loading="lazy"
-          />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Majlis Collection</span>
-            <h2 class="category-card__name">Majlis</h2>
-            <p class="category-card__arabic">المجلس</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/></svg>
-            </div>
-          </div>
-        </a>
+        
+        <template x-if="catalog && catalog.taxonomy_tree">
+          <template x-for="category in catalog.taxonomy_tree" :key="category.internal_id">
+            <a :href="'/showroom.html?category=' + category.internal_id" class="category-card card-animate" :aria-label="'Explore ' + category.public_display_name">
+              <div class="category-card__topbar"></div>
+              <img
+                :src="category.internal_id === 'type_modern_floor_majlis' ? 'https://ik.imagekit.io/de7qvcvqv/images/hero.png' : (category.internal_id === 'type_elevated_contemporary' ? 'https://ik.imagekit.io/de7qvcvqv/images/modern.png' : 'https://ik.imagekit.io/de7qvcvqv/images/authentic.png')"
+                :alt="category.public_display_name"
+                class="category-card__img" loading="lazy"
+              />
+              <div class="category-card__overlay"></div>
+              <div class="category-card__glass"></div>
+              <div class="category-card__content">
+                <span class="category-card__eyebrow" x-text="category.public_display_name + ' Collection'"></span>
+                <h2 class="category-card__name" x-text="category.public_display_name"></h2>
+                <p class="category-card__arabic" style="font-size: 0.75rem; opacity: 0.8; white-space: normal; line-height: 1.4; margin-top: 0.5rem;" x-text="category.definition.substring(0, 80) + '...'"></p>
+                <div class="category-card__cta">
+                  <div class="category-card__cta-line"></div>
+                  <span>Explore</span>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/></svg>
+                </div>
+              </div>
+            </a>
+          </template>
+        </template>
 
-        <!-- 2. Bedroom — luxury bedroom furniture KSA -->
-        <a href="/bedroom.html" class="category-card card-animate" aria-label="Explore Bedroom Collection — bespoke bedroom furniture KSA">
-          <div class="category-card__topbar"></div>
-          <img
-            src="https://ik.imagekit.io/de7qvcvqv/images/modern.png?tr=w-800,q-80"
-            alt="Bedroom Collection — serene handcrafted bed frames and upholstered headboards for Saudi homes"
-            class="category-card__img" loading="lazy"
-          />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Bedroom Collection</span>
-            <h2 class="category-card__name">Bedroom</h2>
-            <p class="category-card__arabic">غرفة النوم</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/></svg>
-            </div>
-          </div>
-        </a>
-
-        <!-- 3. Kitchen — luxury kitchens Riyadh -->
-        <a href="/kitchen.html" class="category-card card-animate" aria-label="Explore Kitchen Collection — luxury kitchens KSA">
-          <div class="category-card__topbar"></div>
-          <img
-            src="https://ik.imagekit.io/de7qvcvqv/images/authentic.png?tr=w-800,q-80"
-            alt="Kitchen Collection — bespoke kitchen cabinetry with brass hardware and marble countertops, handcrafted KSA"
-            class="category-card__img" loading="lazy"
-          />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Kitchen Collection</span>
-            <h2 class="category-card__name">Kitchen</h2>
-            <p class="category-card__arabic">المطبخ</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/></svg>
-            </div>
-          </div>
-        </a>
-
-        <!-- 4. Almirah — bespoke wardrobes KSA -->
-        <a href="/almirah.html" class="category-card card-animate" aria-label="Explore Almirah Collection — bespoke fitted wardrobes KSA">
-          <div class="category-card__topbar"></div>
-          <img
-            src="https://ik.imagekit.io/de7qvcvqv/images/modern_majlis.png?tr=w-800,q-80"
-            alt="Almirah Collection — solid walnut wardrobes and fitted dressing rooms, Saudi craftsmanship"
-            class="category-card__img" loading="lazy"
-          />
-          <div class="category-card__overlay"></div>
-          <div class="category-card__glass"></div>
-          <div class="category-card__content">
-            <span class="category-card__eyebrow">Almirah Collection</span>
-            <h2 class="category-card__name">Almirah</h2>
-            <p class="category-card__arabic">الخزانة</p>
-            <div class="category-card__cta">
-              <div class="category-card__cta-line"></div>
-              <span>Explore</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M7.5 2.5L12 7l-4.5 4.5"/></svg>
-            </div>
-          </div>
-        </a>
 
       </div><!-- /grid -->
 
@@ -841,7 +780,7 @@
         
         <!-- Brand -->
         <div class="flex flex-col items-center md:items-start gap-4">
-          <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain opacity-90" style="filter: brightness(0) invert(1);">
+          <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain opacity-90" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
           <div class="text-center md:text-left">
             <h2 class="text-white text-sm font-bold tracking-[0.2em] uppercase mb-1">Saeed Furniture</h2>
             <p class="text-stone-400 text-xs italic font-serif">Craftsmanship That Endures</p>

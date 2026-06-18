@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth" :dir="lang === \'ar\' ? \'rtl\' : \'ltr\'">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,13 +53,13 @@
   <!-- â”€â”€ Navigation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <nav class="border-b border-stone-900 px-6 py-4 flex justify-between items-center bg-[#0a0a0a] sticky top-0 z-50">
     <a href="/" class="flex items-center gap-3">
-      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-8 object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-8 object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
       <span class="text-base font-bold text-white/80" style="font-family: 'Noto Kufi Arabic', sans-serif;">Ø´Ø±ÙƒØ© Ø³Ø¹ÙŠØ¯</span>
     </a>
     <div class="flex items-center gap-6">
       <span class="text-white/40 text-sm hidden md:block" x-text="$store.saeedAuth.user?.email || ''"></span>
       <a href="/" class="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-gold transition-colors hidden md:block">Continue Shopping</a>
-      <button @click="$store.saeedAuth.signOut()" class="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors">Logout</button>
+      <button aria-label="Action Button" @click="$store.saeedAuth.signOut()" class="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors">Logout</button>
     </div>
   </nav>
 
@@ -74,7 +74,7 @@
   <main x-show="!isLoading" x-cloak class="max-w-5xl mx-auto px-6 py-12">
 
     <!-- â”€â”€ CONDITION A: Empty State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
-    <div x-show="orders.length === 0" x-cloak class="fade-up flex flex-col items-center justify-center text-center py-24 min-h-[60vh]">
+    <div x-show="orders.length === 0" x-cloak class="fade-up flex flex-col items-center justify-center text-center py-10 md:py-24 min-h-[60vh]">
       <!-- Decorative ring -->
       <div class="relative mb-12">
         <div class="w-40 h-40 rounded-full border border-white/5 flex items-center justify-center">
@@ -113,7 +113,7 @@
     </div>
 
     <!-- â”€â”€ CONDITION B: Active Orders â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
-    <div x-show="orders.length > 0" x-cloak class="fade-up">
+    <div x-cloak x-show="orders.length > 0" x-cloak class="fade-up">
       <!-- Header row -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
         <div>
@@ -165,8 +165,8 @@
                     <div class="flex flex-col items-center gap-2" style="flex: 1">
                       <div class="w-7 h-7 rounded-full flex items-center justify-center border-2 transition-all"
                            :class="getStageIdx(order.lead_status) >= i ? 'border-[#c9a96e] bg-[#c9a96e]/10' : 'border-white/10 bg-transparent'">
-                        <svg x-show="getStageIdx(order.lead_status) > i" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                        <div x-show="getStageIdx(order.lead_status) === i" class="w-2.5 h-2.5 rounded-full bg-[#c9a96e]"></div>
+                        <svg x-cloak x-show="getStageIdx(order.lead_status) > i" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        <div x-cloak x-show="getStageIdx(order.lead_status) === i" class="w-2.5 h-2.5 rounded-full bg-[#c9a96e]"></div>
                       </div>
                       <span class="text-[0.55rem] font-bold uppercase tracking-wider text-center leading-tight whitespace-nowrap hidden sm:block"
                             :class="getStageIdx(order.lead_status) >= i ? 'text-[#c9a96e]' : 'text-stone-300'"
@@ -183,15 +183,15 @@
 
               <!-- Details row -->
               <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 border-t border-stone-100">
-                <div x-show="order.visit_mode">
+                <div x-cloak x-show="order.visit_mode">
                   <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Visit Type</div>
                   <div class="text-sm font-bold text-stone-700" x-text="order.visit_mode"></div>
                 </div>
-                <div x-show="order.district_city">
+                <div x-cloak x-show="order.district_city">
                   <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Location</div>
                   <div class="text-sm font-bold text-stone-700" x-text="order.district_city"></div>
                 </div>
-                <div x-show="order.phone">
+                <div x-cloak x-show="order.phone">
                   <div class="text-[0.6rem] uppercase tracking-widest text-stone-400 mb-1 font-bold">Contact</div>
                   <div class="text-sm font-bold text-stone-700" x-text="order.phone"></div>
                 </div>

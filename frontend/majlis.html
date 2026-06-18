@@ -197,7 +197,7 @@
       <a href="/"                  class="hover:text-amber-500 transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'المعرض' : 'Showroom'"></a>
       <a href="/select.html"       class="hover:text-amber-500 transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'التشكيلات' : 'Collections'"></a>
       <a href="/contact.html"      class="hover:text-amber-500 transition-colors flex items-center min-h-[44px]" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
-      <button @click="handleOrderClick()"
+      <button aria-label="Action Button" @click="handleOrderClick()"
               class="text-amber-500 hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem]"
               x-text="$store.saeedAuth?.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
       </button>
@@ -205,9 +205,9 @@
 
     <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
       <div class="flex items-center bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20" dir="ltr">
-        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
+        <button aria-label="Action Button" @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
                 class="px-4 py-3 min-h-[44px] text-[0.6rem] font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300">EN</button>
-        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
+        <button aria-label="Action Button" @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
                 class="px-4 py-3 min-h-[44px] text-[0.65rem] font-bold rounded-full transition-all duration-300 font-cairo">عربي</button>
       </div>
       <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu"
@@ -227,7 +227,7 @@
     <a href="/"                 @click="mobileMenuOpen=false" class="text-xl font-light text-white/70 hover:text-amber-500 transition-colors uppercase tracking-[0.3em]" x-text="lang==='ar'?'المعرض':'Showroom'"></a>
     <a href="/select.html"      @click="mobileMenuOpen=false" class="text-xl font-light text-white/70 hover:text-amber-500 transition-colors uppercase tracking-[0.3em]" x-text="lang==='ar'?'التشكيلات':'Collections'"></a>
     <a href="/contact.html"     @click="mobileMenuOpen=false" class="text-xl font-light text-white/70 hover:text-amber-500 transition-colors uppercase tracking-[0.3em]" x-text="lang==='ar'?'تواصل':'Contact'"></a>
-    <button @click="handleOrderClick(); mobileMenuOpen=false" class="text-2xl font-light text-amber-500 hover:text-amber-400 transition-colors uppercase tracking-[0.3em]" x-text="lang==='ar'?'اطلب الآن':'Order Now'"></button>
+    <button aria-label="Action Button" @click="handleOrderClick(); mobileMenuOpen=false" class="text-2xl font-light text-amber-500 hover:text-amber-400 transition-colors uppercase tracking-[0.3em]" x-text="lang==='ar'?'اطلب الآن':'Order Now'"></button>
   </div>
 
   <!-- Back Button -->
@@ -262,7 +262,7 @@
       <p class="text-slate-300/80 max-w-xl text-lg fade-up fade-up-3"
          x-text="selectedModel ? selectedModel.description : 'Bespoke Saudi majlis crafted to reflect your unique character.'"></p>
       <div class="mt-10 flex items-center gap-6 fade-up fade-up-3">
-        <button @click="openOrderForm()"
+        <button aria-label="Action Button" @click="openOrderForm()"
                 class="px-8 py-4 bg-amber-600 text-slate-900 font-bold shadow-lg hover:bg-amber-500 transition-all duration-300 uppercase tracking-[0.2em] text-sm">
           <span x-text="lang==='ar' ? 'طلب تصميم' : 'Request Bespoke'"></span>
         </button>
@@ -278,7 +278,7 @@
   <!-- ══════════════════════════════════════════════
        CATALOG SECTION — 7-model grid
   ══════════════════════════════════════════════════ -->
-  <section id="catalog" class="py-24 bg-slate-900">
+  <section id="catalog" class="py-10 md:py-24 bg-slate-900">
     <div class="max-w-7xl mx-auto px-6 sm:px-8">
 
       <div class="flex items-center gap-4 mb-6">
@@ -317,7 +317,7 @@
            x-text="lang==='ar' ? 'ابدأ رحلتك' : 'Start Your Journey'"></p>
         <h2 class="text-3xl font-light text-slate-200 mb-6"
             x-text="lang==='ar' ? 'احجز استشارة مجانية' : 'Book a Free Majlis Consultation'"></h2>
-        <button @click="openOrderForm()"
+        <button aria-label="Action Button" @click="openOrderForm()"
                 class="px-10 py-4 bg-amber-600 text-slate-900 font-bold uppercase tracking-[0.25em] text-sm hover:bg-amber-500 transition-all duration-300">
           <span x-text="lang==='ar' ? 'تواصل معنا' : 'Get in Touch'"></span>
         </button>
@@ -345,16 +345,16 @@
                  :style="carouselIndex===i?'opacity:1;z-index:1;':'opacity:0;z-index:0;'">
           </template>
         </template>
-        <button @click="prevSlide()" class="absolute start-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/80 transition-colors">
+        <button aria-label="Action Button" @click="prevSlide()" class="absolute start-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/80 transition-colors">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rtl:rotate-180"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
-        <button @click="nextSlide()" class="absolute end-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/80 transition-colors">
+        <button aria-label="Action Button" @click="nextSlide()" class="absolute end-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/80 transition-colors">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rtl:rotate-180"><path d="M9 18l6-6-6-6"/></svg>
         </button>
         <div class="absolute bottom-4 inset-x-0 flex justify-center gap-1.5 z-10">
           <template x-if="selectedModel">
             <template x-for="(img,i) in selectedModel.gallery" :key="i">
-              <button @click="carouselIndex=i" :class="carouselIndex===i?'bg-amber-500 w-5':'bg-white/40 w-2'" class="h-2 rounded-full transition-all duration-300 p-4 -m-4"></button>
+              <button aria-label="Action Button" @click="carouselIndex=i" :class="carouselIndex===i?'bg-amber-500 w-5':'bg-white/40 w-2'" class="h-2 rounded-full transition-all duration-300 p-4 -m-4"></button>
             </template>
           </template>
         </div>
@@ -362,7 +362,7 @@
       <!-- Info Panel -->
       <div class="flex flex-col justify-between p-7" style="min-height:320px;">
         <div>
-          <button @click="closeModal()" class="absolute top-4 end-4 w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/40 hover:text-white transition-colors rounded-full hover:bg-white/10">
+          <button aria-label="Action Button" @click="closeModal()" class="absolute top-4 end-4 w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/40 hover:text-white transition-colors rounded-full hover:bg-white/10">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
           <p class="text-amber-600 text-[0.6rem] font-bold uppercase tracking-[0.35em] mb-1" x-text="selectedModel?.typeName"></p>
@@ -374,7 +374,7 @@
           <p x-show="selectedModel?.signature" class="text-white/35 text-xs leading-relaxed italic border-s-2 border-amber-700/40 ps-3" x-text="selectedModel?.signature"></p>
         </div>
         <div class="flex flex-col gap-3 mt-6">
-          <button @click="openOrderForm()"
+          <button aria-label="Action Button" @click="openOrderForm()"
                   class="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-slate-900 text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-2">
             <span x-text="lang==='ar'?'تابع لإتمام الطلب':'Proceed to Order'"></span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="rtl:rotate-180"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -400,8 +400,8 @@
     <!-- Form step -->
     <div x-show="formStep === 'form'">
       <div class="sticky top-0 z-50 flex justify-between items-center px-6 md:px-12 py-4 bg-black/50 backdrop-blur-md border-b border-white/8">
-        <img :src="IMAGE_BASE_URL + 'images/logo.png'" alt="Saeed Furniture" class="h-8 object-contain" style="filter:invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
-        <button @click="closeOrderForm()" class="flex items-center gap-2 text-white/50 hover:text-amber-500 transition-colors group">
+        <img :src="IMAGE_BASE_URL + 'images/logo.png'" alt="Saeed Furniture" class="h-8 object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
+        <button aria-label="Action Button" @click="closeOrderForm()" class="flex items-center gap-2 text-white/50 hover:text-amber-500 transition-colors group">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="group-hover:-translate-x-1 transition-transform rtl:rotate-180"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           <span class="text-[0.65rem] font-bold uppercase tracking-[0.3em]" x-text="lang==='ar'?'العودة':'Return'"></span>
         </button>
@@ -409,7 +409,7 @@
       <!-- ── Luxury cinematic header for the order form ── -->
       <div class="relative overflow-hidden" style="height: 22vh; min-height: 160px; max-height: 240px;">
         <!-- Background image, rich & warm -->
-        <img :src="IMAGE_BASE_URL + (selectedModel?.thumb || 'images/catalog/item_001.png')" loading="lazy"
+        <img alt="Image" :src="IMAGE_BASE_URL + (selectedModel?.thumb || 'images/catalog/item_001.png')" loading="lazy"
              class="absolute inset-0 w-full h-full object-cover" style="object-position: center 40%;">
         <!-- Layered veil: left-to-dark gradient so text is always legible -->
         <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(6,6,10,0.96) 0%, rgba(6,6,10,0.75) 50%, rgba(6,6,10,0.30) 100%);"></div>
@@ -433,7 +433,7 @@
         <!-- Thumbnail floating to the right (desktop only) -->
         <div class="absolute end-8 top-1/2 -translate-y-1/2 hidden md:block pop-4">
           <div class="w-24 h-24 rounded-2xl overflow-hidden border-2 border-[#c9a96e]/30 shadow-[0_0_30px_rgba(201,169,110,0.2)] gold-pulse">
-            <img :src="IMAGE_BASE_URL + (selectedModel?.thumb || 'images/catalog/item_001.png')" loading="lazy" class="w-full h-full object-cover">
+            <img alt="Image" :src="IMAGE_BASE_URL + (selectedModel?.thumb || 'images/catalog/item_001.png')" loading="lazy" class="w-full h-full object-cover">
           </div>
           <p class="text-center text-[#c9a96e]/50 text-[0.5rem] uppercase tracking-widest mt-2 font-bold" x-text="lang==='ar'?'طلب حسب المقاس':'Made to Order'"></p>
         </div>
@@ -477,22 +477,22 @@
             <div>
               <label class="gold-label" x-text="lang==='ar'?'نوع الاستشارة':'Consultation Preference'"></label>
               <div class="time-toggle" dir="ltr">
-                <button @click="form.visit_mode='Visit Shop'" :class="form.visit_mode==='Visit Shop'?'active':''" class="time-btn" x-text="lang==='ar'?'زيارة المعرض':'Visit Shop'"></button>
-                <button @click="form.visit_mode='Home Visit'" :class="form.visit_mode==='Home Visit'?'active':''" class="time-btn" x-text="lang==='ar'?'زيارة منزلية':'Home Visit'"></button>
+                <button aria-label="Action Button" @click="form.visit_mode='Visit Shop'" :class="form.visit_mode==='Visit Shop'?'active':''" class="time-btn" x-text="lang==='ar'?'زيارة المعرض':'Visit Shop'"></button>
+                <button aria-label="Action Button" @click="form.visit_mode='Home Visit'" :class="form.visit_mode==='Home Visit'?'active':''" class="time-btn" x-text="lang==='ar'?'زيارة منزلية':'Home Visit'"></button>
               </div>
             </div>
             <div x-show="form.visit_mode==='Home Visit'" x-transition:enter="transition ease-out duration-400" x-transition:enter-start="opacity-0 -translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
               <label class="gold-label" x-text="lang==='ar'?'الوقت المفضل':'Preferred Contact Time'"></label>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" dir="ltr">
                 <template x-for="slot in ['Morning','Afternoon','Evening','Night']" :key="slot">
-                  <button @click="form.preferred_contact_time=slot"
+                  <button aria-label="Action Button" @click="form.preferred_contact_time=slot"
                           :class="form.preferred_contact_time===slot?'bg-amber-700 text-white border-amber-700':'bg-white/5 text-white/40 border-white/10 hover:border-amber-700/40'"
                           class="py-2.5 px-2 text-[0.65rem] font-bold border-2 rounded-xl transition-all duration-300" x-text="slot"></button>
                 </template>
               </div>
             </div>
             <div x-show="submitError" x-transition class="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-xl px-4 py-3 text-center" x-text="submitError"></div>
-            <button @click="submitForm()" :disabled="submitting"
+            <button aria-label="Action Button" @click="submitForm()" :disabled="submitting"
                     class="w-full py-4 bg-amber-700 text-white font-bold uppercase tracking-[0.2em] text-sm hover:bg-amber-600 transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-60 disabled:pointer-events-none mt-2">
               <span x-show="submitting" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
               <span x-text="submitting?(lang==='ar'?'جاري الإرسال...':'Sending...'):(lang==='ar'?'تأكيد الحجز':'Confirm & Book Now')"></span>
@@ -506,7 +506,7 @@
     <!-- Success step -->
     <div x-show="formStep==='success'"
          x-transition:enter="transition ease-out duration-600" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-         class="flex flex-col items-center justify-center min-h-screen text-center px-6 py-24">
+         class="flex flex-col items-center justify-center min-h-screen text-center px-6 py-10 md:py-24">
       <div class="relative w-28 h-28 rounded-full mb-10">
         <div class="absolute inset-0 bg-amber-700/15 rounded-full border border-amber-700/30"></div>
         <div class="absolute inset-0 flex items-center justify-center">
@@ -524,7 +524,7 @@
         <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         <span x-text="lang==='ar'?'تواصل عبر واتساب':'Chat via WhatsApp'"></span>
       </a>
-      <button @click="closeOrderForm()" class="text-white/30 hover:text-white/60 text-sm transition-colors" x-text="lang==='ar'?'العودة للمجموعة':'Return to Collection'"></button>
+      <button aria-label="Action Button" @click="closeOrderForm()" class="text-white/30 hover:text-white/60 text-sm transition-colors" x-text="lang==='ar'?'العودة للمجموعة':'Return to Collection'"></button>
     </div>
   </div>
 
@@ -544,7 +544,7 @@
 
     <!-- Full-bleed hero image — dark & moody, NOT blurred -->
     <div class="absolute inset-0 z-0">
-      <img :src="IMAGE_BASE_URL + (selectedModel ? selectedModel.thumb : 'images/catalog/item_001.png')"
+      <img alt="Image" :src="IMAGE_BASE_URL + (selectedModel ? selectedModel.thumb : 'images/catalog/item_001.png')"
            class="w-full h-full object-cover" style="opacity:0.18; object-position: center 30%;">
       <!-- Radial dark vignette -->
       <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(6,6,10,0.4) 0%, rgba(6,6,10,0.97) 80%);"></div>
@@ -608,7 +608,7 @@
         </a>
 
         <!-- Portfolio card -->
-        <button @click="window.location.href='/portfolio.html'; showExitIntent=false"
+        <button aria-label="Action Button" @click="window.location.href='/portfolio.html'; showExitIntent=false"
                 class="luxury-card group flex flex-col items-center gap-5 p-8">
           <div class="relative">
             <div class="absolute inset-0 rounded-2xl" style="background:radial-gradient(circle, rgba(201,169,110,0.15) 0%, transparent 70%); filter:blur(8px); transform:scale(1.4);"></div>
@@ -640,7 +640,7 @@
           <svg width="8" height="8" viewBox="0 0 12 12" fill="rgba(201,169,110,0.3)"><polygon points="6,0 12,6 6,12 0,6"/></svg>
           <div class="flex-1 h-px" style="background: linear-gradient(to left, transparent, rgba(201,169,110,0.2));"></div>
         </div>
-        <button @click="showExitIntent=false"
+        <button aria-label="Action Button" @click="showExitIntent=false"
                 class="text-white/20 hover:text-white/50 text-[0.65rem] uppercase tracking-[0.3em] transition-colors duration-300"
                 x-text="lang==='ar'?'ابقَ في الصفحة':'Stay &amp; Continue Browsing'">
         </button>
@@ -648,7 +648,7 @@
     </div>
 
     <!-- Corner close button -->
-    <button @click="showExitIntent=false"
+    <button aria-label="Action Button" @click="showExitIntent=false"
             class="absolute top-6 end-6 z-20 w-9 h-9 flex items-center justify-center rounded-full text-white/25 hover:text-white/70 hover:bg-white/8 transition-all duration-300">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
@@ -659,7 +659,7 @@
     <!-- Content -->
     <div class="relative z-10 w-full max-w-[780px] px-6 mx-auto">
       <!-- Close -->
-      <button @click="showExitIntent=false"
+      <button aria-label="Action Button" @click="showExitIntent=false"
               class="absolute -top-6 end-0 w-9 h-9 flex items-center justify-center rounded-full bg-white/8 hover:bg-white/15 text-white/50 hover:text-white transition-all">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -694,7 +694,7 @@
         </a>
 
         <!-- Portfolio -->
-        <button @click="window.location.href='/portfolio.html'; showExitIntent=false"
+        <button aria-label="Action Button" @click="window.location.href='/portfolio.html'; showExitIntent=false"
                 class="group flex items-center gap-5 bg-white/5 border border-white/10 hover:border-amber-600/60 hover:bg-amber-600/8 rounded-2xl p-6 transition-all duration-350 text-start">
           <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-amber-700/15 flex items-center justify-center text-amber-600 group-hover:bg-amber-700 group-hover:text-white transition-all duration-300">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
@@ -709,7 +709,7 @@
 
       <!-- Dismiss link -->
       <p class="text-center mt-8">
-        <button @click="showExitIntent=false" class="text-white/25 hover:text-white/50 text-xs uppercase tracking-widest transition-colors"
+        <button aria-label="Action Button" @click="showExitIntent=false" class="text-white/25 hover:text-white/50 text-xs uppercase tracking-widest transition-colors"
                 x-text="lang==='ar'?'ابقَ في الصفحة':'Stay on this page'"></button>
       </p>
     </div>
@@ -729,7 +729,7 @@
     <p class="text-[#c9a96e]/60 text-xs mb-8" style="font-family:'Noto Kufi Arabic',sans-serif;">شركة سعيد للأثاث — القريات، الجوف، المملكة العربية السعودية</p>
     <img :src="IMAGE_BASE_URL + 'images/logo.png'" loading="lazy" alt="Saeed Furniture"
          class="h-8 w-auto mx-auto mb-6 object-contain opacity-60"
-         style="filter:invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+         style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
     <nav class="flex flex-wrap justify-center gap-6 mb-8">
       <a href="/"            class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang==='ar'?'الرئيسية':'Home'"></a>
       <a href="/select.html" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang==='ar'?'التشكيلات':'Collections'"></a>
@@ -750,7 +750,7 @@
        aria-label="WhatsApp">
       <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
-  </div>
+  
 
 </body>
 </html>
