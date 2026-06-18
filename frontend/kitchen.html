@@ -99,7 +99,7 @@
       <a href="/contact.html" class="hover:text-yellow-500 transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
       <button @click="handleOrderClick()"
               class="text-yellow-500 hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem] whitespace-nowrap"
-              x-text="$store.saeedAuth.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
+              x-text="$store.saeedAuth?.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
       </button>
     
       <!-- Desktop Language Toggle -->

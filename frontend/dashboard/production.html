@@ -56,7 +56,7 @@
       <span class="text-[0.65rem] font-bold uppercase tracking-widest text-white/40 border-l border-white/10 pl-4">Workshop</span>
     </div>
     <div class="flex items-center gap-4">
-      <span class="text-white/40 text-xs font-bold uppercase tracking-widest hidden md:block" x-text="$store.saeedAuth.user?.email || ''"></span>
+      <span class="text-white/40 text-xs font-bold uppercase tracking-widest hidden md:block" x-text="$store.saeedAuth?.user?.email || ''"></span>
       <button @click="$store.saeedAuth.signOut()" class="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors">Logout</button>
     </div>
   </nav>
@@ -72,7 +72,7 @@
   <main x-show="!isLoading" class="max-w-4xl mx-auto px-6 py-12">
 
     <!-- Access Denied -->
-    <div x-show="!$store.saeedAuth.user || $store.saeedAuth.role !== 'employee'" class="text-center py-12 md:py-24">
+    <div x-show="!$store.saeedAuth?.user || $store.saeedAuth.role !== 'employee'" class="text-center py-12 md:py-24">
       <div class="w-20 h-20 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-6 border border-red-500/20">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       </div>
@@ -82,7 +82,7 @@
     </div>
 
     <!-- Workshop Content (employees only) -->
-    <div x-show="$store.saeedAuth.user && $store.saeedAuth.role === 'employee'" class="fade-up">
+    <div x-show="$store.saeedAuth?.user && $store.saeedAuth.role === 'employee'" class="fade-up">
 
       <!-- Header -->
       <div class="mb-10">
