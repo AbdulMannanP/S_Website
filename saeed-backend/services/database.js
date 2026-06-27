@@ -136,6 +136,25 @@ async function updateLeadCRM(req, order_id, data) {
   return { changes: 1 };
 }
 
+/**
+ * pingDatabase()
+ * Lightweight ping to wake the Supabase connection pool.
+ * Uses serviceClient to bypass RLS — this is a system-level health check.
+ * @returns {Promise<boolean>}
+ */
+async function pingDatabase() {
+  // A simple select limit 1 is the lightest possible touch on the database
+  const { error } = await serviceClient
+    .from("leads")
+    .select("id")
+    .limit(1);
+
+  if (error) {
+    throw error;
+  }
+  return true;
+}
+
 module.exports = {
   initSchema,
   upsertLead,
@@ -144,4 +163,5 @@ module.exports = {
   getLeadsByEmail,
   getStats,
   updateLeadCRM,
+  pingDatabase,
 };

@@ -29,7 +29,7 @@ const { globalLimiter, leadLimiter } = require("./middleware/rateLimiter");
 const notFound     = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
 const { requireAdmin } = require("./middleware/auth");
-const { initSchema, getStats } = require("./services/database");
+const { initSchema, getStats, pingDatabase } = require("./services/database");
 
 const morgan       = require("morgan");
 const swaggerUi    = require("swagger-ui-express");
@@ -115,10 +115,11 @@ app.get("/health", (req, res) => {
  */
 app.get("/api/keep-alive", async (req, res) => {
   try {
-    await getStats(); // non-destructive read — wakes the Supabase connection pool
+    await pingDatabase(); // Fixed: Non-destructive, unauthenticated read to wake pool
     res.status(200).json({ success: true, message: "Render and Supabase are awake." });
   } catch (e) {
-    // Still return 200 so cron services don't alarm on DB hiccups
+    console.error("[KEEP-ALIVE] Database ping failed:", e.message);
+    // Still return 200 so cron services don't alarm on transient DB hiccups
     res.status(200).json({ success: true, message: "Render is awake. Supabase may be slow." });
   }
 });
