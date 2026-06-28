@@ -68,23 +68,53 @@
   <main class="flex-1 p-6 flex flex-col h-full">
 
     <!-- Access Denied -->
-    <div x-show="!$store.saeedAuth.isLoading && !$store.saeedAuth?.user" class="text-center py-20">
-      <h2 class="text-2xl text-red-500 font-bold mb-4">Access Denied</h2>
-      <p class="text-stone-500 mb-4">Please log in to access the admin panel.</p>
-      <a href="/auth" class="gold-bg text-black font-bold px-6 py-3 rounded-xl uppercase tracking-widest text-sm">Go to Login</a>
+    <div x-show="!$store.saeedAuth.isLoading && (!$store.saeedAuth?.user || $store.saeedAuth.role !== 'admin')" class="text-center py-20">
+      <div class="w-20 h-20 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-6 border border-red-500/20">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h2 class="text-2xl text-red-400 font-bold mb-3">Admin Access Required</h2>
+      <p class="text-stone-400 mb-6 text-sm">This control center is restricted to administrators only.</p>
+      <a href="/auth.html" class="gold-bg text-black font-bold px-6 py-3 rounded-xl uppercase tracking-widest text-sm">Go to Login</a>
     </div>
 
-    <div x-show="$store.saeedAuth?.user" class="flex flex-col h-full">
+    <div x-show="$store.saeedAuth?.user && $store.saeedAuth.role === 'admin'" class="flex flex-col h-full">
+
+      <!-- Analytics Strip -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm">
+          <div class="text-[0.6rem] uppercase tracking-[0.2em] text-stone-400 font-bold mb-2">Total Orders</div>
+          <div class="text-3xl font-black text-stone-900" x-text="leads.length">0</div>
+          <div class="text-[0.6rem] text-stone-300 mt-1 uppercase tracking-widest">All time</div>
+        </div>
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm">
+          <div class="text-[0.6rem] uppercase tracking-[0.2em] text-stone-400 font-bold mb-2">In Production</div>
+          <div class="text-3xl font-black gold-text" x-text="leads.filter(l => l.lead_status === 'qualified').length">0</div>
+          <div class="text-[0.6rem] text-stone-300 mt-1 uppercase tracking-widest">Active</div>
+        </div>
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm">
+          <div class="text-[0.6rem] uppercase tracking-[0.2em] text-stone-400 font-bold mb-2">Won / Delivered</div>
+          <div class="text-3xl font-black text-green-500" x-text="leads.filter(l => l.lead_status === 'won').length">0</div>
+          <div class="text-[0.6rem] text-stone-300 mt-1 uppercase tracking-widest">Completed</div>
+        </div>
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm">
+          <div class="text-[0.6rem] uppercase tracking-[0.2em] text-stone-400 font-bold mb-2">Pending Visit</div>
+          <div class="text-3xl font-black text-amber-500" x-text="leads.filter(l => !l.home_visit_completed).length">0</div>
+          <div class="text-[0.6rem] text-stone-300 mt-1 uppercase tracking-widest">Awaiting</div>
+        </div>
+      </div>
+
       <!-- Header row -->
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <div>
           <h1 class="text-3xl font-black tracking-tight text-stone-900">Pipeline <span class="gold-text">Overview</span></h1>
           <p class="text-stone-400 text-xs mt-1 uppercase tracking-widest">Managing <span x-text="leads.length"></span> active orders</p>
         </div>
-        <div class="flex gap-2">
+        <div class="flex gap-2 flex-wrap">
           <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-stone-800 text-white' : 'text-stone-500 border border-stone-200 hover:border-stone-400'" class="px-4 py-1.5 text-[0.6rem] font-bold uppercase tracking-widest rounded-full transition-all">All</button>
-          <button @click="filter = 'urgent'" :class="filter === 'urgent' ? 'bg-red-100 text-red-600 border-red-200' : 'text-stone-500 border border-stone-200 hover:border-stone-400'" class="px-4 py-1.5 text-[0.6rem] font-bold uppercase tracking-widest rounded-full transition-all border">Urgent</button>
-          <button @click="filter = 'vip'" :class="filter === 'vip' ? 'bg-[#c9a96e]/10 text-[#c9a96e] border-[#c9a96e]/30' : 'text-stone-500 border border-stone-200 hover:border-stone-400'" class="px-4 py-1.5 text-[0.6rem] font-bold uppercase tracking-widest rounded-full transition-all border">VIP</button>
+          <button @click="filter = 'new'" :class="filter === 'new' ? 'bg-blue-100 text-blue-700 border-blue-200' : 'text-stone-500 border border-stone-200 hover:border-stone-400'" class="px-4 py-1.5 text-[0.6rem] font-bold uppercase tracking-widest rounded-full transition-all border">New Leads</button>
+          <button @click="filter = 'contacted'" :class="filter === 'contacted' ? 'bg-amber-100 text-amber-700 border-amber-200' : 'text-stone-500 border border-stone-200 hover:border-stone-400'" class="px-4 py-1.5 text-[0.6rem] font-bold uppercase tracking-widest rounded-full transition-all border">Measuring</button>
+          <button @click="filter = 'qualified'" :class="filter === 'qualified' ? 'bg-[#c9a96e]/10 text-[#c9a96e] border-[#c9a96e]/30' : 'text-stone-500 border border-stone-200 hover:border-stone-400'" class="px-4 py-1.5 text-[0.6rem] font-bold uppercase tracking-widest rounded-full transition-all border">In Production</button>
+          <button @click="filter = 'won'" :class="filter === 'won' ? 'bg-green-100 text-green-700 border-green-200' : 'text-stone-500 border border-stone-200 hover:border-stone-400'" class="px-4 py-1.5 text-[0.6rem] font-bold uppercase tracking-widest rounded-full transition-all border">Delivered</button>
         </div>
       </div>
 

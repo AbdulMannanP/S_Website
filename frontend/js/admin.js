@@ -95,8 +95,9 @@ function adminDashboard() {
               (l.name && l.name.toLowerCase().includes(q))
             );
           }
-          if (this.filter === 'urgent') list = list.filter(l => l.score >= 180 && l.lead_status === 'new');
-          else if (this.filter === 'vip') list = list.filter(l => l.visit_mode === 'VIP Private');
+          if (['new','contacted','qualified','won','lost'].includes(this.filter)) {
+            list = list.filter(l => l.lead_status === this.filter);
+          }
           return list;
         },
 

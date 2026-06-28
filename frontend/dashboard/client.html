@@ -106,27 +106,39 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         </div>
         <div class="text-center sm:text-left">
-          <div class="font-bold text-sm text-white/80">Need guidance?</div>
-          <a href="https://wa.me/9288004450" target="_blank" class="text-[#25d366] text-sm hover:underline">Contact your designer â†’</a>
+          <div class="font-bold text-sm text-white/80" x-text="lang === 'ar' ? 'تحتاج إلى إرشادات؟' : 'Need guidance?'"></div>
+          <a href="https://wa.me/966928800445?text=I%20need%20guidance%20on%20my%20order" target="_blank" class="text-[#25d366] text-sm hover:underline" x-text="lang === 'ar' ? 'تواصل مع مصممك ←' : 'Contact your designer →'"></a>
         </div>
       </div>
     </div>
 
-    <!-- â”€â”€ CONDITION B: Active Orders â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <!-- ————————————————— CONDITION B: Active Orders ————————————————— -->
     <div x-show="orders.length > 0" x-cloak class="fade-up">
+
+      <!-- ✨ New Collection CTA Card -->
+      <div class="mb-8 rounded-2xl border border-[#c9a96e]/20 bg-gradient-to-r from-[#FAF9F6] to-[#F5F0E8] p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+        <div>
+          <div class="text-[0.6rem] uppercase tracking-[0.2em] text-[#c9a96e] font-bold mb-1" x-text="lang === 'ar' ? 'مجموعة جديدة' : 'New Collection'"></div>
+          <h3 class="text-lg font-black text-stone-900" x-text="lang === 'ar' ? 'ابدأ مشروعًا بديعًا جديدًا' : 'Start a New Bespoke Project'"></h3>
+          <p class="text-stone-500 text-sm mt-1" x-text="lang === 'ar' ? 'استكشف مجموعاتنا وأضف قطعة جديدة' : 'Explore our catalog and add another luxury piece'"></p>
+        </div>
+        <a href="/index.html" class="flex-shrink-0 gold-bg text-black font-black px-8 py-3 rounded-xl text-xs uppercase tracking-widest hover:opacity-90 transition-all shadow-md whitespace-nowrap"
+           x-text="lang === 'ar' ? 'تصفح المجموعات' : 'Browse Collections'"></a>
+      </div>
+
       <!-- Header row -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
         <div>
-          <h1 class="text-3xl font-black tracking-tight text-stone-900">My <span class="gold">Atelier</span></h1>
-          <p class="text-stone-500 text-sm mt-1" x-text="`${orders.length} active order${orders.length > 1 ? 's' : ''}`"></p>
+          <h1 class="text-3xl font-black tracking-tight text-stone-900">My <span class="gold" x-text="lang === 'ar' ? 'مرسمي' : 'Atelier'">Atelier</span></h1>
+          <p class="text-stone-500 text-sm mt-1" x-text="`${orders.length} ` + (lang === 'ar' ? (orders.length > 1 ? 'طلبات نشطة' : 'طلب نشط') : (orders.length > 1 ? 'active orders' : 'active order'))"></p>
         </div>
-        <div class="flex gap-3">
-          <a href="/" class="border border-white/10 text-white/60 hover:text-white hover:border-white/30 px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all">
-            + Add Piece
-          </a>
-          <a href="https://wa.me/9288004450" target="_blank" class="flex items-center gap-2 border border-[#c9a96e]/30 text-[#c9a96e] hover:bg-[#c9a96e]/10 px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all">
+        <div class="flex gap-3 flex-wrap">
+          <a href="/index.html" class="border border-stone-200 text-stone-600 hover:text-stone-900 hover:border-stone-400 px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all"
+             x-text="lang === 'ar' ? '+ إضافة قطعة' : '+ Add Piece'"></a>
+          <a href="https://wa.me/966928800445?text=I%20would%20like%20to%20share%20a%20reference%20image%20for%20my%20order" target="_blank"
+             class="flex items-center gap-2 border border-[#c9a96e]/30 text-[#c9a96e] hover:bg-[#c9a96e]/10 px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Concierge
+            <span x-text="lang === 'ar' ? 'أرسل مرجعًا بالصورة' : 'Send Reference Image'"></span>
           </a>
         </div>
       </div>
