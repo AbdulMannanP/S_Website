@@ -1,5 +1,6 @@
 function clientDashboard() {
       return {
+        lang: localStorage.getItem('lang') || 'en',
         isLoading: true,
         orders: [],
 
