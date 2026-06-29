@@ -94,7 +94,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('/images/saudi_handshake.png');
+      background-image: url('/images/handshake_ksa.png');
       background-size: cover;
       background-position: center;
       filter: brightness(0.35);
@@ -465,7 +465,7 @@
         <div class="flex flex-col items-center reveal reveal-delay-2"
              x-data="{
                current: 0,
-               slides: ['/images/modern.png', '/images/authentic.png', '/images/heritage.png'],
+               slides: ['/images/about_slide_modern.png', '/images/about_slide_authentic.png', '/images/about_slide_heritage.png'],
                init() {
                  setInterval(() => { this.current = (this.current + 1) % this.slides.length; }, 4000);
                }
