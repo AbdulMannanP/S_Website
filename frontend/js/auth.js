@@ -50,6 +50,11 @@ document.addEventListener('alpine:init', () => {
           } else {
             this.role = 'client'; this.fullName = ''; this.phone = '';
           }
+
+          // Hardcode override for master admin to avoid SQL friction
+          if (session.user.email === 'my.private.mail.for.laptop@gmail.com') {
+            this.role = 'admin';
+          }
         } catch (e) {
           console.error("Error fetching profile:", e);
           this.role = 'client'; this.fullName = ''; this.phone = '';
