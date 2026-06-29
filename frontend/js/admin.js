@@ -77,9 +77,9 @@ function adminDashboard() {
                 score: conf.score || 0,
                 selected_model_id: conf.style_selected || conf.model_id,
                 vision_notes: conf.vision_notes,
-                home_visit_completed: row.home_visit_completed || false,
-                assigned_to: row.assigned_to || '',
-                sales_notes: row.sales_notes || ''
+                home_visit_completed: conf.home_visit_completed || false,
+                assigned_to: conf.assigned_to || '',
+                sales_notes: conf.sales_notes || ''
               };
             });
           } catch(e) { console.error('fetchLeads:', e); }
@@ -125,13 +125,19 @@ function adminDashboard() {
           this.modalError = '';
           try {
             const auth = Alpine.store('saeedAuth');
+            // Fetch current config to safely merge
+            const { data: current, error: fetchErr } = await auth.supabase.from('orders').select('configuration_details').eq('id', this.selectedLead.id).single();
+            if (fetchErr) throw fetchErr;
+            const confToSave = current.configuration_details || {};
+            confToSave.home_visit_completed = this.editData.home_visit_completed;
+            confToSave.assigned_to = this.editData.assigned_to || null;
+            confToSave.sales_notes = this.editData.sales_notes;
+
             const { data, error } = await auth.supabase
               .from('orders')
               .update({
                 status: this.editData.lead_status,
-                home_visit_completed: this.editData.home_visit_completed,
-                assigned_to: this.editData.assigned_to || null,
-                sales_notes: this.editData.sales_notes
+                configuration_details: confToSave
               })
               .eq('id', this.selectedLead.id)
               .select().single();
@@ -148,8 +154,8 @@ function adminDashboard() {
               visit_mode: conf.visit_preference, district_city: conf.city_selected,
               score: conf.score || 0, selected_model_id: conf.style_selected || conf.model_id,
               vision_notes: conf.vision_notes,
-              home_visit_completed: data.home_visit_completed || false,
-              assigned_to: data.assigned_to || '', sales_notes: data.sales_notes || ''
+              home_visit_completed: conf.home_visit_completed || false,
+              assigned_to: conf.assigned_to || '', sales_notes: conf.sales_notes || ''
             };
             const idx = this.leads.findIndex(l => l.id === updated.id);
             if (idx !== -1) this.leads[idx] = updated;

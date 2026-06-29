@@ -174,7 +174,7 @@
           <h2 class="text-xl font-black tracking-tight text-stone-900">Order <span class="gold-text font-mono" x-text="String(selectedLead?.order_id || '').slice(0,8).toUpperCase()"></span></h2>
           <p class="text-stone-400 text-xs mt-1 uppercase tracking-widest" x-text="`Received ${formatFullDate(selectedLead?.created_at)}`"></p>
         </div>
-        <button @click="discardModal()" class="w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center text-stone-500 hover:bg-stone-200 transition-all">Ã—</button>
+        <button @click="discardModal()" class="w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center text-stone-500 hover:bg-stone-200 transition-all">×</button>
       </div>
 
       <!-- Modal Error -->
@@ -189,7 +189,7 @@
             <label class="block text-[0.6rem] font-bold text-stone-400 uppercase tracking-[0.2em] mb-2">Client</label>
             <div class="bg-stone-50 p-4 rounded-2xl border border-stone-100">
               <div class="text-base font-bold text-stone-900 mb-1" x-text="selectedLead?.name || 'Not provided'"></div>
-              <div class="text-[#c9a96e] font-mono text-sm mb-1" x-text="selectedLead?.phone || 'â€”'"></div>
+              <div class="text-[#c9a96e] font-mono text-sm mb-1" x-text="selectedLead?.phone || '—'"></div>
               <div class="text-stone-400 text-xs" x-text="selectedLead?.district_city || 'City not specified'"></div>
             </div>
           </div>
@@ -199,7 +199,7 @@
             <div class="bg-stone-50 p-4 rounded-2xl border border-stone-100">
               <div class="text-sm font-bold text-stone-800" x-text="selectedLead?.selected_model_id || 'Generic Majlis'"></div>
               <div class="text-xs text-stone-400 mt-2">
-                <span>Visit: <span class="text-stone-600 font-bold" x-text="selectedLead?.visit_mode || 'â€”'"></span></span>
+                <span>Visit: <span class="text-stone-600 font-bold" x-text="selectedLead?.visit_mode || '—'"></span></span>
               </div>
             </div>
           </div>
