@@ -317,6 +317,13 @@
   async submit() {
     this.error = '';
     this.loading = true;
+    
+    // Fix for browser autofill bypassing Alpine's x-model
+    const emailInput = document.getElementById('auth-email');
+    const passwordInput = document.getElementById('auth-password');
+    if (!this.email && emailInput) this.email = emailInput.value;
+    if (!this.password && passwordInput) this.password = passwordInput.value;
+
     try {
       const { data, error: err } = await $store.saeedAuth.signInWithPassword(this.email, this.password);
       if (err) {
