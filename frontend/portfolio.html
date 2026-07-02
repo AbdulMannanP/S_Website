@@ -396,7 +396,7 @@
     [x-cloak] { display: none !important; }
   </style>
 </head>
-<body x-data="portfolioApp()" x-init="init()">
+<body class="max-w-full overflow-x-hidden" x-data="portfolioApp()" x-init="init()">
 
   <!-- ═══ HEADER ═══════════════════════════════════════════════ -->
   <header  class="pf-header" >
@@ -456,7 +456,7 @@
         <div class="pf-card-overlay">
           <!-- Top: Brand mark -->
           <div>
-            <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" class="pf-card-logo" alt="Saeed" onerror="this.style.display='none'">
+            <img loading="lazy" src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" class="pf-card-logo" alt="Saeed" onerror="this.style.display='none'">
             <div class="pf-card-logo-wordmark" x-text="lang === 'ar' ? 'سعيد للأثاث' : 'Saeed Furniture'"></div>
           </div>
           <!-- Bottom: Info -->
@@ -489,7 +489,7 @@
          x-transition:enter-end="opacity-100 scale-100">
       <template x-if="lightboxItem">
         <div>
-          <img :src="lightboxItem.image" :alt="lightboxItem.title" class="pf-lightbox-img">
+          <img loading="lazy" :src="lightboxItem.image" :alt="lightboxItem.title" class="pf-lightbox-img">
           <button class="pf-lightbox-close" @click="lightboxItem = null" aria-label="Close">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>

@@ -68,7 +68,7 @@
     @keyframes scrollRibbon { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     .arabesque-bg {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23c9a96e" d="M50 0C50 25 75 50 100 50C75 50 50 75 50 100C50 75 25 50 0 50C25 50 50 25 50 0Z" opacity="0.03"/></svg>');
+      background-image: url('data:image/svg+xml;utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23c9a96e" d="M50 0C50 25 75 50 100 50C75 50 50 75 50 100C50 75 25 50 0 50C25 50 50 25 50 0Z" opacity="0.03"/%3E%3C/svg%3E');
       background-size: 100px 100px;
     }
 
@@ -155,7 +155,7 @@
   <link rel="alternate" hreflang="en" href="/index.html" />
   <link rel="alternate" hreflang="ar" href="/index.html" />
   <link rel="alternate" hreflang="x-default" href="/index.html" /></head>
-<body
+<body class="max-w-full overflow-x-hidden"
   :class="isNightMode ? 'bg-[#080809] text-white/90' : 'bg-ivory text-bronze'"
   class="font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-gold/30 transition-colors duration-1000"
   x-data="saeedApp()"
@@ -266,7 +266,7 @@
 
       <!-- Subtle hero label (Desktop Only) -->
       <div class="absolute top-28 inset-x-0 z-20 flex flex-col items-center gap-2 pointer-events-none hidden md:flex">
-        <p class="text-[0.6rem] uppercase tracking-[0.4em] text-white/50 font-bold" x-text="lang === 'ar' ? 'استكشف معرضنا' : 'Explore Our Showroom'"></p>
+        <h1 class="text-[0.6rem] uppercase tracking-[0.4em] text-white/50 font-bold" x-text="lang === 'ar' ? 'استكشف معرضنا' : 'Explore Our Showroom'"></h1>
         <div class="w-8 h-px bg-white/30"></div>
       </div>
 
@@ -318,28 +318,28 @@
       <div class="absolute inset-0 z-30 block md:hidden p-4 pt-24 pb-8 bg-[#080809]" style="pointer-events: auto;">
         <div class="grid grid-cols-2 gap-4 h-full">
           <a href="/majlis.html" class="relative rounded-2xl overflow-hidden block h-full group">
-            <img src="/images/majlis_tile.png" class="absolute inset-0 w-full h-full object-cover" alt="Majlis">
+            <img loading="lazy" src="/images/majlis_tile.png" class="absolute inset-0 w-full h-full object-cover" alt="Majlis">
             <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
             <div class="absolute bottom-4 left-4 right-4 text-white">
               <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المجلس' : 'Majlis'"></span>
             </div>
           </a>
           <a href="/kitchen.html" class="relative rounded-2xl overflow-hidden block h-full group">
-            <img src="/images/kitchen_tile.png" class="absolute inset-0 w-full h-full object-cover" alt="Kitchen">
+            <img loading="lazy" src="/images/kitchen_tile.png" class="absolute inset-0 w-full h-full object-cover" alt="Kitchen">
             <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
             <div class="absolute bottom-4 left-4 right-4 text-white">
               <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المطبخ' : 'Kitchen'"></span>
             </div>
           </a>
           <a href="/bedroom.html" class="relative rounded-2xl overflow-hidden block h-full group">
-            <img src="/images/bedroom_tile.png" class="absolute inset-0 w-full h-full object-cover" alt="Bedroom">
+            <img loading="lazy" src="/images/bedroom_tile.png" class="absolute inset-0 w-full h-full object-cover" alt="Bedroom">
             <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
             <div class="absolute bottom-4 left-4 right-4 text-white">
               <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'غرفة النوم' : 'Bedroom'"></span>
             </div>
           </a>
           <a href="/almirah.html" class="relative rounded-2xl overflow-hidden block h-full group">
-            <img src="/images/almirah_tile.png" class="absolute inset-0 w-full h-full object-cover" alt="Almirah">
+            <img loading="lazy" src="/images/almirah_tile.png" class="absolute inset-0 w-full h-full object-cover" alt="Almirah">
             <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
             <div class="absolute bottom-4 left-4 right-4 text-white">
               <span class="block text-sm font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'الخزائن' : 'Almirah'"></span>
@@ -365,7 +365,7 @@
     <section id="usp" class="py-32 bg-stone-50 text-stone-900 relative overflow-hidden">
 
       <!-- Subtle arabesque background pattern -->
-      <div class="absolute inset-0 pointer-events-none" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22><path fill=%22%23b45309%22 d=%22M60 0C60 30 90 60 120 60C90 60 60 90 60 120C60 90 30 60 0 60C30 60 60 30 60 0Z%22 opacity=%220.018%22/></svg>'); background-size: 120px 120px; opacity: 0.6;"></div>
+      <div class="absolute inset-0 pointer-events-none" style="background-image: url('data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22><path fill=%22%23b45309%22 d=%22M60 0C60 30 90 60 120 60C90 60 60 90 60 120C60 90 30 60 0 60C30 60 60 30 60 0Z%22 opacity=%220.018%22/%3E%3C/svg%3E'); background-size: 120px 120px; opacity: 0.6;"></div>
 
       <div class="max-w-7xl mx-auto px-8 flex flex-col lg:flex-row gap-20 relative">
 
@@ -651,7 +651,7 @@
       <div class="max-w-[100vw] overflow-x-auto hide-scrollbar">
         <div class="flex gap-6 px-8 w-max" style="animation: scrollRibbon 40s linear infinite;">
           <a href="/majlis.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
-            <img src="/images/majlis_tile.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Majlis">
+            <img loading="lazy" src="/images/majlis_tile.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Majlis">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 text-white pointer-events-none">
               <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المجلس' : 'Majlis'"></span>
@@ -659,7 +659,7 @@
             </div>
           </a>
           <a href="/kitchen.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
-            <img src="/images/kitchen_tile.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Kitchen">
+            <img loading="lazy" src="/images/kitchen_tile.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Kitchen">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 text-white pointer-events-none">
               <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المطبخ' : 'Kitchen'"></span>
@@ -667,7 +667,7 @@
             </div>
           </a>
           <a href="/bedroom.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
-            <img src="/images/bedroom_tile.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Bedroom">
+            <img loading="lazy" src="/images/bedroom_tile.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Bedroom">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 text-white pointer-events-none">
               <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'غرفة النوم' : 'Bedroom'"></span>
@@ -675,7 +675,7 @@
             </div>
           </a>
           <a href="/almirah.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
-            <img src="/images/almirah_tile.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Almirah">
+            <img loading="lazy" src="/images/almirah_tile.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Almirah">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 text-white pointer-events-none">
               <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'الخزائن' : 'Almirah'"></span>
@@ -684,7 +684,7 @@
           </a>
           <!-- Duplicate for infinite scroll effect -->
           <a href="/majlis.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
-            <img src="/images/majlis_tile.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Majlis">
+            <img loading="lazy" src="/images/majlis_tile.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Majlis">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 text-white pointer-events-none">
               <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المجلس' : 'Majlis'"></span>
@@ -692,7 +692,7 @@
             </div>
           </a>
           <a href="/kitchen.html" class="relative w-[400px] h-[300px] rounded-2xl overflow-hidden group shrink-0">
-            <img src="/images/kitchen_tile.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Kitchen">
+            <img loading="lazy" src="/images/kitchen_tile.png" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Kitchen">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-6 left-6 text-white pointer-events-none">
               <span class="block text-lg font-bold uppercase tracking-widest" x-text="lang === 'ar' ? 'المطبخ' : 'Kitchen'"></span>

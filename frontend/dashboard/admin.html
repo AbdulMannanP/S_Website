@@ -33,7 +33,7 @@
     .toast-enter { animation: toastIn 0.35s cubic-bezier(0.22,1,0.36,1) forwards; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col" x-data="adminDashboard()" x-init="initDashboard()" x-cloak>
+<body class="min-h-screen flex flex-col max-w-full overflow-x-hidden" x-data="adminDashboard()" x-init="initDashboard()" x-cloak>
 
   <!-- Toast Notification -->
   <div x-show="toast.show" x-transition class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] px-6 py-3 rounded-2xl font-bold text-sm shadow-xl toast-enter flex items-center gap-3"
@@ -48,14 +48,14 @@
   <nav class="border-b border-stone-900 px-6 py-4 flex justify-between items-center bg-[#0a0a0a] sticky top-0 z-40 shadow-sm">
     <div class="flex items-center gap-6">
       <a href="/">
-        <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-7 object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
+        <img loading="lazy" src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-7 object-contain" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.1);">
       </a>
       <span class="text-[0.65rem] font-bold uppercase tracking-widest text-white/40 border-l border-white/10 pl-4">Admin Control</span>
     </div>
 
     <div class="flex-1 max-w-md mx-8 relative hidden md:block">
       <input type="text" x-model="searchQuery" placeholder="Search by name, phone, or order ID..."
-             class="w-full bg-white/5 border border-white/10 rounded-full py-2 px-4 pl-10 text-sm text-white outline-none focus:border-[#c9a96e] transition-colors">
+             class="w-full bg-white/5 border border-white/10 rounded-full py-2 px-4 pl-10 text-base text-white outline-none focus:border-[#c9a96e] transition-colors">
       <svg class="absolute left-3 top-2.5 text-white/30" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     </div>
 
@@ -252,7 +252,7 @@
           <div>
             <label class="block text-[0.6rem] font-bold text-stone-400 uppercase tracking-[0.2em] mb-2">Internal Notes</label>
             <textarea x-model="editData.sales_notes" rows="3" placeholder="Private notes for the team..."
-                      class="w-full bg-stone-50 border border-stone-200 rounded-xl p-3 text-sm text-stone-800 outline-none focus:border-[#c9a96e] transition-all resize-none"></textarea>
+                      class="w-full bg-stone-50 border border-stone-200 rounded-xl p-3 text-base text-stone-800 outline-none focus:border-[#c9a96e] transition-all resize-none"></textarea>
           </div>
         </div>
       </div>

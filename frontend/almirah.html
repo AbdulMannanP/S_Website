@@ -80,7 +80,7 @@
   <script defer src="https://unpkg.com/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
 </head>
-<body
+<body class="max-w-full overflow-x-hidden"
   class="bg-neutral-900 text-stone-300 font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-amber-700/30 transition-colors duration-1000"
   x-data="saeedApp()"
   x-init="init()"
@@ -144,7 +144,7 @@
 
   <!-- ── Hero: Full Bleed 100vh ───────────────────────── -->
   <section class="relative w-full h-screen overflow-hidden">
-    <img src="/images/almirah_hero.jpg" fetchpriority="high"
+    <img loading="lazy" src="/images/almirah_hero.jpg" fetchpriority="high"
          width="1920" height="1080"
          class="absolute inset-0 w-full h-full object-cover z-0" alt="Almirah Collection">
     <div class="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/20 to-neutral-900/80 z-10"></div>

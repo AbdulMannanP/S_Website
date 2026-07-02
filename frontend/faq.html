@@ -161,12 +161,12 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
 </head>
-<body class="antialiased font-sans" x-data="{ lang: 'ar' }">
+<body class="antialiased font-sans max-w-full overflow-x-hidden" x-data="{ lang: 'ar' }">
 <!-- Restored Transparent Header -->
 <header class="absolute top-0 inset-x-0 z-[150] flex justify-between items-center px-6 md:px-10 py-5 text-white pointer-events-none">
   <!-- Left Logo -->
   <a href="/index.html" class="pointer-events-auto flex items-center gap-4 group">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1);">
+    <img loading="lazy" src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105" style="filter: brightness(0) invert(1);">
     <div class="hidden sm:block">
       <span class="text-white font-bold text-lg tracking-[0.2em] uppercase">Saeed Furniture</span>
       <p class="text-amber-500/80 text-[0.6rem] tracking-[0.3em] uppercase mt-0.5">Bespoke Mastery</p>
@@ -219,7 +219,7 @@
 
   <!-- â”€â”€ Premium Native Page Loader â”€â”€ -->
   <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[100] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
+    <img loading="lazy" src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture Loading" class="h-16 w-auto object-contain animate-pulse" style="filter: brightness(0) invert(0.6)">
   </div>
 
 
@@ -476,7 +476,7 @@
         
         <!-- Brand -->
         <div class="flex flex-col items-center md:items-start gap-4">
-          <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain opacity-90" style="filter: brightness(0) invert(1);">
+          <img loading="lazy" src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain opacity-90" style="filter: brightness(0) invert(1);">
           <div class="text-center md:text-left">
             <h2 class="text-white text-sm font-bold tracking-[0.2em] uppercase mb-1">Saeed Furniture</h2>
             <p class="text-stone-400 text-xs italic font-serif">Craftsmanship That Endures</p>

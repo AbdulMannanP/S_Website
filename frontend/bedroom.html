@@ -77,7 +77,7 @@
   <script defer src="https://unpkg.com/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
 </head>
-<body
+<body class="max-w-full overflow-x-hidden"
   class="bg-indigo-950 text-indigo-100 font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-slate-300/20 transition-colors duration-1000"
   x-data="saeedApp()"
   x-init="init()"
@@ -140,7 +140,7 @@
 
   <!-- ── Hero: Full Bleed 100vh ───────────────────────── -->
   <section class="relative w-full h-screen overflow-hidden">
-    <img src="https://ik.imagekit.io/de7qvcvqv/images/Day%20room%20Hero?updatedAt=1779819466896" fetchpriority="high"
+    <img loading="lazy" src="https://ik.imagekit.io/de7qvcvqv/images/Day%20room%20Hero?updatedAt=1779819466896" fetchpriority="high"
          width="1920" height="1080"
          class="absolute inset-0 w-full h-full object-cover z-0" alt="Bedroom Collection">
     <div class="absolute inset-0 bg-gradient-to-b from-indigo-950/70 via-indigo-950/30 to-indigo-950/90 z-10"></div>
