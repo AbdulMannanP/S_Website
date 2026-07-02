@@ -160,7 +160,7 @@
   class="font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-gold/30 transition-colors duration-1000"
   x-data="saeedApp()"
   x-init="init()"
-  @scroll.window="scrolled = (window.pageYOffset > 50)">
+  @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;">
 
   <!-- ── Progress Indicator ──────────────────────────── -->
   <div class="fixed top-0 inset-x-0 h-[3px] bg-ivory-darker z-[200]" x-show="step !== 'success' && step !== 'hero'">
@@ -194,7 +194,7 @@
 
   <!-- ── Header ──────────────────────────────────────── -->
   <header  class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out border-b border-transparent"
-          :class="scrolled ? 'bg-stone-950/80 backdrop-blur-md shadow-2xl border-white/5' : 'bg-transparent border-transparent'" >
+          :class="(scrolled ? 'bg-stone-950/80 backdrop-blur-md shadow-2xl border-white/5 ' : 'bg-transparent border-transparent ') + (headerHidden ? '-translate-y-full ' : 'translate-y-0 ')" >
     <a href="/index.html" class="h-10 flex items-center gap-3 transition-transform duration-500 hover:scale-105">
       <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" loading="eager" alt="Saeed Furniture" class="h-full object-contain drop-shadow-[0_0_15px_rgba(201,169,110,0.3)]" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
       <div class="flex flex-col">
@@ -781,7 +781,7 @@
   <footer id="footer" class="bg-[#07070a] border-t border-[#c9a96e]/10 py-8 px-6 text-center" x-show="!loading" x-cloak>
 
     <!-- Phone + Address -->
-    <p class="text-white/50 text-sm mb-1" dir="ltr">+966 92 880 04450 — Al Qurayyat, Al Jawf, KSA</p>
+    <p class="text-white/50 text-sm mb-1" dir="ltr"><a href="tel:+9669288004450" class="hover:text-[#c9a96e] transition-colors">+966 92 880 04450</a> — Al Qurayyat, Al Jawf, KSA</p>
     <p class="text-[#c9a96e]/60 text-xs mb-4" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، الجوف، المملكة العربية السعودية — شركة سعيد للأثاث</p>
     <!-- Logo -->
     <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" loading="lazy" alt="Saeed Furniture"

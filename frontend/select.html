@@ -513,7 +513,7 @@
   <link rel="alternate" hreflang="en" href="/select.html" />
   <link rel="alternate" hreflang="ar" href="/select.html" />
   <link rel="alternate" hreflang="x-default" href="/select.html" /></head>
-<body class="max-w-full overflow-x-hidden" x-data="saeedApp()" x-init="init()" @scroll.window="scrolled = (window.pageYOffset > 50)" class="font-sans">
+<body class="max-w-full overflow-x-hidden" x-data="saeedApp()" x-init="init()" @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;" class="font-sans">
 <!-- Restored Transparent Header -->
 <header class="fixed top-0 inset-x-0 z-[150] flex justify-between items-center px-6 md:px-10 py-5 text-white transition-all duration-700 ease-in-out border-b" :class="scrolled ? 'bg-[#0f0f0f]/95 backdrop-blur-md border-[#c9a96e]/20 shadow-[0_10px_40px_rgba(0,0,0,0.8)]' : 'bg-transparent border-transparent'">
   <!-- Left Logo -->
@@ -831,7 +831,7 @@
       </a>
 
       <p class="mt-4" style="font-family:'Inter',sans-serif; font-size:0.7rem; color:rgba(229,231,235,0.25); letter-spacing:0.08em;">
-        +966 92 880 04450 &mdash; Al Qurayyat, Al Jawf, KSA
+        <a href="tel:+9669288004450" class="hover:text-[#c9a96e] transition-colors">+966 92 880 04450</a> &mdash; Al Qurayyat, Al Jawf, KSA
       </p>
 
     </div>

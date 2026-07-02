@@ -87,7 +87,7 @@
   class="text-white/90 font-cairo antialiased min-h-screen"
   x-data="{ ...saeedApp() }"
   x-init="init()"
-  @scroll.window="scrolled = (window.pageYOffset > 50)">
+  @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;">
 
   
 
@@ -297,7 +297,7 @@
     </a>
 
     <!-- Phone + Address -->
-    <p class="text-white/50 text-sm mb-1" dir="ltr">+966 92 880 04450 — Al Qurayyat, Al Jawf, KSA</p>
+    <p class="text-white/50 text-sm mb-1" dir="ltr"><a href="tel:+9669288004450" class="hover:text-[#c9a96e] transition-colors">+966 92 880 04450</a> — Al Qurayyat, Al Jawf, KSA</p>
     <p class="text-[#c9a96e]/60 text-xs mb-8" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، الجوف، المملكة العربية السعودية — شركة سعيد للأثاث</p>
 
     <!-- Logo -->

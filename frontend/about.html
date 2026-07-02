@@ -181,12 +181,9 @@
       box-shadow: 0 0 60px rgba(201,169,110,0.1);
     }
     .carousel-slide {
-      position: absolute;
-      inset: 0;
-      transition: opacity 0.8s ease-in-out;
-      opacity: 0;
+      /* Replaced with flex-shrink-0 snap-center for native swipe */
     }
-    .carousel-slide.active { opacity: 1; }
+    /* .carousel-slide.active { opacity: 1; } */
     .carousel-slide img {
       width: 100%;
       height: 100%;
@@ -471,9 +468,9 @@
                }
              }">
           <div class="carousel-container">
-            <div class="carousel-pill">
+            <div class="carousel-pill flex overflow-x-auto snap-x snap-mandatory hide-scrollbar">
               <template x-for="(src, idx) in slides" :key="idx">
-                <div class="carousel-slide" :class="{ active: current === idx }">
+                <div class="carousel-slide flex-shrink-0 w-full h-full snap-center relative" :class="{ active: current === idx }">
                   <img :src="src" :alt="'Saeed Furniture collection ' + (idx+1)" loading="lazy" />
                 </div>
               </template>

@@ -23,6 +23,8 @@
       phoneError:        '',
       accessoriesClicked: false,
       scrolled:          false,
+      headerHidden:      false,
+      lastScroll:        0,
       activeShowroom:    'gateway', // SPA route: gateway|majlis|kitchen|bedroom|cot|almirah
       mobileMenuOpen:    false,
       highlightWhatsApp: false,

@@ -19,7 +19,7 @@
     }
   </style>
 </head>
-<body class="max-w-full overflow-x-hidden" x-data="{ scrolled: false, mobileMenuOpen: false, lang: 'ar', isSelectionMode: false, isNightMode: false, loading: false }" @scroll.window="scrolled = (window.pageYOffset > 50)" class="bg-gradient-to-br from-[#FDFBF7] via-[#F4EFE6] to-[#E8DFD1] overflow-x-hidden m-0 p-0 text-[#1C1A17] antialiased selection:bg-[#A68A56] selection:text-white">
+<body class="max-w-full overflow-x-hidden" x-data="{ scrolled: false, mobileMenuOpen: false, lang: 'ar', isSelectionMode: false, isNightMode: false, loading: false }" @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;" class="bg-gradient-to-br from-[#FDFBF7] via-[#F4EFE6] to-[#E8DFD1] overflow-x-hidden m-0 p-0 text-[#1C1A17] antialiased selection:bg-[#A68A56] selection:text-white">
   
   <!-- ── Header ──────────────────────────────────────── -->
   <header  class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out border-b border-transparent"
@@ -90,7 +90,7 @@
   <!-- ── Footer ────────────────────────────── -->
   <footer id="footer" class="bg-[#07070a] border-t border-[#c9a96e]/10 py-8 px-6 text-center" x-show="!loading" x-cloak>
     <!-- Phone + Address -->
-    <p class="text-white/50 text-sm mb-1" dir="ltr">+966 92 880 04450 — Al Qurayyat, Al Jawf, KSA</p>
+    <p class="text-white/50 text-sm mb-1" dir="ltr"><a href="tel:+9669288004450" class="hover:text-[#c9a96e] transition-colors">+966 92 880 04450</a> — Al Qurayyat, Al Jawf, KSA</p>
     <p class="text-[#c9a96e]/60 text-xs mb-4" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، الجوف، المملكة العربية السعودية — شركة سعيد للأثاث</p>
     <!-- Logo -->
     <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" loading="lazy" alt="Saeed Furniture"
