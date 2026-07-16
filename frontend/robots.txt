@@ -1,0 +1,12 @@
+# Saeed Furniture — robots.txt
+User-agent: *
+Allow: /
+
+# Block admin and internal routes
+Disallow: /auth.html
+Disallow: /dashboard/
+Disallow: /dist/
+Disallow: /js/
+
+# Sitemap
+Sitemap: https://saeed-furniture-iloz.onrender.com/sitemap.xml
