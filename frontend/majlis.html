@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'">
+<html lang="en" :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/dist/output.css?v=7">
   
@@ -18,6 +18,11 @@
       overscroll-behavior-y: none;
       touch-action: pan-x pan-y;
     }
+  </style>
+
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Cormorant Garamond', serif !important; }
   </style>
 </head>
 <body class="max-w-full overflow-x-hidden" x-data="{ scrolled: false, mobileMenuOpen: false, lang: 'ar', isSelectionMode: false, isNightMode: false, loading: false }" @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;" class="bg-gradient-to-br from-[#FDFBF7] via-[#F4EFE6] to-[#E8DFD1] overflow-x-hidden m-0 p-0 text-[#1C1A17] antialiased selection:bg-[#A68A56] selection:text-white">
@@ -33,8 +38,8 @@
       </div>
     </a>
 
-    <!-- Nav + Toggle cluster pushed to far right via ml-auto -->
-    <nav class="ml-auto hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-[#1C1A17]/60 uppercase tracking-[0.12em] min-h-[44px] pr-2" dir="ltr">
+    <!-- Nav + Toggle cluster pushed to far right via ms-auto -->
+    <nav class="ms-auto hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-[#1C1A17]/60 uppercase tracking-[0.12em] min-h-[44px] pr-2" dir="ltr">
       <a href="/index.html#about" x-show="!isSelectionMode" class="hover:text-[#A68A56] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
       <a href="/select.html" x-show="!isSelectionMode" class="hover:text-[#A68A56] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
       <a href="/index.html#faq" x-show="!isSelectionMode" class="hover:text-[#A68A56] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
@@ -47,13 +52,13 @@
 
       <!-- Desktop Language Toggle -->
       <div class="hidden md:flex items-center gap-2 bg-[#1C1A17]/5 border border-[#1C1A17]/10 rounded-full p-1 backdrop-blur-sm relative z-50 ml-6" dir="ltr">
-        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-[#1C1A17]/60 hover:text-[#1C1A17]'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all">EN</button>
-        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-[#1C1A17]/60 hover:text-[#1C1A17]'" class="px-3 py-1.5 text-xs font-bold rounded-full transition-all font-cairo" style="font-family:'Noto Kufi Arabic',sans-serif;">عربي</button>
+        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-[#1C1A17]/60 hover:text-[#1C1A17]'" class="px-3 py-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-xs font-bold rounded-full transition-all">EN</button>
+        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-[#1C1A17]/60 hover:text-[#1C1A17]'" class="px-3 py-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-xs font-bold rounded-full transition-all font-cairo" style="font-family:'Noto Kufi Arabic',sans-serif;">عربي</button>
       </div>
     </nav>
 
     <!-- Mobile Hamburger only -->
-    <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu" class="ml-auto md:hidden w-11 h-11 flex items-center justify-center text-[#1C1A17]/70 hover:text-[#A68A56] transition-colors">
+    <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu" class="ms-auto md:hidden w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center text-[#1C1A17]/70 hover:text-[#A68A56] transition-colors">
       <svg x-show="!mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       <svg x-show="mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
