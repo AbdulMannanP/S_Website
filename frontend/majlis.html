@@ -25,64 +25,8 @@
     h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Cormorant Garamond', serif !important; }
   </style>
 </head>
-<body class="max-w-full overflow-x-hidden" x-data="{ scrolled: false, mobileMenuOpen: false, lang: 'ar', isSelectionMode: false, isNightMode: false, loading: false }" @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;" class="bg-gradient-to-br from-[#FDFBF7] via-[#F4EFE6] to-[#E8DFD1] overflow-x-hidden m-0 p-0 text-[#1C1A17] antialiased selection:bg-[#A68A56] selection:text-white">
-  
-  <!-- ── Header ──────────────────────────────────────── -->
-  <header  class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out border-b border-transparent"
-          :class="scrolled ? 'bg-[#FDFBF7]/80 backdrop-blur-md shadow-2xl border-[#A68A56]/20' : 'bg-transparent border-transparent'" >
-    <a href="/index.html" class="h-10 flex items-center gap-3 transition-transform duration-500 hover:scale-105">
-      <img src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" loading="eager" alt="Saeed Furniture" class="h-full object-contain" style="filter: brightness(0.1);">
-      <div class="flex flex-col">
-        <span class="text-[#1C1A17] font-bold text-sm tracking-[0.15em] uppercase whitespace-nowrap" x-text="lang === 'ar' ? 'مفروشات سعيد' : 'Saeed Furniture'">Saeed Furniture</span>
-        <span class="text-[#A68A56] text-[0.55rem] tracking-[0.2em] uppercase whitespace-nowrap mt-0.5" x-text="lang === 'ar' ? 'فخامة تدوم' : 'Bespoke Mastery'">Bespoke Mastery</span>
-      </div>
-    </a>
-
-    <!-- Nav + Toggle cluster pushed to far right via ms-auto -->
-    <nav class="ms-auto hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-[#1C1A17]/60 uppercase tracking-[0.12em] min-h-[44px] pr-2" dir="ltr">
-      <a href="/index.html#about" x-show="!isSelectionMode" class="hover:text-[#A68A56] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
-      <a href="/select.html" x-show="!isSelectionMode" class="hover:text-[#A68A56] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
-      <a href="/index.html#faq" x-show="!isSelectionMode" class="hover:text-[#A68A56] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
-      <a href="/contact.html" class="hover:text-[#A68A56] transition-colors flex items-center min-h-[44px] whitespace-nowrap" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
-      
-      <button @click="handleOrderClick()"
-              class="text-[#A68A56] hover:text-[#1C1A17] transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem] whitespace-nowrap"
-              x-text="$store.saeedAuth?.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
-      </button>
-
-      <!-- Desktop Language Toggle -->
-      <div class="hidden md:flex items-center gap-2 bg-[#1C1A17]/5 border border-[#1C1A17]/10 rounded-full p-1 backdrop-blur-sm relative z-50 ml-6" dir="ltr">
-        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-[#1C1A17]/60 hover:text-[#1C1A17]'" class="px-3 py-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-xs font-bold rounded-full transition-all">EN</button>
-        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-[#1C1A17]/60 hover:text-[#1C1A17]'" class="px-3 py-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-xs font-bold rounded-full transition-all font-cairo" style="font-family:'Noto Kufi Arabic',sans-serif;">عربي</button>
-      </div>
-    </nav>
-
-    <!-- Mobile Hamburger only -->
-    <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle Mobile Menu" class="ms-auto md:hidden w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center text-[#1C1A17]/70 hover:text-[#A68A56] transition-colors">
-      <svg x-show="!mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      <svg x-show="mobileMenuOpen" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </header>
-
-  <div x-show="mobileMenuOpen" x-cloak
-       x-transition:enter="transition ease-out duration-300"
-       x-transition:enter-start="opacity-0"
-       x-transition:enter-end="opacity-100"
-       x-transition:leave="transition ease-in duration-200"
-       x-transition:leave-start="opacity-100"
-       x-transition:leave-end="opacity-0"
-       class="fixed inset-0 z-[90] bg-[#FDFBF7]/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 md:hidden">
-    
-    <button @click="mobileMenuOpen = false" class="absolute top-6 right-6 p-2 rounded-full border border-[#A68A56]/30 text-[#1C1A17] hover:bg-[#A68A56] hover:text-white transition-colors" aria-label="Close Menu">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
-    </button>
-
-    <a href="/index.html#about" @click="mobileMenuOpen = false" class="text-xl font-light text-[#1C1A17]/70 hover:text-[#A68A56] transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'من نحن' : 'About'"></a>
-    <a href="/select.html" @click="mobileMenuOpen = false" class="text-xl font-light text-[#1C1A17]/70 hover:text-[#A68A56] transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'"></a>
-    <a href="/index.html#faq"   @click="mobileMenuOpen = false" class="text-xl font-light text-[#1C1A17]/70 hover:text-[#A68A56] transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'"></a>
-    <a href="/contact.html" @click="mobileMenuOpen = false" class="text-xl font-light text-[#1C1A17]/70 hover:text-[#A68A56] transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
-    <div class="w-12 h-[1px] bg-[#A68A56]/30 my-4"></div>
-  
+<body class="max-w-full overflow-x-hidden" x-data="{ scrolled: false, mobileMenuOpen: false, lang: 'ar', isSelectionMode: false, isNightMode: false, loading: false }" @scroll.window="scrolled = (window.pageYOffset >
+  <div id="global-header"></div> 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;" class="bg-gradient-to-br from-[#FDFBF7] via-[#F4EFE6] to-[#E8DFD1] overflow-x-hidden m-0 p-0 text-[#1C1A17] antialiased selection:bg-[#A68A56] selection:text-white">
     <!-- Mobile Language Toggle -->
     <div class="flex items-center bg-white/5 border border-white/10 rounded-full p-1 backdrop-blur-sm" dir="ltr">
       <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-6 py-2 text-sm font-bold rounded-full transition-all">EN</button>
@@ -126,5 +70,6 @@
 
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
   <script type="module" src="/dist/react-bundle.js?v=7"></script>
+  <script src="/js/components/header.js"></script>
 </body>
 </html>

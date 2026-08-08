@@ -518,56 +518,9 @@
     h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Cormorant Garamond', serif !important; }
   </style>
 </head>
-<body class="max-w-full overflow-x-hidden" x-data="saeedApp()" x-init="init()" @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;" class="font-sans">
+<body class="max-w-full overflow-x-hidden" x-data="saeedApp()" x-init="init()" @scroll.window="scrolled = (window.pageYOffset >
+  <div id="global-header"></div> 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;" class="font-sans">
 <!-- Restored Transparent Header -->
-<header class="fixed top-0 inset-x-0 z-[150] flex justify-between items-center px-6 md:px-10 py-5 text-white transition-all duration-700 ease-in-out border-b" :class="scrolled ? 'bg-[#0f0f0f]/95 backdrop-blur-md border-[#c9a96e]/20 shadow-[0_10px_40px_rgba(0,0,0,0.8)]' : 'bg-transparent border-transparent'">
-  <!-- Left Logo -->
-  <a href="/index.html" class="pointer-events-auto flex items-center gap-3 group">
-    <img loading="lazy" src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778" alt="Saeed Furniture" class="h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105" style="filter: invert(1) sepia(1) saturate(1.5) hue-rotate(5deg) brightness(1.2);">
-    <div class="flex flex-col">
-      <span class="text-white font-bold text-sm tracking-[0.15em] uppercase whitespace-nowrap" x-text="lang === 'ar' ? 'مفروشات سعيد' : 'Saeed Furniture'">Saeed Furniture</span>
-      <span class="text-amber-500/80 text-[0.55rem] tracking-[0.2em] uppercase whitespace-nowrap mt-0.5" x-text="lang === 'ar' ? 'فخامة تدوم' : 'Bespoke Mastery'">Bespoke Mastery</span>
-    </div>
-  </a>
-  <!-- Right: Navigation & Lang Toggle -->
-  <div class="flex items-center gap-6 md:gap-8 pointer-events-auto">
-    <!-- Restored Navigation Routes -->
-    <nav class="hidden md:flex items-center gap-6 md:gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-stone-300 drop-shadow-md ms-auto pe-6">
-      <a href="/index.html" class="hover:text-amber-400 transition-colors duration-300" x-text="lang === 'ar' ? 'الرئيسية' : 'Home'">Home</a>
-      <a href="/contact.html" class="hover:text-amber-400 transition-colors duration-300" x-text="lang === 'ar' ? 'تواصل' : 'Contact'">Contact</a>
-    
-      
-        <button @click="handleOrderClick()"
-              class="text-[#c9a96e] hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem] whitespace-nowrap"
-              x-text="$store.saeedAuth?.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
-      </button>
-
-        <!-- Desktop Language Toggle -->
-      <div class="hidden md:flex items-center gap-2 bg-white/5 border border-white/10 rounded-full p-1 backdrop-blur-sm relative z-50 ml-6" dir="ltr">
-        <button @click="lang = 'en'" :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-xs font-bold rounded-full transition-all">EN</button>
-        <button @click="lang = 'ar'" :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'" class="px-3 py-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-xs font-bold rounded-full transition-all font-cairo" style="font-family:'Noto Kufi Arabic',sans-serif;">عربي</button>
-      </div>
-
-
-    </nav>
-    
-    <!-- Mobile Menu Toggle -->
-    <div x-data="{ mobileNavOpen: false }" @keydown.escape.window="mobileNavOpen = false">
-      <button @click="mobileNavOpen = !mobileNavOpen" class="md:hidden text-white p-2 focus:outline-none" aria-label="Toggle Menu">
-        <svg class="w-6 h-6 drop-shadow-md" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-      </button>
-      <!-- Mobile Nav Dropdown -->
-      <div x-show="mobileNavOpen" x-cloak @click.outside="mobileNavOpen = false" class="md:hidden fixed top-24 inset-x-6 z-[140] bg-stone-950/95 backdrop-blur-md border border-white/10 rounded-2xl px-6 py-6 space-y-4 shadow-2xl pointer-events-auto text-center">
-        <a href="/index.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400" x-text="lang === 'ar' ? 'الرئيسية' : 'Home'">Home</a>
-        <a href="/contact.html" class="block text-white text-sm tracking-widest uppercase hover:text-amber-400" x-text="lang === 'ar' ? 'تواصل' : 'Contact'">Contact</a>
-      </div>
-    </div>
-  </div>
-  <div class="flex items-center gap-4 flex-shrink-0" dir="ltr">
-
-      
-  </div>
-</header>
 
   <!-- ── Page Loader ── -->
   <div x-data="{ loaded: document.readyState === 'complete' }" x-init="if (!loaded) window.addEventListener('load', () => loaded = true)" class="fixed inset-0 z-[200] bg-stone-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out" :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'">
@@ -877,6 +830,7 @@
     </div>
   </footer>
 
+  <script src="/js/components/header.js"></script>
 </body>
 </html>
 
