@@ -127,7 +127,7 @@
       },
       
       initSwiper() {
-        if(this.swiper || typeof Swiper === 'undefined') return;
+        if(this.swiper || typeof Swiper === 'undefined' || !document.querySelector('.lookbook-swiper')) return;
         this.swiper = new Swiper('.lookbook-swiper', {
           grabCursor: true,
           centeredSlides: true,
