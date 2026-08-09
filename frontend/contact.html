@@ -20,7 +20,7 @@
   <style>
     [x-cloak] { display: none !important; }
     html { scroll-behavior: smooth; }
-    body { background: #080809; font-family: 'DM Sans', sans-serif; }
+    body { background: #f5f0e8; font-family: 'DM Sans', sans-serif; color: #1C1A17; }
     h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Cormorant Garamond', serif !important; }
 
     /* ── Pulse ring for WhatsApp ── */
@@ -47,9 +47,9 @@
     .brutalInput {
       background: transparent;
       border: none;
-      border-bottom: 1px solid rgba(201,169,110,0.25);
+      border-bottom: 1px solid rgba(28,26,23,0.2);
       border-radius: 0;
-      color: #fff;
+      color: #1C1A17;
       font-size: 1rem;
       padding: 0.75rem 0;
       width: 100%;
@@ -58,8 +58,8 @@
       font-family: 'DM Sans', sans-serif;
     }
     .brutalInput:focus { border-bottom-color: #c9a96e; }
-    .brutalInput::placeholder { color: rgba(255,255,255,0.2); }
-    .brutalInput option { background: #111113; color: #fff; }
+    .brutalInput::placeholder { color: rgba(28,26,23,0.25); }
+    .brutalInput option { background: #f5f0e8; color: #1C1A17; }
 
     /* ── Floating label ── */
     .float-group { position: relative; padding-top: 1.25rem; }
@@ -71,7 +71,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.18em;
-      color: rgba(255,255,255,0.3);
+      color: rgba(28,26,23,0.35);
       pointer-events: none;
       transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
     }
@@ -179,18 +179,18 @@
   </div>
 
   <!-- ── Hero ── -->
-  <section class="px-6 text-center relative overflow-hidden pt-[100px] md:pt-[120px]" style="padding-top: clamp(100px, 15vh, 144px); padding-bottom: 3rem;">
+  <section class="px-6 text-center relative overflow-hidden pt-[100px] md:pt-[120px]" style="padding-top: clamp(100px, 15vh, 144px); padding-bottom: 3rem; background: linear-gradient(180deg, #EDE7DA 0%, #f5f0e8 100%);">
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] rounded-full bg-[#c9a96e]/4 blur-[100px] pointer-events-none"></div>
     <p class="text-[0.65rem] uppercase tracking-[0.4em] text-[#c9a96e] font-bold mb-4 relative z-10"
        x-text="lang === 'ar' ? 'تواصل في أي وقت' : 'Reach Us Anytime'"></p>
-    <h1 class="relative z-10 font-light text-white leading-tight mb-4" style="font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,7vw,5rem);">
+    <h1 class="relative z-10 font-light text-stone-800 leading-tight mb-4" style="font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,7vw,5rem);">
       <span x-show="lang !== 'ar'" x-cloak>Get In Touch</span>
       <span x-show="lang === 'ar'" style="font-family:'Noto Kufi Arabic',sans-serif;" x-cloak>تواصل معنا</span>
     </h1>
     <div class="gold-divider max-w-xs mx-auto mb-4 relative z-10">
       <div class="w-1.5 h-1.5 bg-[#c9a96e] rotate-45"></div>
     </div>
-    <p class="text-white/40 text-sm leading-relaxed max-w-md mx-auto relative z-10"
+    <p class="text-stone-500 text-sm leading-relaxed max-w-md mx-auto relative z-10"
        x-text="lang === 'ar' ? 'فريقنا يرد في غضون ساعات قليلة — نحن هنا للمساعدة في كل التفاصيل.' : 'Our team responds within a few hours — we\'re here to assist with every detail.'"></p>
   </section>
 
@@ -275,7 +275,7 @@
         </div>
 
         <!-- Zone 2a: How to Order — Accordion (Cabinetry) -->
-        <div class="border border-white/8 bg-[#080809] rounded-lg overflow-hidden">
+        <div class="border border-[#c9a96e]/30 bg-white/60 backdrop-blur-sm rounded-lg overflow-hidden">
           <button
             @click="orderOpen = !orderOpen"
             class="w-full flex items-center justify-between px-6 py-5 min-h-[56px] group"
@@ -284,7 +284,7 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5">
                 <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
               </svg>
-              <span class="font-serif text-xl font-light text-white group-hover:text-[#c9a96e] transition-colors"
+              <span class="font-serif text-xl font-light text-stone-800 group-hover:text-[#c9a96e] transition-colors"
                     x-text="lang === 'ar' ? 'كيف أطلب؟' : 'How to Order'"></span>
             </div>
             <svg class="w-4 h-4 text-[#c9a96e]/60 transition-transform duration-300"
@@ -306,7 +306,7 @@
               ]" :key="i">
                 <div class="flex items-start gap-3">
                   <div class="step-num" x-text="i + 1"></div>
-                  <p class="text-white/60 text-sm leading-relaxed pt-0.5" x-text="lang === 'ar' ? step.ar : step.en"></p>
+                  <p class="text-stone-600 text-sm leading-relaxed pt-0.5" x-text="lang === 'ar' ? step.ar : step.en"></p>
                 </div>
               </template>
               <div class="mt-4 p-4 rounded-lg border border-[#c9a96e]/15 bg-[#c9a96e]/5">
@@ -322,7 +322,7 @@
         </div>
 
         <!-- Zone 2b: Visit Our Showroom — Accordion (Cabinetry) -->
-        <div class="border border-white/8 bg-[#080809] rounded-lg overflow-hidden">
+        <div class="border border-[#c9a96e]/30 bg-white/60 backdrop-blur-sm rounded-lg overflow-hidden">
           <button
             @click="showroomOpen = !showroomOpen"
             class="w-full flex items-center justify-between px-6 py-5 min-h-[56px] group"
@@ -331,7 +331,7 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
               </svg>
-              <span class="font-serif text-xl font-light text-white group-hover:text-[#c9a96e] transition-colors"
+              <span class="font-serif text-xl font-light text-stone-800 group-hover:text-[#c9a96e] transition-colors"
                     x-text="lang === 'ar' ? 'تفضل بزيارتنا' : 'Visit Our Showroom'"></span>
             </div>
             <svg class="w-4 h-4 text-[#c9a96e]/60 transition-transform duration-300"
@@ -385,12 +385,12 @@
       <!-- ══ end LEFT PANEL ══ -->
 
       <!-- ══ RIGHT PANEL: Brutalist Contact Form ══ -->
-      <div class="border border-[#c9a96e]/15 rounded-lg p-6 md:p-8 bg-[#080809] max-h-[85dvh] overflow-y-auto overscroll-contain"
+      <div class="border border-[#c9a96e]/25 rounded-xl p-6 md:p-8 bg-white/70 backdrop-blur-sm shadow-[0_8px_40px_rgba(28,26,23,0.08)] max-h-[85dvh] overflow-y-auto overscroll-contain"
            x-data="{ formSubject: '', formName: '', formPhone: '', formMessage: '', formSending: false, formSent: false, formError: '' }">
 
         <p class="text-[0.6rem] uppercase tracking-[0.35em] text-[#c9a96e] font-bold mb-2"
            x-text="lang === 'ar' ? 'أرسل رسالتك' : 'Send a Message'"></p>
-        <h2 class="font-serif text-3xl font-light text-white mb-6"
+        <h2 class="font-serif text-3xl font-light text-stone-800 mb-6"
             x-text="lang === 'ar' ? 'نحن نستمع' : 'We\'re Listening'"></h2>
 
         <!-- Inline error -->
