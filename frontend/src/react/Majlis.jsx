@@ -725,19 +725,19 @@ export default function InteractiveLookbook() {
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: -50, opacity: 0 }}
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="flex flex-col gap-6 w-full pb-8"
+                        className="grid grid-cols-2 gap-4 md:gap-6 w-full pb-8"
                       >
                          {currentCompareData.map(item => (
                            <div 
                              key={item.id}
                              onClick={() => { setCompareItem(item); setCompareGalleryIndex(0); setIsCompareModalOpen(false); }}
-                             className="flex flex-col w-full group cursor-pointer"
+                             className="flex flex-col overflow-hidden isolate w-full group cursor-pointer bg-transparent"
                            >
                               <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-sm border border-[#A68A56]/20 bg-[#F4EFE6]">
                                 <ImageKitLQIP item={item.gallery[0]} width={800} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                               </div>
                               <div className="w-full pt-3">
-                                <p className="text-[#1C1A17] text-sm font-serif text-center">{item.name}</p>
+                                <p className="text-[#1C1A17] text-sm md:text-base font-serif text-center line-clamp-2 leading-snug text-balance">{item.name}</p>
                               </div>
                            </div>
                          ))}
