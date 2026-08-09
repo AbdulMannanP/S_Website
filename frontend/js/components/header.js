@@ -15,10 +15,10 @@
 (function () {
   const HEADER_HTML = `
     <!-- ── Universal Global Header ─────────────────────── -->
-    <div x-data="{ mobileMenuOpen: false, headerHidden: false, lastScroll: window.pageYOffset || 0 }" @scroll.window="let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;">
+    <div x-data="{ mobileMenuOpen: false, headerHidden: false, lastScroll: window.pageYOffset || 0, currY: window.pageYOffset || 0 }" @scroll.window="currY = window.pageYOffset; headerHidden = (currY > lastScroll && currY > 100); lastScroll = currY;">
     <header
-      class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out bg-[#080809] border-b border-[#c9a96e]/10"
-      :class="[(headerHidden ? '-translate-y-full' : 'translate-y-0'), (lang === 'ar' ? 'flex-row-reverse' : '')]"
+      class="fixed top-0 left-0 w-full z-[100] h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-300 ease-in-out border-b border-[#c9a96e]/10"
+      :class="[(headerHidden ? '-translate-y-full' : 'translate-y-0'), (lang === 'ar' ? 'flex-row-reverse' : ''), (currY > 50 ? 'bg-[#050506] shadow-md' : 'bg-transparent')]"
     >
       <!-- ── Logo Lockup ──────────────────────────────── -->
       <a href="/index.html" class="h-12 flex items-center gap-3 transition-transform duration-500 hover:scale-105 flex-shrink-0" :class="lang === 'ar' ? 'flex-row-reverse' : ''">
