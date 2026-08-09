@@ -20,7 +20,7 @@
       :class="headerHidden ? '-translate-y-full' : 'translate-y-0'"
     >
       <!-- ── Logo Lockup ──────────────────────────────── -->
-      <a href="/index.html" class="h-12 flex items-center gap-3 transition-transform duration-500 hover:scale-105 flex-shrink-0">
+      <a href="/index.html" class="h-12 flex items-center gap-3 transition-transform duration-500 hover:scale-105 flex-shrink-0 rtl:flex-row-reverse">
         <img
           src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778"
           loading="eager"
