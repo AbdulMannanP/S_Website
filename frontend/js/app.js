@@ -2,7 +2,9 @@
   const IMAGE_BASE_URL = './';
   window.IMAGE_BASE_URL = IMAGE_BASE_URL;
   // Relative URL
-  const API = window.location.origin;
+  const API = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && 
+              (window.location.port !== '3001' && window.location.port !== '3000' && window.location.port !== '') 
+              ? 'http://localhost:3001' : window.location.origin;
   let autoSaveController = null;
 
   window.saeedApp = function saeedApp() {
