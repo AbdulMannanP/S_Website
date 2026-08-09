@@ -16,7 +16,7 @@
   const HEADER_HTML = `
     <!-- ── Universal Global Header ─────────────────────── -->
     <header
-      class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out bg-[#080809] border-b border-[#c9a96e]/10"
+      class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out bg-[#080809] border-b border-[#c9a96e]/10 rtl:flex-row-reverse"
       :class="headerHidden ? '-translate-y-full' : 'translate-y-0'"
     >
       <!-- ── Logo Lockup ──────────────────────────────── -->
@@ -37,29 +37,29 @@
       </a>
 
       <!-- ── Desktop Navigation ───────────────────────── -->
-      <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px] ms-auto pe-6">
+      <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px] ms-auto pe-6 rtl:flex-row-reverse">
         <a href="/index.html#about"
            x-show="!isSelectionMode"
-           class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap"
+           class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap text-start"
            x-text="lang === 'ar' ? 'من نحن' : 'About'">About</a>
 
         <a href="/select.html"
            x-show="!isSelectionMode"
-           class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap"
+           class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap text-start"
            x-text="lang === 'ar' ? 'المجموعات' : 'Collections'">Collections</a>
 
         <a href="/index.html#faq"
            x-show="!isSelectionMode"
-           class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap"
+           class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap text-start"
            x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'">FAQ</a>
 
         <a href="/contact.html"
-           class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap"
+           class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap text-start"
            x-text="lang === 'ar' ? 'تواصل' : 'Contact'">Contact</a>
 
         <button
           @click="typeof handleOrderClick === 'function' ? handleOrderClick() : null"
-          class="relative hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem] text-[#c9a96e] whitespace-nowrap"
+          class="relative hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem] text-[#c9a96e] whitespace-nowrap text-start"
           x-text="\$store.saeedAuth?.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
           Order
         </button>
@@ -131,14 +131,14 @@
 
       <div class="w-12 h-px bg-[#c9a96e]/30"></div>
 
-      <a href="/index.html#about"   @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'من نحن' : 'About'">About</a>
-      <a href="/select.html"         @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'">Collections</a>
-      <a href="/index.html#faq"      @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'">FAQ</a>
-      <a href="/contact.html"        @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em]" x-text="lang === 'ar' ? 'تواصل' : 'Contact'">Contact</a>
+      <a href="/index.html#about"   @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] text-start" x-text="lang === 'ar' ? 'من نحن' : 'About'">About</a>
+      <a href="/select.html"         @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] text-start" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'">Collections</a>
+      <a href="/index.html#faq"      @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] text-start" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'">FAQ</a>
+      <a href="/contact.html"        @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] text-start" x-text="lang === 'ar' ? 'تواصل' : 'Contact'">Contact</a>
 
       <button
         @click="typeof handleOrderClick === 'function' ? handleOrderClick() : null; mobileMenuOpen = false"
-        class="text-2xl font-light text-[#c9a96e] hover:text-[#c9a96e]/80 transition-colors uppercase tracking-[0.3em]"
+        class="text-2xl font-light text-[#c9a96e] hover:text-[#c9a96e]/80 transition-colors uppercase tracking-[0.3em] text-start"
         x-text="\$store.saeedAuth?.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
         Order
       </button>
