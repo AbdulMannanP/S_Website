@@ -284,8 +284,13 @@ export default function InteractiveLookbook() {
   }, [activeCollection, isTouchDevice]);
 
   useEffect(() => {
-    if (selectedItem || isExitIntentOpen || isCompareModalOpen || isBespokeModalOpen) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = 'auto';
+    if (selectedItem || isExitIntentOpen || isCompareModalOpen || isBespokeModalOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-active');
+    } else {
+      document.body.style.overflow = 'auto';
+      document.body.classList.remove('modal-active');
+    }
   }, [selectedItem, isExitIntentOpen, isCompareModalOpen, isBespokeModalOpen]);
 
   // Intercept Logic Helpers
@@ -402,7 +407,7 @@ export default function InteractiveLookbook() {
             window.open("https://wa.me/9288004450?text=I%20would%20like%20to%20share%20a%20reference", "_blank");
           }
         }}
-        className={`group fixed bottom-10 right-10 md:bottom-12 md:right-12 z-[150] flex items-center justify-start overflow-hidden rounded-full backdrop-blur-md bg-[#25d366] border border-[#25d366]/40 shadow-[0_8px_30px_rgba(37,211,102,0.4)] transition-all duration-500 ease-[cubic-bezier(0.65,0,0.05,1)] h-14 ${
+        className={`group fixed bottom-10 right-10 md:bottom-12 md:right-12 z-[150] flex items-center justify-start overflow-hidden rounded-full backdrop-blur-md bg-[#25d366] border border-[#25d366]/40 shadow-[0_8px_30px_rgba(37,211,102,0.4)] transition-all duration-500 ease-[cubic-bezier(0.65,0,0.05,1)] h-14 ${selectedItem || isCompareModalOpen || isBespokeModalOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'} ${
           isTouchDevice
             ? isConciergeOpen ? 'w-72' : 'w-14'
             : 'w-14 hover:w-72'
@@ -434,7 +439,7 @@ export default function InteractiveLookbook() {
             transition={{ duration: 0.4 }}
             className={`fixed inset-0 z-50 bg-[#FDFBF7]/90 backdrop-blur-3xl pt-[80px] ${
               isMobile 
-                ? 'flex flex-col h-[100dvh] overflow-hidden' 
+                ? 'flex flex-col h-[100dvh] md:h-auto max-h-[90vh] overflow-y-auto overscroll-contain -webkit-overflow-scrolling-touch pb-24' 
                 : 'flex items-center justify-center p-4 md:p-8 overflow-y-auto'
             }`}
             style={{ willChange: "opacity" }}
@@ -513,7 +518,7 @@ export default function InteractiveLookbook() {
 
                    {/* Winner Selection UI (Primary side) */}
                    {compareItem && (
-                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20">
+                      <div className={`${isMobile ? 'sticky bottom-0 left-0 w-full p-4 bg-[#FDFBF7]/90 backdrop-blur-md border-t border-black/10 flex justify-center z-50' : 'absolute bottom-4 left-1/2 -translate-x-1/2 z-20'}`}>
                         <button
                            onClick={(e) => {
                              e.stopPropagation();
@@ -559,13 +564,13 @@ export default function InteractiveLookbook() {
 
                      <button
                        onClick={() => setCompareItem(null)}
-                       className="absolute top-4 right-4 bg-[#FDFBF7]/80 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center text-[#1C1A17]/60 hover:text-[#1C1A17] hover:bg-[#FDFBF7] transition-all border border-[#A68A56]/20 shadow-2xl z-30"
+                       className="absolute top-4 right-4 bg-[#FDFBF7]/80 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center text-[#1C1A17]/60 hover:text-[#1C1A17] hover:bg-[#FDFBF7] transition-all border border-[#A68A56]/20 shadow-2xl z-[60]"
                      >
                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
                      </button>
 
                      {/* Winner Selection UI (Compare side) */}
-                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20">
+                     <div className={`${isMobile ? 'sticky bottom-0 left-0 w-full p-4 bg-[#FDFBF7]/90 backdrop-blur-md border-t border-black/10 flex justify-center z-50' : 'absolute bottom-4 left-1/2 -translate-x-1/2 z-20'}`}>
                         <button
                            onClick={(e) => {
                              e.stopPropagation();
@@ -589,7 +594,7 @@ export default function InteractiveLookbook() {
                  <motion.div
                    layout
                    className={`shrink-0 flex flex-col justify-start lg:justify-center py-8 lg:py-0 ${
-                     isMobile ? 'flex-1 w-full min-h-0 overflow-y-auto pb-32 px-4 sm:px-8' : 'w-full lg:w-[450px]'
+                     isMobile ? 'w-full px-4 sm:px-8 pb-4' : 'w-full lg:w-[450px]'
                    }`}
                  >
                    {/* Primary Gallery Controls (Moved from absolute image overlay) */}
@@ -616,16 +621,16 @@ export default function InteractiveLookbook() {
                      {selectedItem.desc}
                    </p>
                    
-                   <div className="grid grid-cols-2 gap-3 mt-8 w-full">
+                   <div className={`${isMobile ? 'sticky bottom-0 left-0 w-full p-4 bg-[#FDFBF7]/90 backdrop-blur-md border-t border-black/10 flex gap-4 z-50' : 'grid grid-cols-2 gap-3 mt-8 w-full'}`}>
                      <button 
                        onClick={() => setIsBespokeModalOpen(true)}
-                       className={`w-full py-4 px-2 bg-[#A68A56] text-white rounded-full text-[10px] sm:text-xs font-bold tracking-widest uppercase text-center hover:bg-[#1C1A17] active:scale-95 transition-all shadow-[0_0_30px_rgba(166,138,86,0.2)] ${'cursor-pointer'}`}
+                       className={`${isMobile ? 'flex-1' : 'w-full'} py-4 px-2 bg-[#A68A56] text-white rounded-full text-[10px] sm:text-xs font-bold tracking-widest uppercase text-center hover:bg-[#1C1A17] active:scale-95 transition-all shadow-[0_0_30px_rgba(166,138,86,0.2)] ${'cursor-pointer'}`}
                      >
                        Request Bespoke
                      </button>
                      <button 
                        onClick={() => { setComparePage(0); setIsCompareModalOpen(true); }}
-                       className={`w-full py-4 px-2 bg-transparent border border-[#A68A56]/30 text-[#1C1A17] rounded-full text-[10px] sm:text-xs font-bold tracking-widest uppercase text-center hover:bg-[#1C1A17]/5 transition-all ${'cursor-pointer'}`}
+                       className={`${isMobile ? 'flex-1' : 'w-full'} py-4 px-2 bg-transparent border border-[#A68A56]/30 text-[#1C1A17] rounded-full text-[10px] sm:text-xs font-bold tracking-widest uppercase text-center hover:bg-[#1C1A17]/5 transition-all ${'cursor-pointer'}`}
                      >
                        Compare Models
                      </button>

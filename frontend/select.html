@@ -526,8 +526,11 @@
       window.saeedInitialLang = storedLang;
     })();
   </script>
+  <style>
+    body.modal-active .floating-whatsapp, body.modal-active [class*="animate-pulse-ring"] { display: none !important; }
+  </style>
 </head>
-<body class="max-w-full overflow-x-hidden" x-data="saeedApp()" x-init="init()" @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;" class="font-sans">
+<body class="max-w-full overflow-x-hidden" x-data="saeedApp()" x-init="init()" x-effect="document.body.classList.toggle('modal-active', $store.saeedAuth?.showAuthModal || false)" @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;" class="font-sans">
   <div id="global-header"></div>
 <!-- Restored Transparent Header -->
 
