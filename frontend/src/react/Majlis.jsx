@@ -629,11 +629,13 @@ export default function InteractiveLookbook() {
                          <div 
                             key={rec.id} 
                             onClick={() => { setSelectedItem(rec); setIsInterceptDrawerOpen(false); }}
-                            className="min-w-[70vw] sm:min-w-[40vw] lg:min-w-0 snap-center relative aspect-video rounded-xl overflow-hidden bg-white border border-[#A68A56]/20 cursor-pointer hover:border-[#A68A56] transition-all group"
+                            className="min-w-[70vw] sm:min-w-[40vw] lg:min-w-0 snap-center flex flex-col group cursor-pointer"
                          >
-                            <ImageKitLQIP item={rec.gallery[0]} width={400} className="absolute inset-0 w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#F4EFE6]/90 via-[#F4EFE6]/0 to-transparent opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity flex items-end p-4">
-                              <p className="text-xs text-[#1C1A17] font-bold tracking-tight">{rec.name}</p>
+                            <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-sm border border-[#A68A56]/20 bg-[#F4EFE6] transition-all group-hover:border-[#A68A56]">
+                               <ImageKitLQIP item={rec.gallery[0]} width={400} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                            </div>
+                            <div className="w-full pt-3">
+                              <p className="text-[#1C1A17] text-sm font-serif text-center">{rec.name}</p>
                             </div>
                          </div>
                        ))}
@@ -663,7 +665,7 @@ export default function InteractiveLookbook() {
             </div>
 
             {/* Mobile Native Fixed Footer for CTA Buttons */}
-            {isMobile && !compareItem && (
+            {isMobile && !compareItem && !isBespokeModalOpen && !isCompareModalOpen && (
                <div className="fixed bottom-0 left-0 w-full px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] bg-[#FDFBF7]/95 backdrop-blur-md border-t border-black/5 flex justify-center gap-4 z-[9999] shadow-[0_-10px_40px_rgba(253,251,247,0.8)]">
                  <button 
                    onClick={() => setIsBespokeModalOpen(true)}
@@ -735,17 +737,19 @@ export default function InteractiveLookbook() {
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: -50, opacity: 0 }}
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="grid grid-cols-2 gap-6 w-full pb-8"
+                        className="flex flex-col gap-6 w-full pb-8"
                       >
                          {currentCompareData.map(item => (
                            <div 
                              key={item.id}
                              onClick={() => { setCompareItem(item); setCompareGalleryIndex(0); setIsCompareModalOpen(false); }}
-                             className="relative block w-full aspect-square rounded-xl overflow-hidden shadow-md border border-[#A68A56]/20 bg-[#F4EFE6] group cursor-pointer"
+                             className="flex flex-col w-full group cursor-pointer"
                            >
-                              <ImageKitLQIP item={item.gallery[0]} width={400} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                              <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-[#FDFBF7]/90 via-[#FDFBF7]/60 to-transparent">
-                                <p className="text-[#1C1A17] text-[10px] md:text-xs font-bold uppercase tracking-widest line-clamp-2 leading-snug text-balance">{item.name}</p>
+                              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-sm border border-[#A68A56]/20 bg-[#F4EFE6]">
+                                <ImageKitLQIP item={item.gallery[0]} width={800} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                              </div>
+                              <div className="w-full pt-3">
+                                <p className="text-[#1C1A17] text-sm font-serif text-center">{item.name}</p>
                               </div>
                            </div>
                          ))}
