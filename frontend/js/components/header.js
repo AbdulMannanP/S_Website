@@ -15,6 +15,7 @@
 (function () {
   const HEADER_HTML = `
     <!-- ── Universal Global Header ─────────────────────── -->
+    <div x-data="{ mobileMenuOpen: false, headerHidden: false, lastScroll: window.pageYOffset || 0 }" @scroll.window="let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;">
     <header
       class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out bg-[#080809] border-b border-[#c9a96e]/10 rtl:flex-row-reverse"
       :class="headerHidden ? '-translate-y-full' : 'translate-y-0'"
@@ -162,7 +163,7 @@
         </button>
       </div>
     </div>
-  `;
+    </div>`;
 
   // Find the mount point and inject
   function mountHeader() {

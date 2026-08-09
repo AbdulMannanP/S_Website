@@ -22,8 +22,8 @@
 
   <!-- Supabase + App JS -->
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="js/auth.js?v=6"></script>
-  <script defer src="js/app.js?v=6"></script>
+  <script defer src="js/auth.js?v=7"></script>
+  <script defer src="js/app.js?v=7"></script>
 
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -530,7 +530,7 @@
     body.modal-active .floating-whatsapp, body.modal-active [class*="animate-pulse-ring"] { display: none !important; }
   </style>
 </head>
-<body class="max-w-full overflow-x-hidden" x-data="saeedApp()" x-init="init()" x-effect="document.body.classList.toggle('modal-active', $store.saeedAuth?.showAuthModal || false)" @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;" class="font-sans">
+<body class="max-w-full overflow-x-hidden" x-data="saeedApp()" x-init="init()" x-effect="document.body.classList.toggle('modal-active', $store.saeedAuth?.showAuthModal || false)"  class="font-sans">
   <div id="global-header"></div>
 <!-- Restored Transparent Header -->
 
@@ -837,7 +837,7 @@
     </div>
   </footer>
 
-  <script src="/js/components/header.js?v=6"></script>
+  <script src="/js/components/header.js?v=7"></script>
 </body>
 </html>
 

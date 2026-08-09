@@ -37,7 +37,7 @@
     body.modal-active .floating-whatsapp, body.modal-active [class*="animate-pulse-ring"] { display: none !important; }
   </style>
 </head>
-<body class="max-w-full overflow-x-hidden" x-data="{scrolled: false, mobileMenuOpen: false, lang: window.saeedInitialLang, isSelectionMode: false, isNightMode: false, loading: false, headerHidden: false, lastScroll: window.pageYOffset || 0 }" @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;" class="bg-gradient-to-br from-[#FDFBF7] via-[#F4EFE6] to-[#E8DFD1] overflow-x-hidden m-0 p-0 text-[#1C1A17] antialiased selection:bg-[#A68A56] selection:text-white">
+<body class="max-w-full overflow-x-hidden" x-data="{scrolled: false, mobileMenuOpen: false, lang: window.saeedInitialLang, isSelectionMode: false, isNightMode: false, loading: false, headerHidden: false, lastScroll: window.pageYOffset || 0 }"  class="bg-gradient-to-br from-[#FDFBF7] via-[#F4EFE6] to-[#E8DFD1] overflow-x-hidden m-0 p-0 text-[#1C1A17] antialiased selection:bg-[#A68A56] selection:text-white">
   <div id="global-header"></div>
     <!-- Mobile Language Toggle -->
     <div class="flex items-center bg-white/5 border border-white/10 rounded-full p-1 backdrop-blur-sm" dir="ltr">
@@ -76,7 +76,7 @@
   </footer>
 
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
-  <script type="module" src="/dist/react-bundle.js?v=6"></script>
-  <script src="/js/components/header.js?v=6"></script>
+  <script type="module" src="/dist/react-bundle.js?v=7"></script>
+  <script src="/js/components/header.js?v=7"></script>
 </body>
 </html>

@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="js/auth.js?v=6"></script>
+  <script defer src="js/auth.js?v=7"></script>
   <link rel="stylesheet" href="/dist/output.css">
 
   <style>
@@ -68,7 +68,7 @@
     }
   </style>
 
-  <script defer src="/js/app.js?v=6"></script>
+  <script defer src="/js/app.js?v=7"></script>
   <script defer src="https://unpkg.com/@alpinejs/intersect@3.14.1/dist/cdn.min.js"></script>
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
 
@@ -93,7 +93,7 @@
   class="bg-neutral-900 text-stone-300 font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-amber-700/30 transition-colors duration-1000"
   x-data="saeedApp()"
   x-init="init()" x-effect="document.body.classList.toggle('modal-active', $store.saeedAuth?.showAuthModal || false)"
-  @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;">
+  >
   <div id="global-header"></div>
 
   <!-- Mobile Drawer -->
@@ -232,6 +232,6 @@
   </div>
   
 
-  <script src="/js/components/header.js?v=6"></script>
+  <script src="/js/components/header.js?v=7"></script>
 </body>
 </html>
