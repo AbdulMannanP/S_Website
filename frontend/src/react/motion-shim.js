@@ -56,8 +56,8 @@ export function useTransform(v, input, output) { return { get: () => output[0] }
 export function useSpring(v) { return v; }
 export function useMotionValue(initial) {
   const ref = useRef(initial);
-  ref.current = initial;
   ref.get = () => ref.current;
+  ref.set = (v) => { ref.current = v; };
   return ref;
 }
 export function useMotionTemplate(...args) { return { get: () => '' }; }
