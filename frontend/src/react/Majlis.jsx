@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from 'framer-motion';
-import Lenis from '@studio-freight/lenis';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from './motion-shim.js';
+
 
 // -------------------------------------------------------------
 // DATA PAYLOAD
@@ -298,22 +298,8 @@ export default function InteractiveLookbook() {
     }
   }, [isTouchDevice]);
 
-  // Smooth Scroll
-  useEffect(() => {
-    if (isTouchDevice) return;
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      smooth: true,
-    });
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-    return () => lenis.destroy();
-  }, [isTouchDevice]);
+  // Smooth scroll handled natively via CSS scroll-behavior: smooth
+
 
   // Data Shuffle
   useEffect(() => {
