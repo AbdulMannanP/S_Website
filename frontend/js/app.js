@@ -10,7 +10,8 @@
   window.saeedApp = function saeedApp() {
     return {
       /* ── UI State ─────────────────────────────────────── */
-      lang:              window.saeedInitialLang || 'ar',
+      get lang() { return Alpine.store('saeedApp').lang; },
+      set lang(val) { Alpine.store('saeedApp').setLang(val); },
       isSelectionMode:   false,
       step:              'hero', // hero, selection, form, success
       showExitPopup:     false,
@@ -408,16 +409,6 @@
         this.goToStep('form');
       },
 
-      /* ── Order Button Handler (Auth Gate) ─────────────── */
-      handleOrderClick() {
-        const auth = Alpine.store('saeedAuth');
-        if (!auth.user) {
-          auth.showAuthModal = true;
-          auth.pendingAction = () => { window.location.href = '/dashboard/client'; };
-        } else {
-          window.location.href = '/dashboard/client';
-        }
-      },
       async submitForm() {
         if (this.submitting) return;
         const auth = Alpine.store('saeedAuth');
