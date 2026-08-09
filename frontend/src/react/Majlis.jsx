@@ -95,14 +95,14 @@ const ImageKitLQIP = ({ item, layoutId, width = 800, className }) => {
   return (
     <>
       <motion.img 
-        src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${item}?tr=w-40,bl-6`}
+        src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${encodeURIComponent(item)}?tr=w-40,bl-6`}
         alt=""
         className={appliedClass}
         style={{ opacity: loaded ? 0 : 1, transition: 'opacity 0.6s ease-out', z: 0 }}
       />
       <motion.img
         layoutId={layoutId}
-        src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${item}?tr=w-${width},q-80,f-auto`}
+        src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${encodeURIComponent(item)}?tr=w-${width},q-80,f-auto`}
         onLoad={() => setLoaded(true)}
         loading="lazy"
         alt=""
@@ -118,7 +118,7 @@ const MobileStaticImage = ({ item, containerClassName }) => {
   return (
     <div className={`w-full flex items-start justify-center p-0 sm:p-4 bg-[#F4EFE6] overflow-hidden shadow-lg border-b border-[#A68A56]/10 ${containerClassName || 'rounded-b-3xl'}`}>
       <img
-        src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${item}?tr=w-900,q-80,f-auto`}
+        src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${encodeURIComponent(item)}?tr=w-900,q-80,f-auto`}
         loading="lazy"
         alt="Product"
         className="w-full aspect-[4/3] object-cover bg-[#F4EFE6]"
@@ -174,12 +174,12 @@ const SynchronizedZoomImage = ({ item, isTouchDevice, isZoomingLeft, isZoomingRi
       onTouchEnd={isTouchDevice ? handlePointerLeave : undefined}
     >
        <motion.img
-         src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${item}?tr=w-40,bl-6`}
+         src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${encodeURIComponent(item)}?tr=w-40,bl-6`}
          className="absolute inset-0 w-full h-full object-cover lg:object-contain p-0 lg:p-4"
          style={{ opacity: loaded ? 0 : 1, transformOrigin, scale }}
        />
        <motion.img
-         src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${item}?tr=w-1600,q-80,f-auto`}
+         src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${encodeURIComponent(item)}?tr=w-1600,q-80,f-auto`}
          onLoad={() => setLoaded(true)}
          className="absolute inset-0 w-full h-full object-cover lg:object-contain p-0 lg:p-4 drop-shadow-2xl"
          style={{ opacity: loaded ? 1 : 0, transformOrigin, scale, willChange: 'transform' }}
@@ -449,7 +449,7 @@ export default function InteractiveLookbook() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 0.2, scale: 1.1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${selectedItem.gallery[0]}?tr=w-400,q-50`}
+              src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${encodeURIComponent(selectedItem.gallery[0])}?tr=w-400,q-50`}
               className="absolute inset-0 w-full h-full object-cover blur-[150px] z-0 pointer-events-none"
             />
 
@@ -513,7 +513,7 @@ export default function InteractiveLookbook() {
                         <div className="relative w-full rounded-xl overflow-hidden aspect-[16/9] md:aspect-[3/2]">
                           {/* Global Image Rendering - purely responsive <img> tag */}
                           <img 
-                            src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${selectedItem.gallery[galleryIndex]}?tr=w-1200,q-80,f-auto`}
+                            src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${encodeURIComponent(selectedItem.gallery[galleryIndex])}?tr=w-1200,q-80,f-auto`}
                             alt={selectedItem.name}
                             className="w-full h-full object-cover"
                           />
@@ -549,7 +549,7 @@ export default function InteractiveLookbook() {
                         <div className="relative w-full rounded-xl overflow-hidden aspect-[16/9] md:aspect-[3/2]">
                           {/* Global Image Rendering - purely responsive <img> tag */}
                           <img 
-                            src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${compareItem.gallery[compareGalleryIndex]}?tr=w-1200,q-80,f-auto`}
+                            src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${encodeURIComponent(compareItem.gallery[compareGalleryIndex])}?tr=w-1200,q-80,f-auto`}
                             alt={compareItem.name}
                             className="w-full h-full object-cover"
                           />

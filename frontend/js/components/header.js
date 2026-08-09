@@ -17,11 +17,11 @@
     <!-- ── Universal Global Header ─────────────────────── -->
     <div x-data="{ mobileMenuOpen: false, headerHidden: false, lastScroll: window.pageYOffset || 0 }" @scroll.window="let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;">
     <header
-      class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out bg-[#080809] border-b border-[#c9a96e]/10 rtl:flex-row-reverse"
-      :class="headerHidden ? '-translate-y-full' : 'translate-y-0'"
+      class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-700 ease-in-out bg-[#080809] border-b border-[#c9a96e]/10"
+      :class="[(headerHidden ? '-translate-y-full' : 'translate-y-0'), (lang === 'ar' ? 'flex-row-reverse' : '')]"
     >
       <!-- ── Logo Lockup ──────────────────────────────── -->
-      <a href="/index.html" class="h-12 flex items-center gap-3 transition-transform duration-500 hover:scale-105 flex-shrink-0 rtl:flex-row-reverse">
+      <a href="/index.html" class="h-12 flex items-center gap-3 transition-transform duration-500 hover:scale-105 flex-shrink-0" :class="lang === 'ar' ? 'flex-row-reverse' : ''">
         <img
           src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778"
           loading="eager"
@@ -38,7 +38,7 @@
       </a>
 
       <!-- ── Desktop Navigation ───────────────────────── -->
-      <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px] ms-auto pe-6 rtl:flex-row-reverse">
+      <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px] ms-auto pe-6" :class="lang === 'ar' ? 'flex-row-reverse' : ''">
         <a href="/index.html#about"
            x-show="!isSelectionMode"
            class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap text-start"
