@@ -292,26 +292,9 @@
           }
         });
 
-        setInterval(() => {
-          if (this.form.status === 'final') return;
-          this.form.time_spent += 25;
-          this.autoSave();
-        }, 25_000);
+        
 
-        document.addEventListener('visibilitychange', () => {
-          if (document.visibilityState === 'hidden') {
-            if (!this.form.order_id || this.form.order_id === 'SF-LOCAL') return;
-            const auth = Alpine.store('saeedAuth');
-            const headers = { 'Content-Type': 'application/json' };
-            if (auth?.user?.email) headers['x-user-email'] = auth.user.email;
-            
-            const sendFetch = (h) => {
-              fetch(`${API}/api/lead`, {
-                method: 'POST',
-                headers: h,
-                body: JSON.stringify(this.form),
-                keepalive: true
-              }).catch(() => {});
+        
             };
 
             if (auth?.supabase) {
@@ -381,7 +364,7 @@
         this.form.score      = this.calculateScore();
         this.updateProgress();
         // Scroll handled by fixed overlay positioning — no DOM scroll needed
-        this.autoSave();
+        /* autoSave removed */
       },
 
       updateProgress() {
@@ -391,7 +374,7 @@
 
       onWhatsAppClick() {
         this.form.last_step = 'whatsapp-clicked';
-        this.autoSave();
+        /* autoSave removed */
       },
 
       selectStyle(style) {
@@ -399,7 +382,7 @@
           this.accessoriesClicked = !this.accessoriesClicked;
           this.form.style_selected = 'Accessories & Steel';
           this.form.last_step = 'accessories-interest';
-          this.autoSave();
+          /* autoSave removed */
           return;
         }
         this.accessoriesClicked   = false;
@@ -422,7 +405,7 @@
       onPhoneBlur() {
         clearTimeout(this._phoneTimer);
         this.form.score = this.calculateScore();
-        this.autoSave();
+        /* autoSave removed */
       },
       onNameInput() {
         clearTimeout(this._nameTimer);
@@ -522,7 +505,7 @@
       selectType(type) {
         this.selectedType = type;
         this.selectionLevel = 'subtype';
-        this.autoSave();
+        /* autoSave removed */
       },
       selectSubtype(subtype) {
         this.selectedSubtype = subtype;
@@ -531,7 +514,7 @@
         } else {
           this.selectionLevel = 'variation';
         }
-        this.autoSave();
+        /* autoSave removed */
       },
       selectVariation(variation) {
         this.selectedVariation = variation;
@@ -542,7 +525,7 @@
         this.form.capacity_selected = this.selectedSubtype.public_display_name;
         
         this.goToStep('form');
-        this.autoSave();
+        /* autoSave removed */
       },
       closeSelectionMode() {
         this.isSelectionMode = false;

@@ -5,6 +5,9 @@ const config = require("../config/env");
 // Path B: Explicitly provide a WebSocket implementation.
 const WebSocket = require("ws");
 
+// Ensure the table name is explicitly defined
+const TABLE_NAME = 'leads';
+
 const supabaseBaseOptions = {
   realtime: { transport: WebSocket }
 };
@@ -57,7 +60,7 @@ async function upsertLead(req, data) {
   };
 
   const { data: existing } = await supabase
-    .from('leads')
+    .from(TABLE_NAME)
     .select('order_id, session_id')
     .eq('order_id', order_id)
     .single();
@@ -73,7 +76,7 @@ async function upsertLead(req, data) {
   const action = existing ? "updated" : "inserted";
 
   const { error } = await supabase
-    .from('leads')
+    .from(TABLE_NAME)
     .upsert(payload, { onConflict: 'order_id' });
 
   if (error) {
@@ -87,7 +90,7 @@ async function upsertLead(req, data) {
 async function getLeadByOrderId(req, order_id) {
   const supabase = getAuthClient(req);
   const { data, error } = await supabase
-    .from('leads')
+    .from(TABLE_NAME)
     .select('*')
     .eq('order_id', order_id)
     .single();
@@ -99,7 +102,7 @@ async function getLeadByOrderId(req, order_id) {
 async function getAllLeads(req) {
   const supabase = getAuthClient(req);
   const { data, error } = await supabase
-    .from('leads')
+    .from(TABLE_NAME)
     .select('*')
     .order('created_at', { ascending: false });
 
@@ -123,7 +126,7 @@ async function getStats(req) {
 async function getLeadsByEmail(req, email) {
   const supabase = getAuthClient(req);
   const { data, error } = await supabase
-    .from('leads')
+    .from(TABLE_NAME)
     .select('*')
     .eq('email', email)
     .order('created_at', { ascending: false });
@@ -143,7 +146,7 @@ async function updateLeadCRM(req, order_id, data) {
   if (assigned_to !== undefined) payload.assigned_to = assigned_to;
 
   const { error } = await supabase
-    .from('leads')
+    .from(TABLE_NAME)
     .update(payload)
     .eq('order_id', order_id);
 
