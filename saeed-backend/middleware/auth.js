@@ -55,8 +55,12 @@ async function requireAdmin(req, res, next) {
       return res.status(401).json({ success: false, message: "Unauthorized: Invalid Token" });
     }
 
-    // Check if user has admin role from profiles table
-    const { data: profile, error: profileError } = await supabase
+    // Check if user has admin role from profiles table using a scoped client
+    const userClient = createClient(config.supabaseUrl, config.supabaseAnonKey, {
+      global: { headers: { Authorization: `Bearer ${token}` } },
+      realtime: { transport: WebSocket }
+    });
+    const { data: profile, error: profileError } = await userClient
       .from("profiles")
       .select("role")
       .eq("id", user.id)

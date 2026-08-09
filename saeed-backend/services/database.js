@@ -58,9 +58,17 @@ async function upsertLead(req, data) {
 
   const { data: existing } = await supabase
     .from('leads')
-    .select('order_id')
+    .select('order_id, session_id')
     .eq('order_id', order_id)
     .single();
+
+  if (existing && !req.user) {
+    if (!session_id || existing.session_id !== session_id) {
+      const err = new Error("Forbidden: Invalid session ID for lead update");
+      err.status = 403;
+      throw err;
+    }
+  }
 
   const action = existing ? "updated" : "inserted";
 

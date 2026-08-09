@@ -80,7 +80,7 @@ const corsOptions = {
     ].filter(Boolean);
 
     // 3. The Validation Check
-    if (allowedOrigins.includes(origin) || origin.endsWith('.onrender.com')) {
+    if (allowedOrigins.includes(origin)) {
       callback(null, true); // Let it through
     } else {
       callback(new Error('CORS: Origin not allowed by strict policy')); // Block it
@@ -201,6 +201,9 @@ function generateOrderId() {
 
 // ─── Start ────────────────────────────────────────────────────────────────────
 async function start() {
+  if (process.env.NODE_ENV === 'production' && !process.env.REDIS_URL) {
+    throw new Error('REDIS_URL is required in production for rate limiting.');
+  }
   await initSchema(); // Ensure schema exists before accepting any request
 
   app.listen(config.port, () => {
