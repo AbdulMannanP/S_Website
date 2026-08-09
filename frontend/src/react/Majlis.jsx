@@ -619,12 +619,10 @@ export default function InteractiveLookbook() {
                             onClick={() => { setSelectedItem(rec); setIsInterceptDrawerOpen(false); }}
                             className="min-w-[70vw] sm:min-w-[40vw] lg:min-w-0 snap-center flex flex-col group cursor-pointer"
                          >
-                            <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-sm border border-[#A68A56]/20 bg-[#F4EFE6] transition-all group-hover:border-[#A68A56]">
-                               <ImageKitLQIP item={rec.gallery[0]} width={400} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                            <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-sm border border-[#A68A56]/20 bg-[#F4EFE6] mb-3 transition-all group-hover:border-[#A68A56]">
+                               <img src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${encodeURIComponent(rec.gallery[0])}?tr=w-400,q-80,f-auto`} alt={rec.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                             </div>
-                            <div className="w-full pt-3">
-                              <p className="text-[#1C1A17] text-sm font-serif text-center">{rec.name}</p>
-                            </div>
+                            <p className="text-[#1C1A17] text-sm md:text-base font-serif text-center line-clamp-2 leading-snug text-balance">{rec.name}</p>
                          </div>
                        ))}
                      </div>
@@ -733,12 +731,10 @@ export default function InteractiveLookbook() {
                              onClick={() => { setCompareItem(item); setCompareGalleryIndex(0); setIsCompareModalOpen(false); }}
                              className="flex flex-col overflow-hidden isolate w-full group cursor-pointer bg-transparent"
                            >
-                              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-sm border border-[#A68A56]/20 bg-[#F4EFE6]">
-                                <ImageKitLQIP item={item.gallery[0]} width={800} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-sm border border-[#A68A56]/20 bg-[#F4EFE6] mb-3 transition-all group-hover:border-[#A68A56]">
+                                <img src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${encodeURIComponent(item.gallery[0])}?tr=w-800,q-80,f-auto`} alt={item.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                               </div>
-                              <div className="w-full pt-3">
-                                <p className="text-[#1C1A17] text-sm md:text-base font-serif text-center line-clamp-2 leading-snug text-balance">{item.name}</p>
-                              </div>
+                              <p className="text-[#1C1A17] text-sm md:text-base font-serif text-center line-clamp-2 leading-snug text-balance">{item.name}</p>
                            </div>
                          ))}
                       </motion.div>
