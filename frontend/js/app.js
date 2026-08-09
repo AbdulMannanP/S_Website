@@ -291,22 +291,6 @@
             this.form.email = auth.user.email || '';
           }
         });
-
-        
-
-        
-            };
-
-            if (auth?.supabase) {
-              auth.supabase.auth.getSession().then(({ data }) => {
-                if (data?.session?.access_token) headers['Authorization'] = `Bearer ${data.session.access_token}`;
-                sendFetch(headers);
-              }).catch(() => sendFetch(headers));
-            } else {
-              sendFetch(headers);
-            }
-          }
-        });
       },
 
       /* ── Language Toggle ──────────────────────────────── */
