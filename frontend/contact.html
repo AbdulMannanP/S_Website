@@ -205,37 +205,71 @@
 
         <!-- 3D Tactile Business Card (Desktop) -->
         <div id="bespoke-card-wrapper" class="relative group w-full max-w-md mx-auto hidden md:block mb-8" style="perspective: 1000px;">
-          <div id="bespoke-card" class="relative w-full aspect-[1.58/1] rounded-xl bg-[#1A1514] border border-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden transition-transform duration-200 ease-out" style="transform-style: preserve-3d;">
+          <div id="bespoke-card"
+            class="relative w-full aspect-[1.58/1] rounded-2xl overflow-hidden transition-all duration-300 ease-out"
+            style="
+              transform-style: preserve-3d;
+              background: linear-gradient(135deg, #181614 0%, #11100F 55%, #080807 100%);
+              border: 1px solid rgba(201,169,110,0.30);
+              box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.10), 0 24px 60px rgba(0,0,0,0.85), 0 4px 16px rgba(0,0,0,0.6);
+            "
+          >
+            <!-- Corner edge highlight (top-left rim light) -->
+            <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 30%, rgba(201,169,110,0.25) 60%, transparent 100%);"></div>
+
             <!-- Noise Texture -->
-            <div class="absolute inset-0 mix-blend-overlay opacity-20 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+            <div class="absolute inset-0 mix-blend-overlay opacity-25 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+
+            <!-- Ambient gold glow bottom-right -->
+            <div class="absolute bottom-0 right-0 w-48 h-32 pointer-events-none" style="background: radial-gradient(ellipse at bottom right, rgba(201,169,110,0.12) 0%, transparent 70%);"></div>
+
             <!-- Light Sheen -->
-            <div id="sheen-layer" class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none sheen-layer" style="background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.12) 0%, transparent 60%);"></div>
-            
+            <div id="sheen-layer" class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style="background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.09) 0%, transparent 60%);"></div>
+
             <!-- Foil Stamped Content (Parallax) -->
-            <div class="absolute inset-0 p-8 flex flex-col justify-between pointer-events-none" style="transform: translateZ(40px);">
-              <div>
-                <h3 class="font-serif text-3xl font-light text-white mb-1 tracking-wide drop-shadow-md">Saeed Furniture</h3>
-                <p class="font-sans text-[0.6rem] uppercase tracking-[0.35em] bg-gradient-to-r from-[#c9a96e] to-[#A68A56] bg-clip-text text-transparent font-bold drop-shadow-sm">Bespoke Atelier</p>
+            <div class="absolute inset-0 p-8 flex flex-col justify-between" style="transform: translateZ(40px);">
+              <div class="flex items-start gap-3">
+                <!-- Gold accent bar -->
+                <div class="w-0.5 h-10 rounded-full flex-shrink-0 mt-1" style="background: linear-gradient(to bottom, #C9A96E, transparent);"></div>
+                <div>
+                  <h3 class="font-serif text-3xl font-light text-white mb-1 tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">Saeed Furniture</h3>
+                  <p class="font-sans text-[0.6rem] uppercase tracking-[0.35em] bg-gradient-to-r from-[#C9A96E] to-[#A68A56] bg-clip-text text-transparent font-bold">Bespoke Atelier</p>
+                </div>
               </div>
-              <div class="space-y-1">
-                <p class="font-sans text-sm text-white/90 drop-shadow-md" dir="ltr">+966 928 800 4450</p>
-                <p class="font-sans text-xs text-white/50">Al Qurayyat, Al Jawf, KSA</p>
+              <div class="space-y-1.5">
+                <p class="font-sans text-sm font-semibold text-[#E5DCC5] drop-shadow-md" dir="ltr">+966 928 800 4450</p>
+                <p class="font-sans text-xs text-[#E5DCC5]/50 tracking-wide">Al Qurayyat, Al Jawf, KSA</p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Static Business Card (Mobile Fallback) -->
-        <div class="relative w-full aspect-[1.58/1] rounded-xl bg-[#1A1514] border border-white/5 shadow-2xl overflow-hidden block md:hidden mb-8">
-          <div class="absolute inset-0 mix-blend-overlay opacity-20 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
-          <div class="absolute inset-0 p-6 flex flex-col justify-between pointer-events-none">
-            <div>
-              <h3 class="font-serif text-2xl font-light text-white mb-1 tracking-wide">Saeed Furniture</h3>
-              <p class="font-sans text-[0.55rem] uppercase tracking-[0.35em] bg-gradient-to-r from-[#c9a96e] to-[#A68A56] bg-clip-text text-transparent font-bold">Bespoke Atelier</p>
+        <div class="relative w-full aspect-[1.58/1] rounded-2xl overflow-hidden block md:hidden mb-8"
+          style="
+            background: linear-gradient(135deg, #181614 0%, #11100F 55%, #080807 100%);
+            border: 1px solid rgba(201,169,110,0.28);
+            box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.09), 0 20px_50px rgba(0,0,0,0.80);
+          "
+        >
+          <!-- Top rim highlight -->
+          <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 30%, rgba(201,169,110,0.22) 60%, transparent 100%);"></div>
+          <!-- Noise Texture -->
+          <div class="absolute inset-0 mix-blend-overlay opacity-25 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+          <!-- Ambient gold glow -->
+          <div class="absolute bottom-0 right-0 w-36 h-24 pointer-events-none" style="background: radial-gradient(ellipse at bottom right, rgba(201,169,110,0.10) 0%, transparent 70%);"></div>
+          <div class="absolute inset-0 p-6 flex flex-col justify-between">
+            <div class="flex items-start gap-3">
+              <!-- Gold accent bar -->
+              <div class="w-0.5 h-8 rounded-full flex-shrink-0 mt-0.5" style="background: linear-gradient(to bottom, #C9A96E, transparent);"></div>
+              <div>
+                <h3 class="font-serif text-2xl font-light text-white mb-1 tracking-wider">Saeed Furniture</h3>
+                <p class="font-sans text-[0.55rem] uppercase tracking-[0.35em] bg-gradient-to-r from-[#C9A96E] to-[#A68A56] bg-clip-text text-transparent font-bold">Bespoke Atelier</p>
+              </div>
             </div>
-            <div class="space-y-1 pointer-events-auto">
-              <a href="https://wa.me/9288004450" class="flex items-center font-sans text-sm text-white/90 hover:text-[#c9a96e] transition-colors" dir="ltr" style="min-height: 44px;">+966 928 800 4450</a>
-              <p class="font-sans text-xs text-white/50">Al Qurayyat, Al Jawf, KSA</p>
+            <div class="space-y-1.5 pointer-events-auto">
+              <a href="https://wa.me/9288004450" class="flex items-center font-sans text-sm font-semibold text-[#E5DCC5] hover:text-[#C9A96E] transition-colors" dir="ltr" style="min-height: 44px;">+966 928 800 4450</a>
+              <p class="font-sans text-xs text-[#E5DCC5]/50 tracking-wide">Al Qurayyat, Al Jawf, KSA</p>
             </div>
           </div>
         </div>
