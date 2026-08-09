@@ -81,8 +81,8 @@
   class="bg-neutral-900 text-stone-300 font-cairo antialiased min-h-screen overflow-x-hidden selection:bg-amber-700/30 transition-colors duration-1000"
   x-data="saeedApp()"
   x-init="init()"
-  @scroll.window="scrolled = (window.pageYOffset >
-  <div id="global-header"></div> 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;">
+  @scroll.window="scrolled = (window.pageYOffset > 50); let curr = window.pageYOffset; headerHidden = (curr > lastScroll && curr > 100); lastScroll = curr;">
+  <div id="global-header"></div>
 
   <!-- Mobile Drawer -->
   <!-- ── Back Button ──────────────────────────────────── -->

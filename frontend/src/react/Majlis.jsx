@@ -85,48 +85,7 @@ const useIsMobile = () => {
 // -------------------------------------------------------------
 // COMPONENTS
 // -------------------------------------------------------------
-const CustomCursor = ({ isHovering, isTouchDevice }) => {
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-  const springConfig = { damping: 25, stiffness: 400, mass: 0.5 };
-  const smoothX = useSpring(cursorX, springConfig);
-  const smoothY = useSpring(cursorY, springConfig);
 
-  useEffect(() => {
-    if (isTouchDevice) return;
-    const moveCursor = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-    };
-    window.addEventListener("mousemove", moveCursor, { passive: true });
-    return () => window.removeEventListener("mousemove", moveCursor);
-  }, [isTouchDevice, cursorX, cursorY]);
-
-  if (isTouchDevice) return null;
-
-  return (
-    <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[100] rounded-full origin-center"
-      style={{
-        x: smoothX,
-        y: smoothY,
-        translateX: "-50%",
-        translateY: "-50%",
-        backdropFilter: isHovering ? "blur(8px)" : "none",
-        mixBlendMode: isHovering ? "difference" : "normal",
-        willChange: "transform, width, height"
-      }}
-      animate={{
-        width: isHovering ? 80 : 16,
-        height: isHovering ? 80 : 16,
-        backgroundColor: isHovering ? "rgba(166, 138, 86, 0.1)" : "#A68A56",
-        borderColor: isHovering ? "rgba(166, 138, 86, 0.2)" : "transparent",
-        borderWidth: isHovering ? "1px" : "0px",
-      }}
-      transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.5 }}
-    />
-  );
-};
 
 // ImageKit LQIP with Blur-Up
 const ImageKitLQIP = ({ item, layoutId, width = 800, className }) => {
@@ -206,7 +165,7 @@ const SynchronizedZoomImage = ({ item, isTouchDevice, isZoomingLeft, isZoomingRi
 
   return (
     <div 
-      className={`w-full h-auto aspect-square lg:aspect-auto lg:h-full relative overflow-hidden bg-transparent lg:bg-[#FDFBF7]/50 lg:border lg:border-[#A68A56]/20 cursor-crosshair rounded-[2rem]`}
+      className={`w-full h-auto aspect-square lg:aspect-auto lg:h-full relative overflow-hidden bg-transparent lg:bg-[#FDFBF7]/50 lg:border lg:border-[#A68A56]/20 cursor-pointer rounded-[2rem]`}
       onMouseMove={!isTouchDevice ? handlePointerMove : undefined}
       onTouchMove={isTouchDevice ? handlePointerMove : undefined}
       onMouseEnter={!isTouchDevice ? handlePointerEnter : undefined}
@@ -358,11 +317,11 @@ export default function InteractiveLookbook() {
 
   return (
     <div 
-      className={`min-h-screen w-full bg-transparent text-[#1C1A17] font-sans selection:bg-[#A68A56] selection:text-white overflow-x-hidden ${isTouchDevice ? 'cursor-auto' : 'cursor-none'}`}
+      className={`min-h-screen w-full bg-transparent text-[#1C1A17] font-sans selection:bg-[#A68A56] selection:text-white overflow-x-hidden ${'cursor-auto'}`}
       style={{ backgroundImage: watermarkSvg, backgroundSize: '400px 400px' }}
     >
       
-      <CustomCursor isHovering={hoveredItem !== null} isTouchDevice={isTouchDevice} />
+      
 
       {/* Page Framing: Adding pt-[100px] to account for the fixed native HTML header */}
       <div className="p-4 md:p-8 pt-[100px] md:pt-[120px] min-h-screen flex flex-col relative">
@@ -379,7 +338,7 @@ export default function InteractiveLookbook() {
                     if (isTouchDevice && navigator.vibrate) navigator.vibrate(5);
                     setActiveCollection(col);
                   }}
-                  className={`whitespace-nowrap text-[0.65rem] md:text-xs uppercase tracking-[0.2em] transition-all duration-300 pb-1 ${isTouchDevice ? 'cursor-auto' : 'cursor-none'} text-[#A68A56] ${
+                  className={`whitespace-nowrap text-[0.65rem] md:text-xs uppercase tracking-[0.2em] transition-all duration-300 pb-1 ${'cursor-auto'} text-[#A68A56] ${
                     isActive 
                       ? "font-bold border-b-2 border-[#A68A56] opacity-100" 
                       : "font-normal border-b-2 border-transparent hover:font-bold opacity-100"
@@ -447,7 +406,7 @@ export default function InteractiveLookbook() {
           isTouchDevice
             ? isConciergeOpen ? 'w-72' : 'w-14'
             : 'w-14 hover:w-72'
-        } ${isTouchDevice ? 'cursor-pointer' : 'cursor-pointer'}`}
+        } ${'cursor-pointer'}`}
       >
         <div className="w-14 h-14 flex-shrink-0 flex items-center justify-center text-white">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -495,7 +454,7 @@ export default function InteractiveLookbook() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               onClick={handleCloseFocusMode}
-              className={`absolute top-24 right-6 md:top-28 md:right-8 z-[60] px-6 h-12 md:h-14 rounded-full bg-[#1C1A17]/5 backdrop-blur-xl border border-[#A68A56]/20 flex items-center justify-center gap-3 text-[#1C1A17] md:hover:bg-[#1C1A17]/10 hover:scale-105 transition-all shadow-xl ${isTouchDevice ? 'cursor-pointer' : 'cursor-none'}`}
+              className={`absolute top-24 right-6 md:top-28 md:right-8 z-[60] px-6 h-12 md:h-14 rounded-full bg-[#1C1A17]/5 backdrop-blur-xl border border-[#A68A56]/20 flex items-center justify-center gap-3 text-[#1C1A17] md:hover:bg-[#1C1A17]/10 hover:scale-105 transition-all shadow-xl ${'cursor-pointer'}`}
             >
               {isInterceptDrawerOpen ? (
                  <span className="text-sm font-bold uppercase tracking-widest flex items-center gap-2">
@@ -561,7 +520,7 @@ export default function InteractiveLookbook() {
                              setCompareItem(null);
                              setIsBespokeModalOpen(true);
                            }}
-                           className={`px-6 py-3 rounded-full backdrop-blur-md bg-white/20 border border-[#A68A56]/30 text-[#1C1A17] text-xs font-bold uppercase tracking-widest hover:bg-[#A68A56] hover:text-white transition-all shadow-xl flex items-center gap-2 whitespace-nowrap ${isTouchDevice ? 'cursor-pointer' : 'cursor-none'}`}
+                           className={`px-6 py-3 rounded-full backdrop-blur-md bg-white/20 border border-[#A68A56]/30 text-[#1C1A17] text-xs font-bold uppercase tracking-widest hover:bg-[#A68A56] hover:text-white transition-all shadow-xl flex items-center gap-2 whitespace-nowrap ${'cursor-pointer'}`}
                         >
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg>
                           Choose This Design
@@ -614,7 +573,7 @@ export default function InteractiveLookbook() {
                              setCompareItem(null);
                              setIsBespokeModalOpen(true);
                            }}
-                           className={`px-6 py-3 rounded-full backdrop-blur-md bg-white/20 border border-[#A68A56]/30 text-[#1C1A17] text-xs font-bold uppercase tracking-widest hover:bg-[#A68A56] hover:text-white transition-all shadow-xl flex items-center gap-2 whitespace-nowrap ${isTouchDevice ? 'cursor-pointer' : 'cursor-none'}`}
+                           className={`px-6 py-3 rounded-full backdrop-blur-md bg-white/20 border border-[#A68A56]/30 text-[#1C1A17] text-xs font-bold uppercase tracking-widest hover:bg-[#A68A56] hover:text-white transition-all shadow-xl flex items-center gap-2 whitespace-nowrap ${'cursor-pointer'}`}
                         >
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg>
                           Choose This Design
@@ -660,13 +619,13 @@ export default function InteractiveLookbook() {
                    <div className="grid grid-cols-2 gap-3 mt-8 w-full">
                      <button 
                        onClick={() => setIsBespokeModalOpen(true)}
-                       className={`w-full py-4 px-2 bg-[#A68A56] text-white rounded-full text-[10px] sm:text-xs font-bold tracking-widest uppercase text-center hover:bg-[#1C1A17] active:scale-95 transition-all shadow-[0_0_30px_rgba(166,138,86,0.2)] ${isTouchDevice ? 'cursor-pointer' : 'cursor-none'}`}
+                       className={`w-full py-4 px-2 bg-[#A68A56] text-white rounded-full text-[10px] sm:text-xs font-bold tracking-widest uppercase text-center hover:bg-[#1C1A17] active:scale-95 transition-all shadow-[0_0_30px_rgba(166,138,86,0.2)] ${'cursor-pointer'}`}
                      >
                        Request Bespoke
                      </button>
                      <button 
                        onClick={() => { setComparePage(0); setIsCompareModalOpen(true); }}
-                       className={`w-full py-4 px-2 bg-transparent border border-[#A68A56]/30 text-[#1C1A17] rounded-full text-[10px] sm:text-xs font-bold tracking-widest uppercase text-center hover:bg-[#1C1A17]/5 transition-all ${isTouchDevice ? 'cursor-pointer' : 'cursor-none'}`}
+                       className={`w-full py-4 px-2 bg-transparent border border-[#A68A56]/30 text-[#1C1A17] rounded-full text-[10px] sm:text-xs font-bold tracking-widest uppercase text-center hover:bg-[#1C1A17]/5 transition-all ${'cursor-pointer'}`}
                      >
                        Compare Models
                      </button>
