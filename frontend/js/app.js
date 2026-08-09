@@ -8,7 +8,7 @@
   window.saeedApp = function saeedApp() {
     return {
       /* ── UI State ─────────────────────────────────────── */
-      lang:              'ar',
+      lang:              window.saeedInitialLang || 'ar',
       isSelectionMode:   false,
       step:              'hero', // hero, selection, form, success
       showExitPopup:     false,

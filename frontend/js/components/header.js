@@ -67,13 +67,13 @@
         <!-- Desktop Language Toggle -->
         <div class="hidden md:flex items-center gap-2 bg-white/5 border border-white/10 rounded-full p-1 relative z-50 ms-4" dir="ltr">
           <button
-            @click="lang = 'en'"
+            @click="lang = 'en'; localStorage.setItem('saeed_lang', 'en'); document.documentElement.dir = 'ltr'; document.documentElement.lang = 'en';"
             :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
             class="px-3 py-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-xs font-bold rounded-full transition-all">
             EN
           </button>
           <button
-            @click="lang = 'ar'"
+            @click="lang = 'ar'; localStorage.setItem('saeed_lang', 'ar'); document.documentElement.dir = 'rtl'; document.documentElement.lang = 'ar';"
             :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
             class="px-3 py-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-xs font-bold rounded-full transition-all"
             style="font-family:'Noto Kufi Arabic',sans-serif;">
@@ -148,13 +148,13 @@
       <!-- Mobile Language Toggle -->
       <div class="flex items-center bg-white/5 border border-white/10 rounded-full p-1" dir="ltr">
         <button
-          @click="lang = 'en'"
+          @click="lang = 'en'; localStorage.setItem('saeed_lang', 'en'); document.documentElement.dir = 'ltr'; document.documentElement.lang = 'en';"
           :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
           class="px-6 py-2 min-h-[44px] text-sm font-bold rounded-full transition-all">
           EN
         </button>
         <button
-          @click="lang = 'ar'"
+          @click="lang = 'ar'; localStorage.setItem('saeed_lang', 'ar'); document.documentElement.dir = 'rtl'; document.documentElement.lang = 'ar';"
           :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
           class="px-6 py-2 min-h-[44px] text-sm font-bold rounded-full transition-all"
           style="font-family:'Noto Kufi Arabic',sans-serif;">
