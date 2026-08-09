@@ -439,8 +439,8 @@ export default function InteractiveLookbook() {
             transition={{ duration: 0.4 }}
             className={`fixed inset-0 z-[9999] bg-[#FDFBF7]/90 backdrop-blur-3xl pt-[80px] ${
               isMobile 
-                ? 'flex flex-col h-[100dvh] md:h-auto max-h-[90vh] overflow-y-auto overscroll-contain -webkit-overflow-scrolling-touch pb-36' 
-                : 'flex items-center justify-center p-4 md:p-8 overflow-y-auto'
+                ? 'flex flex-col h-[100dvh] overflow-y-auto overscroll-contain pb-36' 
+                : 'flex flex-col items-center overflow-y-auto p-4 md:p-8'
             }`}
             style={{ willChange: "opacity" }}
           >
@@ -453,7 +453,7 @@ export default function InteractiveLookbook() {
               className="absolute inset-0 w-full h-full object-cover blur-[150px] z-0 pointer-events-none"
             />
 
-            <div className={`relative w-full h-full max-w-[1600px] flex flex-col lg:flex-row gap-6 lg:gap-10 z-10 pt-24 lg:pt-0`}>
+            <div className={`relative w-full max-w-[1600px] flex flex-col lg:flex-row gap-6 lg:gap-10 z-10 pt-24 lg:pt-8 pb-12 mx-auto`}>
             {/* Mobile Absolute Close Button */}
             <motion.button
               initial={{ opacity: 0, scale: 0.8 }}
@@ -694,7 +694,7 @@ export default function InteractiveLookbook() {
                 className={`fixed bg-[#FDFBF7]/95 backdrop-blur-3xl z-[70] flex flex-col items-center
                   ${ isMobile
                     ? 'inset-x-0 bottom-0 top-0 rounded-t-[2rem] shadow-2xl border-t border-[#A68A56]/20 overflow-y-auto'
-                    : 'inset-0 justify-center p-4 md:p-8'
+                    : 'inset-0 justify-start overflow-y-auto p-4 md:p-8'
                   }`}
               >
                 

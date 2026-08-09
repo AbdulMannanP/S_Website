@@ -17,11 +17,12 @@
     <!-- ── Universal Global Header ─────────────────────── -->
     <div x-data="{ mobileMenuOpen: false, headerHidden: false, lastScroll: window.pageYOffset || 0, currY: window.pageYOffset || 0 }" @scroll.window="currY = window.pageYOffset; headerHidden = (currY > lastScroll && currY > 100); lastScroll = currY;">
     <header
-      class="fixed top-0 left-0 w-full z-[100] h-20 flex items-center justify-between px-6 sm:px-12 transition-all duration-300 ease-in-out border-b border-[#c9a96e]/10"
-      :class="[(headerHidden ? '-translate-y-full' : 'translate-y-0'), (lang === 'ar' ? 'flex-row-reverse' : ''), (currY > 50 ? 'bg-[#050506] shadow-md' : 'bg-transparent')]"
+      dir="ltr"
+      class="fixed top-0 left-0 w-full z-[100] h-20 flex flex-row items-center justify-between px-6 sm:px-12 transition-all duration-300 ease-in-out border-b border-[#c9a96e]/10"
+      :class="[(headerHidden ? '-translate-y-full' : 'translate-y-0'), (currY > 50 ? 'bg-[#050506] shadow-[0_2px_30px_rgba(0,0,0,0.6)]' : 'bg-[#080809]/50 backdrop-blur-sm')]"
     >
       <!-- ── Logo Lockup ──────────────────────────────── -->
-      <a href="/index.html" class="h-12 flex items-center gap-3 transition-transform duration-500 hover:scale-105 flex-shrink-0" :class="lang === 'ar' ? 'flex-row-reverse' : ''">
+      <a href="/index.html" class="h-12 flex flex-row items-center gap-3 transition-transform duration-500 hover:scale-105 flex-shrink-0">
         <img
           src="https://ik.imagekit.io/de7qvcvqv/images/logo.png?updatedAt=1779608592778"
           loading="eager"
@@ -38,7 +39,7 @@
       </a>
 
       <!-- ── Desktop Navigation ───────────────────────── -->
-      <nav class="hidden md:flex items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px] ms-auto pe-6" :class="lang === 'ar' ? 'flex-row-reverse' : ''">
+      <nav class="hidden md:flex flex-row items-center gap-6 text-[0.75rem] font-bold text-white/60 uppercase tracking-[0.12em] min-h-[44px] ms-auto pe-6">
         <a href="/index.html#about"
            x-show="!isSelectionMode"
            class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap text-start"
