@@ -691,72 +691,50 @@ export default function InteractiveLookbook() {
                   ? { type: 'spring', damping: 30, stiffness: 250 }
                   : { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
                 }
-                className={`fixed bg-[#FDFBF7]/95 backdrop-blur-3xl z-[70] flex flex-col items-center
+                className={`fixed bg-[#FDFBF7]/95 backdrop-blur-3xl z-[70] flex flex-col
                   ${ isMobile
                     ? 'inset-x-0 bottom-0 top-0 rounded-t-[2rem] shadow-2xl border-t border-[#A68A56]/20 overflow-y-auto'
-                    : 'inset-0 justify-start overflow-y-auto p-4 md:p-8'
+                    : 'inset-0 overflow-y-auto'
                   }`}
               >
                 
-                <div className="relative w-full px-8 pt-8 pb-4 flex justify-between items-center max-w-6xl mx-auto z-10 shrink-0">
+                {/* Header */}
+                <div className="sticky top-0 z-20 w-full bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#A68A56]/10 px-6 md:px-10 py-5 flex justify-between items-center">
                   <h2 className="text-xl md:text-2xl font-light text-[#1C1A17]" style={{ fontFamily: "'Playfair Display', serif" }}>Select a Model to Compare</h2>
-                  <button onClick={() => setIsCompareModalOpen(false)} className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#1C1A17]/5 border border-[#A68A56]/20 flex items-center justify-center text-[#1C1A17] hover:bg-[#1C1A17]/10 transition-all shadow-sm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                  <button onClick={() => setIsCompareModalOpen(false)} className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#1C1A17]/5 border border-[#A68A56]/20 flex items-center justify-center text-[#1C1A17] hover:bg-[#1C1A17]/10 transition-all shadow-sm">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                  </button>
                 </div>
 
-                <div className="relative w-full max-w-6xl flex items-center justify-between flex-1 overflow-hidden">
-                  
-                  {/* Left Arrow */}
-                  <button 
-                    onClick={() => setComparePage(p => Math.max(0, p - 1))}
-                    disabled={comparePage === 0}
-                    className="w-12 h-12 flex items-center justify-center rounded-full disabled:opacity-20 hover:bg-[#1C1A17]/5 transition-all text-[#1C1A17]"
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
-                  </button>
-
-                  {/* Slider Window */}
-                  <div className="flex-1 px-4 lg:px-12 overflow-hidden">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={comparePage}
-                        initial={{ x: 50, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: -50, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="grid grid-cols-2 gap-4 md:gap-6 w-full pb-8"
+                {/* Scrollable Grid */}
+                <div className="w-full max-w-6xl mx-auto px-6 md:px-10 py-8 pb-16">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full">
+                    {filteredCompareData.map(item => (
+                      <div
+                        key={item.id}
+                        onClick={() => { setCompareItem(item); setCompareGalleryIndex(0); setIsCompareModalOpen(false); }}
+                        className="flex flex-col group cursor-pointer"
                       >
-                         {currentCompareData.map(item => (
-                           <div 
-                             key={item.id}
-                             onClick={() => { setCompareItem(item); setCompareGalleryIndex(0); setIsCompareModalOpen(false); }}
-                             className="flex flex-col overflow-hidden isolate w-full group cursor-pointer bg-transparent"
-                           >
-                              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-sm border border-[#A68A56]/20 bg-[#F4EFE6] mb-3 transition-all group-hover:border-[#A68A56]">
-                                <img src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${encodeURIComponent(item.gallery[0])}?tr=w-800,q-80,f-auto`} alt={item.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-                              </div>
-                              <p className="text-[#1C1A17] text-sm md:text-base font-serif text-center line-clamp-2 leading-snug text-balance">{item.name}</p>
-                           </div>
-                         ))}
-                      </motion.div>
-                    </AnimatePresence>
+                        {/* Protected Aspect Ratio Image Wrapper */}
+                        <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-md border border-[#A68A56]/20 bg-[#F4EFE6] mb-3 transition-all duration-300 group-hover:border-[#A68A56] group-hover:shadow-[0_8px_30px_rgba(166,138,86,0.15)]">
+                          <img
+                            src={`https://ik.imagekit.io/de7qvcvqv/images/catalog/${encodeURIComponent(item.gallery[0])}?tr=w-800,q-80,f-auto`}
+                            alt={item.name}
+                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                          {/* Hover overlay */}
+                          <div className="absolute inset-0 bg-[#1C1A17]/0 group-hover:bg-[#1C1A17]/10 transition-colors duration-300 flex items-end justify-center pb-4">
+                            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[0.6rem] font-bold uppercase tracking-[0.2em] text-white bg-[#A68A56] px-4 py-1.5 rounded-full">
+                              Select to Compare
+                            </span>
+                          </div>
+                        </div>
+                        <p className="text-[#1C1A17] text-sm md:text-base font-serif text-center line-clamp-2 leading-snug">{item.name}</p>
+                        <p className="text-[#A68A56] text-[0.6rem] uppercase tracking-[0.15em] font-bold text-center mt-1 opacity-70">{item.collection.replace(' Collection', '')}</p>
+                      </div>
+                    ))}
                   </div>
-
-                  {/* Right Arrow */}
-                  <button 
-                    onClick={() => setComparePage(p => Math.min(totalPages - 1, p + 1))}
-                    disabled={comparePage === totalPages - 1}
-                    className="w-12 h-12 flex items-center justify-center rounded-full disabled:opacity-20 hover:bg-[#1C1A17]/5 transition-all text-[#1C1A17]"
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
-                  </button>
-
-                </div>
-
-                {/* Page Indicator */}
-                <div className="relative w-full pb-8 pt-4 flex justify-center shrink-0">
-                   <p className="text-[10px] font-bold tracking-widest text-[#1C1A17]/50 uppercase">
-                      Page {comparePage + 1} / {totalPages}
-                   </p>
                 </div>
 
               </motion.div>
