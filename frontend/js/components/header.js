@@ -43,40 +43,40 @@
         <a href="/index.html#about"
            x-show="!isSelectionMode"
            class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap text-start"
-           x-text=".saeedApp.lang === 'ar' ? 'من نحن' : 'About'">About</a>
+           x-text="lang === 'ar' ? 'من نحن' : 'About'">About</a>
 
         <a href="/select.html"
            x-show="!isSelectionMode"
            class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap text-start"
-           x-text=".saeedApp.lang === 'ar' ? 'المجموعات' : 'Collections'">Collections</a>
+           x-text="lang === 'ar' ? 'المجموعات' : 'Collections'">Collections</a>
 
         <a href="/index.html#faq"
            x-show="!isSelectionMode"
            class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap text-start"
-           x-text=".saeedApp.lang === 'ar' ? 'الأسئلة' : 'FAQ'">FAQ</a>
+           x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'">FAQ</a>
 
         <a href="/contact.html"
            class="hover:text-[#c9a96e] transition-colors flex items-center min-h-[44px] whitespace-nowrap text-start"
-           x-text=".saeedApp.lang === 'ar' ? 'تواصل' : 'Contact'">Contact</a>
+           x-text="lang === 'ar' ? 'تواصل' : 'Contact'">Contact</a>
 
         <button
-          @click="typeof .saeedApp.handleOrderClick === 'function' ? .saeedApp.handleOrderClick() : null"
+          @click="typeof handleOrderClick === 'function' ? handleOrderClick() : null"
           class="relative hover:text-white transition-colors flex items-center min-h-[44px] font-bold uppercase tracking-[0.12em] text-[0.75rem] text-[#c9a96e] whitespace-nowrap text-start"
-          x-text="\$store.saeedAuth?.user ? (.saeedApp.lang === 'ar' ? 'طلباتي' : 'My Orders') : (.saeedApp.lang === 'ar' ? 'اطلب الآن' : 'Order')">
+          x-text="\$store.saeedAuth?.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
           Order
         </button>
 
         <!-- Desktop Language Toggle -->
         <div class="hidden md:flex items-center gap-2 bg-white/5 border border-white/10 rounded-full p-1 relative z-50 ms-4" dir="ltr">
           <button
-            @click=".saeedApp.setLang('en');"
-            :class=".saeedApp.lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
+            @click="lang = 'en'; localStorage.setItem('saeed_lang', 'en'); document.documentElement.dir = 'ltr'; document.documentElement.lang = 'en';"
+            :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
             class="px-3 py-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-xs font-bold rounded-full transition-all">
             EN
           </button>
           <button
-            @click=".saeedApp.setLang('ar');"
-            :class=".saeedApp.lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
+            @click="lang = 'ar'; localStorage.setItem('saeed_lang', 'ar'); document.documentElement.dir = 'rtl'; document.documentElement.lang = 'ar';"
+            :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
             class="px-3 py-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-xs font-bold rounded-full transition-all"
             style="font-family:'Noto Kufi Arabic',sans-serif;">
             عربي
@@ -133,15 +133,15 @@
 
       <div class="w-12 h-px bg-[#c9a96e]/30"></div>
 
-      <a href="/index.html#about"   @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] text-start" x-text=".saeedApp.lang === 'ar' ? 'من نحن' : 'About'">About</a>
-      <a href="/select.html"         @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] text-start" x-text=".saeedApp.lang === 'ar' ? 'المجموعات' : 'Collections'">Collections</a>
-      <a href="/index.html#faq"      @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] text-start" x-text=".saeedApp.lang === 'ar' ? 'الأسئلة' : 'FAQ'">FAQ</a>
-      <a href="/contact.html"        @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] text-start" x-text=".saeedApp.lang === 'ar' ? 'تواصل' : 'Contact'">Contact</a>
+      <a href="/index.html#about"   @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] text-start" x-text="lang === 'ar' ? 'من نحن' : 'About'">About</a>
+      <a href="/select.html"         @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] text-start" x-text="lang === 'ar' ? 'المجموعات' : 'Collections'">Collections</a>
+      <a href="/index.html#faq"      @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] text-start" x-text="lang === 'ar' ? 'الأسئلة' : 'FAQ'">FAQ</a>
+      <a href="/contact.html"        @click="mobileMenuOpen = false" class="text-xl font-light text-white/70 hover:text-[#c9a96e] transition-colors uppercase tracking-[0.3em] text-start" x-text="lang === 'ar' ? 'تواصل' : 'Contact'">Contact</a>
 
       <button
-        @click="typeof .saeedApp.handleOrderClick === 'function' ? .saeedApp.handleOrderClick() : null; mobileMenuOpen = false"
+        @click="typeof handleOrderClick === 'function' ? handleOrderClick() : null; mobileMenuOpen = false"
         class="text-2xl font-light text-[#c9a96e] hover:text-[#c9a96e]/80 transition-colors uppercase tracking-[0.3em] text-start"
-        x-text="\$store.saeedAuth?.user ? (.saeedApp.lang === 'ar' ? 'طلباتي' : 'My Orders') : (.saeedApp.lang === 'ar' ? 'اطلب الآن' : 'Order')">
+        x-text="\$store.saeedAuth?.user ? (lang === 'ar' ? 'طلباتي' : 'My Orders') : (lang === 'ar' ? 'اطلب الآن' : 'Order')">
         Order
       </button>
 
@@ -150,14 +150,14 @@
       <!-- Mobile Language Toggle -->
       <div class="flex items-center bg-white/5 border border-white/10 rounded-full p-1" dir="ltr">
         <button
-          @click=".saeedApp.setLang('en');"
-          :class=".saeedApp.lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
+          @click="lang = 'en'; localStorage.setItem('saeed_lang', 'en'); document.documentElement.dir = 'ltr'; document.documentElement.lang = 'en';"
+          :class="lang === 'en' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
           class="px-6 py-2 min-h-[44px] text-sm font-bold rounded-full transition-all">
           EN
         </button>
         <button
-          @click=".saeedApp.setLang('ar');"
-          :class=".saeedApp.lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
+          @click="lang = 'ar'; localStorage.setItem('saeed_lang', 'ar'); document.documentElement.dir = 'rtl'; document.documentElement.lang = 'ar';"
+          :class="lang === 'ar' ? 'bg-[#c9a96e] text-white' : 'text-white/60 hover:text-white'"
           class="px-6 py-2 min-h-[44px] text-sm font-bold rounded-full transition-all"
           style="font-family:'Noto Kufi Arabic',sans-serif;">
           عربي

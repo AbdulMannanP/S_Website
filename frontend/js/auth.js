@@ -1,23 +1,4 @@
 document.addEventListener('alpine:init', () => {
-  Alpine.store('saeedApp', {
-    lang: localStorage.getItem('saeed_lang') || window.saeedInitialLang || 'en',
-    setLang(newLang) {
-      this.lang = newLang;
-      localStorage.setItem('saeed_lang', newLang);
-      document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
-      document.documentElement.lang = newLang;
-    },
-    handleOrderClick() {
-      const auth = Alpine.store('saeedAuth');
-      if (!auth.user) {
-        auth.showAuthModal = true;
-        auth.pendingAction = () => { window.location.href = '/dashboard/client'; };
-      } else {
-        window.location.href = '/dashboard/client';
-      }
-    }
-  });
-
   Alpine.store('saeedAuth', {
     user: null,
     role: null,
