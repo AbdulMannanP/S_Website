@@ -518,7 +518,7 @@ export default function InteractiveLookbook() {
 
                    {/* Winner Selection UI (Primary side) */}
                    {compareItem && (
-                      <div className={`${isMobile ? 'sticky bottom-0 left-0 w-full p-4 bg-[#FDFBF7]/90 backdrop-blur-md border-t border-black/10 flex justify-center z-50' : 'absolute bottom-4 left-1/2 -translate-x-1/2 z-20'}`}>
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50">
                         <button
                            onClick={(e) => {
                              e.stopPropagation();
@@ -570,7 +570,7 @@ export default function InteractiveLookbook() {
                      </button>
 
                      {/* Winner Selection UI (Compare side) */}
-                     <div className={`${isMobile ? 'sticky bottom-0 left-0 w-full p-4 bg-[#FDFBF7]/90 backdrop-blur-md border-t border-black/10 flex justify-center z-50' : 'absolute bottom-4 left-1/2 -translate-x-1/2 z-20'}`}>
+                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50">
                         <button
                            onClick={(e) => {
                              e.stopPropagation();
