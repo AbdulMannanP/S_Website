@@ -525,6 +525,20 @@
       document.documentElement.dir = storedLang === 'ar' ? 'rtl' : 'ltr';
       window.saeedInitialLang = storedLang;
     })();
+
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('saeedApp', {
+        lang: window.saeedInitialLang || 'en',
+        isSelectionMode: false,
+        toastVisible: false,
+        setLang(newLang) {
+          this.lang = newLang;
+          localStorage.setItem('saeed_lang', newLang);
+          document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+          document.documentElement.lang = newLang;
+        }
+      });
+    });
   </script>
   <style>
     body.modal-active .floating-whatsapp, body.modal-active [class*="animate-pulse-ring"] { display: none !important; }
@@ -596,33 +610,33 @@
           </div>
 
           <h2 class="font-serif text-gold mb-6 leading-tight" style="font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 400;">
-            <span x-show="lang==='en'">Explore Our Options</span>
-            <span x-show="lang==='ar'" class="font-arabic">استكشف خياراتنا</span>
+            <span x-show="lang==='en'" x-cloak>Explore Our Options</span>
+            <span x-show="lang==='ar'" class="font-arabic" x-cloak>استكشف خياراتنا</span>
           </h2>
 
           <p class="text-stone-400 leading-relaxed mb-5 font-light" style="font-size: 0.95rem;">
-            <span x-show="lang==='en'">At Saeed Furniture, every piece begins as a conversation. Founded in Al Qurayyat, Al Jawf, our workshop has been the region's foremost destination for custom-crafted majlis seating and bespoke sofas for over two decades. We believe that furniture is not merely functional — it is the language through which a home speaks.</span>
+            <span x-show="lang==='en'" x-cloak>At Saeed Furniture, every piece begins as a conversation. Founded in Al Qurayyat, Al Jawf, our workshop has been the region's foremost destination for custom-crafted majlis seating and bespoke sofas for over two decades. We believe that furniture is not merely functional — it is the language through which a home speaks.</span>
         <p style="font-family:'Cairo',sans-serif; font-size:0.9rem; color:rgba(201,169,110,0.9); letter-spacing:0.08em; direction:rtl;">
           أثاث فاخر مصنوع يدوياً لكل زاوية من منزلك
         </p>
           </p>
 
           <p class="text-stone-400 leading-relaxed font-light" style="font-size: 0.95rem;">
-            <span x-show="lang==='en'">Our craftsmen combine time-honoured Arabian design traditions with premium imported fabrics, hardwood frames, and precision upholstery techniques learned over generations. From the initial sketch to the final stitch, every detail is shaped by skilled hands inside our Al Qurayyat atelier.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">يجمع حرفيونا بين تقاليد التصميم العربي العريقة والأقمشة المستوردة الفاخرة وإطارات الخشب الصلب وتقنيات التنجيد الدقيقة المتوارثة عبر الأجيال. من الرسم الأولي إلى الغرزة الأخيرة، كل تفصيل يشكّل بأيدٍ ماهرة داخل ورشتنا في القريات.</span>
+            <span x-show="lang==='en'" x-cloak>Our craftsmen combine time-honoured Arabian design traditions with premium imported fabrics, hardwood frames, and precision upholstery techniques learned over generations. From the initial sketch to the final stitch, every detail is shaped by skilled hands inside our Al Qurayyat atelier.</span>
+            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;" x-cloak>يجمع حرفيونا بين تقاليد التصميم العربي العريقة والأقمشة المستوردة الفاخرة وإطارات الخشب الصلب وتقنيات التنجيد الدقيقة المتوارثة عبر الأجيال. من الرسم الأولي إلى الغرزة الأخيرة، كل تفصيل يشكّل بأيدٍ ماهرة داخل ورشتنا في القريات.</span>
           </p>
         </div>
 
         <!-- RIGHT COL: More paragraphs -->
         <div class="reveal reveal-delay-2">
           <p class="text-stone-400 leading-relaxed mb-5 font-light" style="font-size: 0.95rem;">
-            <span x-show="lang==='en'">Craftsmanship, for us, is not a marketing word — it is a daily discipline. We source our raw materials with the same care we bring to every seam and join. Premium Italian and Turkish upholstery fabrics sit alongside locally sourced hand-carved wood accents, creating pieces that are unmistakably Saudi yet universally refined.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">الحرفية بالنسبة لنا ليست مجرد كلمة تسويقية — بل هي انضباط يومي. نحن نختار موادنا الخام بنفس العناية التي نضعها في كل درزة وإطار. تتجاور أقمشة التنجيد الإيطالية والتركية الفاخرة مع لمسات الخشب المنحوتة يدوياً محلياً، لخلق قطع صناعة تدوم (Craftsmanship That Endures) الهوية بامتياز ومرهفة على المستوى العالمي.</span>
+            <span x-show="lang==='en'" x-cloak>Craftsmanship, for us, is not a marketing word — it is a daily discipline. We source our raw materials with the same care we bring to every seam and join. Premium Italian and Turkish upholstery fabrics sit alongside locally sourced hand-carved wood accents, creating pieces that are unmistakably Saudi yet universally refined.</span>
+            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;" x-cloak>الحرفية بالنسبة لنا ليست مجرد كلمة تسويقية — بل هي انضباط يومي. نحن نختار موادنا الخام بنفس العناية التي نضعها في كل درزة وإطار. تتجاور أقمشة التنجيد الإيطالية والتركية الفاخرة مع لمسات الخشب المنحوتة يدوياً محلياً، لخلق قطع صناعة تدوم (Craftsmanship That Endures) الهوية بامتياز ومرهفة على المستوى العالمي.</span>
           </p>
 
           <p class="text-stone-400 leading-relaxed mb-8 font-light" style="font-size: 0.95rem;">
-            <span x-show="lang==='en'">Our complimentary home visit service means our design consultants come to you — measuring your space, understanding your taste, and presenting a curated selection of materials right in your living room. Every sofa and majlis set is made-to-order: your dimensions, your fabric, your colour, your statement.</span>
-            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;">تعني خدمة الزيارة المنزلية المجانية أن مستشاري التصميم لدينا يأتون إليك — يقيسون مساحتك، يفهمون ذوقك، ويقدمون مجموعة مختارة من المواد في غرفة معيشتك. كل كنبة ومجموعة مجلس مصنوعة حسب الطلب: مقاساتك، قماشك، لونك، أسلوبك.</span>
+            <span x-show="lang==='en'" x-cloak>Our complimentary home visit service means our design consultants come to you — measuring your space, understanding your taste, and presenting a curated selection of materials right in your living room. Every sofa and majlis set is made-to-order: your dimensions, your fabric, your colour, your statement.</span>
+            <span x-show="lang==='ar'" class="font-arabic text-right block" style="direction:rtl;" x-cloak>تعني خدمة الزيارة المنزلية المجانية أن مستشاري التصميم لدينا يأتون إليك — يقيسون مساحتك، يفهمون ذوقك، ويقدمون مجموعة مختارة من المواد في غرفة معيشتك. كل كنبة ومجموعة مجلس مصنوعة حسب الطلب: مقاساتك، قماشك، لونك، أسلوبك.</span>
           </p>
 
           <!-- Mini stat row -->
@@ -630,15 +644,15 @@
             <div class="border-s-2 border-gold ps-4">
               <p class="font-serif text-gold text-3xl font-light">20+</p>
               <p class="text-stone-500 text-xs tracking-wider uppercase mt-1">
-                <span x-show="lang==='en'">Years of Craft</span>
-                <span x-show="lang==='ar'" class="font-arabic">عاماً من الحرفية</span>
+                <span x-show="lang==='en'" x-cloak>Years of Craft</span>
+                <span x-show="lang==='ar'" class="font-arabic" x-cloak>عاماً من الحرفية</span>
               </p>
             </div>
             <div class="border-s-2 border-gold ps-4">
               <p class="font-serif text-gold text-3xl font-light">100%</p>
               <p class="text-stone-500 text-xs tracking-wider uppercase mt-1">
-                <span x-show="lang==='en'">Made to Order</span>
-                <span x-show="lang==='ar'" class="font-arabic">صنع حسب الطلب</span>
+                <span x-show="lang==='en'" x-cloak>Made to Order</span>
+                <span x-show="lang==='ar'" class="font-arabic" x-cloak>صنع حسب الطلب</span>
               </p>
             </div>
           </div>
@@ -652,8 +666,8 @@
   <section class="py-12 px-6 border-b border-stone-200" style="background: #f5f0e8;">
     <div class="max-w-6xl mx-auto text-center">
       <p class="text-stone-800 text-sm md:text-base tracking-wide font-serif leading-relaxed uppercase">
-        <span x-show="lang==='en'">KSA Handcrafted • Free Home Consultation • Curated Materials • Free Delivery</span>
-        <span x-show="lang==='ar'" class="font-arabic font-semibold">صُنِع في المملكة • زيارة منزلية مجانية • ألوان وخامات متعددة • توصيل مجاني</span>
+        <span x-show="lang==='en'" x-cloak>KSA Handcrafted • Free Home Consultation • Curated Materials • Free Delivery</span>
+        <span x-show="lang==='ar'" class="font-arabic font-semibold" x-cloak>صُنِع في المملكة • زيارة منزلية مجانية • ألوان وخامات متعددة • توصيل مجاني</span>
       </p>
     </div>
   </section>
@@ -831,7 +845,7 @@
       <a href="/contact.html" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors py-2" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
     </nav>
     <div class="w-16 h-px bg-[#c9a96e]/20 mx-auto mb-6"></div>
-    <div class="text-white/20 text-[0.65rem] uppercase tracking-[0.15em] font-bold relative">
+    <div class="text-white/50 text-[0.65rem] uppercase tracking-[0.15em] font-bold relative">
       <a href="/auth" class="absolute bottom-0 left-4 text-[0.5rem] opacity-20 hover:opacity-100 transition-opacity">Atelier Login</a>
       &copy; 2026 Saeed Furniture. All Rights Reserved.
     </div>

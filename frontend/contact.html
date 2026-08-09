@@ -126,6 +126,20 @@
       document.documentElement.dir = storedLang === 'ar' ? 'rtl' : 'ltr';
       window.saeedInitialLang = storedLang;
     })();
+
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('saeedApp', {
+        lang: window.saeedInitialLang || 'en',
+        isSelectionMode: false,
+        toastVisible: false,
+        setLang(newLang) {
+          this.lang = newLang;
+          localStorage.setItem('saeed_lang', newLang);
+          document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+          document.documentElement.lang = newLang;
+        }
+      });
+    });
   </script>
   <style>
     body.modal-active .floating-whatsapp, body.modal-active [class*="animate-pulse-ring"] { display: none !important; }
@@ -170,8 +184,8 @@
     <p class="text-[0.65rem] uppercase tracking-[0.4em] text-[#c9a96e] font-bold mb-4 relative z-10"
        x-text="lang === 'ar' ? 'تواصل في أي وقت' : 'Reach Us Anytime'"></p>
     <h1 class="relative z-10 font-light text-white leading-tight mb-4" style="font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,7vw,5rem);">
-      <span x-show="lang !== 'ar'">Get In Touch</span>
-      <span x-show="lang === 'ar'" style="font-family:'Noto Kufi Arabic',sans-serif;">تواصل معنا</span>
+      <span x-show="lang !== 'ar'" x-cloak>Get In Touch</span>
+      <span x-show="lang === 'ar'" style="font-family:'Noto Kufi Arabic',sans-serif;" x-cloak>تواصل معنا</span>
     </h1>
     <div class="gold-divider max-w-xs mx-auto mb-4 relative z-10">
       <div class="w-1.5 h-1.5 bg-[#c9a96e] rotate-45"></div>
@@ -307,8 +321,8 @@
               <div class="space-y-3 mb-5">
                 <div>
                   <p class="text-[0.6rem] uppercase tracking-[0.25em] text-[#c9a96e] font-bold mb-1" x-text="lang === 'ar' ? 'العنوان' : 'Address'"></p>
-                  <p class="text-white/80 text-sm leading-relaxed" x-show="lang !== 'ar'">Al Qurayyat, Al Jawf<br>Kingdom of Saudi Arabia</p>
-                  <p class="text-white/80 text-sm leading-relaxed" x-show="lang === 'ar'" style="font-family:'Noto Kufi Arabic',sans-serif;">القريات، منطقة الجوف<br>المملكة العربية السعودية</p>
+                  <p class="text-white/80 text-sm leading-relaxed" x-show="lang !== 'ar'" x-cloak>Al Qurayyat, Al Jawf<br>Kingdom of Saudi Arabia</p>
+                  <p class="text-white/80 text-sm leading-relaxed" x-show="lang === 'ar'" style="font-family:'Noto Kufi Arabic',sans-serif;" x-cloak>القريات، منطقة الجوف<br>المملكة العربية السعودية</p>
                 </div>
                 <div>
                   <p class="text-[0.6rem] uppercase tracking-[0.25em] text-[#c9a96e] font-bold mb-1" x-text="lang === 'ar' ? 'أوقات العمل' : 'Opening Hours'"></p>
@@ -347,7 +361,7 @@
 
         <!-- Inline error -->
         <div x-show="formError" x-transition
-             class="mb-5 border-s-2 border-red-500 bg-red-500/5 px-4 py-3 text-red-400 text-sm rounded-sm" x-text="formError"></div>
+             class="mb-5 border-s-2 border-red-500 bg-red-500/5 px-4 py-3 text-red-400 text-sm rounded-sm" x-text="formError" x-cloak></div>
 
         <!-- Success State -->
         <div x-show="formSent" x-cloak x-transition
@@ -360,7 +374,7 @@
           <p class="font-serif text-lg text-white/60" x-text="lang === 'ar' ? 'تم استلام رسالتك من قبل الأتيليه الخاص بنا.' : 'Your message has been received by our atelier.'"></p>
         </div>
 
-        <div x-show="!formSent" x-transition>
+        <div x-show="!formSent" x-transition x-cloak>
           <div class="space-y-7">
 
             <!-- Subject / Regarding (multi-dropdown) -->
@@ -430,7 +444,7 @@
             :class="formSending
               ? 'bg-[#c9a96e]/40 text-white/50 cursor-not-allowed'
               : 'bg-[#c9a96e] text-[#080809] hover:bg-[#d4b87a] hover:-translate-y-0.5 shadow-[0_4px_24px_rgba(201,169,110,0.3)] hover:shadow-[0_8px_32px_rgba(201,169,110,0.45)]'">
-            <svg x-show="formSending" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg x-show="formSending" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" x-cloak>
               <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
             </svg>
             <span x-text="formSending
@@ -463,7 +477,7 @@
       <a href="/contact.html" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
     </nav>
     <div class="w-16 h-px bg-[#c9a96e]/20 mx-auto mb-6"></div>
-    <div class="text-white/20 text-[0.65rem] uppercase tracking-[0.15em] font-bold relative">
+    <div class="text-white/50 text-[0.65rem] uppercase tracking-[0.15em] font-bold relative">
       <a href="/auth" class="absolute bottom-0 left-4 text-[0.5rem] opacity-20 hover:opacity-100 transition-opacity">Atelier Login</a>
       &copy; 2026 Saeed Furniture. All Rights Reserved.
     </div>

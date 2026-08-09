@@ -153,6 +153,20 @@
       document.documentElement.dir = storedLang === 'ar' ? 'rtl' : 'ltr';
       window.saeedInitialLang = storedLang;
     })();
+
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('saeedApp', {
+        lang: window.saeedInitialLang || 'en',
+        isSelectionMode: false,
+        toastVisible: false,
+        setLang(newLang) {
+          this.lang = newLang;
+          localStorage.setItem('saeed_lang', newLang);
+          document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+          document.documentElement.lang = newLang;
+        }
+      });
+    });
   </script>
   <style>
     body.modal-active .floating-whatsapp, body.modal-active [class*="animate-pulse-ring"] { display: none !important; }
@@ -167,7 +181,7 @@
   <div id="global-header"></div>
 
   <!-- ── Progress Indicator ──────────────────────────── -->
-  <div class="fixed top-0 inset-x-0 h-[3px] bg-ivory-darker z-[200]" x-show="step !== 'success' && step !== 'hero'">
+  <div class="fixed top-0 inset-x-0 h-[3px] bg-ivory-darker z-[200]" x-show="step !== 'success' && step !== 'hero'" x-cloak>
     <div class="h-full bg-gold transition-all duration-700 ease-out shadow-[0_0_10px_rgba(201,169,110,0.5)]" :style="'width:' + progress + '%'"></div>
   </div>
 
@@ -315,14 +329,14 @@
           <!-- EN headline -->
           <h2 x-show="lang !== 'ar'"
               class="text-5xl lg:text-7xl font-light tracking-tight leading-none mb-6"
-              style="font-family: 'Playfair Display', serif;">
+              style="font-family: 'Playfair Display', serif;" x-cloak>
             Quiet<br>Luxury,<br>
             <em class="text-amber-700 not-italic" style="font-style: italic;">Redefined.</em>
           </h2>
           <!-- AR headline -->
           <h2 x-show="lang === 'ar'"
               class="text-5xl lg:text-7xl font-light tracking-tight leading-none mb-6"
-              style="font-family: 'Noto Kufi Arabic', sans-serif;">
+              style="font-family: 'Noto Kufi Arabic', sans-serif;" x-cloak>
             فخامة هادئة،<br>
             <span class="text-amber-700 italic">بمفهوم جديد.</span>
           </h2>
@@ -334,10 +348,10 @@
           <div class="mt-12 select-none hidden lg:block">
             <div class="text-[2.5rem] font-medium text-amber-700/20 leading-tight"
                  style="font-family: 'Noto Kufi Arabic', sans-serif;"
-                 x-show="lang === 'ar'">شركة سعيد</div>
+                 x-show="lang === 'ar'" x-cloak>شركة سعيد</div>
             <div class="text-[2rem] font-light text-stone-200/20 leading-tight tracking-[0.2em] uppercase"
                  style="font-family: 'Playfair Display', serif;"
-                 x-show="lang !== 'ar'">Saeed<br>Furniture</div>
+                 x-show="lang !== 'ar'" x-cloak>Saeed<br>Furniture</div>
           </div>
         </div>
 
@@ -350,12 +364,12 @@
             <h3 class="text-3xl font-medium mb-4 leading-tight group-hover:text-amber-700 transition-colors duration-300"
                 x-text="lang === 'ar' ? 'دقة معمارية' : 'Architectural Precision'"></h3>
             <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
-               x-show="lang !== 'ar'">
+               x-show="lang !== 'ar'" x-cloak>
               Every piece emerges from Al Qurayyat's master workshops — where Saudi craftsmen fuse centuries-old joinery traditions with contemporary form. Each grain is chosen, each joint hand-fitted. Furniture that speaks the language of the land.
             </p>
             <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
                x-show="lang === 'ar'"
-               style="font-family: 'Noto Kufi Arabic', sans-serif;">
+               style="font-family: 'Noto Kufi Arabic', sans-serif;" x-cloak>
               كل قطعة تولد من ورش القريات المتخصصة — حيث يمزج الحرفيون السعوديون تقاليد النجارة العريقة مع الشكل المعاصر. كل حبة خشب مختارة بعناية، وكل مفصل يُنجز باليد.
             </p>
           </div>
@@ -368,12 +382,12 @@
             <h3 class="text-3xl font-medium mb-4 leading-tight group-hover:text-amber-700 transition-colors duration-300"
                 x-text="lang === 'ar' ? 'مخصص حتى العظم' : 'Bespoke to the Bone'"></h3>
             <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
-               x-show="lang !== 'ar'">
+               x-show="lang !== 'ar'" x-cloak>
               We don't sell from inventory. Every commission begins with a home visit — understanding your space, your light, your family. The result is furniture that could only ever belong to you. Nothing generic, nothing off-the-shelf.
             </p>
             <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
                x-show="lang === 'ar'"
-               style="font-family: 'Noto Kufi Arabic', sans-serif;">
+               style="font-family: 'Noto Kufi Arabic', sans-serif;" x-cloak>
               لا نبيع من المخزون. كل طلب يبدأ بزيارة منزلية — لفهم مساحتك، وإضاءتك، وعائلتك. النتيجة أثاث لا يمكن أن يكون لأحد سواك.
             </p>
           </div>
@@ -386,12 +400,12 @@
             <h3 class="text-3xl font-medium mb-4 leading-tight group-hover:text-amber-700 transition-colors duration-300"
                 x-text="lang === 'ar' ? 'روح سعودية، معيار عالمي' : 'Saudi Soul, Global Standard'"></h3>
             <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
-               x-show="lang !== 'ar'">
+               x-show="lang !== 'ar'" x-cloak>
               Rooted in the Jawf region's cultural pride, finished to international material standards. We build what lasts — for the next generation of Saudi homes. Quiet luxury, handed down.
             </p>
             <p class="text-stone-500 leading-relaxed text-lg max-w-2xl"
                x-show="lang === 'ar'"
-               style="font-family: 'Noto Kufi Arabic', sans-serif;">
+               style="font-family: 'Noto Kufi Arabic', sans-serif;" x-cloak>
               متجذر في فخر منطقة الجوف الثقافي، ومُنجز وفق أعلى معايير المواد العالمية. نبني ما يدوم — للجيل القادم من البيوت السعودية.
             </p>
           </div>
@@ -406,12 +420,12 @@
       <!-- Faint decorative company name -->
       <div class="absolute -right-8 top-1/2 -translate-y-1/2 select-none leading-none pointer-events-none hidden lg:block"
            :class="lang === 'ar' ? '-right-auto -left-8' : ''"
-           x-show="lang !== 'ar'">
+           x-show="lang !== 'ar'" x-cloak>
         <div class="text-[9rem] font-light text-stone-200/30" style="font-family: 'Playfair Display', serif; writing-mode: vertical-lr; text-orientation: mixed;">Saeed</div>
       </div>
       <div class="absolute -right-4 top-1/2 -translate-y-1/2 select-none leading-none pointer-events-none hidden lg:block"
            :class="lang === 'ar' ? '-right-auto -left-4' : ''"
-           x-show="lang === 'ar'">
+           x-show="lang === 'ar'" x-cloak>
         <div class="text-[3.5rem] font-medium text-amber-700/10 leading-snug text-center" style="font-family: 'Noto Kufi Arabic', sans-serif;">شركة<br>سعيد</div>
       </div>
 
@@ -430,12 +444,12 @@
           <div>
             <h2 class="text-4xl lg:text-5xl font-light leading-tight mb-8 text-stone-800"
                 x-show="lang !== 'ar'"
-                style="font-family: 'Playfair Display', serif;">
+                style="font-family: 'Playfair Display', serif;" x-cloak>
               Crafting the<br><em class="text-amber-700">Heart</em> of<br>Saudi Homes.
             </h2>
             <h2 class="text-4xl lg:text-5xl font-light leading-tight mb-8 text-stone-800"
                 x-show="lang === 'ar'"
-                style="font-family: 'Noto Kufi Arabic', sans-serif;">
+                style="font-family: 'Noto Kufi Arabic', sans-serif;" x-cloak>
               نصنع <span class="text-amber-700">قلب</span><br>البيوت السعودية.
             </h2>
 
@@ -484,7 +498,7 @@
                    
                 <div class="bg-stone-950 border border-[#c9a96e]/30 rounded-2xl w-full max-w-lg p-6 md:p-8 relative shadow-[0_24px_50px_rgba(0,0,0,0.8)] text-left" :dir="lang === 'ar' ? 'rtl' : 'ltr'">
                   <!-- Close button -->
-                  <button @click="showVisitModal = false" class="min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Close modal" class="absolute top-5 end-5 text-white/60 hover:text-white text-2xl transition-colors">&times;</button>
+                  <button @click="showVisitModal = false" class="min-w-[44px] min-h-[44px] flex items-center justify-center absolute top-5 end-5 text-white/60 hover:text-white text-2xl transition-colors" aria-label="Close modal">&times;</button>
                   
                   <!-- Modal Header -->
                   <div class="mb-6">
@@ -557,20 +571,20 @@
           <div class="space-y-6">
             <div class="about-card p-8 border-l-2 border-amber-700" :class="lang === 'ar' ? 'border-l-0 border-r-2' : ''">
               <h4 class="text-sm font-bold uppercase tracking-widest text-stone-800 mb-3" x-text="lang === 'ar' ? 'قصة البداية' : 'Our Story'"></h4>
-              <p class="text-stone-500 leading-relaxed" x-show="lang !== 'ar'">
+              <p class="text-stone-500 leading-relaxed" x-show="lang !== 'ar'" x-cloak>
                 Founded in Al Qurayyat, Saeed Furniture began as a single workshop with a commitment to quality that the region had never seen. Today, we are the benchmark for bespoke interiors across Tabuk and Al Jawf.
               </p>
-              <p class="text-stone-500 leading-relaxed" x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;">
+              <p class="text-stone-500 leading-relaxed" x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;" x-cloak>
                 تأسست شركة سعيد للأثاث في القريات من ورشة صغيرة واحدة، بالتزام بالجودة لم تشهده المنطقة من قبل. اليوم، نحن المعيار في الأثاث المخصص عبر تبوك والجوف.
               </p>
             </div>
 
             <div class="about-card p-8 border-l-2 border-stone-300" :class="lang === 'ar' ? 'border-l-0 border-r-2' : ''">
               <h4 class="text-sm font-bold uppercase tracking-widest text-stone-800 mb-3" x-text="lang === 'ar' ? 'فلسفتنا' : 'Our Philosophy'"></h4>
-              <p class="text-stone-500 leading-relaxed" x-show="lang !== 'ar'">
+              <p class="text-stone-500 leading-relaxed" x-show="lang !== 'ar'" x-cloak>
                 Quiet luxury is not about excess — it's about intention. Every curve, every joinery, every fabric choice is deliberate. We believe a home's furniture should whisper its owner's story.
               </p>
-              <p class="text-stone-500 leading-relaxed" x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;">
+              <p class="text-stone-500 leading-relaxed" x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;" x-cloak>
                 الفخامة الهادئة ليست في الإسراف — بل في الهدف. كل منحنى، كل وصل، كل اختيار قماش، هو قرار مدروس. نؤمن أن أثاث المنزل يجب أن يهمس بقصة صاحبه.
               </p>
             </div>
@@ -660,11 +674,11 @@
       </div>
 
       <h2 class="text-4xl lg:text-5xl font-light text-white mb-16 leading-tight"
-          x-show="lang !== 'ar'" style="font-family: 'Playfair Display', serif;">
+          x-show="lang !== 'ar'" style="font-family: 'Playfair Display', serif;" x-cloak>
         Questions &amp; <em class="text-amber-700">Answers</em>
       </h2>
       <h2 class="text-4xl lg:text-5xl font-light text-white mb-16 leading-tight"
-          x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;">
+          x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;" x-cloak>
         أسئلة <span class="text-amber-700">شائعة</span>
       </h2>
 
@@ -696,7 +710,7 @@
                  x-transition:leave="transition ease-in duration-200"
                  x-transition:leave-start="opacity-100 translate-y-0"
                  x-transition:leave-end="opacity-0 -translate-y-2"
-                 class="pb-6">
+                 class="pb-6" x-cloak>
               <p class="text-stone-400 leading-relaxed" x-text="lang === 'ar' ? item.aa : item.a"></p>
             </div>
           </div>
@@ -738,14 +752,14 @@
       <a href="/contact.html" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/60 hover:text-[#c9a96e] transition-colors py-2" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
     </nav>
     <div class="w-16 h-px bg-[#c9a96e]/20 mx-auto mb-6"></div>
-    <div class="text-white/20 text-[0.65rem] uppercase tracking-[0.15em] font-bold relative">
+    <div class="text-white/50 text-[0.65rem] uppercase tracking-[0.15em] font-bold relative">
       <a href="/auth" class="absolute bottom-0 left-4 text-[0.5rem] opacity-20 hover:opacity-100 transition-opacity">Atelier Login</a>
       &copy; 2026 Saeed Furniture. All Rights Reserved.
     </div>
   </footer>
 
   <!-- ── Floating WhatsApp ────────────────────────────── -->
-  <div x-show="!($store.saeedAuth && $store.saeedAuth.showAuthModal)" class="fixed bottom-8 end-6 z-40 animate-pulse-ring rounded-full">
+  <div x-show="!($store.saeedAuth && $store.saeedAuth.showAuthModal)" class="fixed bottom-8 end-6 z-40 animate-pulse-ring rounded-full" x-cloak>
     <a class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] relative z-10 transition-transform duration-300 hover:scale-110 active:scale-90"
        aria-label="Contact us on WhatsApp"
        :href="'https://wa.me/' + (content.brand?.whatsappNumber || '9288004450')"
@@ -768,10 +782,10 @@
        x-transition:leave-start="opacity-100"
        x-transition:leave-end="opacity-0">
 
-    <button @click="$store.saeedAuth.showAuthModal = false; authStep = 1; email = ''; password = ''; error = ''" class="absolute top-8 end-8 text-xs font-bold uppercase tracking-[0.2em] text-[#c9a96e] hover:text-white transition-colors cursor-pointer focus:outline-none focus:ring-0">CLOSE</button>
+    <button @click="$store.saeedAuth.showAuthModal = false; authStep = 1; email = ''; password = ''; error = ''" class="absolute top-8 end-8 p-3 text-xs font-bold uppercase tracking-[0.2em] text-[#c9a96e] hover:text-white transition-colors cursor-pointer focus:outline-none focus:ring-0">CLOSE</button>
 
     <!-- Error Display -->
-    <div x-show="error" x-transition class="absolute top-24 text-red-400 text-sm tracking-widest uppercase font-bold" x-text="error"></div>
+    <div x-show="error" x-transition class="absolute top-24 text-red-400 text-sm tracking-widest uppercase font-bold" x-text="error" x-cloak></div>
 
     <!-- Step 1: Email -->
     <div x-show="authStep === 1"
@@ -781,7 +795,7 @@
          x-transition:leave="transition ease-in duration-300"
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-4"
-         class="w-full flex flex-col items-center">
+         class="w-full flex flex-col items-center" x-cloak>
       <p class="text-2xl md:text-3xl text-white/50 mb-8 tracking-wide font-serif text-center">Identify yourself.</p>
       <input type="email" x-model="email" @keydown.enter="document.getElementById('continue-btn').click()" id="email-input"
              class="w-full max-w-3xl bg-transparent border-none outline-none text-center text-4xl md:text-6xl lg:text-7xl text-[#c9a96e] font-serif placeholder-white/10 focus:ring-0 focus:outline-none"
@@ -803,7 +817,7 @@
             loading = false;
         }
     }" id="continue-btn" class="text-sm uppercase tracking-[0.3em] text-[#c9a96e] mt-12 hover:text-white transition-colors cursor-pointer focus:outline-none focus:ring-0 flex items-center justify-center gap-3 min-w-[140px]" :disabled="loading">
-        <svg x-show="loading" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+        <svg x-show="loading" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" x-cloak><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
         <span x-text="loading ? 'VERIFYING...' : 'CONTINUE'"></span>
     </button>
     </div>
@@ -816,7 +830,7 @@
          x-transition:leave="transition ease-in duration-300"
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-4"
-         class="w-full flex flex-col items-center" style="display: none;">
+         class="w-full flex flex-col items-center" style="display: none;" x-cloak>
       <p class="text-2xl md:text-3xl text-white/50 mb-8 font-serif text-center">The Atelier awaits.</p>
       <input type="password" x-model="password" @keydown.enter="document.getElementById('unlock-btn').click()"
              class="w-full max-w-3xl bg-transparent border-none outline-none text-center text-4xl md:text-6xl lg:text-7xl text-[#c9a96e] font-serif placeholder-white/10 focus:ring-0 focus:outline-none"
@@ -838,10 +852,10 @@
             }"
             class="px-12 py-4 bg-[#c9a96e] text-black text-sm uppercase tracking-widest font-bold hover:bg-white transition-colors focus:outline-none focus:ring-0 flex items-center justify-center gap-3 min-w-[240px]"
             :disabled="loading">
-            <svg x-show="loading" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+            <svg x-show="loading" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" x-cloak><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
             <span x-text="loading ? 'UNLOCKING...' : 'UNLOCK ACCESS'"></span>
         </button>
-        <button @click="authStep = 1; error = ''" class="text-xs uppercase tracking-[0.2em] text-white/30 hover:text-white transition-colors cursor-pointer focus:outline-none focus:ring-0">&larr; BACK</button>
+        <button @click="authStep = 1; error = ''" class="text-xs uppercase tracking-[0.2em] text-white/60 hover:text-white transition-colors cursor-pointer focus:outline-none focus:ring-0">&larr; BACK</button>
       </div>
     </div>
 
@@ -853,7 +867,7 @@
          x-transition:leave="transition ease-in duration-300"
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-4"
-         class="w-full flex flex-col items-center" style="display: none;">
+         class="w-full flex flex-col items-center" style="display: none;" x-cloak>
       <p class="text-2xl md:text-3xl text-white/50 mb-8 font-serif text-center">Join the Atelier.</p>
       
       <!-- We just need a password to register for now, or maybe name and phone? The prompt says "Password input". Let's stick to minimal design. -->
@@ -878,10 +892,10 @@
             }"
             class="px-12 py-4 bg-[#c9a96e] text-black text-sm uppercase tracking-widest font-bold hover:bg-white transition-colors focus:outline-none focus:ring-0 flex items-center justify-center gap-3 min-w-[240px]"
             :disabled="loading">
-            <svg x-show="loading" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+            <svg x-show="loading" class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" x-cloak><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
             <span x-text="loading ? 'REGISTERING...' : 'SIGN UP'"></span>
         </button>
-        <button @click="authStep = 1; error = ''" class="text-xs uppercase tracking-[0.2em] text-white/30 hover:text-white transition-colors cursor-pointer focus:outline-none focus:ring-0">&larr; BACK</button>
+        <button @click="authStep = 1; error = ''" class="text-xs uppercase tracking-[0.2em] text-white/60 hover:text-white transition-colors cursor-pointer focus:outline-none focus:ring-0">&larr; BACK</button>
       </div>
     </div>
     

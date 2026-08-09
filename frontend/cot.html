@@ -81,6 +81,20 @@
       document.documentElement.dir = storedLang === 'ar' ? 'rtl' : 'ltr';
       window.saeedInitialLang = storedLang;
     })();
+
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('saeedApp', {
+        lang: window.saeedInitialLang || 'en',
+        isSelectionMode: false,
+        toastVisible: false,
+        setLang(newLang) {
+          this.lang = newLang;
+          localStorage.setItem('saeed_lang', newLang);
+          document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+          document.documentElement.lang = newLang;
+        }
+      });
+    });
   </script>
   <style>
     body.modal-active .floating-whatsapp, body.modal-active [class*="animate-pulse-ring"] { display: none !important; }
@@ -112,8 +126,8 @@
       <p class="text-xs uppercase tracking-[0.4em] text-stone-300 mb-4 fade-up fade-up-1" x-text="lang === 'ar' ? 'مجموعة الأسرة' : 'Children\'s Collection'"></p>
       <h1 class="text-5xl md:text-7xl font-light text-white mb-6 leading-tight fade-up fade-up-2"
           style="font-family: 'Playfair Display', serif;">
-        <span x-show="lang !== 'ar'">The <em class="text-stone-200" style="font-style:italic;">Cot</em></span>
-        <span x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;">سرير الطفل الفاخر</span>
+        <span x-show="lang !== 'ar'" x-cloak>The <em class="text-stone-200" style="font-style:italic;">Cot</em></span>
+        <span x-show="lang === 'ar'" style="font-family: 'Noto Kufi Arabic', sans-serif;" x-cloak>سرير الطفل الفاخر</span>
       </h1>
       <p class="text-stone-200/80 max-w-xl text-lg fade-up fade-up-3"
          x-text="lang === 'ar' ? 'أسرة أطفال عضوية وآمنة، تغمر طفلك بالدفء والأمان الطبيعي.' : 'Organic, nurturing cots crafted with natural materials — a safe haven for every little one.'"></p>
@@ -190,7 +204,7 @@
       <a href="/contact.html" class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/40 hover:text-[#c9a96e] transition-colors py-2" x-text="lang === 'ar' ? 'تواصل' : 'Contact'"></a>
     </nav>
     <div class="w-16 h-px bg-[#c9a96e]/20 mx-auto mb-6"></div>
-    <div class="text-white/20 text-[0.65rem] uppercase tracking-[0.15em] font-bold relative">
+    <div class="text-white/50 text-[0.65rem] uppercase tracking-[0.15em] font-bold relative">
       <a href="/auth" class="absolute bottom-0 left-4 text-[0.5rem] opacity-20 hover:opacity-100 transition-opacity">Atelier Login</a>
       &copy; 2026 Saeed Furniture. All Rights Reserved.
     </div>

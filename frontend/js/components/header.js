@@ -171,10 +171,7 @@
     if (!mountPoint) return;
     mountPoint.innerHTML = HEADER_HTML;
 
-    // Re-initialize Alpine on the newly injected DOM if Alpine is already booted
-    if (window.Alpine) {
-      window.Alpine.initTree(mountPoint);
-    }
+
   }
 
   // Mount immediately if DOM is ready, otherwise wait for it
